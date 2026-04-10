@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <img src={ASSETS.logo} alt="Weurseuk" className="h-10 w-auto mb-4 brightness-200" />
+            <img src={ASSETS.logo} alt="Weurseuk" className="h-12 w-auto mb-4" style={{ filter: 'brightness(1.8)' }} />
             <p className="text-sm leading-relaxed opacity-70">
               Portail d'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
             </p>

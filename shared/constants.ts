@@ -1,6 +1,6 @@
 // Weurseuk CDN Assets
 export const ASSETS = {
-  logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/logo-weurseuk_21b7c306.png",
+  logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/logo-weurseuk-transparent-real_9609027a.png",
   bensiracProfileCard: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-profile-card_96ae73cb.png",
   bensiracPortrait: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
   coverBanner: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/cover-banner_3fb1346b.jpg",

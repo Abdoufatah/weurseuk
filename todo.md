@@ -27,3 +27,4 @@
 - [x] Supprimer les articles de test de la base de données (6 articles test + 4 breaking news test supprimés)
 - [x] Ajouter un endpoint admin pour déclencher manuellement la synchronisation RSS
 - [x] Ajouter un indicateur de dernière synchronisation dans l'admin
+- [x] Réintégrer le logo PNG transparent original de Weurseuk (header, hero, favicon)
