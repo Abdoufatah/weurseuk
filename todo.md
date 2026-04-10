@@ -30,3 +30,6 @@
 - [x] Réintégrer le logo PNG transparent original de Weurseuk (header, hero, favicon)
 - [x] Créer la page À propos : mission, vision, valeurs, engagement éditorial, équipe, conformité Code de la Presse
 - [x] Intégrer la page À propos dans la navigation et les routes
+- [x] Rédiger et publier l'éditorial inaugural de Bensirac : analyse stratégique multidisciplinaire Sénégal/Afrique de l'Ouest
+- [x] Corriger la génération des URLs d'éditoriaux : uniformiser /editorial/:slug dans tous les scripts et composants
+- [x] Ajouter un test vérifiant que les liens breaking news vers un éditorial ne mènent pas à 404 (27 tests passing)

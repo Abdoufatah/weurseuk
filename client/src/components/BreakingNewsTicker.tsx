@@ -1,5 +1,6 @@
 import { trpc } from "@/lib/trpc";
 import { AlertTriangle } from "lucide-react";
+import { Link } from "wouter";
 
 export default function BreakingNewsTicker() {
   const { data: news } = trpc.breakingNews.active.useQuery();
@@ -18,14 +19,20 @@ export default function BreakingNewsTicker() {
             {news.map((item, i) => (
               <span key={item.id} className="text-sm font-medium">
                 {item.sourceUrl ? (
-                  <a
-                    href={item.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    {item.headline}
-                  </a>
+                  item.sourceUrl.startsWith('/') ? (
+                    <Link href={item.sourceUrl} className="hover:underline">
+                      {item.headline}
+                    </Link>
+                  ) : (
+                    <a
+                      href={item.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {item.headline}
+                    </a>
+                  )
                 ) : (
                   item.headline
                 )}
