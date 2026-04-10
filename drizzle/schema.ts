@@ -1,17 +1,10 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
- * Extend this file with additional tables as your product grows.
- * Columns use camelCase to match both database fields and generated types.
  */
 export const users = mysqlTable("users", {
-  /**
-   * Surrogate primary key. Auto-incremented numeric value managed by the database.
-   * Use this for relations between tables.
-   */
   id: int("id").autoincrement().primaryKey(),
-  /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
@@ -25,4 +18,96 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Categories for thematic sections
+ */
+export const categories = mysqlTable("categories", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  slug: varchar("slug", { length: 100 }).notNull().unique(),
+  description: text("description"),
+  sortOrder: int("sortOrder").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Category = typeof categories.$inferSelect;
+export type InsertCategory = typeof categories.$inferInsert;
+
+/**
+ * Editorials by Bensirac
+ */
+export const editorials = mysqlTable("editorials", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 500 }).notNull(),
+  slug: varchar("slug", { length: 500 }).notNull().unique(),
+  excerpt: text("excerpt"),
+  content: text("content").notNull(),
+  coverImageUrl: text("coverImageUrl"),
+  categoryId: int("categoryId"),
+  authorId: int("authorId"),
+  isPublished: boolean("isPublished").default(false).notNull(),
+  isFeatured: boolean("isFeatured").default(false).notNull(),
+  publishedAt: timestamp("publishedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Editorial = typeof editorials.$inferSelect;
+export type InsertEditorial = typeof editorials.$inferInsert;
+
+/**
+ * RSS Feed Sources
+ */
+export const rssSources = mysqlTable("rss_sources", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 200 }).notNull(),
+  url: varchar("url", { length: 1000 }).notNull(),
+  logoUrl: text("logoUrl"),
+  region: mysqlEnum("region", ["senegal", "afrique_ouest", "monde"]).default("senegal").notNull(),
+  categoryId: int("categoryId"),
+  isActive: boolean("isActive").default(true).notNull(),
+  lastFetchedAt: timestamp("lastFetchedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type RssSource = typeof rssSources.$inferSelect;
+export type InsertRssSource = typeof rssSources.$inferInsert;
+
+/**
+ * Aggregated articles from RSS feeds
+ */
+export const aggregatedArticles = mysqlTable("aggregated_articles", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 500 }).notNull(),
+  excerpt: text("excerpt"),
+  sourceUrl: varchar("sourceUrl", { length: 1000 }).notNull(),
+  sourceName: varchar("sourceName", { length: 200 }).notNull(),
+  sourceLogoUrl: text("sourceLogoUrl"),
+  imageUrl: text("imageUrl"),
+  categoryId: int("categoryId"),
+  region: mysqlEnum("region", ["senegal", "afrique_ouest", "monde"]).default("senegal").notNull(),
+  isBreakingNews: boolean("isBreakingNews").default(false).notNull(),
+  isFeatured: boolean("isFeatured").default(false).notNull(),
+  publishedAt: timestamp("publishedAt"),
+  fetchedAt: timestamp("fetchedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AggregatedArticle = typeof aggregatedArticles.$inferSelect;
+export type InsertAggregatedArticle = typeof aggregatedArticles.$inferInsert;
+
+/**
+ * Breaking News entries
+ */
+export const breakingNews = mysqlTable("breaking_news", {
+  id: int("id").autoincrement().primaryKey(),
+  headline: varchar("headline", { length: 500 }).notNull(),
+  sourceUrl: text("sourceUrl"),
+  sourceName: varchar("sourceName", { length: 200 }),
+  isActive: boolean("isActive").default(true).notNull(),
+  expiresAt: timestamp("expiresAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type BreakingNews = typeof breakingNews.$inferSelect;
+export type InsertBreakingNews = typeof breakingNews.$inferInsert;

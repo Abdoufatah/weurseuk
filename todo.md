@@ -1,0 +1,21 @@
+# Weurseuk - Project TODO
+
+- [x] Upload static assets (logo, author photos, cover banner) to CDN
+- [x] Database schema: articles, editorials, categories, RSS sources, breaking news
+- [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories
+- [x] Global design system: gold/anthracite/white palette, premium typography, index.css theming
+- [x] Navigation header with Weurseuk logo and thematic sections (Sénégal, Afrique de l'Ouest, Monde, Éditoriaux, Culture, Sport)
+- [x] Hero banner with cover photo, logo overlay, and breaking news ticker
+- [x] Homepage layout: featured articles grid, latest news feed, editorial highlights, ad placements
+- [x] Breaking News ticker/bar on homepage
+- [x] RSS aggregation backend: admin can add RSS sources and manually add aggregated articles
+- [x] Aggregated articles display with source attribution and external links
+- [x] Thematic sections pages: Politique, Économie, Société, International, Culture, Sport
+- [x] Category filtering and dedicated navigation
+- [x] Bensirac editorial blog: list and detail views for editorials
+- [x] Bensirac profile page: author photo, alias, biography, published editorials list, social links
+- [x] Ad placements: Leaderboard, MPU, sidebar banners with clear "Publicité" labels
+- [x] Admin interface: publish editorials, manage aggregated content, performance tracking
+- [x] Responsive mobile-first design across all pages
+- [x] SEO optimization: meta descriptions, structured data, sitemap, performance
+- [x] Vitest tests for backend procedures (22 tests passing)

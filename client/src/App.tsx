@@ -5,31 +5,59 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Editoriaux from "./pages/Editoriaux";
+import EditorialDetail from "./pages/EditorialDetail";
+import ProfilBensirac from "./pages/ProfilBensirac";
+import Section from "./pages/Section";
+import Admin from "./pages/Admin";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import BreakingNewsTicker from "./components/BreakingNewsTicker";
+
+function PublicLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <BreakingNewsTicker />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
+  );
+}
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
+      <Route path="/">
+        <PublicLayout><Home /></PublicLayout>
+      </Route>
+      <Route path="/editoriaux">
+        <PublicLayout><Editoriaux /></PublicLayout>
+      </Route>
+      <Route path="/editorial/:slug">
+        <PublicLayout><EditorialDetail /></PublicLayout>
+      </Route>
+      <Route path="/profil-bensirac">
+        <PublicLayout><ProfilBensirac /></PublicLayout>
+      </Route>
+      <Route path="/section/:slug">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/admin" component={Admin} />
+      <Route path="/404">
+        <PublicLayout><NotFound /></PublicLayout>
+      </Route>
+      <Route>
+        <PublicLayout><NotFound /></PublicLayout>
+      </Route>
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />
