@@ -6,7 +6,8 @@ import { Link } from "wouter";
 import { getLoginUrl } from "@/const";
 import {
   PenLine, Newspaper, Rss, AlertTriangle, BarChart3,
-  Plus, Trash2, Edit, Eye, EyeOff, Star, Loader2, ArrowLeft
+  Plus, Trash2, Edit, Eye, EyeOff, Star, Loader2, ArrowLeft,
+  RefreshCw, Clock, CheckCircle2, XCircle
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -368,6 +369,18 @@ function RssTab() {
 
   const utils = trpc.useUtils();
   const { data: sources, isLoading } = trpc.rssSources.list.useQuery();
+  const { data: cronStatus, isLoading: cronLoading } = trpc.rssSync.status.useQuery(undefined, {
+    refetchInterval: 30000, // Refresh every 30s
+  });
+  const triggerSyncMut = trpc.rssSync.triggerSync.useMutation({
+    onSuccess: () => {
+      utils.rssSync.status.invalidate();
+      utils.articles.list.invalidate();
+      utils.stats.overview.invalidate();
+      toast.success("Synchronisation RSS lancée");
+    },
+    onError: (err) => toast.error(err.message),
+  });
   const createMut = trpc.rssSources.create.useMutation({
     onSuccess: () => {
       utils.rssSources.list.invalidate();
@@ -386,8 +399,60 @@ function RssTab() {
 
   return (
     <div className="space-y-4">
+      {/* Sync Status Panel */}
+      <div className="bg-card rounded-lg border border-border p-4">
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-3">
+            <div className={`w-3 h-3 rounded-full ${cronStatus?.isActive ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+            <div>
+              <h3 className="font-semibold text-sm">Synchronisation automatique</h3>
+              <p className="text-xs text-muted-foreground">
+                {cronStatus?.isActive
+                  ? `Active — toutes les ${cronStatus.intervalMinutes} minutes`
+                  : 'Inactive'}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {cronStatus?.lastSyncAt && (
+              <div className="text-right text-xs text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  Dernière sync : {new Date(cronStatus.lastSyncAt).toLocaleString('fr-FR', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}
+                </div>
+                {cronStatus.lastSyncResults && (
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="flex items-center gap-0.5">
+                      <CheckCircle2 className="w-3 h-3 text-green-600" />
+                      +{cronStatus.lastSyncResults.totalNew} articles
+                    </span>
+                    <span>{cronStatus.lastSyncResults.sources} sources</span>
+                    {cronStatus.lastSyncResults.errors > 0 && (
+                      <span className="flex items-center gap-0.5 text-destructive">
+                        <XCircle className="w-3 h-3" />
+                        {cronStatus.lastSyncResults.errors} erreurs
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => triggerSyncMut.mutate()}
+              disabled={triggerSyncMut.isPending || cronStatus?.isCurrentlyRunning}
+              className="gap-2"
+            >
+              <RefreshCw className={`w-4 h-4 ${triggerSyncMut.isPending || cronStatus?.isCurrentlyRunning ? 'animate-spin' : ''}`} />
+              {cronStatus?.isCurrentlyRunning ? 'Sync en cours...' : 'Synchroniser'}
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Sources RSS</h2>
+        <h2 className="font-editorial text-lg font-bold">Sources RSS ({sources?.length ?? 0})</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Ajouter une source

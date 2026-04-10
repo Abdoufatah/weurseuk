@@ -243,6 +243,16 @@ export const appRouter = router({
       const results = await syncAllRssSources();
       return results;
     }),
+    status: adminProcedure.query(async () => {
+      const { getRssCronStatus } = await import("./rssCron");
+      return getRssCronStatus();
+    }),
+    triggerSync: adminProcedure.mutation(async () => {
+      const { triggerManualSync } = await import("./rssCron");
+      await triggerManualSync();
+      const { getRssCronStatus } = await import("./rssCron");
+      return getRssCronStatus();
+    }),
   }),
 
   // ==================== STATS (Admin) ====================
