@@ -24,6 +24,6 @@
 - [x] Insérer toutes les sources RSS validées en base de données (13 sources)
 - [x] Lancer la synchronisation RSS et vérifier le peuplement du site en articles réels (175 articles)
 - [x] Implémenter la synchronisation RSS automatique côté serveur (cron toutes les 30 minutes)
-- [ ] Supprimer les articles de test de la base de données
+- [x] Supprimer les articles de test de la base de données (6 articles test + 4 breaking news test supprimés)
 - [x] Ajouter un endpoint admin pour déclencher manuellement la synchronisation RSS
 - [x] Ajouter un indicateur de dernière synchronisation dans l'admin
