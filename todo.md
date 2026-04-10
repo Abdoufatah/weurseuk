@@ -19,3 +19,7 @@
 - [x] Responsive mobile-first design across all pages
 - [x] SEO optimization: meta descriptions, structured data, sitemap, performance
 - [x] Vitest tests for backend procedures (22 tests passing)
+- [x] Rechercher et valider les flux RSS actifs de Dakaractu, Seneweb, Le Soleil et autres médias sénégalais
+- [x] Rechercher les flux RSS de médias ouest-africains (RFI Afrique, France24 Afrique, AllAfrica)
+- [x] Insérer toutes les sources RSS validées en base de données (13 sources)
+- [x] Lancer la synchronisation RSS et vérifier le peuplement du site en articles réels (175 articles)
