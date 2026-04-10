@@ -10,6 +10,7 @@ import EditorialDetail from "./pages/EditorialDetail";
 import ProfilBensirac from "./pages/ProfilBensirac";
 import Section from "./pages/Section";
 import Admin from "./pages/Admin";
+import APropos from "./pages/APropos";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
@@ -42,6 +43,9 @@ function Router() {
       </Route>
       <Route path="/section/:slug">
         <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/a-propos">
+        <PublicLayout><APropos /></PublicLayout>
       </Route>
       <Route path="/admin" component={Admin} />
       <Route path="/404">

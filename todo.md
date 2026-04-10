@@ -28,3 +28,5 @@
 - [x] Ajouter un endpoint admin pour déclencher manuellement la synchronisation RSS
 - [x] Ajouter un indicateur de dernière synchronisation dans l'admin
 - [x] Réintégrer le logo PNG transparent original de Weurseuk (header, hero, favicon)
+- [x] Créer la page À propos : mission, vision, valeurs, engagement éditorial, équipe, conformité Code de la Presse
+- [x] Intégrer la page À propos dans la navigation et les routes
