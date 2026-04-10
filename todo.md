@@ -33,3 +33,6 @@
 - [x] Rédiger et publier l'éditorial inaugural de Bensirac : analyse stratégique multidisciplinaire Sénégal/Afrique de l'Ouest
 - [x] Corriger la génération des URLs d'éditoriaux : uniformiser /editorial/:slug dans tous les scripts et composants
 - [x] Ajouter un test vérifiant que les liens breaking news vers un éditorial ne mènent pas à 404 (27 tests passing)
+- [x] Nettoyer tous les contenus de test : 4 breaking news test, 2 éditoriaux test, 4 articles test supprimés
+- [x] Intégrer les flux RSS YouTube de Evenprod (15 vidéos importées)
+- [x] Intégrer les flux RSS YouTube de Marodi TV (15 vidéos importées)

@@ -5,13 +5,15 @@ const parser = new Parser({
   timeout: 15000,
   headers: {
     "User-Agent": "Weurseuk-Aggregator/1.0",
-    "Accept": "application/rss+xml, application/xml, text/xml",
+    "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml",
   },
   customFields: {
     item: [
       ["media:content", "mediaContent", { keepArray: false }],
       ["media:thumbnail", "mediaThumbnail", { keepArray: false }],
+      ["media:group", "mediaGroup", { keepArray: false }],
       ["enclosure", "enclosure", { keepArray: false }],
+      ["yt:videoId", "ytVideoId"],
     ],
   },
 });
@@ -33,6 +35,9 @@ interface SyncResult {
 }
 
 function extractImageUrl(item: any): string | undefined {
+  // YouTube Atom feeds: extract thumbnail from media:group > media:thumbnail
+  if (item.mediaGroup?.['media:thumbnail']?.[0]?.['$']?.url) return item.mediaGroup['media:thumbnail'][0]['$'].url;
+  if (item.ytVideoId) return `https://img.youtube.com/vi/${item.ytVideoId}/hqdefault.jpg`;
   if (item.mediaContent?.["$"]?.url) return item.mediaContent["$"].url;
   if (item.mediaThumbnail?.["$"]?.url) return item.mediaThumbnail["$"].url;
   if (item.enclosure?.url && item.enclosure?.type?.startsWith("image")) return item.enclosure.url;
