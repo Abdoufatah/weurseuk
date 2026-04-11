@@ -3,3 +3,4 @@
 - Bensirac Profile Card: https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-profile-card_96ae73cb.png
 - Bensirac Portrait: https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png
 - Cover Banner: https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/cover-banner_3fb1346b.jpg
+- Dr Adama Aly Pam Portrait: https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/a278340b-86f0-44f4-89e9-52c775f034f3_94cc41b6.jpg
