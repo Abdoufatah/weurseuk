@@ -2,7 +2,8 @@ import { trpc } from "@/lib/trpc";
 import { BENSIRAC } from "@shared/constants";
 import { Link, useParams } from "wouter";
 import AdPlacement from "@/components/AdPlacement";
-import { ArrowLeft, Calendar, User, Share2 } from "lucide-react";
+import { ArrowLeft, Calendar, User } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 import { Streamdown } from "streamdown";
 
 export default function EditorialDetail() {
@@ -94,14 +95,16 @@ export default function EditorialDetail() {
             </div>
 
             {/* Share */}
-            <div className="mt-10 pt-6 border-t border-border flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Share2 className="w-4 h-4" />
-                <span>Partager cet éditorial</span>
+            <div className="mt-10 pt-6 border-t border-border">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <ShareButtons
+                  title={editorial.title}
+                  excerpt={editorial.excerpt || undefined}
+                />
+                <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
+                  À propos de {BENSIRAC.alias} →
+                </Link>
               </div>
-              <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
-                À propos de {BENSIRAC.alias} →
-              </Link>
             </div>
           </article>
 

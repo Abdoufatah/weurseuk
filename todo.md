@@ -36,3 +36,8 @@
 - [x] Nettoyer tous les contenus de test : 4 breaking news test, 2 éditoriaux test, 4 articles test supprimés
 - [x] Intégrer les flux RSS YouTube de Evenprod (15 vidéos importées)
 - [x] Intégrer les flux RSS YouTube de Marodi TV (15 vidéos importées)
+- [x] Créer un composant ShareButtons (WhatsApp, X/Twitter, Facebook, LinkedIn, Telegram)
+- [x] Intégrer ShareButtons dans la page EditorialDetail
+- [x] Intégrer ShareButtons dans les ArticleCard pour les articles agrégés
+- [x] Publier article portrait Bensirac sur Dr Adama Aly Pam avec photo
+- [x] Publier article du Dr Adama Aly Pam : "La Bibliothèque universitaire de Dakar et la naissance de l'école de bibliothécaires"

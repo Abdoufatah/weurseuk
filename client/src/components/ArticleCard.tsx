@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ExternalLink, Clock } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 import { REGIONS } from "@shared/constants";
 
 interface ArticleCardProps {
@@ -81,16 +82,26 @@ export default function ArticleCard({
             <Clock className="w-3 h-3" />
             <span>{formatDate(publishedAt)}</span>
           </div>
-          {sourceUrl && !isEditorial && (
-            <span className="flex items-center gap-1 text-xs text-primary">
-              Lire la source <ExternalLink className="w-3 h-3" />
-            </span>
-          )}
-          {isEditorial && (
-            <span className="text-xs text-primary font-medium">
-              Lire l'éditorial →
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            <div onClick={(e) => e.stopPropagation()} onMouseDown={(e) => e.stopPropagation()}>
+              <ShareButtons
+                title={title}
+                url={isEditorial && editorialSlug ? `${typeof window !== 'undefined' ? window.location.origin : ''}/editorial/${editorialSlug}` : sourceUrl}
+                variant="compact"
+                className="scale-75 origin-right"
+              />
+            </div>
+            {sourceUrl && !isEditorial && (
+              <span className="flex items-center gap-1 text-xs text-primary">
+                Lire <ExternalLink className="w-3 h-3" />
+              </span>
+            )}
+            {isEditorial && (
+              <span className="text-xs text-primary font-medium">
+                Lire →
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>
