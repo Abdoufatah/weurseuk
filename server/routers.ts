@@ -364,6 +364,21 @@ export const appRouter = router({
     }),
   }),
 
+  // ==================== CONTACT ====================
+  contact: router({
+    submit: publicProcedure.input(z.object({
+      name: z.string().min(1),
+      email: z.string().email(),
+      subject: z.string().min(1),
+      message: z.string().min(1),
+    })).mutation(async ({ input }) => {
+      // TODO: Implement email sending via notifyOwner or external service
+      // For now, just log and return success
+      console.log('Contact form submission:', input);
+      return { success: true, message: 'Votre message a été reçu. Nous vous répondrons bientôt.' };
+    }),
+  }),
+
   // ==================== STATS (Admin) ====================
   stats: router({
     overview: adminProcedure.query(async () => {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc";
 import { Mail, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -8,25 +9,23 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      // TODO: Intégrer avec tRPC pour envoyer le message
-      await new Promise(resolve => setTimeout(resolve, 1000));
+  const submitMut = trpc.contact.submit.useMutation({
+    onSuccess: () => {
       toast.success("Message envoyé avec succès");
       setName("");
       setEmail("");
       setSubject("");
       setMessage("");
-    } catch (error) {
-      toast.error("Erreur lors de l'envoi du message");
-    } finally {
-      setIsSubmitting(false);
-    }
+    },
+    onError: (err) => {
+      toast.error(err.message || "Erreur lors de l'envoi du message");
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitMut.mutate({ name, email, subject, message });
   };
 
   const contactInfo = [
@@ -145,10 +144,10 @@ export default function Contact() {
 
               <Button
                 type="submit"
-                disabled={isSubmitting || !name || !email || !subject || !message}
+                disabled={submitMut.isPending || !name || !email || !subject || !message}
                 className="w-full gap-2"
               >
-                {isSubmitting ? (
+                {submitMut.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Envoi en cours...

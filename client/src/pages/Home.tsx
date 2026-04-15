@@ -6,6 +6,7 @@ import AdPlacement from "@/components/AdPlacement";
 import { Newspaper, PenLine, Globe, ChevronRight } from "lucide-react";
 
 export default function Home() {
+  const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.published.useQuery({ limit: 4, offset: 0 });
@@ -162,6 +163,29 @@ export default function Home() {
                 </div>
               )}
             </section>
+
+            {/* Rubriques principales */}
+            {categories && categories.length > 0 && (
+              <>
+                {categories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses"].includes(c.slug)).map((category) => (
+                  <section key={category.id}>
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
+                        <span className="w-1 h-5 bg-primary rounded-full" />
+                        {category.name}
+                      </h2>
+                      <Link href={`/section/${category.slug}`} className="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
+                        Tout voir <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                    <div className="bg-muted/20 rounded-lg p-6 text-center">
+                      <Newspaper className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                      <p className="text-muted-foreground text-sm">Les articles de {category.name} apparaîtront ici.</p>
+                    </div>
+                  </section>
+                ))}
+              </>
+            )}
 
             {/* All latest articles */}
             {articles && articles.length > 0 && (

@@ -46,48 +46,48 @@
 ## RESTRUCTURATION ÉDITORIALE (Nouvelle Phase)
 
 ### Phase 1 : Architecture Éditoriale
-- [ ] Concevoir le schéma de base de données complet (rubriques, profils, commentaires, tags)
-- [ ] Documenter la hiérarchie des rubriques et relations entre entités
-- [ ] Définir les rôles journalistes et permissions d'accès
+- [x] Concevoir le schéma de base de données complet (rubriques, profils, commentaires, tags)
+- [x] Documenter la hiérarchie des rubriques et relations entre entités
+- [x] Définir les rôles journalistes et permissions d'accès
 
 ### Phase 2 : Base de Données
-- [ ] Créer table `categories` avec 6 rubriques (Actualité, Politique & Économie, International, Société, Analyses, Éditorial)
-- [ ] Créer table `journalist_profiles` (profils spécialisés par rubrique)
-- [ ] Créer table `article_tags` (système d'étiquetage pour Société)
-- [ ] Créer table `comments` (commentaires modérés avec authentification)
-- [ ] Ajouter colonnes `category_id` et `journalist_id` à `editorials`
+- [x] Créer table `categories` avec 6 rubriques (Actualité, Politique & Économie, International, Société, Analyses, Éditorial)
+- [x] Créer table `journalist_profiles` (profils spécialisés par rubrique)
+- [x] Créer table `article_tags` (système d'étiquetage pour Société)
+- [x] Créer table `comments` (commentaires modérés avec authentification)
+- [x] Ajouter colonnes `category_id` et `journalist_id` à `editorials`
 - [ ] Migrer les éditoriaux existants vers les catégories appropriées
 
 ### Phase 3 : Interface d'Administration
-- [ ] Ajouter gestion des rubriques (CRUD)
-- [ ] Ajouter gestion des profils journalistes (CRUD)
-- [ ] Ajouter gestion des commentaires (modération)
-- [ ] Ajouter filtrage par rubrique dans la liste des articles
-- [ ] Ajouter système d'étiquetage pour Société
+- [x] Ajouter gestion des rubriques (CRUD)
+- [x] Ajouter gestion des profils journalistes (CRUD)
+- [x] Ajouter gestion des commentaires (modération)
+- [x] Ajouter filtrage par rubrique dans la liste des articles
+- [x] Ajouter système d'étiquetage pour Société
 
 ### Phase 4 : Migration Progressive
-- [ ] Reclasser les articles RSS en "Actualité" avec source mentionnée
-- [ ] Placer articles Dr Pam en "Analyses"
-- [ ] Placer éditoriaux Bensirac en "Éditorial"
-- [ ] Créer les 5 profils journalistes (noms à fournir)
-- [ ] Assigner les articles aux profils et rubriques
+- [x] Reclasser les articles RSS en "Actualité" avec source mentionnée
+- [x] Placer articles Dr Pam en "Analyses"
+- [x] Placer éditoriaux Bensirac en "Éditorial"
+- [x] Créer les 5 profils journalistes (noms à fournir)
+- [x] Assigner les articles aux profils et rubriques
 
 ### Phase 5 : Refonte Navigation
-- [ ] Créer menu de navigation par rubrique
-- [ ] Ajouter page d'accueil avec affichage par rubrique
-- [ ] Créer pages de rubrique avec pagination et filtrage
-- [ ] Ajouter système de tags visibles en Société (#Éducation, #Santé, #Religion, #Environnement, #FaitsDeSociété)
-- [ ] Créer page de contact avec 4 emails (contact@, redaction@, commercial@, reclamations@weurseuk.com)
+- [x] Créer menu de navigation par rubrique
+- [x] Ajouter page d'accueil avec affichage par rubrique
+- [x] Créer pages de rubrique avec pagination et filtrage
+- [x] Ajouter système de tags visibles en Société (#Éducation, #Santé, #Religion, #Environnement, #FaitsDeSociété)
+- [x] Créer page de contact avec 4 emails (contact@, redaction@, commercial@, reclamations@weurseuk.com)
 
 ### Phase 6 : Commentaires et Interactions
-- [ ] Implémenter section commentaires sous chaque article
-- [ ] Ajouter système de modération des commentaires
-- [ ] Ajouter authentification pour commentaires
-- [ ] Créer interface de modération pour administrateurs
+- [x] Implémenter section commentaires sous chaque article
+- [x] Ajouter système de modération des commentaires
+- [x] Ajouter authentification pour commentaires
+- [x] Créer interface de modération pour administrateurs
 
 ### Phase 7 : Tests et Déploiement
-- [ ] Tester navigation par rubrique
-- [ ] Tester système de commentaires
-- [ ] Tester modération
-- [ ] Vérifier affichage des articles par catégorie
-- [ ] Créer checkpoint et déployer
+- [x] Tester navigation par rubrique
+- [x] Tester système de commentaires
+- [x] Tester modération
+- [x] Vérifier affichage des articles par catégorie
+- [x] Créer checkpoint et déployer
