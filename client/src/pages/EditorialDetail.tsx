@@ -1,10 +1,144 @@
-import { trpc } from "@/lib/trpc";
+import { useState } from "react";
 import { BENSIRAC } from "@shared/constants";
 import { Link, useParams } from "wouter";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { getLoginUrl } from "@/const";
 import AdPlacement from "@/components/AdPlacement";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Calendar, User, Send, Loader2 } from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 import { Streamdown } from "streamdown";
+import { toast } from "sonner";
+
+function CommentsSection({ editorialId }: { editorialId: number }) {
+  const { user, isAuthenticated } = useAuth();
+  const [authorName, setAuthorName] = useState("");
+  const [authorEmail, setAuthorEmail] = useState("");
+  const [content, setContent] = useState("");
+
+  const utils = trpc.useUtils();
+  const { data: comments, isLoading } = trpc.comments.forEditorial.useQuery({ editorialId });
+  const createMut = trpc.comments.create.useMutation({
+    onSuccess: () => {
+      utils.comments.forEditorial.invalidate({ editorialId });
+      setAuthorName("");
+      setAuthorEmail("");
+      setContent("");
+      toast.success("Commentaire soumis pour modération");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      toast.error("Veuillez vous connecter pour commenter");
+      return;
+    }
+    createMut.mutate({ editorialId, authorName, authorEmail, content });
+  };
+
+  return (
+    <div className="mt-12 pt-8 border-t border-border">
+      <h3 className="font-editorial text-2xl font-bold mb-6">Commentaires</h3>
+
+      {/* Comments list */}
+      {isLoading ? (
+        <div className="space-y-4">
+          {[1, 2].map(i => <div key={i} className="h-24 bg-muted/30 rounded-lg animate-pulse" />)}
+        </div>
+      ) : comments && comments.length > 0 ? (
+        <div className="space-y-4 mb-8">
+          {comments.map((comment: any) => (
+            <div key={comment.id} className="bg-muted/30 rounded-lg p-4">
+              <div className="flex items-start gap-3 mb-2">
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <User className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm">{comment.authorName}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(comment.createdAt).toLocaleDateString("fr-FR", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </div>
+              <p className="text-sm text-foreground leading-relaxed">{comment.content}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-muted-foreground text-sm mb-8">Aucun commentaire pour le moment.</p>
+      )}
+
+      {/* Comment form */}
+      {isAuthenticated ? (
+        <div className="bg-card rounded-lg border border-border p-6">
+          <h4 className="font-editorial font-bold mb-4">Laisser un commentaire</h4>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Votre nom"
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                required
+                className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+              <input
+                type="email"
+                placeholder="Votre email"
+                value={authorEmail}
+                onChange={(e) => setAuthorEmail(e.target.value)}
+                required
+                className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              />
+            </div>
+            <textarea
+              placeholder="Votre commentaire..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+              rows={4}
+              className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+            />
+            <Button
+              type="submit"
+              disabled={createMut.isPending || !authorName || !authorEmail || !content}
+              className="gap-2"
+            >
+              {createMut.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Envoi...
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  Publier le commentaire
+                </>
+              )}
+            </Button>
+            <p className="text-xs text-muted-foreground">Votre commentaire sera modéré avant publication.</p>
+          </form>
+        </div>
+      ) : (
+        <div className="bg-muted/30 rounded-lg p-6 text-center">
+          <p className="text-sm text-muted-foreground mb-4">Connectez-vous pour laisser un commentaire</p>
+          <a href={getLoginUrl()} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium">
+            Se connecter
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function EditorialDetail() {
   const params = useParams<{ slug: string }>();
@@ -106,6 +240,9 @@ export default function EditorialDetail() {
                 </Link>
               </div>
             </div>
+
+            {/* Comments Section */}
+            {editorial.id && <CommentsSection editorialId={editorial.id} />}
           </article>
 
           {/* Sidebar */}

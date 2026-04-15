@@ -111,3 +111,70 @@ export const breakingNews = mysqlTable("breaking_news", {
 
 export type BreakingNews = typeof breakingNews.$inferSelect;
 export type InsertBreakingNews = typeof breakingNews.$inferInsert;
+
+/**
+ * Journalist Profiles - One specialist per rubric
+ */
+export const journalistProfiles = mysqlTable("journalist_profiles", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 200 }).notNull(),
+  alias: varchar("alias", { length: 100 }),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  bio: text("bio"),
+  photoUrl: text("photoUrl"),
+  categoryId: int("categoryId").notNull(),
+  role: mysqlEnum("role", ["reporter", "correspondent", "columnist", "analyst", "editorialist"]).notNull(),
+  userId: int("userId"),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type JournalistProfile = typeof journalistProfiles.$inferSelect;
+export type InsertJournalistProfile = typeof journalistProfiles.$inferInsert;
+
+/**
+ * Article Tags - For Société section tagging
+ */
+export const articleTags = mysqlTable("article_tags", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 50 }).notNull().unique(),
+  slug: varchar("slug", { length: 50 }).notNull().unique(),
+  description: text("description"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ArticleTag = typeof articleTags.$inferSelect;
+export type InsertArticleTag = typeof articleTags.$inferInsert;
+
+/**
+ * Editorial-Tag Junction Table
+ */
+export const editorialTagsJunction = mysqlTable("editorial_tags_junction", {
+  id: int("id").autoincrement().primaryKey(),
+  editorialId: int("editorialId").notNull(),
+  tagId: int("tagId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type EditorialTagsJunction = typeof editorialTagsJunction.$inferSelect;
+export type InsertEditorialTagsJunction = typeof editorialTagsJunction.$inferInsert;
+
+/**
+ * Comments on Articles - Moderated with authentication
+ */
+export const comments = mysqlTable("comments", {
+  id: int("id").autoincrement().primaryKey(),
+  editorialId: int("editorialId").notNull(),
+  userId: int("userId").notNull(),
+  authorName: varchar("authorName", { length: 200 }).notNull(),
+  authorEmail: varchar("authorEmail", { length: 320 }).notNull(),
+  content: text("content").notNull(),
+  isApproved: boolean("isApproved").default(false).notNull(),
+  isSpam: boolean("isSpam").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  approvedAt: timestamp("approvedAt"),
+});
+
+export type Comment = typeof comments.$inferSelect;
+export type InsertComment = typeof comments.$inferInsert;

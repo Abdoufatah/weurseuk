@@ -9,12 +9,13 @@ export const ASSETS = {
 // Navigation sections
 export const NAV_SECTIONS = [
   { label: "Accueil", href: "/" },
-  { label: "Sénégal", href: "/section/senegal" },
-  { label: "Afrique de l'Ouest", href: "/section/afrique-ouest" },
-  { label: "Monde", href: "/section/monde" },
+  { label: "Actualité", href: "/section/actualite" },
+  { label: "Politique & Économie", href: "/section/politique-economie" },
+  { label: "International", href: "/section/international" },
+  { label: "Société", href: "/section/societe" },
+  { label: "Analyses", href: "/section/analyses" },
   { label: "Éditoriaux", href: "/editoriaux" },
-  { label: "Culture", href: "/section/culture" },
-  { label: "Sport", href: "/section/sport" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 // Thematic categories mapping

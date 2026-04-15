@@ -41,3 +41,53 @@
 - [x] Intégrer ShareButtons dans les ArticleCard pour les articles agrégés
 - [x] Publier article portrait Bensirac sur Dr Adama Aly Pam avec photo
 - [x] Publier article du Dr Adama Aly Pam : "La Bibliothèque universitaire de Dakar et la naissance de l'école de bibliothécaires"
+
+
+## RESTRUCTURATION ÉDITORIALE (Nouvelle Phase)
+
+### Phase 1 : Architecture Éditoriale
+- [ ] Concevoir le schéma de base de données complet (rubriques, profils, commentaires, tags)
+- [ ] Documenter la hiérarchie des rubriques et relations entre entités
+- [ ] Définir les rôles journalistes et permissions d'accès
+
+### Phase 2 : Base de Données
+- [ ] Créer table `categories` avec 6 rubriques (Actualité, Politique & Économie, International, Société, Analyses, Éditorial)
+- [ ] Créer table `journalist_profiles` (profils spécialisés par rubrique)
+- [ ] Créer table `article_tags` (système d'étiquetage pour Société)
+- [ ] Créer table `comments` (commentaires modérés avec authentification)
+- [ ] Ajouter colonnes `category_id` et `journalist_id` à `editorials`
+- [ ] Migrer les éditoriaux existants vers les catégories appropriées
+
+### Phase 3 : Interface d'Administration
+- [ ] Ajouter gestion des rubriques (CRUD)
+- [ ] Ajouter gestion des profils journalistes (CRUD)
+- [ ] Ajouter gestion des commentaires (modération)
+- [ ] Ajouter filtrage par rubrique dans la liste des articles
+- [ ] Ajouter système d'étiquetage pour Société
+
+### Phase 4 : Migration Progressive
+- [ ] Reclasser les articles RSS en "Actualité" avec source mentionnée
+- [ ] Placer articles Dr Pam en "Analyses"
+- [ ] Placer éditoriaux Bensirac en "Éditorial"
+- [ ] Créer les 5 profils journalistes (noms à fournir)
+- [ ] Assigner les articles aux profils et rubriques
+
+### Phase 5 : Refonte Navigation
+- [ ] Créer menu de navigation par rubrique
+- [ ] Ajouter page d'accueil avec affichage par rubrique
+- [ ] Créer pages de rubrique avec pagination et filtrage
+- [ ] Ajouter système de tags visibles en Société (#Éducation, #Santé, #Religion, #Environnement, #FaitsDeSociété)
+- [ ] Créer page de contact avec 4 emails (contact@, redaction@, commercial@, reclamations@weurseuk.com)
+
+### Phase 6 : Commentaires et Interactions
+- [ ] Implémenter section commentaires sous chaque article
+- [ ] Ajouter système de modération des commentaires
+- [ ] Ajouter authentification pour commentaires
+- [ ] Créer interface de modération pour administrateurs
+
+### Phase 7 : Tests et Déploiement
+- [ ] Tester navigation par rubrique
+- [ ] Tester système de commentaires
+- [ ] Tester modération
+- [ ] Vérifier affichage des articles par catégorie
+- [ ] Créer checkpoint et déployer

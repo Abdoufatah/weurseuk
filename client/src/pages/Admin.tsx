@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-type Tab = "editorials" | "articles" | "rss" | "breaking" | "stats";
+type Tab = "editorials" | "articles" | "rss" | "breaking" | "stats" | "journalists" | "tags" | "comments";
 
 export default function Admin() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -56,6 +56,9 @@ export default function Admin() {
     { id: "articles", label: "Articles", icon: <Newspaper className="w-4 h-4" /> },
     { id: "rss", label: "Sources RSS", icon: <Rss className="w-4 h-4" /> },
     { id: "breaking", label: "Breaking News", icon: <AlertTriangle className="w-4 h-4" /> },
+    { id: "journalists", label: "Journalistes", icon: <PenLine className="w-4 h-4" /> },
+    { id: "tags", label: "Tags", icon: <Rss className="w-4 h-4" /> },
+    { id: "comments", label: "Commentaires", icon: <AlertTriangle className="w-4 h-4" /> },
     { id: "stats", label: "Statistiques", icon: <BarChart3 className="w-4 h-4" /> },
   ];
 
@@ -98,6 +101,9 @@ export default function Admin() {
           {activeTab === "articles" && <ArticlesTab />}
           {activeTab === "rss" && <RssTab />}
           {activeTab === "breaking" && <BreakingTab />}
+          {activeTab === "journalists" && <JournalistsTab />}
+          {activeTab === "tags" && <TagsTab />}
+          {activeTab === "comments" && <CommentsTab />}
           {activeTab === "stats" && <StatsTab />}
         </div>
       </div>
@@ -604,6 +610,292 @@ function StatsTab() {
         <p className="text-3xl font-bold font-editorial">{stats?.editorialCount ?? 0}</p>
         <p className="text-sm text-muted-foreground mt-1">Éditoriaux</p>
       </div>
+    </div>
+  );
+}
+
+
+// ==================== JOURNALISTS TAB ====================
+function JournalistsTab() {
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
+  const [categoryId, setCategoryId] = useState<number | "">("");
+  const [role, setRole] = useState<"reporter" | "correspondent" | "columnist" | "analyst" | "editorialist">("reporter");
+
+  const utils = trpc.useUtils();
+  const { data: journalists, isLoading } = trpc.journalists.list.useQuery();
+  const { data: categories } = trpc.categories.list.useQuery();
+  
+  const createMut = trpc.journalists.create.useMutation({
+    onSuccess: () => {
+      utils.journalists.list.invalidate();
+      setShowForm(false);
+      setName(""); setEmail(""); setBio(""); setCategoryId(""); setRole("reporter");
+      toast.success("Journaliste créé");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+  
+  const deleteMut = trpc.journalists.delete.useMutation({
+    onSuccess: () => {
+      utils.journalists.list.invalidate();
+      toast.success("Journaliste supprimé");
+    },
+  });
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="font-editorial text-lg font-bold">Profils journalistes</h2>
+        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
+          <Plus className="w-4 h-4" />
+          Nouveau profil
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="bg-card rounded-lg border border-border p-6 space-y-4">
+          <input
+            type="text"
+            placeholder="Nom du journaliste"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+          />
+          <textarea
+            placeholder="Biographie (optionnel)"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            rows={4}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+          />
+          <div className="grid grid-cols-2 gap-4">
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : "")}
+              className="px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+            >
+              <option value="">Sélectionner une rubrique</option>
+              {categories?.map((cat) => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value as any)}
+              className="px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+            >
+              <option value="reporter">Reporter</option>
+              <option value="correspondent">Correspondant</option>
+              <option value="columnist">Chroniqueur</option>
+              <option value="analyst">Analyste</option>
+              <option value="editorialist">Éditorialiste</option>
+            </select>
+          </div>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => categoryId && createMut.mutate({ name, email, bio: bio || undefined, categoryId: categoryId as number, role })}
+              disabled={!name || !email || !categoryId || createMut.isPending}
+              size="sm"
+            >
+              {createMut.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Créer"}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setShowForm(false)}>Annuler</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-16 bg-muted/30 rounded-lg animate-pulse" />)}</div>
+      ) : journalists && journalists.length > 0 ? (
+        <div className="space-y-2">
+          {journalists.map((j: any) => (
+            <div key={j.id} className="bg-card rounded-lg border border-border p-4 flex items-center justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <h3 className="font-medium text-sm">{j.name}</h3>
+                <p className="text-xs text-muted-foreground">{j.email} • {j.role}</p>
+                {j.bio && <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{j.bio}</p>}
+              </div>
+              <Button variant="outline" size="sm" onClick={() => { if (confirm("Supprimer ?")) deleteMut.mutate({ id: j.id }); }} className="text-destructive hover:text-destructive">
+                <Trash2 className="w-3.5 h-3.5" />
+              </Button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-muted/30 rounded-lg p-8 text-center text-muted-foreground text-sm">
+          Aucun journaliste enregistré.
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== TAGS TAB ====================
+function TagsTab() {
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState("");
+  const [slug, setSlug] = useState("");
+
+  const utils = trpc.useUtils();
+  const { data: tags, isLoading } = trpc.tags.list.useQuery();
+  
+  const createMut = trpc.tags.create.useMutation({
+    onSuccess: () => {
+      utils.tags.list.invalidate();
+      setShowForm(false);
+      setName(""); setSlug("");
+      toast.success("Tag créé");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="font-editorial text-lg font-bold">Tags pour la rubrique Société</h2>
+        <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
+          <Plus className="w-4 h-4" />
+          Nouveau tag
+        </Button>
+      </div>
+
+      {showForm && (
+        <div className="bg-card rounded-lg border border-border p-6 space-y-4">
+          <input
+            type="text"
+            placeholder="Nom du tag (ex: Éducation)"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+          />
+          <input
+            type="text"
+            placeholder="Slug (ex: education)"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm"
+          />
+          <div className="flex gap-3">
+            <Button
+              onClick={() => createMut.mutate({ name, slug })}
+              disabled={!name || !slug || createMut.isPending}
+              size="sm"
+            >
+              {createMut.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Créer"}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setShowForm(false)}>Annuler</Button>
+          </div>
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-12 bg-muted/30 rounded-lg animate-pulse" />)}</div>
+      ) : tags && tags.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {tags.map((t: any) => (
+            <div key={t.id} className="bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-medium">
+              #{t.name}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-muted/30 rounded-lg p-8 text-center text-muted-foreground text-sm">
+          Aucun tag créé.
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ==================== COMMENTS TAB ====================
+function CommentsTab() {
+  const utils = trpc.useUtils();
+  const { data: comments, isLoading } = trpc.comments.pending.useQuery();
+  
+  const approveMut = trpc.comments.approve.useMutation({
+    onSuccess: () => {
+      utils.comments.pending.invalidate();
+      toast.success("Commentaire approuvé");
+    },
+  });
+  
+  const spamMut = trpc.comments.markSpam.useMutation({
+    onSuccess: () => {
+      utils.comments.pending.invalidate();
+      toast.success("Commentaire marqué comme spam");
+    },
+  });
+  
+  const deleteMut = trpc.comments.delete.useMutation({
+    onSuccess: () => {
+      utils.comments.pending.invalidate();
+      toast.success("Commentaire supprimé");
+    },
+  });
+
+  return (
+    <div className="space-y-4">
+      <h2 className="font-editorial text-lg font-bold">Commentaires en attente de modération</h2>
+
+      {isLoading ? (
+        <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-24 bg-muted/30 rounded-lg animate-pulse" />)}</div>
+      ) : comments && comments.length > 0 ? (
+        <div className="space-y-3">
+          {comments.map((c: any) => (
+            <div key={c.id} className="bg-card rounded-lg border border-border p-4 space-y-3">
+              <div>
+                <p className="text-sm font-medium">{c.authorName}</p>
+                <p className="text-xs text-muted-foreground">{c.authorEmail}</p>
+              </div>
+              <p className="text-sm text-foreground">{c.content}</p>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => approveMut.mutate({ id: c.id })}
+                  disabled={approveMut.isPending}
+                  size="sm"
+                  className="gap-2"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Approuver
+                </Button>
+                <Button
+                  onClick={() => spamMut.mutate({ id: c.id })}
+                  disabled={spamMut.isPending}
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 text-destructive"
+                >
+                  <XCircle className="w-3.5 h-3.5" />
+                  Spam
+                </Button>
+                <Button
+                  onClick={() => { if (confirm("Supprimer ?")) deleteMut.mutate({ id: c.id }); }}
+                  disabled={deleteMut.isPending}
+                  variant="outline"
+                  size="sm"
+                  className="text-destructive"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-muted/30 rounded-lg p-8 text-center text-muted-foreground text-sm">
+          Aucun commentaire en attente de modération.
+        </div>
+      )}
     </div>
   );
 }

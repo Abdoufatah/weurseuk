@@ -70,6 +70,9 @@ export const appRouter = router({
       if (!editorial) throw new TRPCError({ code: 'NOT_FOUND', message: 'Editorial not found' });
       return editorial;
     }),
+    byCategory: publicProcedure.input(z.object({ categoryId: z.number() })).query(async ({ input }) => {
+      return db.getEditorialsByCategory(input.categoryId);
+    }),
     // Admin CRUD
     listAll: adminProcedure.input(z.object({
       limit: z.number().min(1).max(100).default(50),
@@ -252,6 +255,112 @@ export const appRouter = router({
       await triggerManualSync();
       const { getRssCronStatus } = await import("./rssCron");
       return getRssCronStatus();
+    }),
+  }),
+
+  // ==================== JOURNALIST PROFILES ====================
+  journalists: router({
+    list: publicProcedure.query(async () => {
+      return db.getJournalistProfiles();
+    }),
+    byCategory: publicProcedure.input(z.object({ categoryId: z.number() })).query(async ({ input }) => {
+      return db.getJournalistByCategory(input.categoryId);
+    }),
+    create: adminProcedure.input(z.object({
+      name: z.string().min(1),
+      alias: z.string().optional(),
+      email: z.string().email(),
+      bio: z.string().optional(),
+      photoUrl: z.string().optional(),
+      categoryId: z.number(),
+      role: z.enum(["reporter", "correspondent", "columnist", "analyst", "editorialist"]),
+    })).mutation(async ({ input }) => {
+      await db.createJournalistProfile(input);
+      return { success: true };
+    }),
+    update: adminProcedure.input(z.object({
+      id: z.number(),
+      name: z.string().min(1).optional(),
+      alias: z.string().optional(),
+      bio: z.string().optional(),
+      photoUrl: z.string().optional(),
+      role: z.enum(["reporter", "correspondent", "columnist", "analyst", "editorialist"]).optional(),
+    })).mutation(async ({ input }) => {
+      const { id, ...data } = input;
+      await db.updateJournalistProfile(id, data);
+      return { success: true };
+    }),
+    delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+      await db.deleteJournalistProfile(input.id);
+      return { success: true };
+    }),
+  }),
+
+  // ==================== ARTICLE TAGS ====================
+  tags: router({
+    list: publicProcedure.query(async () => {
+      return db.getAllTags();
+    }),
+    create: adminProcedure.input(z.object({
+      name: z.string().min(1),
+      slug: z.string().min(1),
+      description: z.string().optional(),
+    })).mutation(async ({ input }) => {
+      await db.createTag(input);
+      return { success: true };
+    }),
+    forEditorial: publicProcedure.input(z.object({ editorialId: z.number() })).query(async ({ input }) => {
+      return db.getEditorialTags(input.editorialId);
+    }),
+    addToEditorial: adminProcedure.input(z.object({
+      editorialId: z.number(),
+      tagId: z.number(),
+    })).mutation(async ({ input }) => {
+      await db.addTagToEditorial(input.editorialId, input.tagId);
+      return { success: true };
+    }),
+    removeFromEditorial: adminProcedure.input(z.object({
+      editorialId: z.number(),
+      tagId: z.number(),
+    })).mutation(async ({ input }) => {
+      await db.removeTagFromEditorial(input.editorialId, input.tagId);
+      return { success: true };
+    }),
+  }),
+
+  // ==================== COMMENTS ====================
+  comments: router({
+    forEditorial: publicProcedure.input(z.object({ editorialId: z.number() })).query(async ({ input }) => {
+      return db.getEditorialComments(input.editorialId, true);
+    }),
+    pending: adminProcedure.query(async () => {
+      return db.getPendingComments();
+    }),
+    create: protectedProcedure.input(z.object({
+      editorialId: z.number(),
+      authorName: z.string().min(1),
+      authorEmail: z.string().email(),
+      content: z.string().min(1),
+    })).mutation(async ({ input, ctx }) => {
+      await db.createComment({
+        ...input,
+        userId: ctx.user.id,
+        isApproved: false,
+        isSpam: false,
+      });
+      return { success: true };
+    }),
+    approve: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+      await db.approveComment(input.id);
+      return { success: true };
+    }),
+    markSpam: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+      await db.markCommentAsSpam(input.id);
+      return { success: true };
+    }),
+    delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+      await db.deleteComment(input.id);
+      return { success: true };
     }),
   }),
 

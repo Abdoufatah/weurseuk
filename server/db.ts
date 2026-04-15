@@ -7,6 +7,10 @@ import {
   rssSources, InsertRssSource,
   aggregatedArticles, InsertAggregatedArticle,
   breakingNews, InsertBreakingNews,
+  journalistProfiles, InsertJournalistProfile,
+  articleTags, InsertArticleTag,
+  editorialTagsJunction, InsertEditorialTagsJunction,
+  comments, InsertComment,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -142,6 +146,14 @@ export async function getAllEditorials(limit = 50, offset = 0) {
     .orderBy(desc(editorials.createdAt))
     .limit(limit)
     .offset(offset);
+}
+
+export async function getEditorialsByCategory(categoryId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(editorials)
+    .where(and(eq(editorials.categoryId, categoryId), eq(editorials.isPublished, true)))
+    .orderBy(desc(editorials.createdAt));
 }
 
 export async function createEditorial(data: InsertEditorial) {
@@ -292,6 +304,126 @@ export async function getEditorialCount() {
   if (!db) return 0;
   const result = await db.select({ count: sql<number>`count(*)` }).from(editorials);
   return result[0]?.count ?? 0;
+}
+
+// ==================== JOURNALIST PROFILES ====================
+
+export async function getJournalistProfiles(limit = 50, offset = 0) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(journalistProfiles)
+    .where(eq(journalistProfiles.isActive, true))
+    .orderBy(journalistProfiles.name)
+    .limit(limit)
+    .offset(offset);
+}
+
+export async function getJournalistByCategory(categoryId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(journalistProfiles)
+    .where(and(eq(journalistProfiles.categoryId, categoryId), eq(journalistProfiles.isActive, true)))
+    .limit(1);
+  return result[0] || null;
+}
+
+export async function createJournalistProfile(data: InsertJournalistProfile) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(journalistProfiles).values(data);
+}
+
+export async function updateJournalistProfile(id: number, data: Partial<InsertJournalistProfile>) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(journalistProfiles).set(data).where(eq(journalistProfiles.id, id));
+}
+
+export async function deleteJournalistProfile(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(journalistProfiles).set({ isActive: false }).where(eq(journalistProfiles.id, id));
+}
+
+// ==================== ARTICLE TAGS ====================
+
+export async function getAllTags() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(articleTags).orderBy(articleTags.name);
+}
+
+export async function createTag(data: InsertArticleTag) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(articleTags).values(data);
+}
+
+export async function getEditorialTags(editorialId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ tag: articleTags })
+    .from(editorialTagsJunction)
+    .innerJoin(articleTags, eq(editorialTagsJunction.tagId, articleTags.id))
+    .where(eq(editorialTagsJunction.editorialId, editorialId));
+}
+
+export async function addTagToEditorial(editorialId: number, tagId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(editorialTagsJunction).values({ editorialId, tagId });
+}
+
+export async function removeTagFromEditorial(editorialId: number, tagId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.delete(editorialTagsJunction)
+    .where(and(eq(editorialTagsJunction.editorialId, editorialId), eq(editorialTagsJunction.tagId, tagId)));
+}
+
+// ==================== COMMENTS ====================
+
+export async function getEditorialComments(editorialId: number, approvedOnly = true) {
+  const db = await getDb();
+  if (!db) return [];
+  const conditions = [eq(comments.editorialId, editorialId), eq(comments.isSpam, false)];
+  if (approvedOnly) conditions.push(eq(comments.isApproved, true));
+  return db.select().from(comments)
+    .where(and(...conditions))
+    .orderBy(desc(comments.createdAt));
+}
+
+export async function getPendingComments(limit = 50) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(comments)
+    .where(and(eq(comments.isApproved, false), eq(comments.isSpam, false)))
+    .orderBy(desc(comments.createdAt))
+    .limit(limit);
+}
+
+export async function createComment(data: InsertComment) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.insert(comments).values(data);
+}
+
+export async function approveComment(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(comments).set({ isApproved: true, approvedAt: new Date() }).where(eq(comments.id, id));
+}
+
+export async function markCommentAsSpam(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(comments).set({ isSpam: true }).where(eq(comments.id, id));
+}
+
+export async function deleteComment(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.delete(comments).where(eq(comments.id, id));
 }
 
 // ==================== RSS DEDUPLICATION ====================
