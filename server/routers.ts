@@ -5,6 +5,8 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import * as db from "./db";
+import { categories, editorials } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
 
 // Admin-only procedure
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -125,9 +127,15 @@ export const appRouter = router({
       await db.deleteEditorial(input.id);
       return { success: true };
     }),
+    editCategory: adminProcedure.input(z.object({
+      id: z.number(),
+      categoryId: z.number(),
+    })).mutation(async ({ input }) => {
+      await db.updateEditorial(input.id, { categoryId: input.categoryId });
+      return { success: true };
+    }),
   }),
 
-  // ==================== AGGREGATED ARTICLES ====================
   articles: router({
     list: publicProcedure.input(z.object({
       limit: z.number().min(1).max(50).default(30),

@@ -28,6 +28,8 @@ export async function getDb() {
   return _db;
 }
 
+export { editorials, categories };
+
 // ==================== USERS ====================
 
 export async function upsertUser(user: InsertUser): Promise<void> {

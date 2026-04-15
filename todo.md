@@ -56,7 +56,7 @@
 - [x] Créer table `article_tags` (système d'étiquetage pour Société)
 - [x] Créer table `comments` (commentaires modérés avec authentification)
 - [x] Ajouter colonnes `category_id` et `journalist_id` à `editorials`
-- [ ] Migrer les éditoriaux existants vers les catégories appropriées
+- [x] Migrer les éditoriaux existants vers les catégories appropriées
 
 ### Phase 3 : Interface d'Administration
 - [x] Ajouter gestion des rubriques (CRUD)
@@ -91,3 +91,8 @@
 - [x] Tester modération
 - [x] Vérifier affichage des articles par catégorie
 - [x] Créer checkpoint et déployer
+
+
+## BUGS À CORRIGER
+
+- [x] Bug: Bouton "Analyses" ne redirige pas vers les articles du Dr Pam (CORRIGÉ : Section.tsx utilise maintenant les catégories de la base de données)

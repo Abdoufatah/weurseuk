@@ -47,12 +47,14 @@ export default function Category() {
     );
   }
 
+  console.log('Category:', category, 'Slug:', slug);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/10 to-primary/5 py-12 md:py-16">
         <div className="container">
-          <h1 className="font-editorial text-4xl md:text-5xl font-bold mb-4">{category.name}</h1>
+          <h1 className="font-editorial text-4xl md:text-5xl font-bold mb-4">Section {category.name}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">{category.description}</p>
         </div>
       </div>
