@@ -100,7 +100,7 @@
 
 ## GOOGLE ANALYTICS
 
-- [ ] Configurer adresse email analytics@weurseuk.com via Manus
+- [ ] Configurer adresse email analytics@weurseuk.com via Manus (EN ATTENTE : utilisateur doit fournir Measurement ID)
 - [ ] Créer propriété Google Analytics pour weurseuk.com
 - [ ] Obtenir Measurement ID (G-XXXXXXXXXX)
 - [ ] Intégrer Measurement ID au site (client et serveur)
