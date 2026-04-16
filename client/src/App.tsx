@@ -17,6 +17,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
+// Deployment trigger: 2026-04-16 - Force production sync
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
