@@ -106,3 +106,11 @@
 - [ ] Intégrer Measurement ID au site (client et serveur)
 - [ ] Tester le tracking Google Analytics
 - [ ] Vérifier que les événements sont enregistrés correctement
+
+
+## REFONTE NAVIGATION (FEEDBACK JOURNALISTE SENIOR)
+
+- [x] Centraliser toutes les 6 rubriques dans le même bloc
+- [x] Utiliser la même typographie et styling que "Éditoriaux" et "Actualité"
+- [x] Créer une hiérarchie visuelle claire et cohérente
+- [x] Tester la navigation et vérifier la découverte du contenu

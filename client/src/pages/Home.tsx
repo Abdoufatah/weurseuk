@@ -10,8 +10,6 @@ export default function Home() {
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.published.useQuery({ limit: 4, offset: 0 });
-  const { data: senegalArticles } = trpc.articles.list.useQuery({ limit: 6, region: "senegal" });
-  const { data: afriqueArticles } = trpc.articles.list.useQuery({ limit: 6, region: "afrique_ouest" });
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -35,7 +33,7 @@ export default function Home() {
                   <PenLine className="w-4 h-4" />
                   Éditoriaux
                 </Link>
-                <Link href="/section/senegal" className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-white/30 transition-colors">
+                <Link href="/section/actualite" className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-white/30 transition-colors">
                   <Newspaper className="w-4 h-4" />
                   Actualités
                 </Link>
@@ -95,97 +93,39 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}
           <div className="lg:col-span-2 space-y-10">
-            {/* Sénégal section */}
-            <section>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
-                  <span className="w-1 h-5 bg-primary rounded-full" />
-                  Sénégal
+            {/* Rubriques principales - Grille centralisée */}
+            {categories && categories.length > 0 && (
+              <section>
+                <h2 className="font-editorial text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
+                  <span className="w-1 h-6 bg-primary rounded-full" />
+                  Nos Rubriques
                 </h2>
-                <Link href="/section/senegal" className="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
-                  Tout voir <ChevronRight className="w-4 h-4" />
-                </Link>
-              </div>
-              {senegalArticles && senegalArticles.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {senegalArticles.slice(0, 4).map((article) => (
-                    <ArticleCard
-                      key={article.id}
-                      title={article.title}
-                      excerpt={article.excerpt}
-                      imageUrl={article.imageUrl}
-                      sourceUrl={article.sourceUrl}
-                      sourceName={article.sourceName}
-                      publishedAt={article.publishedAt}
-                    />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+                  {categories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug)).map((category) => (
+                    <Link
+                      key={category.id}
+                      href={`/section/${category.slug}`}
+                      className="group bg-white border border-border rounded-lg p-6 hover:border-primary hover:shadow-md transition-all duration-200 cursor-pointer"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-editorial text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                            {category.name}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                            {category.description || "Découvrez les derniers articles de cette rubrique"}
+                          </p>
+                        </div>
+                        <ChevronRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
+                      </div>
+                    </Link>
                   ))}
                 </div>
-              ) : (
-                <div className="bg-muted/30 rounded-lg p-8 text-center">
-                  <Newspaper className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground text-sm">Les actualités du Sénégal apparaîtront ici dès l'activation des flux RSS.</p>
-                </div>
-              )}
-            </section>
+              </section>
+            )}
 
             {/* Banner Ad */}
             <AdPlacement type="banner" />
-
-            {/* Afrique de l'Ouest section */}
-            <section>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
-                  <span className="w-1 h-5 bg-primary rounded-full" />
-                  Afrique de l'Ouest
-                </h2>
-                <Link href="/section/afrique-ouest" className="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
-                  Tout voir <ChevronRight className="w-4 h-4" />
-                </Link>
-              </div>
-              {afriqueArticles && afriqueArticles.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {afriqueArticles.slice(0, 4).map((article) => (
-                    <ArticleCard
-                      key={article.id}
-                      title={article.title}
-                      excerpt={article.excerpt}
-                      imageUrl={article.imageUrl}
-                      sourceUrl={article.sourceUrl}
-                      sourceName={article.sourceName}
-                      publishedAt={article.publishedAt}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="bg-muted/30 rounded-lg p-8 text-center">
-                  <Globe className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground text-sm">Les actualités d'Afrique de l'Ouest apparaîtront ici.</p>
-                </div>
-              )}
-            </section>
-
-            {/* Rubriques principales */}
-            {categories && categories.length > 0 && (
-              <>
-                {categories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses"].includes(c.slug)).map((category) => (
-                  <section key={category.id}>
-                    <div className="flex items-center justify-between mb-6">
-                      <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
-                        <span className="w-1 h-5 bg-primary rounded-full" />
-                        {category.name}
-                      </h2>
-                      <Link href={`/section/${category.slug}`} className="text-sm text-primary font-medium flex items-center gap-1 hover:underline">
-                        Tout voir <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                    <div className="bg-muted/20 rounded-lg p-6 text-center">
-                      <Newspaper className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                      <p className="text-muted-foreground text-sm">Les articles de {category.name} apparaîtront ici.</p>
-                    </div>
-                  </section>
-                ))}
-              </>
-            )}
 
             {/* All latest articles */}
             {articles && articles.length > 0 && (
@@ -249,41 +189,25 @@ export default function Home() {
                 <PenLine className="w-4 h-4 text-primary" />
                 Éditoriaux récents
               </h3>
-              {editorials && editorials.length > 0 ? (
-                <div className="space-y-4">
-                  {editorials.map((ed) => (
-                    <Link key={ed.id} href={`/editorial/${ed.slug}`} className="block group">
-                      <h4 className="text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
-                        {ed.title}
-                      </h4>
-                      {ed.excerpt && (
-                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{ed.excerpt}</p>
-                      )}
-                      <p className="text-[10px] text-muted-foreground/70 mt-1.5">
-                        {ed.publishedAt
-                          ? new Date(ed.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })
-                          : ""}
-                      </p>
+              <div className="space-y-3">
+                {editorials && editorials.length > 0 ? (
+                  editorials.map((editorial) => (
+                    <Link
+                      key={editorial.id}
+                      href={`/editorial/${editorial.slug}`}
+                      className="block text-sm font-medium text-foreground hover:text-primary transition-colors truncate"
+                      title={editorial.title}
+                    >
+                      {editorial.title}
                     </Link>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">Les éditoriaux de Bensirac apparaîtront ici.</p>
-              )}
-              <Link href="/editoriaux" className="block mt-4 text-sm text-primary font-medium hover:underline">
-                Tous les éditoriaux →
-              </Link>
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">Aucun éditorial disponible</p>
+                )}
+              </div>
             </div>
-
-            {/* Second sidebar ad */}
-            <AdPlacement type="mpu" />
           </aside>
         </div>
-      </div>
-
-      {/* Bottom leaderboard */}
-      <div className="container my-10">
-        <AdPlacement type="leaderboard" />
       </div>
     </div>
   );
