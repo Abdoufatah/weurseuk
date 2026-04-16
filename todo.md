@@ -100,7 +100,7 @@
 
 ## GOOGLE ANALYTICS
 
-- [ ] Configurer adresse email analytics@weurseuk.com via Manus (EN ATTENTE : utilisateur doit fournir Measurement ID)
+- [ ] Configurer adresse email analytics@weurseuk.com via Manus (À FAIRE PLUS TARD - rappel utilisateur)
 - [ ] Créer propriété Google Analytics pour weurseuk.com
 - [ ] Obtenir Measurement ID (G-XXXXXXXXXX)
 - [ ] Intégrer Measurement ID au site (client et serveur)
@@ -114,3 +114,9 @@
 - [x] Utiliser la même typographie et styling que "Éditoriaux" et "Actualité"
 - [x] Créer une hiérarchie visuelle claire et cohérente
 - [x] Tester la navigation et vérifier la découverte du contenu
+
+## INTÉGRATION ÉCOLE DE SYNODALITÉ DE DAKAR
+
+- [x] Ajouter flux RSS de l'École de Synodalité de Dakar
+- [x] Intégrer à la catégorie "Société"
+- [ ] Synchronisation des articles (bloquée par protection DDoS du site - à revoir plus tard)
