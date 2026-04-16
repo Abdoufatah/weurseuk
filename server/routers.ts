@@ -397,6 +397,45 @@ export const appRouter = router({
       return { articleCount, editorialCount };
     }),
   }),
+
+  // ==================== PRESS REVIEW AGENT ====================
+  pressReview: router({
+    getReports: adminProcedure.query(async () => {
+      const { listReports } = await import("./jobs/press-review-scheduler");
+      return listReports();
+    }),
+    
+    getReport: adminProcedure.input(z.object({ reportId: z.string() })).query(async ({ input }) => {
+      const { getReport } = await import("./jobs/press-review-scheduler");
+      const report = getReport(input.reportId);
+      if (!report) throw new TRPCError({ code: 'NOT_FOUND' });
+      return report;
+    }),
+    
+    validate: adminProcedure.input(z.object({
+      reportId: z.string(),
+      validatedIds: z.array(z.number())
+    })).mutation(async ({ input }) => {
+      const { validateAndPublish } = await import("./jobs/press-review-scheduler");
+      await validateAndPublish(input.reportId, input.validatedIds);
+      return { success: true };
+    }),
+    
+    reject: adminProcedure.input(z.object({
+      reportId: z.string(),
+      reason: z.string()
+    })).mutation(async ({ input }) => {
+      const { rejectReport } = await import("./jobs/press-review-scheduler");
+      rejectReport(input.reportId, input.reason);
+      return { success: true };
+    }),
+    
+    runNow: adminProcedure.mutation(async () => {
+      const { runNow } = await import("./jobs/press-review-scheduler");
+      await runNow();
+      return { success: true, message: "Session de revue de presse lancée" };
+    })
+  })
 });
 
 export type AppRouter = typeof appRouter;

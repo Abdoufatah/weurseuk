@@ -8,6 +8,8 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { startRssCron } from "../rssCron";
+import { initializePressReviewScheduler } from "../jobs/press-review-scheduler";
+import { initializeAdminAgentScheduler } from "../jobs/admin-agent-scheduler";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -62,6 +64,10 @@ async function startServer() {
     console.log(`Server running on http://localhost:${port}/`);
     // Start automatic RSS sync cron
     startRssCron();
+    // Start press review agent scheduler
+    initializePressReviewScheduler();
+    // Start admin agent scheduler (v2.1)
+    initializeAdminAgentScheduler();
   });
 }
 

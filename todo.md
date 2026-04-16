@@ -96,3 +96,13 @@
 ## BUGS À CORRIGER
 
 - [x] Bug: Bouton "Analyses" ne redirige pas vers les articles du Dr Pam (CORRIGÉ : Section.tsx utilise maintenant les catégories de la base de données)
+
+
+## GOOGLE ANALYTICS
+
+- [ ] Configurer adresse email analytics@weurseuk.com via Manus
+- [ ] Créer propriété Google Analytics pour weurseuk.com
+- [ ] Obtenir Measurement ID (G-XXXXXXXXXX)
+- [ ] Intégrer Measurement ID au site (client et serveur)
+- [ ] Tester le tracking Google Analytics
+- [ ] Vérifier que les événements sont enregistrés correctement
