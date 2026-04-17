@@ -38,7 +38,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-end">
           <div className="container pb-10 md:pb-14">
             <div className="max-w-2xl">
-              <img src={ASSETS.logo} alt="Weurseuk" className="h-20 md:h-28 w-auto mb-4 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
+              <img src={ASSETS.logo} alt="Weurseuk" className="h-28 md:h-40 w-auto mb-4 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
               <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
               </p>
