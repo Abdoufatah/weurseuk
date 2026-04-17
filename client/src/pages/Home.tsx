@@ -1,238 +1,217 @@
 import { trpc } from "@/lib/trpc";
 import { ASSETS, BENSIRAC } from "@shared/constants";
 import { Link } from "wouter";
-import { Newspaper, PenLine, ChevronRight, Clock, ExternalLink } from "lucide-react";
-import ShareButtons from "@/components/ShareButtons";
+import ArticleCard from "@/components/ArticleCard";
+import AdPlacement from "@/components/AdPlacement";
+import { Newspaper, PenLine, Globe, ChevronRight } from "lucide-react";
 
 // Fallback categories if API fails
 const FALLBACK_CATEGORIES = [
-  { slug: "actualite", name: "Actualité" },
-  { slug: "politique-economie", name: "Politique & Économie" },
-  { slug: "international", name: "International" },
-  { slug: "societe", name: "Société" },
-  { slug: "analyses", name: "Analyses" },
-  { slug: "editorial", name: "Éditorial" },
+  { slug: "actualite", name: "Actualité", description: "Dépêches et brèves pour l'immédiateté" },
+  { slug: "politique-economie", name: "Politique & Économie", description: "Informations approfondies sur le Sénégal et l'Afrique" },
+  { slug: "international", name: "International", description: "Dynamiques globales et perspectives mondiales" },
+  { slug: "societe", name: "Société", description: "Éducation, santé, religion, environnement, faits de société" },
+  { slug: "analyses", name: "Analyses", description: "Études de fond et décryptages critiques" },
+  { slug: "editorial", name: "Éditorial", description: "Prises de position et ligne directrice du média" },
 ];
-
-function formatDate(date: Date | string | null | undefined): string {
-  if (!date) return "";
-  const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
-}
-
-/* Compact article row for homepage — no image, minimal height */
-function CompactArticle({ title, sourceName, region, publishedAt, sourceUrl }: {
-  title: string;
-  sourceName?: string;
-  region?: string;
-  publishedAt?: Date | string | null;
-  sourceUrl?: string;
-}) {
-  const REGIONS: Record<string, string> = { senegal: "Sénégal", afrique_ouest: "Afrique de l'Ouest", monde: "Monde" };
-  const regionLabel = region ? REGIONS[region] : null;
-
-  const inner = (
-    <div className="group flex items-start gap-2 py-2 border-b border-border/40 last:border-0 hover:bg-accent/30 px-2 -mx-2 rounded transition-colors">
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 mb-0.5">
-          {regionLabel && (
-            <span className="text-[9px] font-semibold uppercase tracking-wider text-primary bg-accent px-1.5 py-px rounded">
-              {regionLabel}
-            </span>
-          )}
-          {sourceName && (
-            <span className="text-[9px] text-muted-foreground">{sourceName}</span>
-          )}
-        </div>
-        <h4 className="text-[13px] font-medium leading-snug text-card-foreground group-hover:text-primary transition-colors line-clamp-2">
-          {title}
-        </h4>
-      </div>
-      <div className="flex-shrink-0 flex items-center gap-1 text-[10px] text-muted-foreground mt-1">
-        <Clock className="w-2.5 h-2.5" />
-        <span>{formatDate(publishedAt)}</span>
-      </div>
-    </div>
-  );
-
-  if (sourceUrl) {
-    return <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{inner}</a>;
-  }
-  return inner;
-}
 
 export default function Home() {
   const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
+  const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
 
+  // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
-  const filteredCategories = displayCategories.filter(c =>
-    ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug)
-  );
-
-  // Split articles into 2 columns
-  const leftArticles = articles?.slice(0, 6) ?? [];
-  const rightArticles = articles?.slice(6, 12) ?? [];
+  const filteredCategories = displayCategories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug));
 
   return (
-    <div className="font-sans-editorial">
-      {/* BANDE HERO : Logo + phrase en bandeau compact */}
-      <section className="relative h-[100px] md:h-[120px] overflow-hidden">
+    <div className="min-h-screen font-sans-editorial">
+      {/* Hero Banner */}
+      <section className="relative h-[420px] md:h-[500px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
-          alt="Weurseuk"
+          alt="Weurseuk - Portail d'Information"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container flex items-center gap-4">
-            <img
-              src={ASSETS.logo}
-              alt="Weurseuk"
-              className="h-12 md:h-16 w-auto drop-shadow-2xl"
-              style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }}
-            />
-            <div>
-              <p className="text-white/95 text-sm md:text-base font-medium leading-tight">
-                L'information de référence
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="container pb-10 md:pb-14">
+            <div className="max-w-2xl">
+              <img src={ASSETS.logo} alt="Weurseuk" className="h-20 md:h-28 w-auto mb-4 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
+              <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed">
+                L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
               </p>
-              <p className="text-white/70 text-xs md:text-sm font-light">
-                Sénégal &middot; Afrique de l'Ouest &middot; Monde
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BOUTONS RUBRIQUES */}
-      <section className="bg-card border-b border-border">
-        <div className="container py-2">
-          <div className="flex flex-wrap items-center justify-center gap-1.5">
-            {filteredCategories.map((category) => {
-              const isEditorial = category.slug === 'editorial';
-              const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
-              const styleClass = isEditorial
-                ? "bg-primary text-primary-foreground hover:opacity-90"
-                : "bg-anthracite text-white hover:bg-anthracite/90";
-              return (
-                <Link
-                  key={category.slug}
-                  href={href}
-                  className={`inline-flex items-center gap-1 px-3 py-1.5 rounded text-[11px] font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
-                >
-                  {isEditorial ? <PenLine className="w-3 h-3" /> : <Newspaper className="w-3 h-3" />}
-                  {category.name}
+              <div className="flex items-center gap-4 mt-4">
+                <Link href="/editoriaux" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
+                  <PenLine className="w-4 h-4" />
+                  Éditoriaux
                 </Link>
-              );
-            })}
+                <Link href="/section/actualite" className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-white/30 transition-colors">
+                  <Newspaper className="w-4 h-4" />
+                  Actualités
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CONTENU PRINCIPAL : 3 colonnes compactes */}
-      <div className="container py-3">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+      {/* Leaderboard Ad */}
+      <div className="container mt-6">
+        <AdPlacement type="leaderboard" />
+      </div>
 
-          {/* Colonne gauche : articles 1-6 */}
-          <div className="lg:col-span-5">
-            <h2 className="font-editorial text-sm font-bold text-foreground flex items-center gap-2 mb-1">
-              <span className="w-1 h-4 bg-primary rounded-full" />
-              Dernières actualités
+      {/* Featured Articles */}
+      {featuredArticles && featuredArticles.length > 0 && (
+        <section className="container mt-10">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full" />
+              À la Une
             </h2>
-            <div>
-              {leftArticles.map((article) => (
-                <CompactArticle
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredArticles.slice(0, 1).map((article) => (
+              <ArticleCard
+                key={article.id}
+                title={article.title}
+                excerpt={article.excerpt}
+                imageUrl={article.imageUrl}
+                sourceUrl={article.sourceUrl}
+                sourceName={article.sourceName}
+                region={article.region}
+                publishedAt={article.publishedAt}
+                isFeatured
+              />
+            ))}
+            <div className="space-y-4">
+              {featuredArticles.slice(1, 4).map((article) => (
+                <ArticleCard
                   key={article.id}
                   title={article.title}
+                  excerpt={article.excerpt}
+                  sourceUrl={article.sourceUrl}
                   sourceName={article.sourceName}
                   region={article.region}
                   publishedAt={article.publishedAt}
-                  sourceUrl={article.sourceUrl}
                 />
               ))}
             </div>
           </div>
+        </section>
+      )}
 
-          {/* Colonne centrale : articles 7-12 */}
-          <div className="lg:col-span-4">
-            <h2 className="font-editorial text-sm font-bold text-foreground flex items-center gap-2 mb-1">
-              <span className="w-1 h-4 bg-primary rounded-full" />
-              Fil d'info
-            </h2>
-            <div>
-              {rightArticles.map((article) => (
-                <CompactArticle
-                  key={article.id}
-                  title={article.title}
-                  sourceName={article.sourceName}
-                  region={article.region}
-                  publishedAt={article.publishedAt}
-                  sourceUrl={article.sourceUrl}
-                />
-              ))}
-            </div>
+      {/* Main content grid */}
+      <div className="container mt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main column */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Rubriques principales - Grille centralisée */}
+            <section>
+              <h2 className="font-editorial text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
+                <span className="w-1 h-6 bg-primary rounded-full" />
+                Nos Rubriques
+              </h2>
+              <div className="flex flex-wrap gap-3 mb-10">
+                {filteredCategories.map((category) => {
+                  const isEditorial = category.slug === 'editorial';
+                  const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
+                  const icon = isEditorial ? <PenLine className="w-4 h-4" /> : <Newspaper className="w-4 h-4" />;
+                  // Alterner les styles comme dans le hero: rouge (primary) et anthracite
+                  const styleClass = isEditorial
+                    ? "bg-primary text-primary-foreground hover:opacity-90"
+                    : "bg-anthracite text-white hover:bg-anthracite/90";
+                  return (
+                    <Link
+                      key={category.slug}
+                      href={href}
+                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
+                    >
+                      {icon}
+                      {category.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Banner Ad */}
+            <AdPlacement type="banner" />
+
+            {/* All latest articles */}
+            {articles && articles.length > 0 && (
+              <section>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
+                    <span className="w-1 h-5 bg-primary rounded-full" />
+                    Dernières actualités
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {articles.map((article) => (
+                    <ArticleCard
+                      key={article.id}
+                      title={article.title}
+                      excerpt={article.excerpt}
+                      imageUrl={article.imageUrl}
+                      sourceUrl={article.sourceUrl}
+                      sourceName={article.sourceName}
+                      region={article.region}
+                      publishedAt={article.publishedAt}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
-          {/* Sidebar droite : Éditoriaux + Bensirac */}
-          <aside className="lg:col-span-3 space-y-3">
-            {/* Éditoriaux récents */}
+          {/* Sidebar */}
+          <aside className="space-y-8">
+            {/* Editorials Sidebar */}
             {editorials && editorials.length > 0 && (
               <section>
-                <h3 className="font-editorial text-sm font-bold text-foreground mb-2 flex items-center gap-2">
-                  <span className="w-1 h-4 bg-primary rounded-full" />
-                  Éditoriaux
+                <h3 className="font-editorial text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                  <span className="w-1 h-5 bg-primary rounded-full" />
+                  Éditoriaux récents
                 </h3>
-                <div className="space-y-2">
-                  {editorials.slice(0, 3).map((editorial) => (
+                <div className="space-y-3">
+                  {editorials.map((editorial) => (
                     <Link
                       key={editorial.id}
                       href={`/editorial/${editorial.slug}`}
                       className="block group"
                     >
-                      <p className="text-xs font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                      <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
                         {editorial.title}
                       </p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                      <p className="text-xs text-muted-foreground mt-1">
                         {editorial.publishedAt ? new Date(editorial.publishedAt).toLocaleDateString('fr-FR') : 'Récent'}
                       </p>
                     </Link>
                   ))}
                 </div>
-                <Link href="/editoriaux" className="text-[11px] text-primary font-medium hover:underline mt-1 inline-block">
-                  Tous les éditoriaux →
-                </Link>
               </section>
             )}
 
-            {/* Profil Bensirac compact */}
-            <section className="bg-card border border-border rounded-lg p-3">
-              <div className="flex items-center gap-2 mb-1.5">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                  <PenLine className="w-3.5 h-3.5 text-primary" />
+            {/* Bensirac Profile */}
+            <section className="bg-card border border-border rounded-lg p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <PenLine className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-editorial font-bold text-foreground text-xs">{BENSIRAC.alias}</h4>
-                  <p className="text-[10px] text-muted-foreground">{BENSIRAC.title}</p>
+                  <h4 className="font-editorial font-bold text-foreground text-sm">{BENSIRAC.alias}</h4>
+                  <p className="text-xs text-muted-foreground">{BENSIRAC.title}</p>
                 </div>
               </div>
-              <p className="text-[11px] text-foreground leading-relaxed line-clamp-3">
+              <p className="text-sm text-foreground leading-relaxed mb-4">
                 {BENSIRAC.bio}
               </p>
+              <Link href="/editoriaux" className="text-sm text-primary font-medium hover:underline">
+                Voir tous les éditoriaux →
+              </Link>
             </section>
-
-            {/* Espace pub sidebar compact */}
-            <div className="ad-label">
-              <div
-                className="border border-dashed border-border rounded-md flex items-center justify-center bg-muted/30"
-                style={{ height: "200px" }}
-              >
-                <div className="text-center">
-                  <p className="text-[10px] text-muted-foreground font-medium">Espace publicitaire</p>
-                  <p className="text-[9px] text-muted-foreground/60 mt-0.5">160 x 600</p>
-                </div>
-              </div>
-            </div>
           </aside>
         </div>
       </div>
