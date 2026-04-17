@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans-editorial">
-      {/* Hero Banner — Logo à gauche, plus grand */}
+      {/* Hero Banner */}
       <section className="relative h-[420px] md:h-[500px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
@@ -36,10 +36,10 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-end">
-          <div className="container pb-32 md:pb-48">
-            <div className="max-w-2xl">
-              <img src={ASSETS.logo} alt="Weurseuk" className="h-40 md:h-56 w-auto mb-4 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
-              <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed">
+          <div className="container pb-10 md:pb-14">
+            <div className="flex items-end gap-6">
+              <img src={ASSETS.logo} alt="Weurseuk" className="h-40 md:h-56 w-auto flex-shrink-0 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
+              <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-2xl pb-2">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
               </p>
             </div>
