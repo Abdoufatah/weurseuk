@@ -435,6 +435,36 @@ export const appRouter = router({
       await runNow();
       return { success: true, message: "Session de revue de presse lancée" };
     })
+  }),
+
+  journalistAgents: router({
+    invoke: adminProcedure.input(z.object({
+      journalistId: z.string(),
+      topic: z.string(),
+      sources: z.array(z.string()),
+      angle: z.string().optional(),
+      context: z.string().optional(),
+    })).mutation(async ({ input }) => {
+      const { invokeJournalistWithFallback } = await import("./journalists/service");
+      const result = await invokeJournalistWithFallback(input.journalistId, {
+        topic: input.topic,
+        sources: input.sources,
+        angle: input.angle,
+        context: input.context,
+      });
+      return result;
+    }),
+
+    list: adminProcedure.query(async () => {
+      const { JOURNALISTS } = await import("./journalists/config");
+      return Object.values(JOURNALISTS).map(j => ({
+        id: j.id,
+        name: j.name,
+        alias: j.alias,
+        thematiques: j.thematiques,
+        styleKey: j.styleKey,
+      }));
+    }),
   })
 });
 

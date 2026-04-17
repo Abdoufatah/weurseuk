@@ -120,3 +120,37 @@
 - [x] Ajouter flux RSS de l'École de Synodalité de Dakar
 - [x] Intégrer à la catégorie "Société"
 - [ ] Synchronisation des articles (bloquée par protection DDoS du site - à revoir plus tard)
+
+
+## AGENT ADMINISTRATEUR v2.2 - REVUE DE PRESSE BIQUOTIDIENNE
+
+### Phase 1 : Architecture des Journalistes IA
+- [x] Créer configuration des 5 journalistes spécialisés (Awa Diop, Moussa Fall, Aïcha Benali, Ousmane Ndiaye, Fatou Sow)
+- [x] Implémenter prompts système pour chaque journaliste avec style spécifique
+- [x] Créer service d'invocation des journalistes avec fallback automatique
+- [x] Implémenter validation de qualité (longueur, sources, style)
+
+### Phase 2 : Agent Administrateur
+- [x] Créer Agent Administrateur pour orchestrer la revue de presse
+- [x] Implémenter veille et sélection des sujets avec web_search
+- [x] Implémenter invocation des 5 journalistes en parallèle
+- [x] Implémenter auto-contrôle qualité avant publication
+- [x] Implémenter système de fallback pour pannes
+
+### Phase 3 : Scheduler Biquotidien
+- [x] Créer scheduler pour exécution à 07h30 et 14h30 GMT
+- [x] Implémenter génération automatique de sessions
+- [x] Implémenter validation et publication automatique
+- [x] Implémenter tRPC procedures pour invoquer les journalistes
+- [x] Intégrer scheduler au démarrage du serveur
+
+### Phase 4 : Correction des Rubriques Centralisées
+- [x] Corriger l'affichage des 6 rubriques centralisées en production
+- [x] Ajouter fallback des rubriques si API échoue
+- [x] Tester affichage en développement et production
+
+### Phase 5 : Tests et Validation
+- [x] Vérifier que les rubriques s'affichent correctement
+- [x] Vérifier que les journalistes peuvent être invoqués
+- [x] Vérifier que le scheduler est actif
+- [x] Tester la compilation et le build
