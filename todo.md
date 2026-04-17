@@ -154,3 +154,9 @@
 - [x] Vérifier que les journalistes peuvent être invoqués
 - [x] Vérifier que le scheduler est actif
 - [x] Tester la compilation et le build
+
+
+## INTERFACE D'ADMINISTRATION
+
+**DÉCISION** : Demander à Manus de développer une interface d'administration générique pour tous les utilisateurs Webdev
+- [ ] Soumettre demande de fonctionnalité à Manus (help.manus.im)
