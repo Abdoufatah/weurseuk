@@ -198,3 +198,13 @@
   - Éditorial (30009): 1 article (Bensirac uniquement)
 - [x] Vérifier dans l'UI : page Éditoriaux filtre par categoryId 30009 (Bensirac seul)
 - [x] Corriger imports/exports : supprimé server/jobs/ et server/agents/ (anciens fichiers obsolètes)
+
+
+## REFONTE PAGE D'ACCUEIL (18/04/2026)
+
+- [x] Remplacer le logo par LOGOTRANSPARENTWEURSEUK.png (header, hero, meta tags, og:image)
+- [x] Utiliser ce même logo comme favicon
+- [x] Boutons de menu (rubriques) en haut avec style actuel (anthracite + rouge Éditorial)
+- [x] Supprimer les boutons "Éditoriaux" et "Actualités" sous la phrase de présentation
+- [x] Abaisser le bloc logo + phrase de présentation (desktop) — hero bandeau compact 120px
+- [x] Tout visible sans scroller sur la page d'accueil — 12 articles + sidebar dans le viewport
