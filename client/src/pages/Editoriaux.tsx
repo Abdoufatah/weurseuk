@@ -5,7 +5,7 @@ import AdPlacement from "@/components/AdPlacement";
 import { PenLine } from "lucide-react";
 
 export default function Editoriaux() {
-  const { data: editorials, isLoading } = trpc.editorials.published.useQuery({ limit: 20, offset: 0 });
+  const { data: editorials, isLoading } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
 
   return (
     <div className="min-h-screen font-sans-editorial">

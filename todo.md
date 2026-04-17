@@ -179,3 +179,22 @@
 - [x] Vérifier en production que les articles de Dr Pam apparaissent dans Analyses
 - [x] Vérifier en production que Éditorial ne contient que Bensirac
 - [x] Confirmer suppression du test editorial ID 60006
+
+## CORRECTIONS URGENTES (17/04/2026 - 2)
+
+- [x] Nettoyer la rubrique Éditorial : filtrage par categoryId 30009 (Bensirac uniquement)
+- [x] Corriger les erreurs 404 : page Éditoriaux filtre maintenant par catégorie
+- [x] Vérifier que chaque journaliste publie dans sa rubrique respective
+- [x] Uniformiser les boutons de rubriques sur la page d'accueil (même style que Éditoriaux/Actualités du hero)
+
+## VÉRIFICATIONS FINALES (17/04/2026)
+
+- [x] Vérifier en base la catégorie de chaque article : TOUTES les catégories sont correctes
+  - Actualité (30004): 2 articles (Fatou Sow)
+  - Politique & Économie (30005): 4 articles (Awa Diop, Moussa Fall)
+  - International (30006): 2 articles (Aïcha Benali)
+  - Société (30007): 3 articles (Ousmane Ndiaye + Vues d'Afrique)
+  - Analyses (30008): 2 articles (Dr Pam)
+  - Éditorial (30009): 1 article (Bensirac uniquement)
+- [x] Vérifier dans l'UI : page Éditoriaux filtre par categoryId 30009 (Bensirac seul)
+- [x] Corriger imports/exports : supprimé server/jobs/ et server/agents/ (anciens fichiers obsolètes)

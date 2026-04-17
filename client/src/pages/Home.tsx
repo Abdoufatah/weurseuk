@@ -19,7 +19,7 @@ export default function Home() {
   const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
-  const { data: editorials } = trpc.editorials.published.useQuery({ limit: 4, offset: 0 });
+  const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
 
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
@@ -113,26 +113,26 @@ export default function Home() {
                 <span className="w-1 h-6 bg-primary rounded-full" />
                 Nos Rubriques
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-                {filteredCategories.map((category) => (
-                  <Link
-                    key={category.slug}
-                    href={`/section/${category.slug}`}
-                    className="group bg-white border border-border rounded-lg p-6 hover:border-primary hover:shadow-md transition-all duration-200 cursor-pointer"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-editorial text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                          {category.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
-                          {category.description || "Découvrez les derniers articles de cette rubrique"}
-                        </p>
-                      </div>
-                      <ChevronRight className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2" />
-                    </div>
-                  </Link>
-                ))}
+              <div className="flex flex-wrap gap-3 mb-10">
+                {filteredCategories.map((category) => {
+                  const isEditorial = category.slug === 'editorial';
+                  const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
+                  const icon = isEditorial ? <PenLine className="w-4 h-4" /> : <Newspaper className="w-4 h-4" />;
+                  // Alterner les styles comme dans le hero: rouge (primary) et anthracite
+                  const styleClass = isEditorial
+                    ? "bg-primary text-primary-foreground hover:opacity-90"
+                    : "bg-anthracite text-white hover:bg-anthracite/90";
+                  return (
+                    <Link
+                      key={category.slug}
+                      href={href}
+                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
+                    >
+                      {icon}
+                      {category.name}
+                    </Link>
+                  );
+                })}
               </div>
             </section>
 
@@ -179,7 +179,7 @@ export default function Home() {
                   {editorials.map((editorial) => (
                     <Link
                       key={editorial.id}
-                      href={`/editoriaux/${editorial.slug}`}
+                      href={`/editorial/${editorial.slug}`}
                       className="block group"
                     >
                       <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
