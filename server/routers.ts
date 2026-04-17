@@ -401,12 +401,12 @@ export const appRouter = router({
   // ==================== PRESS REVIEW AGENT ====================
   pressReview: router({
     getReports: adminProcedure.query(async () => {
-      const { listReports } = await import("./jobs/press-review-scheduler");
+      const { listReports } = await import("./journalists/press-review-scheduler");
       return listReports();
     }),
     
     getReport: adminProcedure.input(z.object({ reportId: z.string() })).query(async ({ input }) => {
-      const { getReport } = await import("./jobs/press-review-scheduler");
+      const { getReport } = await import("./journalists/press-review-scheduler");
       const report = getReport(input.reportId);
       if (!report) throw new TRPCError({ code: 'NOT_FOUND' });
       return report;
@@ -416,7 +416,7 @@ export const appRouter = router({
       reportId: z.string(),
       validatedIds: z.array(z.number())
     })).mutation(async ({ input }) => {
-      const { validateAndPublish } = await import("./jobs/press-review-scheduler");
+      const { validateAndPublish } = await import("./journalists/press-review-scheduler");
       await validateAndPublish(input.reportId, input.validatedIds);
       return { success: true };
     }),
@@ -425,13 +425,13 @@ export const appRouter = router({
       reportId: z.string(),
       reason: z.string()
     })).mutation(async ({ input }) => {
-      const { rejectReport } = await import("./jobs/press-review-scheduler");
+      const { rejectReport } = await import("./journalists/press-review-scheduler");
       rejectReport(input.reportId, input.reason);
       return { success: true };
     }),
     
     runNow: adminProcedure.mutation(async () => {
-      const { runNow } = await import("./jobs/press-review-scheduler");
+      const { runNow } = await import("./journalists/press-review-scheduler");
       await runNow();
       return { success: true, message: "Session de revue de presse lancée" };
     })

@@ -1,204 +1,189 @@
 /**
- * Admin Agent - Orchestrates the press review
- * Runs biquotidian sessions at 07:30 and 14:30 GMT
+ * Admin Agent v2.2 - Orchestre la revue de presse biquotidienne
+ * Génère des articles via les 5 journalistes IA et les PUBLIE en base de données
  */
 
 import { invokeJournalistWithFallback } from "./service";
 import { JOURNALISTS } from "./config";
 import { invokeLLM } from "../_core/llm";
+import * as db from "../db";
+
+// Mapping journaliste -> catégorie DB
+const CATEGORY_MAP: Record<string, number> = {
+  "Actualité": 30004,
+  "Politique & Économie": 30005,
+  "International": 30006,
+  "Société": 30007,
+  "Analyses": 30008,
+};
+
+export interface PublishedArticle {
+  id: number;
+  title: string;
+  slug: string;
+  journalist: string;
+  rubrique: string;
+  categoryId: number;
+}
 
 export interface PressReviewSession {
   sessionId: string;
   dateTimeGmt: string;
-  status: "pending_validation" | "validated" | "published" | "rejected";
-  nbSubjectsTotal: number;
+  status: "generating" | "published" | "failed";
+  articlesPublished: PublishedArticle[];
   incidents: string[];
-  aLaUne: any;
-  articles: any[];
-  validationFeedback?: string;
   publishedAt?: string;
 }
 
-/**
- * Generate press review session
- */
-export async function generatePressReviewSession(): Promise<PressReviewSession | null> {
-  const sessionId = `session-${Date.now()}`;
-  const dateTimeGmt = new Date().toISOString();
-
-  console.log(`[AdminAgent] Starting press review session: ${sessionId}`);
-
-  try {
-    // Step 1: Veille et Sélection - Search for news topics
-    const searchPrompt = `
-Tu es l'Agent Administrateur de Weurseuk. Identifie les 3 sujets clés du jour pour chaque thématique:
-- Politique (Awa Diop)
-- Économie (Moussa Fall)
-- International (Aïcha Benali)
-- Sports (Ousmane Ndiaye)
-- Actualités Générales (Fatou Sow)
-
-Produis un JSON avec cette structure:
-{
-  "politique": [
-    { "topic": "...", "sources": ["source1", "source2"], "angle": "..." },
-    ...
-  ],
-  "economie": [...],
-  "international": [...],
-  "sports": [...],
-  "actualites": [
-    { "topic": "...", "sources": ["source1", "source2"], "angle": "...", "isALaUne": true }
-  ]
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .substring(0, 200);
 }
 
-Réponds UNIQUEMENT avec un JSON valide.
-`;
+/**
+ * Génère et PUBLIE une session de revue de presse
+ */
+export async function generateAndPublishPressReview(): Promise<PressReviewSession> {
+  const sessionId = `session-${Date.now()}`;
+  const dateTimeGmt = new Date().toISOString();
+  const articlesPublished: PublishedArticle[] = [];
+  const incidents: string[] = [];
 
-    const searchResponse = await invokeLLM({
+  console.log(`[AdminAgent] === DÉMARRAGE SESSION ${sessionId} ===`);
+
+  try {
+    // Step 1: Demander au LLM les sujets du jour
+    const topicsResponse = await invokeLLM({
       messages: [
-        { role: "system", content: "Tu es un journaliste sénior qui identifie les sujets clés du jour." },
-        { role: "user", content: searchPrompt },
+        { role: "system", content: "Tu es un rédacteur en chef sénégalais. Identifie les sujets d'actualité les plus importants du jour. Réponds UNIQUEMENT en JSON valide." },
+        { role: "user", content: `Identifie 1 sujet clé pour chaque thématique. Réponds en JSON:
+{
+  "politique": { "topic": "...", "sources": ["source1"], "angle": "..." },
+  "economie": { "topic": "...", "sources": ["source1"], "angle": "..." },
+  "international": { "topic": "...", "sources": ["source1"], "angle": "..." },
+  "sports": { "topic": "...", "sources": ["source1"], "angle": "..." },
+  "actualites": { "topic": "...", "sources": ["source1"], "angle": "..." }
+}` },
       ],
     });
 
-    if (!searchResponse.choices?.[0]?.message?.content) {
-      console.error("[AdminAgent] Failed to generate topics");
-      return null;
-    }
-
-    const contentRaw = searchResponse.choices[0].message.content;
-    if (typeof contentRaw !== 'string') {
-      console.error("[AdminAgent] Invalid content type");
-      return null;
+    const contentRaw = topicsResponse.choices?.[0]?.message?.content;
+    if (!contentRaw || typeof contentRaw !== 'string') {
+      incidents.push("Impossible de générer les sujets");
+      return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
     }
 
     let jsonStr = contentRaw;
     const jsonMatch = contentRaw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-    if (jsonMatch) {
-      jsonStr = jsonMatch[1];
+    if (jsonMatch) jsonStr = jsonMatch[1];
+
+    let topics: any;
+    try {
+      topics = JSON.parse(jsonStr);
+    } catch {
+      incidents.push("JSON invalide retourné par le LLM pour les sujets");
+      return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
     }
 
-    const topics = JSON.parse(jsonStr);
+    // Step 2: Invoquer chaque journaliste et publier en DB
+    const assignments = [
+      { key: "actualites", journalistId: "fatou_sow", rubrique: "Actualité" },
+      { key: "politique", journalistId: "awa_diop", rubrique: "Politique & Économie" },
+      { key: "economie", journalistId: "moussa_fall", rubrique: "Politique & Économie" },
+      { key: "international", journalistId: "aicha_benali", rubrique: "International" },
+      { key: "sports", journalistId: "ousmane_ndiaye", rubrique: "Société" },
+    ];
 
-    // Step 2: Invocation des Journalistes
-    const articles: any[] = [];
-    const incidents: string[] = [];
+    for (const assignment of assignments) {
+      const topicData = topics[assignment.key];
+      if (!topicData || !topicData.topic) {
+        incidents.push(`Pas de sujet pour ${assignment.key}`);
+        continue;
+      }
 
-    // Process "À la Une"
-    if (topics.actualites && topics.actualites.length > 0) {
-      const aLaUneTopic = topics.actualites.find((t: any) => t.isALaUne);
-      if (aLaUneTopic) {
-        console.log(`[AdminAgent] Processing "À la Une": ${aLaUneTopic.topic}`);
-        const { article, usedFallback } = await invokeJournalistWithFallback("fatou_sow", {
-          topic: aLaUneTopic.topic,
-          sources: aLaUneTopic.sources,
-          angle: aLaUneTopic.angle,
-          context: "Ceci est l'article principal 'À la Une' de la revue de presse",
+      console.log(`[AdminAgent] ${JOURNALISTS[assignment.journalistId].name} rédige: ${topicData.topic}`);
+
+      try {
+        const { article, usedFallback } = await invokeJournalistWithFallback(assignment.journalistId, {
+          topic: topicData.topic,
+          sources: topicData.sources || [],
+          angle: topicData.angle,
         });
 
-        if (article) {
-          articles.push({
-            id: 0,
-            thematique: "Actualités Générales",
-            journaliste_redacteur: "Fatou Sow",
-            ...article,
-            rubrique: "Actualité",
-            redaction_secours: usedFallback,
-            isALaUne: true,
-          });
-        } else {
-          incidents.push("Impossible de générer l'article À la Une");
+        if (!article) {
+          incidents.push(`${JOURNALISTS[assignment.journalistId].name}: échec de rédaction pour "${topicData.topic}"`);
+          continue;
         }
+
+        if (usedFallback) {
+          incidents.push(`${JOURNALISTS[assignment.journalistId].name}: article généré en mode fallback`);
+        }
+
+        // Construire le contenu de l'article
+        const title = article.N1_breve?.split('.')[0]?.trim() || topicData.topic;
+        const slug = slugify(title) + "-" + Date.now().toString(36);
+        const categoryId = CATEGORY_MAP[assignment.rubrique] || 30004;
+        const journalistName = JOURNALISTS[assignment.journalistId].name;
+
+        const content = `${article.N2_article || article.N1_breve || ""}
+
+---
+**Par ${journalistName}** | ${assignment.rubrique}
+Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
+
+        const excerpt = article.N1_breve || (content.substring(0, 200) + "...");
+
+        // PUBLIER EN BASE DE DONNÉES
+        await db.createEditorial({
+          title,
+          slug,
+          excerpt,
+          content,
+          categoryId,
+          isPublished: true,
+          isFeatured: false,
+          publishedAt: new Date(),
+        });
+
+        articlesPublished.push({
+          id: articlesPublished.length + 1,
+          title,
+          slug,
+          journalist: journalistName,
+          rubrique: assignment.rubrique,
+          categoryId,
+        });
+
+        console.log(`[AdminAgent] ✅ Article publié: "${title}" par ${journalistName} dans ${assignment.rubrique}`);
+
+      } catch (err) {
+        const errMsg = err instanceof Error ? err.message : String(err);
+        incidents.push(`${JOURNALISTS[assignment.journalistId].name}: erreur - ${errMsg}`);
+        console.error(`[AdminAgent] ❌ Erreur pour ${assignment.key}:`, errMsg);
       }
     }
 
-    // Process other journalists
-    const journalistMap: Record<string, { journalistId: string; thematique: string; rubrique: string }> = {
-      politique: { journalistId: "awa_diop", thematique: "Politique", rubrique: "Politique & Économie" },
-      economie: { journalistId: "moussa_fall", thematique: "Économie", rubrique: "Politique & Économie" },
-      international: { journalistId: "aicha_benali", thematique: "International", rubrique: "International" },
-      sports: { journalistId: "ousmane_ndiaye", thematique: "Sports", rubrique: "Société" },
-    };
+    const status = articlesPublished.length > 0 ? "published" : "failed";
+    console.log(`[AdminAgent] === FIN SESSION ${sessionId}: ${articlesPublished.length} articles publiés, ${incidents.length} incidents ===`);
 
-    let articleId = 1;
-    for (const [key, config] of Object.entries(journalistMap)) {
-      const topicsList = topics[key] || [];
-      
-      for (const topic of topicsList.slice(0, 3)) {
-        console.log(`[AdminAgent] Processing ${config.thematique}: ${topic.topic}`);
-        
-        const { article, usedFallback } = await invokeJournalistWithFallback(config.journalistId, {
-          topic: topic.topic,
-          sources: topic.sources,
-          angle: topic.angle,
-        });
-
-        if (article) {
-          articles.push({
-            id: articleId++,
-            thematique: config.thematique,
-            journaliste_redacteur: JOURNALISTS[config.journalistId].name,
-            ...article,
-            rubrique: config.rubrique,
-            redaction_secours: usedFallback,
-          });
-        } else {
-          incidents.push(`Impossible de générer article pour ${config.thematique}: ${topic.topic}`);
-        }
-      }
-    }
-
-    const session: PressReviewSession = {
+    return {
       sessionId,
       dateTimeGmt,
-      status: "pending_validation",
-      nbSubjectsTotal: articles.length,
+      status,
+      articlesPublished,
       incidents,
-      aLaUne: articles.find(a => a.isALaUne) || null,
-      articles: articles.filter(a => !a.isALaUne),
+      publishedAt: status === "published" ? new Date().toISOString() : undefined,
     };
 
-    console.log(`[AdminAgent] ✅ Session generated: ${sessionId} with ${articles.length} articles`);
-    return session;
   } catch (error) {
-    console.error("[AdminAgent] Error generating session:", error);
-    return null;
-  }
-}
-
-/**
- * Validate and publish session
- */
-export async function validateAndPublishSession(session: PressReviewSession): Promise<boolean> {
-  try {
-    // Auto-control checklist
-    const allArticles = [session.aLaUne, ...session.articles].filter(Boolean);
-    
-    for (const article of allArticles) {
-      const n1Length = article.N1_breve?.split(" ").length || 0;
-      const n2Length = article.N2_article?.split(" ").length || 0;
-
-      if (n1Length < 50 || n1Length > 150) {
-        console.warn(`[AdminAgent] N1 length out of range: ${n1Length} words`);
-      }
-
-      if (n2Length < 200 || n2Length > 500) {
-        console.warn(`[AdminAgent] N2 length out of range: ${n2Length} words`);
-      }
-
-      if (!article.sources || article.sources.length === 0) {
-        console.warn(`[AdminAgent] No sources for article: ${article.N1_breve?.substring(0, 50)}`);
-      }
-    }
-
-    session.status = "validated";
-    session.publishedAt = new Date().toISOString();
-
-    console.log(`[AdminAgent] ✅ Session validated and published: ${session.sessionId}`);
-    return true;
-  } catch (error) {
-    console.error("[AdminAgent] Error validating session:", error);
-    return false;
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error(`[AdminAgent] ❌ Erreur fatale session ${sessionId}:`, errMsg);
+    incidents.push(`Erreur fatale: ${errMsg}`);
+    return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
   }
 }

@@ -160,3 +160,22 @@
 
 **DÉCISION** : Demander à Manus de développer une interface d'administration générique pour tous les utilisateurs Webdev
 - [ ] Soumettre demande de fonctionnalité à Manus (help.manus.im)
+
+
+## CORRECTIONS CRITIQUES (17/04/2026)
+
+- [x] Auditer l'Agent Administrateur v2.2 : articles n'étaient PAS persistés en DB → CORRIGÉ (admin-agent.ts réécrit avec db.createEditorial)
+- [x] Unifier les deux schedulers en conflit → CORRIGÉ (press-review-scheduler.ts réécrit)
+- [x] Scheduler v2.2 actif et fonctionnel (07h30 et 14h30 GMT)
+- [x] Déplacer les analyses de Dr Pam vers la rubrique "Analyses" (ID 90001 et 90002 → catégorie 30008)
+- [x] Réserver la rubrique "Éditorial" exclusivement à Bensirac (ID 60003 → catégorie 30009)
+- [x] Publier article PAm (ID 90001) qui était en DRAFT
+- [x] Supprimer test editorial (ID 60006) avec categoryId null
+
+## VÉRIFICATIONS POST-CORRECTION (17/04/2026)
+
+- [x] Exécuter manuellement le scheduler v2.2 : 5 articles créés en DB (Fatou Sow, Awa Diop, Moussa Fall, Aïcha Benali, Ousmane Ndiaye)
+- [x] Unifier les imports tRPC/routers avec le scheduler actif (tous pointent vers server/journalists)
+- [x] Vérifier en production que les articles de Dr Pam apparaissent dans Analyses
+- [x] Vérifier en production que Éditorial ne contient que Bensirac
+- [x] Confirmer suppression du test editorial ID 60006

@@ -1,105 +1,67 @@
 /**
- * Press Review Scheduler
- * Runs biquotidian sessions at 07:30 and 14:30 GMT
+ * Press Review Scheduler v2.2
+ * Exécute les sessions de revue de presse à 07h30 et 14h30 GMT
+ * Les articles sont directement publiés en base de données
  */
 
-import { generatePressReviewSession, validateAndPublishSession, PressReviewSession } from "./admin-agent";
+import { generateAndPublishPressReview, PressReviewSession } from "./admin-agent";
 import { schedule } from "node-cron";
 
-// Store sessions in memory (in production, use database)
+// Historique des sessions en mémoire
 const sessions: Map<string, PressReviewSession> = new Map();
 
 /**
- * Initialize the scheduler
+ * Initialise le scheduler biquotidien
  */
 export function initializePressReviewScheduler() {
-  console.log("[PressReviewScheduler] Initializing scheduler");
+  console.log("[PressReviewScheduler] Initialisation du scheduler v2.2");
 
-  // Run at 07:30 GMT
+  // 07h30 GMT
   schedule("30 7 * * *", async () => {
-    console.log("[PressReviewScheduler] Running morning session (07:30 GMT)");
+    console.log("[PressReviewScheduler] Session matinale (07:30 GMT)");
     await runPressReviewSession();
   }, { timezone: "UTC" });
 
-  // Run at 14:30 GMT
+  // 14h30 GMT
   schedule("30 14 * * *", async () => {
-    console.log("[PressReviewScheduler] Running afternoon session (14:30 GMT)");
+    console.log("[PressReviewScheduler] Session après-midi (14:30 GMT)");
     await runPressReviewSession();
   }, { timezone: "UTC" });
 
-  console.log("[PressReviewScheduler] ✅ Scheduler initialized");
+  console.log("[PressReviewScheduler] ✅ Scheduler v2.2 actif (07h30 et 14h30 GMT)");
 }
 
 /**
- * Run a press review session
+ * Exécute une session de revue de presse
  */
-export async function runPressReviewSession() {
+async function runPressReviewSession() {
   try {
-    const session = await generatePressReviewSession();
-    if (!session) {
-      console.error("[PressReviewScheduler] Failed to generate session");
-      return;
-    }
-
-    // Store session
+    const session = await generateAndPublishPressReview();
     sessions.set(session.sessionId, session);
 
-    // Auto-validate and publish (can be changed to require manual validation)
-    const published = await validateAndPublishSession(session);
-    if (published) {
-      console.log(`[PressReviewScheduler] ✅ Session published: ${session.sessionId}`);
+    if (session.status === "published") {
+      console.log(`[PressReviewScheduler] ✅ ${session.articlesPublished.length} articles publiés`);
+    } else {
+      console.log(`[PressReviewScheduler] ⚠️ Session échouée: ${session.incidents.join(", ")}`);
     }
   } catch (error) {
-    console.error("[PressReviewScheduler] Error running session:", error);
+    console.error("[PressReviewScheduler] ❌ Erreur:", error);
   }
 }
 
-/**
- * Get session by ID
- */
-export function getSession(sessionId: string): PressReviewSession | undefined {
-  return sessions.get(sessionId);
+// Exports pour les tRPC procedures
+export function getSession(sessionId: string) { return sessions.get(sessionId); }
+export function getAllSessions() { return Array.from(sessions.values()); }
+export function listReports() { return getAllSessions().map(s => ({ id: s.sessionId, report: s })); }
+export function getReport(id: string) { return sessions.get(id); }
+export function rejectReport(id: string, reason: string) {
+  const s = sessions.get(id);
+  if (s) { s.status = "failed"; console.log(`[Scheduler] Session rejetée: ${id} - ${reason}`); }
 }
-
-/**
- * Get all sessions
- */
-export function getAllSessions(): PressReviewSession[] {
-  return Array.from(sessions.values());
+export async function validateAndPublish(id: string, _ids: number[]) {
+  console.log(`[Scheduler] Session ${id} déjà publiée automatiquement`);
 }
-
-/**
- * Validate session (for manual validation)
- */
-export async function validateSession(sessionId: string): Promise<boolean> {
-  const session = sessions.get(sessionId);
-  if (!session) {
-    console.error(`[PressReviewScheduler] Session not found: ${sessionId}`);
-    return false;
-  }
-
-  return await validateAndPublishSession(session);
-}
-
-/**
- * Reject session
- */
-export function rejectReport(sessionId: string, reason: string): void {
-  const session = sessions.get(sessionId);
-  if (!session) {
-    console.error(`[PressReviewScheduler] Session not found: ${sessionId}`);
-    return;
-  }
-
-  session.status = "rejected";
-  session.validationFeedback = reason;
-  console.log(`[PressReviewScheduler] Session rejected: ${sessionId} - Reason: ${reason}`);
-}
-
-/**
- * Run now (for manual trigger)
- */
-export async function runNow(): Promise<void> {
-  console.log("[PressReviewScheduler] Manual trigger - Running session now");
+export async function runNow() {
+  console.log("[PressReviewScheduler] Exécution manuelle");
   await runPressReviewSession();
 }
