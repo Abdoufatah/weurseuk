@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans-editorial">
-      {/* Hero Banner */}
+      {/* Hero Banner — MODIFIÉ: logo+phrase abaissés, boutons Éditoriaux/Actualités supprimés */}
       <section className="relative h-[420px] md:h-[500px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
@@ -42,18 +42,36 @@ export default function Home() {
               <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
               </p>
-              <div className="flex items-center gap-4 mt-4">
-                <Link href="/editoriaux" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-medium hover:opacity-90 transition-opacity">
-                  <PenLine className="w-4 h-4" />
-                  Éditoriaux
-                </Link>
-                <Link href="/section/actualite" className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-5 py-2.5 rounded-md text-sm font-medium hover:bg-white/30 transition-colors">
-                  <Newspaper className="w-4 h-4" />
-                  Actualités
-                </Link>
-              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Rubriques principales — REMONTÉES juste après le hero */}
+      <section className="container mt-6">
+        <h2 className="font-editorial text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
+          <span className="w-1 h-6 bg-primary rounded-full" />
+          Nos Rubriques
+        </h2>
+        <div className="flex flex-wrap gap-3 mb-10">
+          {filteredCategories.map((category) => {
+            const isEditorial = category.slug === 'editorial';
+            const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
+            const icon = isEditorial ? <PenLine className="w-4 h-4" /> : <Newspaper className="w-4 h-4" />;
+            const styleClass = isEditorial
+              ? "bg-primary text-primary-foreground hover:opacity-90"
+              : "bg-anthracite text-white hover:bg-anthracite/90";
+            return (
+              <Link
+                key={category.slug}
+                href={href}
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
+              >
+                {icon}
+                {category.name}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -107,35 +125,6 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}
           <div className="lg:col-span-2 space-y-10">
-            {/* Rubriques principales - Grille centralisée */}
-            <section>
-              <h2 className="font-editorial text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
-                <span className="w-1 h-6 bg-primary rounded-full" />
-                Nos Rubriques
-              </h2>
-              <div className="flex flex-wrap gap-3 mb-10">
-                {filteredCategories.map((category) => {
-                  const isEditorial = category.slug === 'editorial';
-                  const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
-                  const icon = isEditorial ? <PenLine className="w-4 h-4" /> : <Newspaper className="w-4 h-4" />;
-                  // Alterner les styles comme dans le hero: rouge (primary) et anthracite
-                  const styleClass = isEditorial
-                    ? "bg-primary text-primary-foreground hover:opacity-90"
-                    : "bg-anthracite text-white hover:bg-anthracite/90";
-                  return (
-                    <Link
-                      key={category.slug}
-                      href={href}
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
-                    >
-                      {icon}
-                      {category.name}
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-
             {/* Banner Ad */}
             <AdPlacement type="banner" />
 
