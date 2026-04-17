@@ -27,19 +27,23 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans-editorial">
-      {/* Hero Banner — Logo très grand et dominant, centré */}
-      <section className="relative h-[480px] md:h-[600px] overflow-hidden">
+      {/* Hero Banner — Logo à gauche, plus grand */}
+      <section className="relative h-[420px] md:h-[500px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
           alt="Weurseuk - Portail d'Information"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <img src={ASSETS.logo} alt="Weurseuk" className="h-56 md:h-80 w-auto mb-8 drop-shadow-2xl" style={{ filter: 'brightness(2) drop-shadow(0 4px 16px rgba(0,0,0,0.9))' }} />
-          <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed text-center max-w-2xl px-4">
-            L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
-          </p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="container pb-10 md:pb-14">
+            <div className="max-w-2xl">
+              <img src={ASSETS.logo} alt="Weurseuk" className="h-40 md:h-56 w-auto mb-4 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
+              <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed">
+                L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
