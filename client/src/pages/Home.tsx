@@ -36,7 +36,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-between">
-          <div className="flex-[2]" />
+          <div className="flex-[4]" />
           <div className="container pb-0">
             <div className="flex flex-col gap-3 items-start">
               <img src={ASSETS.logo} alt="Weurseuk" className="h-40 md:h-48 w-auto flex-shrink-0 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
