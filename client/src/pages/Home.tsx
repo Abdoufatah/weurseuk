@@ -35,11 +35,17 @@ export default function Home() {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0">
+        {/* Logo + phrase : coin inférieur gauche */}
+        <div className="absolute bottom-4 left-0 right-0">
           <div className="container">
-            <div className="flex flex-col gap-2 items-start">
-              <img src={ASSETS.logo} alt="Weurseuk" className="h-52 md:h-64 w-auto flex-shrink-0 drop-shadow-2xl" style={{ filter: 'brightness(1.8) drop-shadow(0 2px 8px rgba(0,0,0,0.5))' }} />
-              <p className="text-white/90 text-sm md:text-base font-light leading-snug max-w-sm text-left pb-6 md:pb-8">
+            <div className="flex flex-col gap-1 items-start">
+              <img
+                src={ASSETS.logo}
+                alt="Weurseuk"
+                className="h-44 md:h-56 w-auto drop-shadow-2xl"
+                style={{ filter: 'brightness(1.8) drop-shadow(0 2px 12px rgba(0,0,0,0.6))' }}
+              />
+              <p className="text-white/90 text-sm md:text-base font-light leading-snug max-w-xs text-left">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
               </p>
             </div>
