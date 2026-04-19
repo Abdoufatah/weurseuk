@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans-editorial">
       {/* Hero Banner */}
-      <section className="relative h-[420px] md:h-[500px] overflow-hidden">
+      <section className="relative h-[480px] md:h-[560px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
           alt="Weurseuk - Portail d'Information"
@@ -42,8 +42,8 @@ export default function Home() {
               <img
                 src={ASSETS.logo}
                 alt="Weurseuk"
-                className="h-44 md:h-56 w-auto drop-shadow-2xl"
-                style={{ filter: 'brightness(1.8) drop-shadow(0 2px 12px rgba(0,0,0,0.6))' }}
+                className="h-40 md:h-52 w-auto drop-shadow-2xl"
+                style={{ filter: 'brightness(1.8) drop-shadow(0 2px 16px rgba(0,0,0,0.7))' }}
               />
               <p className="text-white/90 text-sm md:text-base font-light leading-snug max-w-xs text-left">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
