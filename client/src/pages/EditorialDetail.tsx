@@ -234,6 +234,7 @@ export default function EditorialDetail() {
                 <ShareButtons
                   title={editorial.title}
                   excerpt={editorial.excerpt || undefined}
+                  url={`${window.location.origin}/editorial/${params.slug}`}
                 />
                 <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
                   À propos de {BENSIRAC.alias} →

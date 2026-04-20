@@ -209,3 +209,9 @@
 - [x] Remonter les 6 boutons de rubriques juste après le hero (Actualité, Politique & Économie, International, Société, Analyses, Éditorial)
 - [x] Garder le layout de couverture intact (À la Une, articles, sidebar Éditoriaux + Bensirac)
 - [x] Favicon visible dans l'onglet du navigateur
+
+
+## PARTAGE SOCIAL (19/04/2026)
+
+- [ ] Corriger les boutons de partage : l'URL complète de l'article doit être transmise (Facebook, Twitter, WhatsApp, LinkedIn, Telegram)
+- [ ] Vérifier les méta-données Open Graph (og:url, og:title, og:image) pour chaque article
