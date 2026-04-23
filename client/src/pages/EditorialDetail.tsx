@@ -224,9 +224,16 @@ export default function EditorialDetail() {
             )}
 
             {/* Content */}
-            <div className="prose prose-lg max-w-none prose-headings:font-editorial prose-p:leading-relaxed prose-p:text-foreground/90">
-              <Streamdown>{editorial.content}</Streamdown>
-            </div>
+            {editorial.content && editorial.content.trim().startsWith('<') ? (
+              <div
+                className="editorial-html-content"
+                dangerouslySetInnerHTML={{ __html: editorial.content }}
+              />
+            ) : (
+              <div className="prose prose-lg max-w-none prose-headings:font-editorial prose-p:leading-relaxed prose-p:text-foreground/90">
+                <Streamdown>{editorial.content}</Streamdown>
+              </div>
+            )}
 
             {/* Share */}
             <div className="mt-10 pt-6 border-t border-border">
