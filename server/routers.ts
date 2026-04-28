@@ -75,6 +75,10 @@ export const appRouter = router({
     byCategory: publicProcedure.input(z.object({ categoryId: z.number() })).query(async ({ input }) => {
       return db.getEditorialsByCategory(input.categoryId);
     }),
+    latest: publicProcedure.query(async () => {
+      const results = await db.getPublishedEditorials(1, 0);
+      return results[0] ?? null;
+    }),
     // Admin CRUD
     listAll: adminProcedure.input(z.object({
       limit: z.number().min(1).max(100).default(50),

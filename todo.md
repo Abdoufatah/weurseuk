@@ -215,3 +215,24 @@
 
 - [ ] Corriger les boutons de partage : l'URL complète de l'article doit être transmise (Facebook, Twitter, WhatsApp, LinkedIn, Telegram)
 - [ ] Vérifier les méta-données Open Graph (og:url, og:title, og:image) pour chaque article
+
+
+## RÈGLE ÉDITORIALE À LA UNE (23/04/2026)
+
+- [ ] Dernier éditorial publié affiché à la Une du site (position featured/hero) jusqu'au prochain éditorial
+- [ ] Éditorial publié dans sa rubrique ET à la Une simultanément
+- [ ] Intégration Facebook automatique : poster l'éditorial sur la page "Abduul Fatah" avec titre + chapeau
+
+
+## CORRECTIONS SESSION 28/04/2026
+
+- [x] Admin-agent corrigé : utilise les vraies dépêches RSS (pas d'invention de sujets)
+- [x] Section "À la Une" ajoutée en page d'accueil : affiche le dernier éditorial publié
+- [x] Breaking news "test" désactivées en base de données
+- [x] Rendu HTML dans EditorialDetail.tsx (dangerouslySetInnerHTML pour contenu HTML)
+- [x] Middleware Open Graph (ogMiddleware.ts) intégré pour partage social
+- [x] Partage Facebook corrigé : URL complète de l'article transmise
+- [ ] Republier article Montréal (ID 120001) dans rubrique Culture
+- [ ] Désactiver définitivement le générateur de seeds fictifs
+- [ ] Intégration Facebook automatique (en attente du Page Access Token)
+- [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)

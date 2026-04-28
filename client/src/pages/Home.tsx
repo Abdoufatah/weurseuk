@@ -20,6 +20,7 @@ export default function Home() {
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
+  const { data: latestEditorial } = trpc.editorials.latest.useQuery();
 
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
@@ -52,6 +53,65 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ===== À LA UNE : DERNIER ÉDITORIAL ===== */}
+      {latestEditorial && (
+        <section className="container mt-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full" />
+              À la Une
+            </h2>
+            <Link href="/editoriaux" className="text-sm text-primary font-medium hover:underline flex items-center gap-1">
+              Tous les éditoriaux <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-0 rounded-xl overflow-hidden border border-border bg-card shadow-sm hover:shadow-md transition-shadow">
+              {/* Image de couverture */}
+              {latestEditorial.coverImageUrl ? (
+                <div className="md:col-span-2 h-48 md:h-auto overflow-hidden">
+                  <img
+                    src={latestEditorial.coverImageUrl}
+                    alt={latestEditorial.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ) : (
+                <div className="md:col-span-2 h-48 md:h-auto bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                  <PenLine className="w-16 h-16 text-primary/30" />
+                </div>
+              )}
+              {/* Contenu */}
+              <div className="md:col-span-3 p-6 flex flex-col justify-between">
+                <div>
+                  <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+                    Éditorial
+                  </span>
+                  <h3 className="font-editorial text-xl md:text-2xl font-bold text-foreground leading-tight mb-3 group-hover:text-primary transition-colors">
+                    {latestEditorial.title}
+                  </h3>
+                  {latestEditorial.excerpt && (
+                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                      {latestEditorial.excerpt}
+                    </p>
+                  )}
+                </div>
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                  <span className="text-xs text-muted-foreground">
+                    {latestEditorial.publishedAt
+                      ? new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+                      : 'Récent'}
+                  </span>
+                  <span className="text-sm text-primary font-medium group-hover:underline">
+                    Lire l'éditorial →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </section>
+      )}
 
       {/* Rubriques principales — REMONTÉES juste après le hero */}
       <section className="container mt-6">

@@ -57,24 +57,34 @@ export async function generateAndPublishPressReview(): Promise<PressReviewSessio
   console.log(`[AdminAgent] === DÉMARRAGE SESSION ${sessionId} ===`);
 
   try {
-    // Step 1: Demander au LLM les sujets du jour
+    // Step 1: Récupérer les vraies dépêches RSS des dernières 6 heures
+    const recentArticles = await db.getAggregatedArticles(50, 0);
+    const now = new Date();
+    const sixHoursAgo = new Date(now.getTime() - 6 * 60 * 60 * 1000);
+    const freshArticles = recentArticles.filter(a => a.publishedAt && new Date(a.publishedAt) > sixHoursAgo);
+    const articlesToUse = freshArticles.length >= 5 ? freshArticles : recentArticles.slice(0, 20);
+
+    if (articlesToUse.length === 0) {
+      incidents.push("Aucune dépêche RSS disponible — session annulée");
+      return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
+    }
+
+    // Construire le résumé des dépêches pour le LLM
+    const depechesResume = articlesToUse.map((a, i) =>
+      `[${i+1}] ${a.title} | Source: ${a.sourceName || 'RSS'} | ${a.publishedAt ? new Date(a.publishedAt).toISOString() : 'date inconnue'}\n${a.excerpt || ''}`
+    ).join('\n\n');
+
+    // Step 2: Demander au LLM de sélectionner les sujets BASÉS SUR LES VRAIES DÉPÊCHES
     const topicsResponse = await invokeLLM({
       messages: [
-        { role: "system", content: "Tu es un rédacteur en chef sénégalais. Identifie les sujets d'actualité les plus importants du jour. Réponds UNIQUEMENT en JSON valide." },
-        { role: "user", content: `Identifie 1 sujet clé pour chaque thématique. Réponds en JSON:
-{
-  "politique": { "topic": "...", "sources": ["source1"], "angle": "..." },
-  "economie": { "topic": "...", "sources": ["source1"], "angle": "..." },
-  "international": { "topic": "...", "sources": ["source1"], "angle": "..." },
-  "sports": { "topic": "...", "sources": ["source1"], "angle": "..." },
-  "actualites": { "topic": "...", "sources": ["source1"], "angle": "..." }
-}` },
+        { role: "system", content: `Tu es un rédacteur en chef sénégalais. Tu dois sélectionner les sujets les plus importants UNIQUEMENT parmi les dépêches RSS fournies. Date actuelle: ${now.toISOString()}. INTERDIT d'inventer des sujets. Réponds UNIQUEMENT en JSON valide.` },
+        { role: "user", content: `Voici les dépêches RSS disponibles:\n\n${depechesResume}\n\nSélectionne 1 sujet par thématique PARMI CES DÉPÊCHES UNIQUEMENT. Réponds en JSON:\n{\n  "politique": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact de la dépêche" },\n  "economie": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "international": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "sports": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "actualites": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" }\n}\nSi aucune dépêche ne correspond à une thématique, mets null pour ce champ.` },
       ],
     });
 
     const contentRaw = topicsResponse.choices?.[0]?.message?.content;
     if (!contentRaw || typeof contentRaw !== 'string') {
-      incidents.push("Impossible de générer les sujets");
+      incidents.push("Impossible de sélectionner les sujets depuis les dépêches RSS");
       return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
     }
 
