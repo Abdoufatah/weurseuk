@@ -236,3 +236,9 @@
 - [ ] Désactiver définitivement le générateur de seeds fictifs
 - [ ] Intégration Facebook automatique (en attente du Page Access Token)
 - [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
+
+## PHOTO DR ADAMA ALY PAM (30/04/2026)
+
+- [x] Uploader la photo du Dr Pam sur le CDN (AdamaAliPAm.png)
+- [x] Mettre à jour le profil journaliste Dr Pam en base avec photoUrl (ID 60001)
+- [x] Afficher la photo de l'auteur à côté du chapeau dans EditorialDetail.tsx (dynamique selon authorId)

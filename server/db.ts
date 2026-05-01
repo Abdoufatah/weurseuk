@@ -130,7 +130,31 @@ export async function getFeaturedEditorials(limit = 5) {
 export async function getEditorialBySlug(slug: string) {
   const db = await getDb();
   if (!db) return undefined;
-  const result = await db.select().from(editorials).where(eq(editorials.slug, slug)).limit(1);
+  // Jointure avec journalist_profiles pour récupérer la photo et le nom de l'auteur
+  const result = await db
+    .select({
+      id: editorials.id,
+      title: editorials.title,
+      slug: editorials.slug,
+      excerpt: editorials.excerpt,
+      content: editorials.content,
+      coverImageUrl: editorials.coverImageUrl,
+      categoryId: editorials.categoryId,
+      authorId: editorials.authorId,
+      isPublished: editorials.isPublished,
+      isFeatured: editorials.isFeatured,
+      publishedAt: editorials.publishedAt,
+      createdAt: editorials.createdAt,
+      updatedAt: editorials.updatedAt,
+      authorName: journalistProfiles.name,
+      authorAlias: journalistProfiles.alias,
+      authorPhotoUrl: journalistProfiles.photoUrl,
+      authorBio: journalistProfiles.bio,
+    })
+    .from(editorials)
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
+    .where(eq(editorials.slug, slug))
+    .limit(1);
   return result[0];
 }
 

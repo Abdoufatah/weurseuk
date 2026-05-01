@@ -171,6 +171,12 @@ export default function EditorialDetail() {
     );
   }
 
+  // Déterminer les infos auteur : profil lié en priorité, sinon Bensirac par défaut
+  const isBensirac = !editorial.authorPhotoUrl || editorial.authorName === 'Bensirac';
+  const authorPhoto = editorial.authorPhotoUrl || BENSIRAC.photo;
+  const authorDisplayName = editorial.authorAlias || editorial.authorName || BENSIRAC.alias;
+  const authorBioText = editorial.authorBio || BENSIRAC.bio;
+
   return (
     <div className="min-h-screen font-sans-editorial">
       <div className="container py-8">
@@ -189,17 +195,32 @@ export default function EditorialDetail() {
               <h1 className="font-editorial text-3xl md:text-4xl font-bold mt-4 leading-tight text-foreground">
                 {editorial.title}
               </h1>
+
+              {/* Chapeau + photo auteur côte à côte */}
               {editorial.excerpt && (
-                <p className="text-lg text-muted-foreground mt-4 leading-relaxed font-light italic">
-                  {editorial.excerpt}
-                </p>
+                <div className="flex items-start gap-5 mt-5 p-5 bg-muted/20 rounded-lg border-l-4 border-primary">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={authorPhoto}
+                      alt={authorDisplayName}
+                      className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-top shadow-md"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-light italic">
+                      {editorial.excerpt}
+                    </p>
+                    <p className="mt-2 text-sm font-semibold text-primary">{authorDisplayName}</p>
+                  </div>
+                </div>
               )}
+
               <div className="flex items-center gap-4 mt-6 pt-4 border-t border-border">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
-                  <img src={BENSIRAC.photo} alt={BENSIRAC.alias} className="w-full h-full object-cover object-top" />
+                  <img src={authorPhoto} alt={authorDisplayName} className="w-full h-full object-cover object-top" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">{BENSIRAC.alias}</p>
+                  <p className="text-sm font-semibold text-foreground">{authorDisplayName}</p>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
@@ -243,9 +264,13 @@ export default function EditorialDetail() {
                   excerpt={editorial.excerpt || undefined}
                   url={`${window.location.origin}/editorial/${params.slug}`}
                 />
-                <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
-                  À propos de {BENSIRAC.alias} →
-                </Link>
+                {isBensirac ? (
+                  <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
+                    À propos de {BENSIRAC.alias} →
+                  </Link>
+                ) : (
+                  <span className="text-sm text-primary font-medium">{authorDisplayName}</span>
+                )}
               </div>
             </div>
 
@@ -260,14 +285,14 @@ export default function EditorialDetail() {
               <h3 className="font-editorial text-base font-bold mb-3">À propos de l'auteur</h3>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full overflow-hidden">
-                  <img src={BENSIRAC.photo} alt={BENSIRAC.alias} className="w-full h-full object-cover object-top" />
+                  <img src={authorPhoto} alt={authorDisplayName} className="w-full h-full object-cover object-top" />
                 </div>
                 <div>
-                  <p className="font-semibold text-sm">{BENSIRAC.alias}</p>
-                  <p className="text-xs text-primary">{BENSIRAC.title}</p>
+                  <p className="font-semibold text-sm">{authorDisplayName}</p>
+                  {isBensirac && <p className="text-xs text-primary">{BENSIRAC.title}</p>}
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">{BENSIRAC.bio}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{authorBioText}</p>
             </div>
             <AdPlacement type="mpu" />
           </aside>
