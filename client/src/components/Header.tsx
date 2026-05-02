@@ -13,42 +13,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
-      {/* Top bar */}
-      <div className="bg-foreground text-background">
-        <div className="container flex items-center justify-between py-1.5 text-xs">
-          <span className="font-sans-editorial tracking-wide opacity-80">
-            Portail d'Information — Sénégal &middot; Afrique de l'Ouest &middot; Monde
-          </span>
-          <div className="hidden sm:flex items-center gap-4">
-            <span className="opacity-70">
-              {new Date().toLocaleDateString("fr-FR", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-            {isAuthenticated ? (
-              <div className="flex items-center gap-2">
-                {user?.role === "admin" && (
-                  <Link href="/admin" className="hover:text-primary transition-colors">
-                    <Settings className="w-3.5 h-3.5" />
-                  </Link>
-                )}
-                <button onClick={() => logout()} className="hover:text-primary transition-colors">
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ) : (
-              <a href={getLoginUrl()} className="hover:text-primary transition-colors flex items-center gap-1">
-                <User className="w-3.5 h-3.5" />
-                <span>Connexion</span>
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-
+     
       {/* Main nav */}
       <div className="container">
         <div className="flex items-center justify-between py-3">
