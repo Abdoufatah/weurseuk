@@ -242,3 +242,11 @@
 - [x] Uploader la photo du Dr Pam sur le CDN (AdamaAliPAm.png)
 - [x] Mettre à jour le profil journaliste Dr Pam en base avec photoUrl (ID 60001)
 - [x] Afficher la photo de l'auteur à côté du chapeau dans EditorialDetail.tsx (dynamique selon authorId)
+
+## ÉDITORIAL SAHEL (02/05/2026)
+
+- [x] Extraire et analyser le contenu du PDF editorial_sahel_AbdouFatahFall.pdf (11 pages)
+- [x] Corriger erreur TypeScript router n8n ajouté depuis GitHub (virgule manquante)
+- [x] Mettre à jour profil Bensirac (ID 30001) : name=Abdou Fatah Fall, photoUrl CDN
+- [x] Publier éditorial Sahel (ID 630001) : categoryId=30009, authorId=30001, isFeatured=1
+- [x] Dé-featurer les anciens éditoriaux Bensirac avant publication du nouveau
