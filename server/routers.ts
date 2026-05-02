@@ -470,6 +470,31 @@ export const appRouter = router({
       }));
     }),
   })
-});
+n8n: router({
+  createArticle: publicProcedure
+    .input(z.object({
+      title: z.string(),
+      content: z.string(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+
+      const apiKey = ctx.req.headers["x-api-key"];
+      if (apiKey !== process.env.API_SECRET) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      await db.createEditorial({
+        title: input.title,
+        content: input.content,
+        slug: slugify(input.title) + "-" + Date.now(),
+        isPublished: true,
+        authorId: 1,
+        publishedAt: new Date(),
+      });
+
+      return { success: true };
+          }),
+        }),
+    });
 
 export type AppRouter = typeof appRouter;
