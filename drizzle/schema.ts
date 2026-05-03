@@ -42,6 +42,7 @@ export const editorials = mysqlTable("editorials", {
   slug: varchar("slug", { length: 500 }).notNull().unique(),
   excerpt: text("excerpt"),
   content: text("content").notNull(),
+  type: varchar("type", { length: 50 }).default("editorial"),
   coverImageUrl: text("coverImageUrl"),
   categoryId: int("categoryId"),
   authorId: int("authorId"),
