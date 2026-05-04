@@ -12,30 +12,30 @@ export default function Header() {
   const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
-     
-      {/* Main nav */}
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+
+      {/* Main nav : logo + rubriques sur la même ligne */}
       <div className="container">
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-2 gap-4">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <img
               src={ASSETS.logo}
               alt="Weurseuk"
-              className="h-12 sm:h-14 w-auto"
+              className="h-10 sm:h-12 w-auto"
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          {/* Desktop nav — rubriques principales */}
+          <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
             {NAV_SECTIONS.map((section) => (
               <Link
                 key={section.href}
                 href={section.href}
-                className={`px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+                className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md whitespace-nowrap ${
                   location === section.href
-                    ? "text-primary bg-accent"
-                    : "text-foreground/80 hover:text-primary hover:bg-accent/50"
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground/80 hover:text-primary hover:bg-primary/5"
                 }`}
               >
                 {section.label}
@@ -45,7 +45,7 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 rounded-md hover:bg-accent"
+            className="lg:hidden p-2 rounded-md hover:bg-accent flex-shrink-0"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

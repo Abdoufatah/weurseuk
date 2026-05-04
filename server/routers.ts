@@ -76,7 +76,8 @@ export const appRouter = router({
       return db.getEditorialsByCategory(input.categoryId);
     }),
     latest: publicProcedure.query(async () => {
-      const results = await db.getPublishedEditorials(1, 0);
+      // Retourne uniquement le dernier éditorial de la rubrique Éditorial (categoryId 30009)
+      const results = await db.getEditorialsByCategory(30009);
       return results[0] ?? null;
     }),
     // Admin CRUD

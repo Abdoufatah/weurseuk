@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans-editorial">
       {/* Hero Banner */}
-      <section className="relative h-[480px] md:h-[560px] overflow-hidden">
+      <section className="relative h-[240px] md:h-[280px] overflow-hidden">
         <img
           src={ASSETS.coverBanner}
           alt="Weurseuk - Portail d'Information"
@@ -43,7 +43,7 @@ export default function Home() {
               <img
                 src={ASSETS.logo}
                 alt="Weurseuk"
-                className="h-40 md:h-52 w-auto drop-shadow-2xl"
+                className="h-24 md:h-32 w-auto drop-shadow-2xl"
                 style={{ filter: 'brightness(1.8) drop-shadow(0 2px 16px rgba(0,0,0,0.7))' }}
               />
               <p className="text-white/90 text-sm md:text-base font-light leading-snug max-w-xs text-left">
@@ -112,34 +112,6 @@ export default function Home() {
           </Link>
         </section>
       )}
-
-      {/* Rubriques principales — REMONTÉES juste après le hero */}
-      <section className="container mt-6">
-        <h2 className="font-editorial text-2xl font-bold text-foreground mb-8 flex items-center gap-2">
-          <span className="w-1 h-6 bg-primary rounded-full" />
-          Nos Rubriques
-        </h2>
-        <div className="flex flex-wrap gap-3 mb-10">
-          {filteredCategories.map((category) => {
-            const isEditorial = category.slug === 'editorial';
-            const href = isEditorial ? '/editoriaux' : `/section/${category.slug}`;
-            const icon = isEditorial ? <PenLine className="w-4 h-4" /> : <Newspaper className="w-4 h-4" />;
-            const styleClass = isEditorial
-              ? "bg-primary text-primary-foreground hover:opacity-90"
-              : "bg-anthracite text-white hover:bg-anthracite/90";
-            return (
-              <Link
-                key={category.slug}
-                href={href}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer ${styleClass}`}
-              >
-                {icon}
-                {category.name}
-              </Link>
-            );
-          })}
-        </div>
-      </section>
 
       {/* Leaderboard Ad */}
       <div className="container mt-6">

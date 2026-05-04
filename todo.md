@@ -219,8 +219,8 @@
 
 ## RÈGLE ÉDITORIALE À LA UNE (23/04/2026)
 
-- [ ] Dernier éditorial publié affiché à la Une du site (position featured/hero) jusqu'au prochain éditorial
-- [ ] Éditorial publié dans sa rubrique ET à la Une simultanément
+- [x] Dernier éditorial publié affiché à la Une du site (position featured/hero) jusqu'au prochain éditorial
+- [x] Éditorial publié dans sa rubrique ET à la Une simultanément
 - [ ] Intégration Facebook automatique : poster l'éditorial sur la page "Abduul Fatah" avec titre + chapeau
 
 
@@ -232,7 +232,7 @@
 - [x] Rendu HTML dans EditorialDetail.tsx (dangerouslySetInnerHTML pour contenu HTML)
 - [x] Middleware Open Graph (ogMiddleware.ts) intégré pour partage social
 - [x] Partage Facebook corrigé : URL complète de l'article transmise
-- [ ] Republier article Montréal (ID 120001) dans rubrique Culture
+- [x] Republier article Montréal (ID 120001) dans rubrique Société (pas de rubrique Culture en base)
 - [ ] Désactiver définitivement le générateur de seeds fictifs
 - [ ] Intégration Facebook automatique (en attente du Page Access Token)
 - [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
@@ -250,3 +250,9 @@
 - [x] Mettre à jour profil Bensirac (ID 30001) : name=Abdou Fatah Fall, photoUrl CDN
 - [x] Publier éditorial Sahel (ID 630001) : categoryId=30009, authorId=30001, isFeatured=1
 - [x] Dé-featurer les anciens éditoriaux Bensirac avant publication du nouveau
+
+## REFONTE NAVIGATION HEADER (03/05/2026)
+
+- [x] Synchroniser les changements GitHub (suppression ancienne barre de menus)
+- [x] Remonter la barre de rubriques comme navigation principale visible sans scroll (header sticky compact, hero 280px)
+- [x] Supprimer la section redondante Nos Rubriques de la page d'accueil
