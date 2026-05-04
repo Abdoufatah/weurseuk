@@ -256,3 +256,7 @@
 - [x] Synchroniser les changements GitHub (suppression ancienne barre de menus)
 - [x] Remonter la barre de rubriques comme navigation principale visible sans scroll (header sticky compact, hero 280px)
 - [x] Supprimer la section redondante Nos Rubriques de la page d'accueil
+
+## PHOTO AUTEUR CARTE À LA UNE (04/05/2026)
+
+- [x] Afficher la photo de l'auteur (depuis le profil journaliste lié) dans l'espace vide à gauche de la carte À la Une sur la page d'accueil

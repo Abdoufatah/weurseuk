@@ -177,7 +177,28 @@ export async function getAllEditorials(limit = 50, offset = 0) {
 export async function getEditorialsByCategory(categoryId: number) {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(editorials)
+  return db
+    .select({
+      id: editorials.id,
+      title: editorials.title,
+      slug: editorials.slug,
+      excerpt: editorials.excerpt,
+      content: editorials.content,
+      coverImageUrl: editorials.coverImageUrl,
+      categoryId: editorials.categoryId,
+      authorId: editorials.authorId,
+      isPublished: editorials.isPublished,
+      isFeatured: editorials.isFeatured,
+      publishedAt: editorials.publishedAt,
+      createdAt: editorials.createdAt,
+      updatedAt: editorials.updatedAt,
+      // Données auteur
+      authorName: journalistProfiles.name,
+      authorPhotoUrl: journalistProfiles.photoUrl,
+      authorRole: journalistProfiles.role,
+    })
+    .from(editorials)
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
     .where(and(eq(editorials.categoryId, categoryId), eq(editorials.isPublished, true)))
     .orderBy(desc(editorials.createdAt));
 }

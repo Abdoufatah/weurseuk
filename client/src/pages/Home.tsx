@@ -68,13 +68,21 @@ export default function Home() {
           </div>
           <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-0 rounded-xl overflow-hidden border border-border bg-card shadow-sm hover:shadow-md transition-shadow">
-              {/* Image de couverture */}
+              {/* Espace gauche : photo auteur ou image de couverture */}
               {latestEditorial.coverImageUrl ? (
                 <div className="md:col-span-2 h-48 md:h-auto overflow-hidden">
                   <img
                     src={latestEditorial.coverImageUrl}
                     alt={latestEditorial.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ) : (latestEditorial as any).authorPhotoUrl ? (
+                <div className="md:col-span-2 h-48 md:h-auto bg-gradient-to-br from-primary/10 to-primary/5 flex items-end justify-center overflow-hidden">
+                  <img
+                    src={(latestEditorial as any).authorPhotoUrl}
+                    alt={(latestEditorial as any).authorName || 'Auteur'}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               ) : (
