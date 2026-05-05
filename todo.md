@@ -260,3 +260,7 @@
 ## PHOTO AUTEUR CARTE À LA UNE (04/05/2026)
 
 - [x] Afficher la photo de l'auteur (depuis le profil journaliste lié) dans l'espace vide à gauche de la carte À la Une sur la page d'accueil
+
+## REFONTE HERO PAGE D'ACCUEIL (05/05/2026)
+
+- [x] Fusionner hero + carte À la Une en un seul bloc immersif pleine largeur visible sans scroll
