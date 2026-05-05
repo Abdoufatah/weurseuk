@@ -3,7 +3,7 @@ export const ASSETS = {
   logo: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/LOGOTRANSPARENTWEURSEUK_019a1188.png",
   bensiracProfileCard: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-profile-card_96ae73cb.png",
   bensiracPortrait: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
-  coverBanner: "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/cover-banner_3fb1346b.jpg",
+  coverBanner: "/manus-storage/cover-banner-recadre_a6d4ea5c.jpg",
 } as const;
 
 // Navigation sections
