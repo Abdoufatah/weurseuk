@@ -30,18 +30,17 @@ export default function Home() {
     <div className="min-h-screen font-sans-editorial">
 
       {/* ===== HERO IMMERSIF : image de fond + À la Une superposés ===== */}
-      <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '480px', maxHeight: '680px' }}>
+      <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
         {/* Image de fond pleine largeur — recadrée pour montrer le soleil en haut et la pirogue en bas */}
         <img
           src={ASSETS.coverBanner}
           alt="Weurseuk - Portail d'Information"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center 35%' }}
+          style={{ objectPosition: 'center 15%' }}
         />
-        {/* Dégradé : transparent en haut, sombre en bas pour lisibilité de la carte */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        {/* Dégradé léger en bas uniquement pour la transition */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-        {/* Carte À la Une en bas, superposée sur l'image */}
         {/* Logo Weurseuk — bas droite, bien visible */}
         <div className="absolute bottom-4 right-0">
           <div className="container flex justify-end">
@@ -53,87 +52,79 @@ export default function Home() {
             />
           </div>
         </div>
+      </section>
 
-        {latestEditorial ? (
-          <div className="absolute bottom-20 left-0 right-0">
-            <div className="container pb-2">
-              {/* Label À la Une */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-white/70 text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-4 h-px bg-primary inline-block" />
-                  À la Une
-                </span>
-                <Link href="/editoriaux" className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
-                  Tous les éditoriaux <ChevronRight className="w-3 h-3" />
-                </Link>
-              </div>
-              {/* Carte éditoriale compacte */}
-              <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
-                <div className="flex gap-0 rounded-lg overflow-hidden border border-white/10 bg-black/55 backdrop-blur-md shadow-xl hover:bg-black/65 transition-colors">
-                  {/* Photo auteur : format portrait compact */}
-                  {latestEditorial.coverImageUrl ? (
-                    <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
-                      <img
-                        src={latestEditorial.coverImageUrl}
-                        alt={latestEditorial.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  ) : (latestEditorial as any).authorPhotoUrl ? (
-                    <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
-                      <img
-                        src={(latestEditorial as any).authorPhotoUrl}
-                        alt={(latestEditorial as any).authorName || 'Auteur'}
-                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  ) : null}
-                  {/* Contenu textuel compact */}
-                  <div className="flex-1 px-4 py-3 flex flex-col justify-between">
-                    <div>
-                      <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
-                        Éditorial
-                      </span>
-                      <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1.5 group-hover:text-primary transition-colors line-clamp-2">
-                        {latestEditorial.title}
-                      </h3>
-                      {latestEditorial.excerpt && (
-                        <p className="text-white/85 text-xs leading-relaxed line-clamp-2 hidden md:block">
-                          {latestEditorial.excerpt}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/20">
-                      <div className="flex items-center gap-1.5">
-                        {(latestEditorial as any).authorName && (
-                          <span className="text-xs text-white/80 font-semibold">{(latestEditorial as any).authorName}</span>
-                        )}
-                        {latestEditorial.publishedAt && (
-                          <span className="text-xs text-white/55">
-                            · {new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-primary font-semibold group-hover:underline">
-                        Lire →
-                      </span>
-                    </div>
-                  </div>
-                </div>
+      {/* ===== BLOC À LA UNE — chevauchement sur le hero ===== */}
+      {latestEditorial && (
+        <div className="relative z-10" style={{ marginTop: '-3rem' }}>
+          <div className="container pb-2">
+            {/* Label À la Une */}
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-white text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
+                <span className="w-4 h-px bg-primary inline-block" />
+                À la Une
+              </span>
+              <Link href="/editoriaux" className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
+                Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
+            {/* Carte éditoriale compacte */}
+            <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
+              <div className="flex gap-0 rounded-lg overflow-hidden border border-white/10 bg-black/70 backdrop-blur-md shadow-xl hover:bg-black/80 transition-colors">
+                {/* Photo auteur */}
+                {latestEditorial.coverImageUrl ? (
+                  <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
+                    <img
+                      src={latestEditorial.coverImageUrl}
+                      alt={latestEditorial.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                ) : (latestEditorial as any).authorPhotoUrl ? (
+                  <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
+                    <img
+                      src={(latestEditorial as any).authorPhotoUrl}
+                      alt={(latestEditorial as any).authorName || 'Auteur'}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                ) : null}
+                {/* Contenu textuel */}
+                <div className="flex-1 px-4 py-3 flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
+                      Éditorial
+                    </span>
+                    <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1.5 group-hover:text-primary transition-colors line-clamp-2">
+                      {latestEditorial.title}
+                    </h3>
+                    {latestEditorial.excerpt && (
+                      <p className="text-white/85 text-xs leading-relaxed line-clamp-2 hidden md:block">
+                        {latestEditorial.excerpt}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/20">
+                    <div className="flex items-center gap-1.5">
+                      {(latestEditorial as any).authorName && (
+                        <span className="text-xs text-white/80 font-semibold">{(latestEditorial as any).authorName}</span>
+                      )}
+                      {latestEditorial.publishedAt && (
+                        <span className="text-xs text-white/55">
+                          · {new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-primary font-semibold group-hover:underline">
+                      Lire →
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
-        ) : (
-          /* Fallback si pas d'éditorial */
-          <div className="absolute bottom-20 left-0 right-0">
-            <div className="container">
-              <p className="text-white/80 text-base md:text-lg font-light">
-                L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
-              </p>
-            </div>
-          </div>
-        )}
-      </section>
+        </div>
+      )}
 
       {/* Leaderboard Ad */}
       <div className="container mt-6">
