@@ -48,8 +48,8 @@ export default function Home() {
             <img
               src={ASSETS.logo}
               alt="Weurseuk"
-              className="h-14 md:h-16 w-auto drop-shadow-2xl"
-              style={{ filter: 'brightness(2) drop-shadow(0 2px 12px rgba(0,0,0,0.8))' }}
+              className="h-20 md:h-24 w-auto drop-shadow-2xl"
+              style={{ filter: 'brightness(2.2) drop-shadow(0 2px 16px rgba(0,0,0,0.9))' }}
             />
           </div>
         </div>
@@ -94,27 +94,27 @@ export default function Home() {
                       <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
                         Éditorial
                       </span>
-                      <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1 group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1.5 group-hover:text-primary transition-colors line-clamp-2">
                         {latestEditorial.title}
                       </h3>
                       {latestEditorial.excerpt && (
-                        <p className="text-white/60 text-xs leading-relaxed line-clamp-2 hidden md:block">
+                        <p className="text-white/85 text-xs leading-relaxed line-clamp-2 hidden md:block">
                           {latestEditorial.excerpt}
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/20">
                       <div className="flex items-center gap-1.5">
                         {(latestEditorial as any).authorName && (
-                          <span className="text-xs text-white/55 font-medium">{(latestEditorial as any).authorName}</span>
+                          <span className="text-xs text-white/80 font-semibold">{(latestEditorial as any).authorName}</span>
                         )}
                         {latestEditorial.publishedAt && (
-                          <span className="text-xs text-white/35">
+                          <span className="text-xs text-white/55">
                             · {new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
                           </span>
                         )}
                       </div>
-                      <span className="text-xs text-primary font-medium group-hover:underline">
+                      <span className="text-xs text-primary font-semibold group-hover:underline">
                         Lire →
                       </span>
                     </div>
