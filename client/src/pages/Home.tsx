@@ -56,7 +56,7 @@ export default function Home() {
 
       {/* ===== BLOC À LA UNE — chevauchement sur le hero ===== */}
       {latestEditorial && (
-        <div className="relative z-10" style={{ marginTop: '-3rem' }}>
+        <div className="relative z-10" style={{ marginTop: '-3rem', animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
           <div className="container pb-2">
             {/* Label À la Une */}
             <div className="flex items-center justify-between mb-2">

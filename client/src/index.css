@@ -241,3 +241,15 @@
     text-align: center;
   }
 }
+
+/* Animation fondu + montée pour le bloc éditorial À la Une */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
