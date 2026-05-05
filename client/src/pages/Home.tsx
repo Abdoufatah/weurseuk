@@ -31,33 +31,34 @@ export default function Home() {
 
       {/* ===== HERO IMMERSIF : image de fond + À la Une superposés ===== */}
       <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '480px', maxHeight: '680px' }}>
-        {/* Image de fond pleine largeur */}
+        {/* Image de fond pleine largeur — recadrée pour montrer le soleil en haut et la pirogue en bas */}
         <img
           src={ASSETS.coverBanner}
           alt="Weurseuk - Portail d'Information"
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'center 35%' }}
         />
-        {/* Dégradé sombre en bas pour lisibilité */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10" />
+        {/* Dégradé : transparent en haut, sombre en bas pour lisibilité de la carte */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-        {/* Logo en haut à gauche */}
-        <div className="absolute top-4 left-0 right-0">
-          <div className="container">
+        {/* Carte À la Une en bas, superposée sur l'image */}
+        {/* Logo Weurseuk — bas droite, bien visible */}
+        <div className="absolute bottom-4 right-0">
+          <div className="container flex justify-end">
             <img
               src={ASSETS.logo}
               alt="Weurseuk"
-              className="h-16 md:h-20 w-auto drop-shadow-2xl"
-              style={{ filter: 'brightness(1.8) drop-shadow(0 2px 16px rgba(0,0,0,0.7))' }}
+              className="h-14 md:h-16 w-auto drop-shadow-2xl"
+              style={{ filter: 'brightness(2) drop-shadow(0 2px 12px rgba(0,0,0,0.8))' }}
             />
           </div>
         </div>
 
-        {/* Carte À la Une en bas, superposée sur l'image */}
         {latestEditorial ? (
-          <div className="absolute bottom-0 left-0 right-0">
-            <div className="container pb-6">
-              {/* Label */}
-              <div className="flex items-center justify-between mb-3">
+          <div className="absolute bottom-20 left-0 right-0">
+            <div className="container pb-2">
+              {/* Label À la Une */}
+              <div className="flex items-center justify-between mb-2">
                 <span className="text-white/70 text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
                   <span className="w-4 h-px bg-primary inline-block" />
                   À la Une
@@ -66,12 +67,12 @@ export default function Home() {
                   Tous les éditoriaux <ChevronRight className="w-3 h-3" />
                 </Link>
               </div>
-              {/* Carte éditoriale */}
+              {/* Carte éditoriale compacte */}
               <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-0 rounded-xl overflow-hidden border border-white/10 bg-black/50 backdrop-blur-md shadow-2xl hover:bg-black/60 transition-colors">
-                  {/* Photo auteur ou couverture */}
+                <div className="flex gap-0 rounded-lg overflow-hidden border border-white/10 bg-black/55 backdrop-blur-md shadow-xl hover:bg-black/65 transition-colors">
+                  {/* Photo auteur : format portrait compact */}
                   {latestEditorial.coverImageUrl ? (
-                    <div className="md:col-span-2 h-44 md:h-52 overflow-hidden">
+                    <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
                       <img
                         src={latestEditorial.coverImageUrl}
                         alt={latestEditorial.title}
@@ -79,46 +80,42 @@ export default function Home() {
                       />
                     </div>
                   ) : (latestEditorial as any).authorPhotoUrl ? (
-                    <div className="md:col-span-2 h-44 md:h-52 overflow-hidden">
+                    <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
                       <img
                         src={(latestEditorial as any).authorPhotoUrl}
                         alt={(latestEditorial as any).authorName || 'Auteur'}
                         className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                  ) : (
-                    <div className="md:col-span-2 h-44 md:h-52 bg-primary/20 flex items-center justify-center">
-                      <PenLine className="w-14 h-14 text-primary/40" />
-                    </div>
-                  )}
-                  {/* Contenu textuel */}
-                  <div className="md:col-span-3 p-5 md:p-6 flex flex-col justify-between">
+                  ) : null}
+                  {/* Contenu textuel compact */}
+                  <div className="flex-1 px-4 py-3 flex flex-col justify-between">
                     <div>
-                      <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full mb-3 uppercase tracking-wide">
+                      <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
                         Éditorial
                       </span>
-                      <h3 className="font-editorial text-lg md:text-2xl font-bold text-white leading-tight mb-3 group-hover:text-primary transition-colors">
+                      <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1 group-hover:text-primary transition-colors line-clamp-2">
                         {latestEditorial.title}
                       </h3>
                       {latestEditorial.excerpt && (
-                        <p className="text-white/70 text-sm leading-relaxed line-clamp-3">
+                        <p className="text-white/60 text-xs leading-relaxed line-clamp-2 hidden md:block">
                           {latestEditorial.excerpt}
                         </p>
                       )}
                     </div>
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
+                      <div className="flex items-center gap-1.5">
                         {(latestEditorial as any).authorName && (
-                          <span className="text-xs text-white/60 font-medium">{(latestEditorial as any).authorName}</span>
+                          <span className="text-xs text-white/55 font-medium">{(latestEditorial as any).authorName}</span>
                         )}
                         {latestEditorial.publishedAt && (
-                          <span className="text-xs text-white/40">
+                          <span className="text-xs text-white/35">
                             · {new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-primary font-medium group-hover:underline">
-                        Lire l'éditorial →
+                      <span className="text-xs text-primary font-medium group-hover:underline">
+                        Lire →
                       </span>
                     </div>
                   </div>
@@ -127,8 +124,8 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          /* Fallback si pas d'éditorial : juste le tagline centré */
-          <div className="absolute bottom-8 left-0 right-0">
+          /* Fallback si pas d'éditorial */
+          <div className="absolute bottom-20 left-0 right-0">
             <div className="container">
               <p className="text-white/80 text-base md:text-lg font-light">
                 L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales.
