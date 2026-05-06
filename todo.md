@@ -264,3 +264,10 @@
 ## REFONTE HERO PAGE D'ACCUEIL (05/05/2026)
 
 - [x] Fusionner hero + carte À la Une en un seul bloc immersif pleine largeur visible sans scroll
+
+## VÉRIFICATION DOMAINE FACEBOOK (06/05/2026)
+
+- [x] Ajouter la balise méta facebook-domain-verification dans le head du site (content: s740xu2sxqhvtjdvo5k9q9mqwjfimd)
+- [ ] Déployer et vérifier le domaine dans Meta Business Suite
+- [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
+- [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
