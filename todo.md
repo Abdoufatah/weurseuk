@@ -271,3 +271,9 @@
 - [ ] Déployer et vérifier le domaine dans Meta Business Suite
 - [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
 - [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
+
+## VIDÉO HERO PAGE D'ACCUEIL (08/05/2026)
+
+- [x] Convertir PAGEACCUEILWEURSEUK.MOV en MP4/WebM optimisé pour le web (15Mo, 1080p, H.264)
+- [x] Uploader la vidéo sur le CDN (/manus-storage/hero-video_61b2ff3e.mp4)
+- [x] Remplacer l'image hero par la vidéo (autoplay, muted, loop) dans Home.tsx

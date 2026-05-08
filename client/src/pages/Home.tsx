@@ -31,13 +31,20 @@ export default function Home() {
 
       {/* ===== HERO IMMERSIF : image de fond + À la Une superposés ===== */}
       <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
-        {/* Image de fond pleine largeur — recadrée pour montrer le soleil en haut et la pirogue en bas */}
-        <img
-          src={ASSETS.coverBanner}
-          alt="Weurseuk - Portail d'Information"
+        {/* Vidéo de fond pleine largeur — autoplay, silencieuse, en boucle */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center 15%' }}
-        />
+          style={{ objectPosition: 'center 30%' }}
+          poster={ASSETS.coverBanner}
+        >
+          <source src="/manus-storage/hero-video_61b2ff3e.mp4" type="video/mp4" />
+          {/* Fallback image si la vidéo ne charge pas */}
+          <img src={ASSETS.coverBanner} alt="Weurseuk - Portail d'Information" className="w-full h-full object-cover" />
+        </video>
         {/* Dégradé léger en bas uniquement pour la transition */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
