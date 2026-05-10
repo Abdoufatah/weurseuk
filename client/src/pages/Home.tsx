@@ -29,14 +29,19 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans-editorial">
 
-      {/* ===== HERO IMMERSIF : image de fond + À la Une superposés ===== */}
+      {/* ===== HERO IMMERSIF : vidéo en boucle avec crossfade + À la Une superposés ===== */}
       <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
+<<<<<<< Updated upstream
         {/* Vidéo de fond pleine largeur — autoplay, silencieuse, en boucle */}
+=======
+        {/* Vidéo hero en boucle avec crossfade imperceptible */}
+>>>>>>> Stashed changes
         <video
           autoPlay
           muted
           loop
           playsInline
+<<<<<<< Updated upstream
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center 30%' }}
           poster={ASSETS.coverBanner}
@@ -44,6 +49,20 @@ export default function Home() {
           <source src="/manus-storage/hero-video_61b2ff3e.mp4" type="video/mp4" />
           {/* Fallback image si la vidéo ne charge pas */}
           <img src={ASSETS.coverBanner} alt="Weurseuk - Portail d'Information" className="w-full h-full object-cover" />
+=======
+          poster={ASSETS.coverBanner}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'center 15%' }}
+        >
+          <source src="/manus-storage/hero-video-crossfade-opt_b953971a.mp4" type="video/mp4" />
+          {/* Fallback image si la vidéo ne charge pas */}
+          <img
+            src={ASSETS.coverBanner}
+            alt="Weurseuk - Portail d'Information"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: 'center 15%' }}
+          />
+>>>>>>> Stashed changes
         </video>
         {/* Dégradé léger en bas uniquement pour la transition */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
