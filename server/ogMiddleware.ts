@@ -73,6 +73,7 @@ function buildOgHtml(params: {
 export function ogMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
     const userAgent = req.headers["user-agent"] || "";
+    console.log(`[OG-DEBUG] path=${req.path} ua=${userAgent.substring(0, 60)} isBot=${isSocialBot(userAgent)}`);
 
     // Seulement pour les bots sociaux
     if (!isSocialBot(userAgent)) {
