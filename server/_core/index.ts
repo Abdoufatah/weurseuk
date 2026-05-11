@@ -43,7 +43,8 @@ async function startServer() {
   registerStorageProxy(app);
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
-  // OG middleware will be registered in production mode below
+  // Route OG dédiée sous /api/og/* — accessible en production car /api/* passe par Express
+  app.use("/api/og", ogMiddleware());
   // tRPC API
   app.use(
     "/api/trpc",

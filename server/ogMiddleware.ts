@@ -75,20 +75,17 @@ export function ogMiddleware() {
     const userAgent = req.headers["user-agent"] || "";
     console.log(`[OG-DEBUG] path=${req.path} ua=${userAgent.substring(0, 60)} isBot=${isSocialBot(userAgent)}`);
 
-    // Seulement pour les bots sociaux
-    if (!isSocialBot(userAgent)) {
-      return next();
-    }
-
     // Ignorer les fichiers statiques (CSS, JS, images, etc.)
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/i)) {
       return next();
     }
 
+    // Quand monté sur /api/og, la route est /api/og/editorial/:slug ou /api/og/:slug
+    // req.path sera /editorial/:slug ou /:slug selon le montage
     const origin = `${req.protocol}://${req.get("host")}`;
 
-    // Route : /editorial/:slug
-    const editorialMatch = req.path.match(/^\/editorial\/([^/]+)$/);
+    // Route : /editorial/:slug (monté sur /api/og) ou /api/og/editorial/:slug
+    const editorialMatch = req.path.match(/^(?:\/editorial)?\/([^/]+)$/);
     if (editorialMatch) {
       const slug = editorialMatch[1];
       try {

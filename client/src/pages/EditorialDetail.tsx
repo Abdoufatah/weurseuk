@@ -263,6 +263,7 @@ export default function EditorialDetail() {
                   title={editorial.title}
                   excerpt={editorial.excerpt || undefined}
                   url={`${window.location.origin}/editorial/${params.slug}`}
+                  ogUrl={`${window.location.origin}/api/og/editorial/${params.slug}`}
                 />
                 {isBensirac ? (
                   <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">
