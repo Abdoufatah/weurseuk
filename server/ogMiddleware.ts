@@ -79,6 +79,11 @@ export function ogMiddleware() {
       return next();
     }
 
+    // Ignorer les fichiers statiques (CSS, JS, images, etc.)
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/i)) {
+      return next();
+    }
+
     const origin = `${req.protocol}://${req.get("host")}`;
 
     // Route : /editorial/:slug
