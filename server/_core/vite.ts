@@ -6,6 +6,25 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 
+// Détecte les bots de réseaux sociaux pour les laisser passer au middleware OG
+const SOCIAL_BOT_PATTERNS = [
+  /facebookexternalhit/i,
+  /twitterbot/i,
+  /linkedinbot/i,
+  /telegrambot/i,
+  /whatsapp/i,
+  /slackbot/i,
+  /discordbot/i,
+  /googlebot/i,
+  /bingbot/i,
+  /applebot/i,
+  /pinterest/i,
+];
+
+function isSocialBot(userAgent: string): boolean {
+  return SOCIAL_BOT_PATTERNS.some((pattern) => pattern.test(userAgent));
+}
+
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
@@ -22,6 +41,11 @@ export async function setupVite(app: Express, server: Server) {
 
   app.use(vite.middlewares);
   app.use("*", async (req, res, next) => {
+    // Ignorer les bots sociaux pour laisser le middleware OG s'exécuter
+    const userAgent = req.headers["user-agent"] || "";
+    if (isSocialBot(userAgent)) {
+      return next();
+    }
     const url = req.originalUrl;
 
     try {

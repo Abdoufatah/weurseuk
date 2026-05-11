@@ -16,13 +16,14 @@ export default function Header() {
 
       {/* Main nav : logo + rubriques sur la même ligne */}
       <div className="container">
-        <div className="flex items-center justify-between py-2 gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+        <div className="flex items-stretch justify-between gap-4" style={{ minHeight: '56px' }}>
+          {/* Logo — occupe toute la hauteur du header */}
+          <Link href="/" className="flex-shrink-0 flex items-stretch">
             <img
               src={ASSETS.logo}
               alt="Weurseuk"
-              className="h-10 sm:h-12 w-auto"
+              className="h-full w-auto object-contain"
+              style={{ maxHeight: '56px' }}
             />
           </Link>
 
