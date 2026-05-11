@@ -63,11 +63,21 @@ async function startServer() {
     if (!fs.existsSync(distPath)) {
       console.error(`Could not find the build directory: ${distPath}, make sure to build the client first`);
     }
-    app.use(express.static(distPath));
+    // Serve static assets with long cache, but HTML with no-cache so Cloudflare always hits the origin
+    app.use(express.static(distPath, {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+          res.setHeader('Pragma', 'no-cache');
+        }
+      }
+    }));
     // OG middleware runs after static files but before index.html fallback
     app.use(ogMiddleware());
     // Fallback to index.html for SPA routes
     app.use("*", (_req, res) => {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
       res.sendFile(path.resolve(distPath, "index.html"));
     });
   }
