@@ -138,6 +138,76 @@ export default function Home() {
         </div>
       )}
 
+      {/* ===== PROMOTION MUSICALE PERMANENTE : JANGGI — BenSiraC Fatah DePalmarin ===== */}
+      <section className="container mt-8">
+        <div className="rounded-2xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-2xl">
+          {/* En-tête de la section */}
+          <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-white/10">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5 bg-primary/15 border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                Musique
+              </span>
+              <span className="text-white/40 text-xs hidden sm:inline">Wër Sëk Musiques</span>
+            </div>
+            <span className="text-white/30 text-xs font-medium uppercase tracking-wider">Clip exclusif</span>
+          </div>
+
+          {/* Corps : vidéo + texte */}
+          <div className="flex flex-col lg:flex-row gap-0">
+            {/* Lecteur YouTube embed */}
+            <div className="lg:w-3/5 flex-shrink-0">
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/shiwbBx7vro?rel=0&modestbranding=1&color=white"
+                  title="JANGGI — BenSiraC Fatah DePalmarin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+
+            {/* Présentation éditoriale */}
+            <div className="lg:w-2/5 px-5 py-5 flex flex-col justify-between">
+              <div>
+                <h2 className="font-editorial text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
+                  JANGGI
+                </h2>
+                <p className="text-primary text-sm font-semibold mb-4 uppercase tracking-widest">
+                  BenSiraC Fatah DePalmarin
+                </p>
+                <p className="text-white/80 text-sm leading-relaxed mb-4">
+                  Une œuvre de world music sérère qui célèbre la beauté singulière de{" "}
+                  <strong className="text-white">Palmarin</strong>, village de l'embouchure du{" "}
+                  <strong className="text-white">Sine Saloum</strong>, classé Patrimoine mondial de l'UNESCO.
+                  Guitare acoustique, percussions traditionnelles, chants en chœur — une invitation
+                  au dialogue entre les peuples par la grâce de la musique.
+                </p>
+                <p className="text-white/55 text-xs leading-relaxed italic">
+                  « La musique sérère, héritière d'une civilisation du Sine-Saloum, porte en elle
+                  la mémoire des eaux, des mangroves et du peuple qui les habite depuis des siècles. »
+                </p>
+              </div>
+              <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="text-white/50 text-xs">Musique sérère · World music · Sine Saloum</span>
+                </div>
+                <a
+                  href="https://youtu.be/shiwbBx7vro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary text-xs font-semibold hover:underline flex items-center gap-1"
+                >
+                  YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Leaderboard Ad */}
       <div className="container mt-6">
         <AdPlacement type="leaderboard" />
