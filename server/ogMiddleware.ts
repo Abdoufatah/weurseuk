@@ -29,6 +29,49 @@ function isSocialBot(userAgent: string): boolean {
 const LOGO_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/LOGOTRANSPARENTWEURSEUK_a5b3c7d2.png";
 
+function buildOgHtmlWithRedirect(params: {
+  title: string;
+  description: string;
+  ogUrl: string;
+  canonicalUrl: string;
+  image: string;
+  type?: string;
+}): string {
+  const { title, description, ogUrl, canonicalUrl, image, type = "article" } = params;
+  const escaped = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>${escaped(title)}</title>
+  <meta name="description" content="${escaped(description)}" />
+  <link rel="canonical" href="${escaped(canonicalUrl)}" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="${type}" />
+  <meta property="og:title" content="${escaped(title)}" />
+  <meta property="og:description" content="${escaped(description)}" />
+  <meta property="og:url" content="${escaped(ogUrl)}" />
+  <meta property="og:image" content="${escaped(image)}" />
+  <meta property="og:site_name" content="Weurseuk" />
+  <meta property="og:locale" content="fr_FR" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="${escaped(title)}" />
+  <meta name="twitter:description" content="${escaped(description)}" />
+  <meta name="twitter:image" content="${escaped(image)}" />
+  <!-- Redirect humains vers le SPA -->
+  <script>if (!navigator.userAgent.match(/facebookexternalhit|twitterbot|linkedinbot|telegrambot|whatsapp|slackbot|discordbot/i)) { window.location.replace("${escaped(canonicalUrl)}"); }</script>
+</head>
+<body>
+  <h1>${escaped(title)}</h1>
+  <p>${escaped(description)}</p>
+  <a href="${escaped(canonicalUrl)}">Lire l'article complet sur Weurseuk</a>
+</body>
+</html>`;
+}
+
 function buildOgHtml(params: {
   title: string;
   description: string;
@@ -101,14 +144,17 @@ export function ogMiddleware() {
           const description =
             editorial.excerpt ||
             editorial.content.replace(/<[^>]+>/g, "").substring(0, 200) + "...";
-          const url = `${origin}/editorial/${slug}`;
+          // og:url doit correspondre exactement à l'URL que Facebook scrape
+          // pour éviter la discordance qui empêche l'affichage du contenu
+          const ogUrl = `${origin}/api/og/editorial/${slug}`;
+          const canonicalUrl = `${origin}/editorial/${slug}`;
           const image = editorial.coverImageUrl || LOGO_URL;
 
           return res
             .status(200)
             .setHeader("Content-Type", "text/html; charset=utf-8")
             .setHeader("Cache-Control", "public, max-age=300")
-            .send(buildOgHtml({ title, description, url, image }));
+            .send(buildOgHtmlWithRedirect({ title, description, ogUrl, canonicalUrl, image }));
         }
       } catch (err) {
         console.error("[OG Middleware] Error fetching editorial:", err);
