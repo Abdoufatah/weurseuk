@@ -151,15 +151,20 @@ export function ogMiddleware() {
           const description =
             editorial.excerpt ||
             editorial.content.replace(/<[^>]+>/g, "").substring(0, 200) + "...";
-          // og:url = URL canonique de l'article (celle que le bouton partage)
+          // canonicalUrl = URL lisible de l'article (pour le SEO et les humains)
           const canonicalUrl = `${origin}/editorial/${slug}`;
+          // ogUrl = URL que Facebook scrape réellement (doit être /api/og/... pour avoir les métadonnées)
+          // Facebook re-scrape og:url après avoir reçu la page — si og:url pointe vers /editorial/:slug
+          // (servi par le CDN sans métadonnées), Facebook n'affiche que "weurseuk.com".
+          // En pointant og:url vers /api/og/editorial/:slug, Facebook scrape la bonne page.
+          const ogUrl = `${origin}/api/og/editorial/${slug}`;
           const image = editorial.coverImageUrl || LOGO_URL;
 
           return res
             .status(200)
             .setHeader("Content-Type", "text/html; charset=utf-8")
-            .setHeader("Cache-Control", "public, max-age=300")
-            .send(buildOgHtmlWithRedirect({ title, description, ogUrl: canonicalUrl, canonicalUrl, image }));
+            .setHeader("Cache-Control", "no-store, no-cache, must-revalidate")
+            .send(buildOgHtmlWithRedirect({ title, description, ogUrl, canonicalUrl, image }));
         }
       } catch (err) {
         console.error("[OG Middleware] Error fetching editorial:", err);
