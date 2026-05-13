@@ -45,6 +45,9 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Route OG dédiée sous /api/og/* — accessible en production car /api/* passe par Express
   app.use("/api/og", ogMiddleware());
+  // Route /editorial/:slug — intercepte les bots sociaux et retourne les métadonnées OG
+  // Les humains reçoivent le SPA normalement (via Vite en dev, ou CDN en prod)
+  app.use("/editorial", ogMiddleware());
   // tRPC API
   app.use(
     "/api/trpc",

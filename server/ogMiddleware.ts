@@ -133,10 +133,17 @@ export function ogMiddleware() {
       ? `${req.protocol}://${host}`
       : "https://weurseuk.com";
 
-    // Route : /editorial/:slug (monté sur /api/og) ou /api/og/editorial/:slug
+    // Route : /:slug (monté sur /editorial ou /api/og/editorial)
+    // ou /editorial/:slug (monté sur /api/og)
     const editorialMatch = req.path.match(/^(?:\/editorial)?\/([^/]+)$/);
     if (editorialMatch) {
       const slug = editorialMatch[1];
+      // Si monté sur /editorial, n'intercepter QUE les bots sociaux
+      // Les humains doivent recevoir le SPA React normalement
+      const isMountedOnEditorial = req.baseUrl === "/editorial";
+      if (isMountedOnEditorial && !isSocialBot(userAgent)) {
+        return next();
+      }
       try {
         const editorial = await getEditorialBySlug(slug);
         if (editorial) {
@@ -144,9 +151,7 @@ export function ogMiddleware() {
           const description =
             editorial.excerpt ||
             editorial.content.replace(/<[^>]+>/g, "").substring(0, 200) + "...";
-          // og:url doit correspondre exactement à l'URL que Facebook scrape
-          // pour éviter la discordance qui empêche l'affichage du contenu
-          const ogUrl = `${origin}/api/og/editorial/${slug}`;
+          // og:url = URL canonique de l'article (celle que le bouton partage)
           const canonicalUrl = `${origin}/editorial/${slug}`;
           const image = editorial.coverImageUrl || LOGO_URL;
 
@@ -154,7 +159,7 @@ export function ogMiddleware() {
             .status(200)
             .setHeader("Content-Type", "text/html; charset=utf-8")
             .setHeader("Cache-Control", "public, max-age=300")
-            .send(buildOgHtmlWithRedirect({ title, description, ogUrl, canonicalUrl, image }));
+            .send(buildOgHtmlWithRedirect({ title, description, ogUrl: canonicalUrl, canonicalUrl, image }));
         }
       } catch (err) {
         console.error("[OG Middleware] Error fetching editorial:", err);
