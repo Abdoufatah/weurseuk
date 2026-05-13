@@ -100,13 +100,16 @@ export default function ShareButtons({
   const handleShare = async (network: (typeof NETWORKS)[number]) => {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     // Sur mobile, utiliser navigator.share (menu natif iOS/Android) qui ouvre directement
-    // l'app Facebook/WhatsApp/etc. installée — évite le problème de session navigateur
+    // l'app Facebook/WhatsApp/etc. installée — évite le problème de session navigateur.
+    // On passe ogUrl (ex: /api/og/editorial/:slug) pour que Facebook scrape les bonnes
+    // métadonnées OG (titre, chapeau, image) depuis Express plutôt que le CDN.
     if (isMobile && navigator.share) {
       try {
+        const urlToShare = ogUrl || shareUrl;
         await navigator.share({
           title,
           text: excerpt ? `${title}\n\n${excerpt}` : title,
-          url: shareUrl,
+          url: urlToShare,
         });
         return;
       } catch {
@@ -122,7 +125,9 @@ export default function ShareButtons({
   const handleNativeShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title, text: excerpt, url: shareUrl });
+        // Passer ogUrl pour que Facebook scrape les bonnes métadonnées OG
+        const urlToShare = ogUrl || shareUrl;
+        await navigator.share({ title, text: excerpt, url: urlToShare });
       } catch {
         // User cancelled
       }
