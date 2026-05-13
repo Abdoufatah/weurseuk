@@ -82,7 +82,13 @@ export function ogMiddleware() {
 
     // Quand monté sur /api/og, la route est /api/og/editorial/:slug ou /api/og/:slug
     // req.path sera /editorial/:slug ou /:slug selon le montage
-    const origin = `${req.protocol}://${req.get("host")}`;
+    // En production sur Cloud Run, req.get("host") retourne l'hôte interne.
+    // On utilise le domaine public connu, avec fallback sur l'hôte local pour le dev.
+    const host = req.get("host") || "";
+    const isLocalDev = host.includes("localhost") || host.includes("127.0.0.1") || host.includes(".manus.computer");
+    const origin = isLocalDev
+      ? `${req.protocol}://${host}`
+      : "https://weurseuk.com";
 
     // Route : /editorial/:slug (monté sur /api/og) ou /api/og/editorial/:slug
     const editorialMatch = req.path.match(/^(?:\/editorial)?\/([^/]+)$/);
