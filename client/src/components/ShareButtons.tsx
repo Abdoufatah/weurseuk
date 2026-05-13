@@ -98,7 +98,10 @@ export default function ShareButtons({
   };
 
   const handleShare = (network: (typeof NETWORKS)[number]) => {
-    const shareLink = network.getUrl(shareUrl, title);
+    // Pour Facebook, utiliser ogUrl si fourni (route /api/og/editorial/:slug)
+    // qui retourne les bonnes métadonnées OG en production
+    const effectiveUrl = (network.name === "Facebook" && ogUrl) ? ogUrl : shareUrl;
+    const shareLink = network.getUrl(effectiveUrl, title);
     window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
   };
 
