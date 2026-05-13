@@ -87,6 +87,7 @@ export default function ArticleCard({
               <ShareButtons
                 title={title}
                 url={isEditorial && editorialSlug ? `${typeof window !== 'undefined' ? window.location.origin : ''}/editorial/${editorialSlug}` : sourceUrl}
+                ogUrl={isEditorial && editorialSlug ? `${typeof window !== 'undefined' ? window.location.origin : ''}/api/og/editorial/${editorialSlug}` : undefined}
                 variant="compact"
                 className="scale-75 origin-right"
               />
