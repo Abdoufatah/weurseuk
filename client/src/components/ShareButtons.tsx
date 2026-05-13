@@ -97,9 +97,23 @@ export default function ShareButtons({
     }
   };
 
-  const handleShare = (network: (typeof NETWORKS)[number]) => {
-    // Pour Facebook, utiliser ogUrl si fourni (route /api/og/editorial/:slug)
-    // qui retourne les bonnes métadonnées OG en production
+  const handleShare = async (network: (typeof NETWORKS)[number]) => {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // Sur mobile, utiliser navigator.share (menu natif iOS/Android) qui ouvre directement
+    // l'app Facebook/WhatsApp/etc. installée — évite le problème de session navigateur
+    if (isMobile && navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text: excerpt ? `${title}\n\n${excerpt}` : title,
+          url: shareUrl,
+        });
+        return;
+      } catch {
+        // Annulé par l'utilisateur ou non supporté — fallback vers window.open
+      }
+    }
+    // Sur desktop : ouvrir le sharer du réseau social dans une popup
     const effectiveUrl = (network.name === "Facebook" && ogUrl) ? ogUrl : shareUrl;
     const shareLink = network.getUrl(effectiveUrl, title);
     window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
