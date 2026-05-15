@@ -47,7 +47,7 @@ export default function ArticleCard({
   const content = (
     <div className={`group card-hover bg-card rounded-lg overflow-hidden border border-border/50 ${isFeatured ? "md:flex" : ""} ${className}`}>
       {imageUrl && (
-        <div className={`overflow-hidden ${isFeatured ? "md:w-2/5" : "aspect-[16/9]"}`}>
+        <div className={`overflow-hidden ${isFeatured ? "aspect-[16/9] md:aspect-auto md:w-2/5 md:min-h-[280px]" : "aspect-[16/9]"}`}>
           <img
             src={imageUrl}
             alt={title}

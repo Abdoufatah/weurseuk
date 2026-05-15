@@ -56,11 +56,11 @@ export default function ArticleDetail() {
 
       {/* Image hero */}
       {article.imageUrl && (
-        <div className="w-full h-96 overflow-hidden bg-muted">
+        <div className="w-full bg-muted">
           <img
             src={article.imageUrl}
             alt={article.title}
-            className="w-full h-full object-cover"
+            className="w-full h-auto object-contain"
           />
         </div>
       )}
