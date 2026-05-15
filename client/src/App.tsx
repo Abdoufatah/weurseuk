@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Editoriaux from "./pages/Editoriaux";
 import EditorialDetail from "./pages/EditorialDetail";
+import ArticleDetail from "./pages/ArticleDetail";
 import ProfilBensirac from "./pages/ProfilBensirac";
 import Section from "./pages/Section";
 import Category from "./pages/Category";
@@ -40,6 +41,9 @@ function Router() {
       </Route>
       <Route path="/editorial/:slug">
         <PublicLayout><EditorialDetail /></PublicLayout>
+      </Route>
+      <Route path="/article/:slug">
+        <PublicLayout><ArticleDetail /></PublicLayout>
       </Route>
       <Route path="/profil-bensirac">
         <PublicLayout><ProfilBensirac /></PublicLayout>

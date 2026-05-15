@@ -154,6 +154,9 @@ export const appRouter = router({
     featured: publicProcedure.query(async () => {
       return db.getFeaturedArticles(6);
     }),
+    bySlug: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
+      return db.getAggregatedArticleBySlug(input.slug);
+    }),
     create: adminProcedure.input(z.object({
       title: z.string().min(1),
       excerpt: z.string().optional(),

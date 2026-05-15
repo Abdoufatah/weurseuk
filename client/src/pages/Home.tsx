@@ -299,6 +299,7 @@ export default function Home() {
                 region={article.region}
                 publishedAt={article.publishedAt}
                 isFeatured
+                isInternalArticle={article.sourceUrl?.startsWith('/article/') ?? false}
               />
             ))}
             <div className="space-y-4">
@@ -311,6 +312,7 @@ export default function Home() {
                   sourceName={article.sourceName}
                   region={article.region}
                   publishedAt={article.publishedAt}
+                  isInternalArticle={article.sourceUrl?.startsWith('/article/') ?? false}
                 />
               ))}
             </div>

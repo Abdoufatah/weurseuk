@@ -14,6 +14,7 @@ interface ArticleCardProps {
   isEditorial?: boolean;
   editorialSlug?: string;
   isFeatured?: boolean;
+  isInternalArticle?: boolean;
   className?: string;
 }
 
@@ -38,6 +39,7 @@ export default function ArticleCard({
   isEditorial = false,
   editorialSlug,
   isFeatured = false,
+  isInternalArticle = false,
   className = "",
 }: ArticleCardProps) {
   const regionLabel = region ? REGIONS[region as keyof typeof REGIONS] : null;
@@ -110,6 +112,10 @@ export default function ArticleCard({
 
   if (isEditorial && editorialSlug) {
     return <Link href={`/editorial/${editorialSlug}`}>{content}</Link>;
+  }
+
+  if (isInternalArticle && sourceUrl && sourceUrl.startsWith('/article/')) {
+    return <Link href={sourceUrl}>{content}</Link>;
   }
 
   if (sourceUrl) {

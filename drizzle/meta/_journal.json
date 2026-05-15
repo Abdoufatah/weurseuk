@@ -36,6 +36,13 @@
       "when": 1776468175961,
       "tag": "0004_cuddly_jackpot",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1778866379222,
+      "tag": "0005_brown_strong_guy",
+      "breakpoints": true
     }
   ]
 }

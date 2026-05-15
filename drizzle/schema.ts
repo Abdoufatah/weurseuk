@@ -81,6 +81,7 @@ export const aggregatedArticles = mysqlTable("aggregated_articles", {
   id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 500 }).notNull(),
   excerpt: text("excerpt"),
+  content: text("content"),
   sourceUrl: varchar("sourceUrl", { length: 1000 }).notNull(),
   sourceName: varchar("sourceName", { length: 200 }).notNull(),
   sourceLogoUrl: text("sourceLogoUrl"),

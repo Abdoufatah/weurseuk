@@ -283,6 +283,15 @@ export async function getFeaturedArticles(limit = 6) {
     .limit(limit);
 }
 
+export async function getAggregatedArticleBySlug(sourceUrl: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(aggregatedArticles)
+    .where(eq(aggregatedArticles.sourceUrl, sourceUrl))
+    .limit(1);
+  return result[0];
+}
+
 export async function createAggregatedArticle(data: InsertAggregatedArticle) {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
