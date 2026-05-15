@@ -1,0 +1,15 @@
+{
+  "query": "SELECT id, title, imageUrl FROM aggregated_articles WHERE title LIKE '%Angèle%' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, title, imageUrl FROM aggregated_articles WHERE title LIKE '%Angèle%' LIMIT 1;",
+  "rows": [
+    {
+      "id": "7950002",
+      "title": "Festival de Cannes : Angèle Diabang au cœur du jury « Un Certain Regard »",
+      "imageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\timageUrl\n7950002\tFestival de Cannes : Angèle Diabang au cœur du jury « Un Certain Regard »\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 281
+}
