@@ -283,11 +283,13 @@ export async function getFeaturedArticles(limit = 6) {
     .limit(limit);
 }
 
-export async function getAggregatedArticleBySlug(sourceUrl: string) {
+export async function getAggregatedArticleBySlug(slug: string) {
   const db = await getDb();
   if (!db) return undefined;
+  // Cherche par sourceUrl avec ou sans le préfixe /article/
+  const internalUrl = slug.startsWith('/article/') ? slug : `/article/${slug}`;
   const result = await db.select().from(aggregatedArticles)
-    .where(eq(aggregatedArticles.sourceUrl, sourceUrl))
+    .where(eq(aggregatedArticles.sourceUrl, internalUrl))
     .limit(1);
   return result[0];
 }
