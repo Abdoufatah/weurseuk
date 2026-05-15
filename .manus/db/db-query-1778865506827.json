@@ -1,0 +1,9 @@
+{
+  "query": "\nINSERT INTO aggregated_articles (\n  title,\n  excerpt,\n  sourceUrl,\n  sourceName,\n  sourceLogoUrl,\n  imageUrl,\n  categoryId,\n  region,\n  isBreakingNews,\n  isFeatured,\n  publishedAt,\n  fetchedAt,\n  createdAt\n) VALUES (\n  'Sur la Croisette, une voix venue de Dakar : Angèle Diabang au jury « Un Certain Regard » de Cannes 2026',\n  'Angèle Diabang, réalisatrice et productrice sénégalaise, siège au jury « Un Certain Regard » de la 79e édition du Festival de Cannes. Une présence qui ne doit rien au hasard.',\n  'https://weurseuk.com',\n  'Weurseuk',\n  NULL,\n  'https://manus-storage.s3.amazonaws.com/manus-storage/ChatGPTImage15mai2026,18_13_58_26d230a8.png',\n  (SELECT id FROM categories WHERE slug = 'societe' LIMIT 1),\n  'afrique_ouest',\n  0,\n  1,\n  NOW(),\n  NOW(),\n  NOW()\n);\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute \nINSERT INTO aggregated_articles (\n  title,\n  excerpt,\n  sourceUrl,\n  sourceName,\n  sourceLogoUrl,\n  imageUrl,\n  categoryId,\n  region,\n  isBreakingNews,\n  isFeatured,\n  publishedAt,\n  fetchedAt,\n  createdAt\n) VALUES (\n  'Sur la Croisette, une voix venue de Dakar : Angèle Diabang au jury « Un Certain Regard » de Cannes 2026',\n  'Angèle Diabang, réalisatrice et productrice sénégalaise, siège au jury « Un Certain Regard » de la 79e édition du Festival de Cannes. Une présence qui ne doit rien au hasard.',\n  'https://weurseuk.com',\n  'Weurseuk',\n  NULL,\n  'https://manus-storage.s3.amazonaws.com/manus-storage/ChatGPTImage15mai2026,18_13_58_26d230a8.png',\n  (SELECT id FROM categories WHERE slug = 'societe' LIMIT 1),\n  'afrique_ouest',\n  0,\n  1,\n  NOW(),\n  NOW(),\n  NOW()\n);\n",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 272
+}
