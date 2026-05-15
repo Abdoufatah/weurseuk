@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, title, excerpt, sourceUrl, imageUrl, isFeatured FROM aggregated_articles WHERE title LIKE '%Angèle%' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, title, excerpt, sourceUrl, imageUrl, isFeatured FROM aggregated_articles WHERE title LIKE '%Angèle%' LIMIT 1;",
+  "rows": [
+    {
+      "id": "7950002",
+      "title": "Festival de Cannes : Angèle Diabang au cœur du jury « Un Certain Regard »",
+      "excerpt": "La productrice et réalisatrice sénégalaise Angèle Diabang poursuit son ascension sur la scène cinématographique internationale. Elle fait partie des cinq jurés appelés à départager les films de la section « Un Certain Regard » lors de la 79e édition du Festival de Cannes, prévue sur la Croisette du...",
+      "sourceUrl": "https://lesoleil.sn/actualites/arts-et-culture/festival-de-cannes-angele-diabang-au-coeur-du-jury-un-certain-regard/",
+      "imageUrl": "https://manus-storage.s3.amazonaws.com/manus-storage/ChatGPTImage15mai2026,18_13_58_26d230a8.png",
+      "isFeatured": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\texcerpt\tsourceUrl\timageUrl\tisFeatured\n7950002\tFestival de Cannes : Angèle Diabang au cœur du jury « Un Certain Regard »\tLa productrice et réalisatrice sénégalaise Angèle Diabang poursuit son ascension sur la scène cinématographique internationale. Elle fait partie des cinq jurés appelés à départager les films de la section « Un Certain Regard » lors de la 79e édition du Festival de Cannes, prévue sur la Croisette du...\thttps://lesoleil.sn/actualites/arts-et-culture/festival-de-cannes-angele-diabang-au-coeur-du-jury-un-certain-regard/\thttps://manus-storage.s3.amazonaws.com/manus-storage/ChatGPTImage15mai2026,18_13_58_26d230a8.png\t0\n",
+  "stderr": "",
+  "execution_time_ms": 280
+}
