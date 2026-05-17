@@ -32,8 +32,8 @@ function CommentsSection({ editorialId }: { editorialId: number }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isAuthenticated) {
-      toast.error("Veuillez vous connecter pour commenter");
+    if (!authorName || !authorEmail || !content) {
+      toast.error("Veuillez remplir tous les champs");
       return;
     }
     createMut.mutate({ editorialId, authorName, authorEmail, content });
@@ -78,64 +78,55 @@ function CommentsSection({ editorialId }: { editorialId: number }) {
       )}
 
       {/* Comment form */}
-      {isAuthenticated ? (
-        <div className="bg-card rounded-lg border border-border p-6">
-          <h4 className="font-editorial font-bold mb-4">Laisser un commentaire</h4>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Votre nom"
-                value={authorName}
-                onChange={(e) => setAuthorName(e.target.value)}
-                required
-                className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-              <input
-                type="email"
-                placeholder="Votre email"
-                value={authorEmail}
-                onChange={(e) => setAuthorEmail(e.target.value)}
-                required
-                className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-            </div>
-            <textarea
-              placeholder="Votre commentaire..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+      <div className="bg-card rounded-lg border border-border p-6">
+        <h4 className="font-editorial font-bold mb-4">Laisser un commentaire</h4>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              placeholder="Votre nom"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
               required
-              rows={4}
-              className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+              className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
-            <Button
-              type="submit"
-              disabled={createMut.isPending || !authorName || !authorEmail || !content}
-              className="gap-2"
-            >
-              {createMut.isPending ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Envoi...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  Publier le commentaire
-                </>
-              )}
-            </Button>
-            <p className="text-xs text-muted-foreground">Votre commentaire sera modéré avant publication.</p>
-          </form>
-        </div>
-      ) : (
-        <div className="bg-muted/30 rounded-lg p-6 text-center">
-          <p className="text-sm text-muted-foreground mb-4">Connectez-vous pour laisser un commentaire</p>
-          <a href={getLoginUrl()} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium">
-            Se connecter
-          </a>
-        </div>
-      )}
+            <input
+              type="email"
+              placeholder="Votre email"
+              value={authorEmail}
+              onChange={(e) => setAuthorEmail(e.target.value)}
+              required
+              className="px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+            />
+          </div>
+          <textarea
+            placeholder="Votre commentaire..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            rows={4}
+            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+          />
+          <Button
+            type="submit"
+            disabled={createMut.isPending || !authorName || !authorEmail || !content}
+            className="gap-2"
+          >
+            {createMut.isPending ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Envoi...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4" />
+                Publier le commentaire
+              </>
+            )}
+          </Button>
+          <p className="text-xs text-muted-foreground">Votre commentaire sera modéré avant publication.</p>
+        </form>
+      </div>
     </div>
   );
 }
