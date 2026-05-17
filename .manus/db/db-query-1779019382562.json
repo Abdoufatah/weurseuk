@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, slug, title, isPublished FROM editorials WHERE title LIKE '%Sénégalais%' LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, slug, title, isPublished FROM editorials WHERE title LIKE '%Sénégalais%' LIMIT 5;",
+  "rows": [
+    {
+      "id": "150002",
+      "slug": "le-nouveau-gouvernement-senegalais-devoile-par-le-premier-ministre-ousmane-sonko-marque-une-rupture-generationnelle-et-politique-mo3g1dff",
+      "title": "Le nouveau gouvernement sénégalais, dévoilé par le Premier ministre Ousmane Sonko, marque une rupture générationnelle et politique",
+      "isPublished": "0"
+    },
+    {
+      "id": "150003",
+      "slug": "les-menages-senegalais-continuent-de-ressentir-le-poids-de-l-inflation-malgre-les-annonces-gouvernementales-de-baisse-des-prix-des-denrees-de-premiere-necessite-mo3g1kwm",
+      "title": "Les ménages sénégalais continuent de ressentir le poids de l'inflation, malgré les annonces gouvernementales de baisse des prix des denrées de première nécessité",
+      "isPublished": "0"
+    },
+    {
+      "id": "150006",
+      "slug": "a-l-approche-de-l-hivernage-les-grandes-villes-senegalaises-notamment-dakar-se-preparent-a-affronter-le-defi-recurrent-de-la-gestion-des-dechets-et-de-l-assainissement-mo3g41sn",
+      "title": "À l'approche de l'hivernage, les grandes villes sénégalaises, notamment Dakar, se préparent à affronter le défi récurrent de la gestion des déchets et de l'assainissement",
+      "isPublished": "0"
+    },
+    {
+      "id": "150007",
+      "slug": "le-nouveau-gouvernement-senegalais-sous-la-houlette-du-premier-ministre-ousmane-sonko-et-du-president-bassirou-diomaye-faye-revele-une-composition-strategique-marquant-une-rupture-significative-mo3g49g0",
+      "title": "Le nouveau gouvernement sénégalais, sous la houlette du Premier ministre Ousmane Sonko et du Président Bassirou Diomaye Faye, révèle une composition stratégique marquant une rupture significative",
+      "isPublished": "0"
+    },
+    {
+      "id": "210002",
+      "slug": "le-nouveau-gouvernement-senegalais-forme-apres-une-election-historique-deploie-ses-premieres-actions-sous-le-signe-de-la-rupture-et-de-la-bonne-gouvernance-mo40q769",
+      "title": "Le nouveau gouvernement sénégalais, formé après une élection historique, déploie ses premières actions sous le signe de la rupture et de la bonne gouvernance",
+      "isPublished": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tisPublished\n150002\tle-nouveau-gouvernement-senegalais-devoile-par-le-premier-ministre-ousmane-sonko-marque-une-rupture-generationnelle-et-politique-mo3g1dff\tLe nouveau gouvernement sénégalais, dévoilé par le Premier ministre Ousmane Sonko, marque une rupture générationnelle et politique\t0\n150003\tles-menages-senegalais-continuent-de-ressentir-le-poids-de-l-inflation-malgre-les-annonces-gouvernementales-de-baisse-des-prix-des-denrees-de-premiere-necessite-mo3g1kwm\tLes ménages sénégalais continuent de ressentir le poids de l'inflation, malgré les annonces gouvernementales de baisse des prix des denrées de première nécessité\t0\n150006\ta-l-approche-de-l-hivernage-les-grandes-villes-senegalaises-notamment-dakar-se-preparent-a-affronter-le-defi-recurrent-de-la-gestion-des-dechets-et-de-l-assainissement-mo3g41sn\tÀ l'approche de l'hivernage, les grandes villes sénégalaises, notamment Dakar, se préparent à affronter le défi récurrent de la gestion des déchets et de l'assainissement\t0\n150007\tle-nouveau-gouvernement-senegalais-sous-la-houlette-du-premier-ministre-ousmane-sonko-et-du-president-bassirou-diomaye-faye-revele-une-composition-strategique-marquant-une-rupture-significative-mo3g49g0\tLe nouveau gouvernement sénégalais, sous la houlette du Premier ministre Ousmane Sonko et du Président Bassirou Diomaye Faye, révèle une composition stratégique marquant une rupture significative\t0\n210002\tle-nouveau-gouvernement-senegalais-forme-apres-une-election-historique-deploie-ses-premieres-actions-sous-le-signe-de-la-rupture-et-de-la-bonne-gouvernance-mo40q769\tLe nouveau gouvernement sénégalais, formé après une élection historique, déploie ses premières actions sous le signe de la rupture et de la bonne gouvernance\t0\n",
+  "stderr": "",
+  "execution_time_ms": 324
+}
