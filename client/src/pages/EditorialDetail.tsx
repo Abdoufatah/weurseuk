@@ -266,6 +266,19 @@ export default function EditorialDetail() {
               </div>
             </div>
 
+            {/* Next Episode CTA */}
+            <div className="mt-12 pt-8 border-t border-border bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-8 text-center">
+              <p className="text-sm text-muted-foreground mb-3">À suivre demain...</p>
+              <h3 className="font-editorial text-2xl font-bold mb-4">Épisode suivant du feuilleton</h3>
+              <p className="text-foreground/80 mb-6 max-w-2xl mx-auto">
+                Découvrez demain la suite de cette enquête sur les Sénégalais au Maroc.
+              </p>
+              <Button className="gap-2" size="lg">
+                <Calendar className="w-5 h-5" />
+                Revenir demain à 10h GMT
+              </Button>
+            </div>
+
             {/* Comments Section */}
             {editorial.id && <CommentsSection editorialId={editorial.id} />}
           </article>
