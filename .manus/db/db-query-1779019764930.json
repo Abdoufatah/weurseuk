@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE editorials \nSET \n  coverImageUrl = 'https://manus-storage.s3.amazonaws.com/manus-storage/5aywObrHK6ay_728138b3.jpg',\n  isFeatured = 1,\n  excerpt = 'Une enquête rigoureuse et documentée sur les Sénégalais au Maroc, leurs défis, leurs réussites et leur intégration dans la société marocaine. Photo : © En toutes lettres - Through her Eyes: The Untold Contributions of African Migrant Women in Morocco'\nWHERE slug = 'senegalais-au-maroc-episode-1';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute UPDATE editorials \nSET \n  coverImageUrl = 'https://manus-storage.s3.amazonaws.com/manus-storage/5aywObrHK6ay_728138b3.jpg',\n  isFeatured = 1,\n  excerpt = 'Une enquête rigoureuse et documentée sur les Sénégalais au Maroc, leurs défis, leurs réussites et leur intégration dans la société marocaine. Photo : © En toutes lettres - Through her Eyes: The Untold Contributions of African Migrant Women in Morocco'\nWHERE slug = 'senegalais-au-maroc-episode-1';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 263
+}

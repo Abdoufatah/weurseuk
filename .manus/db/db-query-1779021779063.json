@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, slug, title, isPublished, isFeatured, categoryId, authorId, coverImageUrl FROM editorials WHERE slug = 'senegalais-au-maroc-episode-1';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, slug, title, isPublished, isFeatured, categoryId, authorId, coverImageUrl FROM editorials WHERE slug = 'senegalais-au-maroc-episode-1';",
+  "rows": [
+    {
+      "id": "1140001",
+      "slug": "senegalais-au-maroc-episode-1",
+      "title": "Sénégalais au Maroc : Épisode 1 - Enquête sur les migrants",
+      "isPublished": "1",
+      "isFeatured": "1",
+      "categoryId": "30008",
+      "authorId": "60001",
+      "coverImageUrl": "https://manus-storage.s3.amazonaws.com/manus-storage/5aywObrHK6ay_728138b3.jpg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\ttitle\tisPublished\tisFeatured\tcategoryId\tauthorId\tcoverImageUrl\n1140001\tsenegalais-au-maroc-episode-1\tSénégalais au Maroc : Épisode 1 - Enquête sur les migrants\t1\t1\t30008\t60001\thttps://manus-storage.s3.amazonaws.com/manus-storage/5aywObrHK6ay_728138b3.jpg\n",
+  "stderr": "",
+  "execution_time_ms": 272
+}

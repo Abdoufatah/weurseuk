@@ -1,0 +1,20 @@
+{
+  "query": "-- Vérifier d'abord les catégories disponibles\nSELECT id, slug, name FROM categories WHERE id IN (30008, 30009);\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute -- Vérifier d'abord les catégories disponibles\nSELECT id, slug, name FROM categories WHERE id IN (30008, 30009);\n",
+  "rows": [
+    {
+      "id": "30008",
+      "slug": "analyses",
+      "name": "Analyses"
+    },
+    {
+      "id": "30009",
+      "slug": "editorial",
+      "name": "Éditorial"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tslug\tname\n30008\tanalyses\tAnalyses\n30009\teditorial\tÉditorial\n",
+  "stderr": "",
+  "execution_time_ms": 258
+}
