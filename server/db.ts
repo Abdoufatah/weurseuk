@@ -1,4 +1,4 @@
-import { eq, desc, and, sql, like, inArray } from "drizzle-orm";
+import { eq, desc, and, sql, like, inArray, isNotNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
@@ -120,7 +120,10 @@ export async function getPublishedEditorials(limit = 20, offset = 0) {
     coverImageUrl: editorials.coverImageUrl,
     categoryId: editorials.categoryId,
     categoryName: categories.name,
+    categorySlug: categories.slug,
     authorId: editorials.authorId,
+    authorName: journalistProfiles.name,
+    authorPhotoUrl: journalistProfiles.photoUrl,
     isPublished: editorials.isPublished,
     isFeatured: editorials.isFeatured,
     publishedAt: editorials.publishedAt,
@@ -129,10 +132,37 @@ export async function getPublishedEditorials(limit = 20, offset = 0) {
   })
     .from(editorials)
     .leftJoin(categories, eq(editorials.categoryId, categories.id))
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
     .where(eq(editorials.isPublished, true))
     .orderBy(desc(editorials.publishedAt))
     .limit(limit)
     .offset(offset);
+}
+
+export async function getLatestNativeEditorials(limit = 3) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    id: editorials.id,
+    title: editorials.title,
+    slug: editorials.slug,
+    excerpt: editorials.excerpt,
+    coverImageUrl: editorials.coverImageUrl,
+    categoryId: editorials.categoryId,
+    categoryName: categories.name,
+    categorySlug: categories.slug,
+    authorId: editorials.authorId,
+    authorName: journalistProfiles.name,
+    authorPhotoUrl: journalistProfiles.photoUrl,
+    isPublished: editorials.isPublished,
+    publishedAt: editorials.publishedAt,
+  })
+    .from(editorials)
+    .leftJoin(categories, eq(editorials.categoryId, categories.id))
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
+    .where(and(eq(editorials.isPublished, true), isNotNull(editorials.authorId)))
+    .orderBy(desc(editorials.publishedAt))
+    .limit(limit);
 }
 
 export async function getFeaturedEditorials(limit = 5) {

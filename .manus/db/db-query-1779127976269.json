@@ -1,0 +1,65 @@
+{
+  "query": "SELECT e.id, e.title, e.slug, e.authorId, e.categoryId, c.name as categoryName, c.slug as categorySlug, e.isPublished, e.publishedAt FROM editorials e LEFT JOIN categories c ON e.categoryId = c.id ORDER BY e.publishedAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT e.id, e.title, e.slug, e.authorId, e.categoryId, c.name as categoryName, c.slug as categorySlug, e.isPublished, e.publishedAt FROM editorials e LEFT JOIN categories c ON e.categoryId = c.id ORDER BY e.publishedAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1160001",
+      "title": "Outillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique",
+      "slug": "outillage-industrialisation-senegal-extraversion",
+      "authorId": "60002",
+      "categoryId": "30008",
+      "categoryName": "Analyses",
+      "categorySlug": "analyses",
+      "isPublished": "1",
+      "publishedAt": "2026-05-18 17:14:35"
+    },
+    {
+      "id": "1260004",
+      "title": "La Somalie fait face à une crise humanitaire d'une ampleur alarmante, avec près de six millions de personnes menacées d'insécurité alimentaire, un seuil qualifié de \"tournant critique\" par les organisations non-gouvernementales (RFI Afrique)",
+      "slug": "la-somalie-fait-face-a-une-crise-humanitaire-d-une-ampleur-alarmante-avec-pres-de-six-millions-de-personnes-menacees-d-insecurite-alimentaire-un-seuil-qualifie-de-tournant-critique-par-les-organisatio-mpavxlkf",
+      "authorId": "NULL",
+      "categoryId": "30006",
+      "categoryName": "International",
+      "categorySlug": "international",
+      "isPublished": "1",
+      "publishedAt": "2026-05-18 07:31:06"
+    },
+    {
+      "id": "1260003",
+      "title": "La Cour des comptes du Sénégal a mis en lumière un écart financier substantiel de 11,925 milliards FCFA concernant Intermaq Sénégal SA",
+      "slug": "la-cour-des-comptes-du-senegal-a-mis-en-lumiere-un-ecart-financier-substantiel-de-11-925-milliards-fcfa-concernant-intermaq-senegal-sa-mpavxcb3",
+      "authorId": "NULL",
+      "categoryId": "30005",
+      "categoryName": "Politique & Économie",
+      "categorySlug": "politique-economie",
+      "isPublished": "1",
+      "publishedAt": "2026-05-18 07:30:54"
+    },
+    {
+      "id": "1260002",
+      "title": "Les consultations nationales au Sénégal, initiées par le Président Diomaye Faye, suscitent un débat intense autour des réformes institutionnelles",
+      "slug": "les-consultations-nationales-au-senegal-initiees-par-le-president-diomaye-faye-suscitent-un-debat-intense-autour-des-reformes-institutionnelles-mpavx54s",
+      "authorId": "NULL",
+      "categoryId": "30005",
+      "categoryName": "Politique & Économie",
+      "categorySlug": "politique-economie",
+      "isPublished": "1",
+      "publishedAt": "2026-05-18 07:30:45"
+    },
+    {
+      "id": "1260001",
+      "title": "L'affaire du réseau présumé d'homosexuels à Linguère prend une nouvelle tournure",
+      "slug": "l-affaire-du-reseau-presume-d-homosexuels-a-linguere-prend-une-nouvelle-tournure-mpavwuvc",
+      "authorId": "NULL",
+      "categoryId": "30004",
+      "categoryName": "Actualité",
+      "categorySlug": "actualite",
+      "isPublished": "1",
+      "publishedAt": "2026-05-18 07:30:31"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tauthorId\tcategoryId\tcategoryName\tcategorySlug\tisPublished\tpublishedAt\n1160001\tOutillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique\toutillage-industrialisation-senegal-extraversion\t60002\t30008\tAnalyses\tanalyses\t1\t2026-05-18 17:14:35\n1260004\tLa Somalie fait face à une crise humanitaire d'une ampleur alarmante, avec près de six millions de personnes menacées d'insécurité alimentaire, un seuil qualifié de \"tournant critique\" par les organisations non-gouvernementales (RFI Afrique)\tla-somalie-fait-face-a-une-crise-humanitaire-d-une-ampleur-alarmante-avec-pres-de-six-millions-de-personnes-menacees-d-insecurite-alimentaire-un-seuil-qualifie-de-tournant-critique-par-les-organisatio-mpavxlkf\tNULL\t30006\tInternational\tinternational\t1\t2026-05-18 07:31:06\n1260003\tLa Cour des comptes du Sénégal a mis en lumière un écart financier substantiel de 11,925 milliards FCFA concernant Intermaq Sénégal SA\tla-cour-des-comptes-du-senegal-a-mis-en-lumiere-un-ecart-financier-substantiel-de-11-925-milliards-fcfa-concernant-intermaq-senegal-sa-mpavxcb3\tNULL\t30005\tPolitique & Économie\tpolitique-economie\t1\t2026-05-18 07:30:54\n1260002\tLes consultations nationales au Sénégal, initiées par le Président Diomaye Faye, suscitent un débat intense autour des réformes institutionnelles\tles-consultations-nationales-au-senegal-initiees-par-le-president-diomaye-faye-suscitent-un-debat-intense-autour-des-reformes-institutionnelles-mpavx54s\tNULL\t30005\tPolitique & Économie\tpolitique-economie\t1\t2026-05-18 07:30:45\n1260001\tL'affaire du réseau présumé d'homosexuels à Linguère prend une nouvelle tournure\tl-affaire-du-reseau-presume-d-homosexuels-a-linguere-prend-une-nouvelle-tournure-mpavwuvc\tNULL\t30004\tActualité\tactualite\t1\t2026-05-18 07:30:31\n",
+  "stderr": "",
+  "execution_time_ms": 266
+}

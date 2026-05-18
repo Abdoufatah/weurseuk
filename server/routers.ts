@@ -81,8 +81,8 @@ export const appRouter = router({
       return results[0] ?? null;
     }),
     latestThree: publicProcedure.query(async () => {
-      // Retourne les 3 derniers contenus natifs publiés pour la section À LA UNE
-      return db.getPublishedEditorials(3, 0);
+      // Retourne les 3 derniers contenus natifs publiés (authorId non NULL = article signé, pas une dépêche RSS)
+      return db.getLatestNativeEditorials(3);
     }),
     // Admin CRUD
     listAll: adminProcedure.input(z.object({

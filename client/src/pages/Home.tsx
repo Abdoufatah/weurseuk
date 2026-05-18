@@ -80,53 +80,73 @@ export default function Home() {
                 Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            {/* Grille des 3 derniers articles */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {latestThree.map((editorial: any) => (
-                <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
-                  <div className="flex flex-col h-full rounded-lg overflow-hidden border border-white/10 bg-black/70 backdrop-blur-md shadow-xl hover:bg-black/80 transition-colors">
-                    {/* Photo */}
-                    <div className="w-full h-32 overflow-hidden flex-shrink-0">
-                      {editorial.coverImageUrl ? (
-                        <img
-                          src={editorial.coverImageUrl}
-                          alt={editorial.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : editorial.authorPhotoUrl ? (
-                        <img
-                          src={editorial.authorPhotoUrl}
-                          alt={editorial.authorName || 'Auteur'}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        />
+            {/* Disposition étagée hiérarchique : article #1 dominant à gauche, #2 et #3 empilés à droite */}
+            <div className="flex flex-col md:flex-row gap-3 items-stretch">
+              {/* Article #1 — dominant */}
+              {latestThree[0] && (
+                <Link href={`/${latestThree[0].categorySlug || 'editorial'}/${latestThree[0].slug}`} className="group block md:w-1/2">
+                  <div className="flex flex-col h-full rounded-lg overflow-hidden border border-white/10 bg-black/75 backdrop-blur-md shadow-2xl hover:bg-black/85 transition-colors">
+                    <div className="w-full overflow-hidden" style={{ height: '200px' }}>
+                      {latestThree[0].coverImageUrl ? (
+                        <img src={latestThree[0].coverImageUrl} alt={latestThree[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : latestThree[0].authorPhotoUrl ? (
+                        <img src={latestThree[0].authorPhotoUrl} alt={latestThree[0].authorName || 'Auteur'} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
                       )}
                     </div>
-                    {/* Contenu */}
-                    <div className="flex-1 px-3 py-3 flex flex-col justify-between">
+                    <div className="flex-1 px-4 py-4 flex flex-col justify-between">
                       <div>
-                        <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1 uppercase tracking-wide">
-                          {editorial.categoryName || 'Éditorial'}
+                        <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wide">
+                          {latestThree[0].categoryName || 'Éditorial'}
                         </span>
-                        <h3 className="font-editorial text-xs md:text-sm font-bold text-white leading-snug mb-1 group-hover:text-primary transition-colors line-clamp-2">
-                          {editorial.title}
+                        <h3 className="font-editorial text-base md:text-lg font-bold text-white leading-snug mb-2 group-hover:text-primary transition-colors line-clamp-3">
+                          {latestThree[0].title}
                         </h3>
+                        {latestThree[0].excerpt && (
+                          <p className="text-white/70 text-xs leading-relaxed line-clamp-2 hidden md:block">{latestThree[0].excerpt}</p>
+                        )}
                       </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-white/20">
-                        <div className="flex items-center gap-1">
-                          {editorial.authorName && (
-                            <span className="text-xs text-white/80 font-semibold line-clamp-1">{editorial.authorName}</span>
-                          )}
-                        </div>
-                        <span className="text-xs text-primary font-semibold group-hover:underline flex-shrink-0">
-                          Lire →
-                        </span>
+                      <div className="flex items-center justify-between pt-3 border-t border-white/20 mt-3">
+                        {latestThree[0].authorName && <span className="text-xs text-white/80 font-semibold">{latestThree[0].authorName}</span>}
+                        <span className="text-xs text-primary font-semibold group-hover:underline">Lire →</span>
                       </div>
                     </div>
                   </div>
                 </Link>
-              ))}
+              )}
+              {/* Articles #2 et #3 — empilés verticalement à droite, décroissants */}
+              <div className="flex flex-col gap-3 md:w-1/2">
+                {latestThree.slice(1).map((editorial: any, idx: number) => (
+                  <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block flex-1">
+                    <div className="flex h-full rounded-lg overflow-hidden border border-white/10 bg-black/65 backdrop-blur-md shadow-xl hover:bg-black/75 transition-colors" style={{ opacity: idx === 0 ? 1 : 0.85 }}>
+                      <div className="flex-shrink-0 overflow-hidden" style={{ width: '100px', minHeight: '90px' }}>
+                        {editorial.coverImageUrl ? (
+                          <img src={editorial.coverImageUrl} alt={editorial.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        ) : editorial.authorPhotoUrl ? (
+                          <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
+                        )}
+                      </div>
+                      <div className="flex-1 px-3 py-3 flex flex-col justify-between">
+                        <div>
+                          <span className="inline-block bg-primary/80 text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1 uppercase tracking-wide">
+                            {editorial.categoryName || 'Éditorial'}
+                          </span>
+                          <h3 className="font-editorial text-xs md:text-sm font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                            {editorial.title}
+                          </h3>
+                        </div>
+                        <div className="flex items-center justify-between pt-2 border-t border-white/15 mt-2">
+                          {editorial.authorName && <span className="text-xs text-white/70 font-semibold line-clamp-1">{editorial.authorName}</span>}
+                          <span className="text-xs text-primary font-semibold group-hover:underline flex-shrink-0">Lire →</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
