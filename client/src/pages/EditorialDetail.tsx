@@ -171,9 +171,9 @@ export default function EditorialDetail() {
   return (
     <div className="min-h-screen font-sans-editorial">
       <div className="container py-8">
-        <Link href="/editoriaux" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
+        <Link href={`/${(editorial as any).categorySlug || 'editoriaux'}`} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" />
-          Retour aux éditoriaux
+          Retour aux {(editorial as any).categoryName?.toLowerCase() || 'éditoriaux'}
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -181,7 +181,7 @@ export default function EditorialDetail() {
             {/* Header */}
             <header className="mb-8">
               <span className="text-xs font-semibold uppercase tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded">
-                Éditorial
+                {(editorial as any).categoryName || 'Éditorial'}
               </span>
               <h1 className="font-editorial text-3xl md:text-4xl font-bold mt-4 leading-tight text-foreground">
                 {editorial.title}

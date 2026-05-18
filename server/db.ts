@@ -147,7 +147,7 @@ export async function getFeaturedEditorials(limit = 5) {
 export async function getEditorialBySlug(slug: string) {
   const db = await getDb();
   if (!db) return undefined;
-  // Jointure avec journalist_profiles pour récupérer la photo et le nom de l'auteur
+  // Jointure avec journalist_profiles et categories
   const result = await db
     .select({
       id: editorials.id,
@@ -157,6 +157,8 @@ export async function getEditorialBySlug(slug: string) {
       content: editorials.content,
       coverImageUrl: editorials.coverImageUrl,
       categoryId: editorials.categoryId,
+      categoryName: categories.name,
+      categorySlug: categories.slug,
       authorId: editorials.authorId,
       isPublished: editorials.isPublished,
       isFeatured: editorials.isFeatured,
@@ -170,6 +172,7 @@ export async function getEditorialBySlug(slug: string) {
     })
     .from(editorials)
     .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
+    .leftJoin(categories, eq(editorials.categoryId, categories.id))
     .where(eq(editorials.slug, slug))
     .limit(1);
   return result[0];
