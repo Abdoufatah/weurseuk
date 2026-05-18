@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, title, coverImageUrl, authorId FROM editorials WHERE authorId IS NOT NULL ORDER BY publishedAt DESC LIMIT 3;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, title, coverImageUrl, authorId FROM editorials WHERE authorId IS NOT NULL ORDER BY publishedAt DESC LIMIT 3;",
+  "rows": [
+    {
+      "id": "1160001",
+      "title": "Outillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique",
+      "coverImageUrl": "/manus-storage/PapeAmadouFall_b2fa0025.png",
+      "authorId": "60002"
+    },
+    {
+      "id": "1150002",
+      "title": "La nation sénégalaise à partir de son centre — Version longue",
+      "coverImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/fatah.jpeg",
+      "authorId": "30001"
+    },
+    {
+      "id": "1150001",
+      "title": "La nation sénégalaise à partir de son centre",
+      "coverImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
+      "authorId": "30001"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tcoverImageUrl\tauthorId\n1160001\tOutillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique\t/manus-storage/PapeAmadouFall_b2fa0025.png\t60002\n1150002\tLa nation sénégalaise à partir de son centre — Version longue\thttps://d2xsxph8kpxj0f.cloudfront.net/fatah.jpeg\t30001\n1150001\tLa nation sénégalaise à partir de son centre\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png\t30001\n",
+  "stderr": "",
+  "execution_time_ms": 275
+}

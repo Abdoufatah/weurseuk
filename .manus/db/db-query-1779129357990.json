@@ -1,0 +1,45 @@
+{
+  "query": "SELECT e.id, e.title, e.authorId, jp.photoUrl, e.coverImageUrl FROM editorials e LEFT JOIN journalist_profiles jp ON e.authorId = jp.id WHERE e.authorId IS NOT NULL ORDER BY e.publishedAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT e.id, e.title, e.authorId, jp.photoUrl, e.coverImageUrl FROM editorials e LEFT JOIN journalist_profiles jp ON e.authorId = jp.id WHERE e.authorId IS NOT NULL ORDER BY e.publishedAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1160001",
+      "title": "Outillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique",
+      "authorId": "60002",
+      "photoUrl": "/manus-storage/pape-amadou-fall_c1aa7871.png",
+      "coverImageUrl": "/manus-storage/pape-amadou-fall_c1aa7871.png"
+    },
+    {
+      "id": "1150002",
+      "title": "La nation sénégalaise à partir de son centre — Version longue",
+      "authorId": "30001",
+      "photoUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
+      "coverImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/fatah.jpeg"
+    },
+    {
+      "id": "1150001",
+      "title": "La nation sénégalaise à partir de son centre",
+      "authorId": "30001",
+      "photoUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
+      "coverImageUrl": "NULL"
+    },
+    {
+      "id": "1140001",
+      "title": "Sénégalais au Maroc : Épisode 1 - Enquête sur les migrants",
+      "authorId": "30001",
+      "photoUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
+      "coverImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/editorials/senegalais-maroc-illustration.jpg"
+    },
+    {
+      "id": "630001",
+      "title": "Sahel : Derrière la menace jihadiste, les mécanismes silencieux d'une déstabilisation régionale et l'ombre des puissances étrangères",
+      "authorId": "30001",
+      "photoUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png",
+      "coverImageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tauthorId\tphotoUrl\tcoverImageUrl\n1160001\tOutillage et industrialisation du Sénégal : une longue lutte contre l'extraversion économique\t60002\t/manus-storage/pape-amadou-fall_c1aa7871.png\t/manus-storage/pape-amadou-fall_c1aa7871.png\n1150002\tLa nation sénégalaise à partir de son centre — Version longue\t30001\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png\thttps://d2xsxph8kpxj0f.cloudfront.net/fatah.jpeg\n1150001\tLa nation sénégalaise à partir de son centre\t30001\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png\tNULL\n1140001\tSénégalais au Maroc : Épisode 1 - Enquête sur les migrants\t30001\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/editorials/senegalais-maroc-illustration.jpg\n630001\tSahel : Derrière la menace jihadiste, les mécanismes silencieux d'une déstabilisation régionale et l'ombre des puissances étrangères\t30001\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663077132964/gZtFuPhj9JU8iVtsGM9iQB/bensirac-portrait_1363624a.png\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 280
+}

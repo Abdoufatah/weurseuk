@@ -91,15 +91,19 @@ export default function Home() {
                       opacity: idx === 0 ? 1 : idx === 1 ? 0.92 : 0.84,
                     }}
                   >
-                    {/* Photo auteur / couverture — format portrait carré */}
-                    <div className="flex-shrink-0 overflow-hidden" style={{ width: '120px', height: '100px' }}>
+                    {/* Photo auteur / couverture — traitement portrait éditorial */}
+                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: '130px', height: '110px' }}>
                       {editorial.coverImageUrl ? (
-                        <img src={editorial.coverImageUrl} alt={editorial.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src={editorial.coverImageUrl} alt={editorial.title} className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" />
                       ) : editorial.authorPhotoUrl ? (
-                        <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                        <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
                       )}
+                      {/* Vignette latérale droite — fondu vers le fond du bandeau */}
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 55%, rgba(10,10,10,0.85) 100%)' }} />
+                      {/* Vignette basse subtile */}
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.45) 100%)' }} />
                     </div>
                     {/* Contenu texte */}
                     <div className="flex-1 px-4 py-3 flex flex-col justify-between min-w-0">
