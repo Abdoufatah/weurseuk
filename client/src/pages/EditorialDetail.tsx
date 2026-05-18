@@ -132,7 +132,7 @@ function CommentsSection({ editorialId }: { editorialId: number }) {
 }
 
 export default function EditorialDetail() {
-  const params = useParams<{ slug: string }>();
+  const params = useParams<{ slug: string; category?: string }>();
   const { data: editorial, isLoading, error } = trpc.editorials.bySlug.useQuery(
     { slug: params.slug || "" },
     { enabled: !!params.slug }

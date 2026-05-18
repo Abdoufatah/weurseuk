@@ -80,6 +80,10 @@ export const appRouter = router({
       const results = await db.getPublishedEditorials(1, 0);
       return results[0] ?? null;
     }),
+    latestThree: publicProcedure.query(async () => {
+      // Retourne les 3 derniers contenus natifs publiés pour la section À LA UNE
+      return db.getPublishedEditorials(3, 0);
+    }),
     // Admin CRUD
     listAll: adminProcedure.input(z.object({
       limit: z.number().min(1).max(100).default(50),

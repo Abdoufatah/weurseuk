@@ -20,7 +20,7 @@ export default function Home() {
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
-  const { data: latestEditorial } = trpc.editorials.latest.useQuery();
+  const { data: latestThree } = trpc.editorials.latestThree.useQuery();
 
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
@@ -67,7 +67,7 @@ export default function Home() {
       </section>
 
       {/* ===== BLOC À LA UNE — chevauchement sur le hero ===== */}
-      {latestEditorial && (
+      {latestThree && latestThree.length > 0 && (
         <div className="relative z-10" style={{ marginTop: '-3rem', animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
           <div className="container pb-2">
             {/* Label À la Une */}
@@ -80,60 +80,54 @@ export default function Home() {
                 Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            {/* Carte éditoriale compacte */}
-            <Link href={`/editorial/${latestEditorial.slug}`} className="group block">
-              <div className="flex gap-0 rounded-lg overflow-hidden border border-white/10 bg-black/70 backdrop-blur-md shadow-xl hover:bg-black/80 transition-colors">
-                {/* Photo auteur */}
-                {latestEditorial.coverImageUrl ? (
-                  <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={latestEditorial.coverImageUrl}
-                      alt={latestEditorial.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ) : (latestEditorial as any).authorPhotoUrl ? (
-                  <div className="w-24 md:w-32 flex-shrink-0 overflow-hidden">
-                    <img
-                      src={(latestEditorial as any).authorPhotoUrl}
-                      alt={(latestEditorial as any).authorName || 'Auteur'}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                ) : null}
-                {/* Contenu textuel */}
-                <div className="flex-1 px-4 py-3 flex flex-col justify-between">
-                  <div>
-                    <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
-                      {(latestEditorial as any).categoryName || 'Éditorial'}
-                    </span>
-                    <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1.5 group-hover:text-primary transition-colors line-clamp-2">
-                      {latestEditorial.title}
-                    </h3>
-                    {latestEditorial.excerpt && (
-                      <p className="text-white/85 text-xs leading-relaxed line-clamp-2 hidden md:block">
-                        {latestEditorial.excerpt}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/20">
-                    <div className="flex items-center gap-1.5">
-                      {(latestEditorial as any).authorName && (
-                        <span className="text-xs text-white/80 font-semibold">{(latestEditorial as any).authorName}</span>
-                      )}
-                      {latestEditorial.publishedAt && (
-                        <span className="text-xs text-white/55">
-                          · {new Date(latestEditorial.publishedAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-                        </span>
+            {/* Grille des 3 derniers articles */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {latestThree.map((editorial: any) => (
+                <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
+                  <div className="flex flex-col h-full rounded-lg overflow-hidden border border-white/10 bg-black/70 backdrop-blur-md shadow-xl hover:bg-black/80 transition-colors">
+                    {/* Photo */}
+                    <div className="w-full h-32 overflow-hidden flex-shrink-0">
+                      {editorial.coverImageUrl ? (
+                        <img
+                          src={editorial.coverImageUrl}
+                          alt={editorial.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : editorial.authorPhotoUrl ? (
+                        <img
+                          src={editorial.authorPhotoUrl}
+                          alt={editorial.authorName || 'Auteur'}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
                       )}
                     </div>
-                    <span className="text-xs text-primary font-semibold group-hover:underline">
-                      Lire →
-                    </span>
+                    {/* Contenu */}
+                    <div className="flex-1 px-3 py-3 flex flex-col justify-between">
+                      <div>
+                        <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1 uppercase tracking-wide">
+                          {editorial.categoryName || 'Éditorial'}
+                        </span>
+                        <h3 className="font-editorial text-xs md:text-sm font-bold text-white leading-snug mb-1 group-hover:text-primary transition-colors line-clamp-2">
+                          {editorial.title}
+                        </h3>
+                      </div>
+                      <div className="flex items-center justify-between pt-2 border-t border-white/20">
+                        <div className="flex items-center gap-1">
+                          {editorial.authorName && (
+                            <span className="text-xs text-white/80 font-semibold line-clamp-1">{editorial.authorName}</span>
+                          )}
+                        </div>
+                        <span className="text-xs text-primary font-semibold group-hover:underline flex-shrink-0">
+                          Lire →
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </Link>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -42,6 +42,9 @@ function Router() {
       <Route path="/editorial/:slug">
         <PublicLayout><EditorialDetail /></PublicLayout>
       </Route>
+      <Route path="/:category/:slug">
+        <PublicLayout><EditorialDetail /></PublicLayout>
+      </Route>
       <Route path="/article/:slug">
         <PublicLayout><ArticleDetail /></PublicLayout>
       </Route>
