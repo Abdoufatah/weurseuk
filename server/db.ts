@@ -111,7 +111,24 @@ export async function createCategory(data: InsertCategory) {
 export async function getPublishedEditorials(limit = 20, offset = 0) {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(editorials)
+  return db.select({
+    id: editorials.id,
+    title: editorials.title,
+    slug: editorials.slug,
+    excerpt: editorials.excerpt,
+    content: editorials.content,
+    coverImageUrl: editorials.coverImageUrl,
+    categoryId: editorials.categoryId,
+    categoryName: categories.name,
+    authorId: editorials.authorId,
+    isPublished: editorials.isPublished,
+    isFeatured: editorials.isFeatured,
+    publishedAt: editorials.publishedAt,
+    createdAt: editorials.createdAt,
+    updatedAt: editorials.updatedAt,
+  })
+    .from(editorials)
+    .leftJoin(categories, eq(editorials.categoryId, categories.id))
     .where(eq(editorials.isPublished, true))
     .orderBy(desc(editorials.publishedAt))
     .limit(limit)

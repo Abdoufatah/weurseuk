@@ -105,7 +105,7 @@ export default function Home() {
                 <div className="flex-1 px-4 py-3 flex flex-col justify-between">
                   <div>
                     <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
-                      Éditorial
+                      {(latestEditorial as any).categoryName || 'Éditorial'}
                     </span>
                     <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug mb-1.5 group-hover:text-primary transition-colors line-clamp-2">
                       {latestEditorial.title}
