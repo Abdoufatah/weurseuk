@@ -1,0 +1,52 @@
+{
+  "query": "SELECT id, title, slug, categoryId, publishedAt FROM editorials WHERE authorId = 30001 ORDER BY publishedAt ASC;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute SELECT id, title, slug, categoryId, publishedAt FROM editorials WHERE authorId = 30001 ORDER BY publishedAt ASC;",
+  "rows": [
+    {
+      "id": "510001",
+      "title": "Le grand oral de Macky Sall à l'ONU : la stratégie du funambule",
+      "slug": "le-grand-oral-de-macky-sall-a-lonu-la-strategie-du-funambule",
+      "categoryId": "30009",
+      "publishedAt": "NULL"
+    },
+    {
+      "id": "330001",
+      "title": "Les parapluies corruptogènes",
+      "slug": "les-parapluies-corruptogenes",
+      "categoryId": "30009",
+      "publishedAt": "2026-04-20 06:42:29"
+    },
+    {
+      "id": "630001",
+      "title": "Sahel : Derrière la menace jihadiste, les mécanismes silencieux d'une déstabilisation régionale et l'ombre des puissances étrangères",
+      "slug": "sahel-menace-jihadiste-destabilisation-regionale-puissances-etrangeres",
+      "categoryId": "30009",
+      "publishedAt": "2026-05-02 02:04:44"
+    },
+    {
+      "id": "1140001",
+      "title": "Sénégalais au Maroc : Épisode 1 - Enquête sur les migrants",
+      "slug": "senegalais-au-maroc-episode-1",
+      "categoryId": "30009",
+      "publishedAt": "2026-05-17 12:44:46"
+    },
+    {
+      "id": "1150001",
+      "title": "La nation sénégalaise à partir de son centre",
+      "slug": "nation-senegalaise-centre-article-1",
+      "categoryId": "30009",
+      "publishedAt": "2026-05-17 17:16:54"
+    },
+    {
+      "id": "1150002",
+      "title": "La nation sénégalaise à partir de son centre — Version longue",
+      "slug": "nation-senegalaise-centre-article-2",
+      "categoryId": "30009",
+      "publishedAt": "2026-05-17 23:30:17"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\ttitle\tslug\tcategoryId\tpublishedAt\n510001\tLe grand oral de Macky Sall à l'ONU : la stratégie du funambule\tle-grand-oral-de-macky-sall-a-lonu-la-strategie-du-funambule\t30009\tNULL\n330001\tLes parapluies corruptogènes\tles-parapluies-corruptogenes\t30009\t2026-04-20 06:42:29\n630001\tSahel : Derrière la menace jihadiste, les mécanismes silencieux d'une déstabilisation régionale et l'ombre des puissances étrangères\tsahel-menace-jihadiste-destabilisation-regionale-puissances-etrangeres\t30009\t2026-05-02 02:04:44\n1140001\tSénégalais au Maroc : Épisode 1 - Enquête sur les migrants\tsenegalais-au-maroc-episode-1\t30009\t2026-05-17 12:44:46\n1150001\tLa nation sénégalaise à partir de son centre\tnation-senegalaise-centre-article-1\t30009\t2026-05-17 17:16:54\n1150002\tLa nation sénégalaise à partir de son centre — Version longue\tnation-senegalaise-centre-article-2\t30009\t2026-05-17 23:30:17\n",
+  "stderr": "",
+  "execution_time_ms": 263
+}
