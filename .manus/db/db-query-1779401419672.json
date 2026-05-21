@@ -1,0 +1,52 @@
+{
+  "query": "\nSELECT c.name, c.slug, COUNT(e.id) as total_articles, \n       SUM(CASE WHEN e.authorId IS NOT NULL THEN 1 ELSE 0 END) as articles_natifs,\n       SUM(CASE WHEN e.authorId IS NULL THEN 1 ELSE 0 END) as articles_rss\nFROM categories c\nLEFT JOIN editorials e ON e.categoryId = c.id AND e.isPublished = 1\nGROUP BY c.id, c.name, c.slug\nORDER BY c.id;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4KgA36nVEkEsaEc.48519a6203d4 --database gZtFuPhj9JU8iVtsGM9iQB --execute \nSELECT c.name, c.slug, COUNT(e.id) as total_articles, \n       SUM(CASE WHEN e.authorId IS NOT NULL THEN 1 ELSE 0 END) as articles_natifs,\n       SUM(CASE WHEN e.authorId IS NULL THEN 1 ELSE 0 END) as articles_rss\nFROM categories c\nLEFT JOIN editorials e ON e.categoryId = c.id AND e.isPublished = 1\nGROUP BY c.id, c.name, c.slug\nORDER BY c.id;\n",
+  "rows": [
+    {
+      "name": "Actualité",
+      "slug": "actualite",
+      "total_articles": "25",
+      "articles_natifs": "0",
+      "articles_rss": "25"
+    },
+    {
+      "name": "Politique & Économie",
+      "slug": "politique-economie",
+      "total_articles": "49",
+      "articles_natifs": "0",
+      "articles_rss": "49"
+    },
+    {
+      "name": "International",
+      "slug": "international",
+      "total_articles": "25",
+      "articles_natifs": "0",
+      "articles_rss": "25"
+    },
+    {
+      "name": "Société",
+      "slug": "societe",
+      "total_articles": "20",
+      "articles_natifs": "0",
+      "articles_rss": "20"
+    },
+    {
+      "name": "Analyses",
+      "slug": "analyses",
+      "total_articles": "3",
+      "articles_natifs": "3",
+      "articles_rss": "0"
+    },
+    {
+      "name": "Éditorial",
+      "slug": "editorial",
+      "total_articles": "7",
+      "articles_natifs": "7",
+      "articles_rss": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "name\tslug\ttotal_articles\tarticles_natifs\tarticles_rss\nActualité\tactualite\t25\t0\t25\nPolitique & Économie\tpolitique-economie\t49\t0\t49\nInternational\tinternational\t25\t0\t25\nSociété\tsociete\t20\t0\t20\nAnalyses\tanalyses\t3\t3\t0\nÉditorial\teditorial\t7\t7\t0\n",
+  "stderr": "",
+  "execution_time_ms": 316
+}

@@ -54,6 +54,21 @@ function Router() {
       <Route path="/section/:slug">
         <PublicLayout><Section /></PublicLayout>
       </Route>
+      <Route path="/actualite">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/politique-economie">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/international">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/societe">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
+      <Route path="/analyses">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
       <Route path="/a-propos">
         <PublicLayout><APropos /></PublicLayout>
       </Route>

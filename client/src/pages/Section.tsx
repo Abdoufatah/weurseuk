@@ -33,7 +33,8 @@ const SECTION_CONFIG: Record<string, { title: string; region?: string; descripti
 
 export default function Section() {
   const params = useParams<{ slug: string }>();
-  const slug = params.slug || "";
+  // Fallback : extraire le slug depuis le pathname quand la route est directe (ex: /actualite)
+  const slug = params.slug || window.location.pathname.replace(/^\//, "").split("/")[0] || "";
   
   // Try to get config from SECTION_CONFIG first (for regions)
   let config = SECTION_CONFIG[slug];
@@ -58,28 +59,16 @@ export default function Section() {
     };
   }
 
-  // For editorial categories (analyses, editoriaux, etc.), use editorials.byCategory
-  // For region-based sections (senegal, afrique-ouest, monde), use articles.list
-  const isEditorialCategory = !config.region;
-  
-  const { data: editorials, isLoading: editorialsLoading } = trpc.editorials.byCategory.useQuery(
+  // Toutes les rubriques (y compris Actualité, Politique, International, Société)
+  // utilisent editorials.byCategory avec leur categoryId
+  const { data: editorials, isLoading } = trpc.editorials.byCategory.useQuery(
     { categoryId: category?.id || 0 },
-    { enabled: isEditorialCategory && !!category?.id }
+    { enabled: !!category?.id }
   );
-  
-  const queryInput = useMemo(() => ({
-    limit: 20 as const,
-    offset: 0,
-    ...(config.region ? { region: config.region } : {}),
-  }), [config.region]);
 
-  const { data: articles, isLoading: articlesLoading } = trpc.articles.list.useQuery(
-    queryInput,
-    { enabled: !isEditorialCategory }
-  );
-  
-  const isLoading = isEditorialCategory ? editorialsLoading : articlesLoading;
-  const displayItems = isEditorialCategory ? editorials : articles;
+  const displayItems = editorials;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _unused = useMemo(() => ({}), []);
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -107,30 +96,17 @@ export default function Section() {
             ) : displayItems && displayItems.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {displayItems.map((item: any) => (
-                  isEditorialCategory ? (
-                    <a key={item.id} href={`/editorial/${item.slug}`}>
-                      <div className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
-                        <div className="p-6 flex-1 flex flex-col">
-                          <h3 className="font-editorial text-lg font-bold mb-2 line-clamp-2">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{item.excerpt}</p>
-                          <div className="mt-auto text-xs text-muted-foreground">
-                            {new Date(item.publishedAt).toLocaleDateString('fr-FR')}
-                          </div>
+                  <a key={item.id} href={`/${(item as any).categorySlug || 'editorial'}/${item.slug}`}>
+                    <div className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
+                      <div className="p-6 flex-1 flex flex-col">
+                        <h3 className="font-editorial text-lg font-bold mb-2 line-clamp-2">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{item.excerpt}</p>
+                        <div className="mt-auto text-xs text-muted-foreground">
+                          {new Date(item.publishedAt).toLocaleDateString('fr-FR')}
                         </div>
                       </div>
-                    </a>
-                  ) : (
-                    <ArticleCard
-                      key={item.id}
-                      title={item.title}
-                      excerpt={item.excerpt}
-                      imageUrl={item.imageUrl}
-                      sourceUrl={item.sourceUrl}
-                      sourceName={item.sourceName}
-                      region={item.region}
-                      publishedAt={item.publishedAt}
-                    />
-                  )
+                    </div>
+                  </a>
                 ))}
               </div>
             ) : (
@@ -138,7 +114,7 @@ export default function Section() {
                 <Newspaper className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
                 <h3 className="font-editorial text-lg font-semibold mb-2">Aucun article disponible</h3>
                 <p className="text-muted-foreground text-sm">
-                  {isEditorialCategory ? "Aucun article de cette rubrique pour le moment." : "Les articles de cette section apparaîtront ici dès l'activation des flux RSS."}
+                  {"Aucun article dans cette rubrique pour le moment."}
                 </p>
               </div>
             )}
