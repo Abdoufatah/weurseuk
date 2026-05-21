@@ -171,8 +171,11 @@ export function ogMiddleware() {
       }
     }
 
-    // Route : / (page d'accueil)
+    // Route : / (page d'accueil) — uniquement pour les bots sociaux
     if (req.path === "/" || req.path === "") {
+      if (!isSocialBot(userAgent)) {
+        return next();
+      }
       const title = "Weurseuk — Portail d'Information Sénégal / Afrique de l'Ouest";
       const description =
         "L'information de référence. Sénégal, Afrique de l'Ouest et perspectives mondiales. Éditoriaux, analyses et actualités en continu.";
