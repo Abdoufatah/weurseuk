@@ -102,8 +102,6 @@ function buildOgHtml(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
-  <!-- Redirect humains vers le SPA -->
-  <script>window.location.href = "${escaped(url)}";</script>
 </head>
 <body>
   <h1>${escaped(title)}</h1>
