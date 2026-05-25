@@ -9,11 +9,11 @@ export const ASSETS = {
 // Navigation sections
 export const NAV_SECTIONS = [
   { label: "Accueil", href: "/" },
-  { label: "Actualité", href: "/section/actualite" },
-  { label: "Politique & Économie", href: "/section/politique-economie" },
-  { label: "International", href: "/section/international" },
-  { label: "Société", href: "/section/societe" },
-  { label: "Analyses", href: "/section/analyses" },
+  { label: "Actualité", href: "/actualite" },
+  { label: "Politique & Économie", href: "/politique-economie" },
+  { label: "International", href: "/international" },
+  { label: "Société", href: "/societe" },
+  { label: "Analyses", href: "/analyses" },
   { label: "Éditoriaux", href: "/editoriaux" },
   { label: "Contact", href: "/contact" },
 ] as const;

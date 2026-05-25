@@ -173,7 +173,7 @@ export default function EditorialDetail() {
       <div className="container py-8">
         <Link href={`/${(editorial as any).categorySlug || 'editoriaux'}`} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" />
-          Retour aux {(editorial as any).categoryName?.toLowerCase() || 'éditoriaux'}
+          Retour aux {((editorial as any).categoryName?.toLowerCase() === 'éditorial' ? 'éditoriaux' : (editorial as any).categoryName?.toLowerCase()) || 'éditoriaux'}
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
