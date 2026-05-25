@@ -118,6 +118,8 @@ export default function ArticleDetail() {
             title={article.title}
             url={`${typeof window !== "undefined" ? window.location.origin : ""}/article/${slug}`}
             excerpt={article.excerpt || undefined}
+            authorName={article.sourceName || undefined}
+            authorImageUrl={article.imageUrl || undefined}
             variant="horizontal"
           />
         </div>
@@ -150,6 +152,8 @@ export default function ArticleDetail() {
             title={article.title}
             url={`${typeof window !== "undefined" ? window.location.origin : ""}/article/${slug}`}
             excerpt={article.excerpt || undefined}
+            authorName={article.sourceName || undefined}
+            authorImageUrl={article.imageUrl || undefined}
             variant="horizontal"
           />
         </div>

@@ -199,6 +199,7 @@ export async function getEditorialBySlug(slug: string) {
       authorAlias: journalistProfiles.alias,
       authorPhotoUrl: journalistProfiles.photoUrl,
       authorBio: journalistProfiles.bio,
+      authorRole: journalistProfiles.role,
     })
     .from(editorials)
     .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))

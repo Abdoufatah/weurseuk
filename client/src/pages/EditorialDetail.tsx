@@ -162,11 +162,31 @@ export default function EditorialDetail() {
     );
   }
 
-  // Déterminer les infos auteur : profil lié en priorité, sinon Bensirac par défaut
-  const isBensirac = !editorial.authorPhotoUrl || editorial.authorName === 'Bensirac';
-  const authorPhoto = editorial.authorPhotoUrl || BENSIRAC.photo;
+  // Déterminer les infos auteur :
+  // - Si l'article a un auteur lié en base (authorId + authorName), on l'utilise exclusivement.
+  // - Bensirac est l'éditorialiste maison par défaut UNIQUEMENT si aucun auteur n'est lié.
+  const hasDedicatedAuthor = !!(editorial.authorId && editorial.authorName);
+  const isBensirac = !hasDedicatedAuthor ||
+    editorial.authorName === 'Bensirac' ||
+    editorial.authorAlias === 'Bensirac';
+
+  const authorPhoto = editorial.authorPhotoUrl || (isBensirac ? BENSIRAC.photo : undefined);
   const authorDisplayName = editorial.authorAlias || editorial.authorName || BENSIRAC.alias;
-  const authorBioText = editorial.authorBio || BENSIRAC.bio;
+  const authorBioText = editorial.authorBio || (isBensirac ? BENSIRAC.bio : undefined);
+
+  // Titre/rôle de l'auteur affiché sous son nom
+  const ROLE_LABELS: Record<string, string> = {
+    reporter: "Journaliste",
+    correspondent: "Correspondant",
+    columnist: "Chroniqueur",
+    analyst: "Analyste politique",
+    editorialist: "Éditorialiste",
+  };
+  const authorTitle = isBensirac
+    ? BENSIRAC.title
+    : ((editorial as any).authorRole
+        ? ROLE_LABELS[(editorial as any).authorRole] || (editorial as any).authorRole
+        : undefined);
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -264,7 +284,10 @@ export default function EditorialDetail() {
                     À propos de {BENSIRAC.alias} →
                   </Link>
                 ) : (
-                  <span className="text-sm text-primary font-medium">{authorDisplayName}</span>
+                  <span className="text-sm text-muted-foreground">
+                    Par <strong className="text-foreground">{authorDisplayName}</strong>
+                    {authorTitle && <> — {authorTitle}</>}
+                  </span>
                 )}
               </div>
             </div>
@@ -297,7 +320,7 @@ export default function EditorialDetail() {
                 </div>
                 <div>
                   <p className="font-semibold text-sm">{authorDisplayName}</p>
-                  {isBensirac && <p className="text-xs text-primary">{BENSIRAC.title}</p>}
+                  <p className="text-xs text-primary">{authorTitle}</p>
                 </div>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed">{authorBioText}</p>
