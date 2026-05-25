@@ -253,3 +253,158 @@
     transform: translateY(0);
   }
 }
+
+/* ============================================================
+   ARTICLES NATIFS — Rendu HTML éditorial (règle universelle)
+   Styles pour .editorial-html-content et toutes ses classes
+   ============================================================ */
+
+.editorial-html-content {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  color: #2C1A0E;
+  font-size: 1.02rem;
+  line-height: 1.95;
+}
+
+/* Paragraphes — alinéa typographique + espacement */
+.editorial-html-content p {
+  margin-bottom: 1.9rem;
+  text-indent: 1.8em;
+  text-align: justify;
+  hyphens: auto;
+  line-height: 1.95;
+}
+
+/* Pas d'alinéa sur le premier paragraphe après un titre ou citation */
+.editorial-html-content h2 + p,
+.editorial-html-content h3 + p,
+.editorial-html-content blockquote + p,
+.editorial-html-content .aff-exergue + p,
+.editorial-html-content hr + p {
+  text-indent: 0;
+}
+
+/* Paragraphe d'accroche */
+.editorial-html-content .lead-paragraph,
+.editorial-html-content .aff-chapeau {
+  font-family: 'Cormorant Garamond', 'Libre Baskerville', Georgia, serif;
+  font-size: 1.22rem;
+  font-style: italic;
+  color: #3D2B1F;
+  line-height: 1.85;
+  border-left: 4px solid #C8933A;
+  padding: 1.2rem 1.8rem;
+  margin-bottom: 3rem;
+  background: rgba(200, 147, 58, 0.06);
+  border-radius: 0 4px 4px 0;
+  text-indent: 0 !important;
+}
+
+/* Paragraphe de conclusion */
+.editorial-html-content .conclusion {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #3D2B1F;
+  border-top: 1px solid rgba(200, 147, 58, 0.4);
+  padding-top: 2rem;
+  margin-top: 1rem;
+  text-indent: 0 !important;
+}
+
+/* Inter-titres h2 — gras, accent doré Weurseuk */
+.editorial-html-content h2,
+.editorial-html-content .section-title {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 700 !important;
+  font-size: 1.55rem !important;
+  color: #1A1410 !important;
+  margin: 4rem 0 1.5rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.01em;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(200, 147, 58, 0.3);
+  position: relative;
+}
+.editorial-html-content h2::before,
+.editorial-html-content .section-title::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: #C8933A;
+}
+.editorial-html-content h2 strong {
+  font-weight: 700;
+}
+
+/* Inter-titres h3 */
+.editorial-html-content h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #2C1A0E;
+  margin: 3rem 0 1.2rem;
+  line-height: 1.3;
+}
+
+/* Séparateurs */
+.editorial-html-content hr,
+.editorial-html-content .aff-divider,
+.editorial-html-content .editorial-divider {
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(to right, transparent, #C8933A, transparent) !important;
+  margin: 2.5rem 0 3rem !important;
+}
+
+/* Citations / exergues */
+.editorial-html-content blockquote,
+.editorial-html-content .editorial-quote,
+.editorial-html-content .aff-exergue {
+  background: #F5E9D0 !important;
+  border-left: 4px solid #C8933A !important;
+  padding: 1.6rem 2rem !important;
+  margin: 3rem 0 !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+.editorial-html-content blockquote p,
+.editorial-html-content .editorial-quote p,
+.editorial-html-content .aff-exergue p {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 1.12rem !important;
+  font-style: italic !important;
+  color: #3D2B1F !important;
+  margin: 0 !important;
+  text-align: left !important;
+  text-indent: 0 !important;
+  line-height: 1.8 !important;
+}
+.editorial-html-content blockquote cite,
+.editorial-html-content .aff-exergue cite {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.63rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A7F74;
+  font-style: normal;
+}
+
+/* Note de bas d'article */
+.editorial-html-content .aff-note {
+  background: #1A1410;
+  color: rgba(253, 251, 247, 0.75);
+  padding: 1.8rem 2.2rem;
+  border-radius: 6px;
+  margin-top: 3.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+}
+.editorial-html-content .aff-note a { color: #C8933A; text-decoration: none; }
+.editorial-html-content .aff-note strong { color: #FDFBF7; }

@@ -179,7 +179,7 @@ export default function EditorialDetail() {
     reporter: "Journaliste",
     correspondent: "Correspondant",
     columnist: "Chroniqueur",
-    analyst: "Analyste politique",
+    analyst: "Analyste",
     editorialist: "Éditorialiste",
   };
   const authorTitle = isBensirac
