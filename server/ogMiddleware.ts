@@ -156,7 +156,9 @@ export function ogMiddleware() {
           // (servi par le CDN sans métadonnées), Facebook n'affiche que "weurseuk.com".
           // En pointant og:url vers /api/og/editorial/:slug, Facebook scrape la bonne page.
           const ogUrl = `${origin}/api/og/editorial/${slug}`;
-          const image = editorial.coverImageUrl || LOGO_URL;
+          // Résoudre les chemins relatifs /manus-storage/ en URL absolues
+          const rawImage = editorial.coverImageUrl || LOGO_URL;
+          const image = rawImage.startsWith('/') ? `${origin}${rawImage}` : rawImage;
 
           return res
             .status(200)
