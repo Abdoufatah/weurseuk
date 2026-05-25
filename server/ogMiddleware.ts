@@ -146,18 +146,22 @@ export function ogMiddleware() {
         const editorial = await getEditorialBySlug(slug);
         if (editorial) {
           const title = `${editorial.title} — Weurseuk`;
+          // og:description = excerpt complet en priorité, sinon extrait du contenu
           const description =
             editorial.excerpt ||
             editorial.content.replace(/<[^>]+>/g, "").substring(0, 200) + "...";
           // canonicalUrl = URL lisible de l'article (pour le SEO et les humains)
-          const canonicalUrl = `${origin}/editorial/${slug}`;
+          // Utilise categorySlug si disponible, sinon fallback sur 'editorial'
+          const catSlug = (editorial as any).categorySlug || 'editorial';
+          const canonicalUrl = `${origin}/${catSlug}/${slug}`;
           // ogUrl = URL que Facebook scrape réellement (doit être /api/og/... pour avoir les métadonnées)
-          // Facebook re-scrape og:url après avoir reçu la page — si og:url pointe vers /editorial/:slug
-          // (servi par le CDN sans métadonnées), Facebook n'affiche que "weurseuk.com".
-          // En pointant og:url vers /api/og/editorial/:slug, Facebook scrape la bonne page.
           const ogUrl = `${origin}/api/og/editorial/${slug}`;
-          // Résoudre les chemins relatifs /manus-storage/ en URL absolues
-          const rawImage = editorial.coverImageUrl || LOGO_URL;
+          // og:image : coverImageUrl en priorité, sinon photo de l'auteur, sinon logo Weurseuk
+          // Règle éditoriale : chaque partage affiche l'image illustrative ou la photo de l'auteur signataire
+          const rawImage =
+            editorial.coverImageUrl ||
+            (editorial as any).authorPhotoUrl ||
+            LOGO_URL;
           const image = rawImage.startsWith('/') ? `${origin}${rawImage}` : rawImage;
 
           return res

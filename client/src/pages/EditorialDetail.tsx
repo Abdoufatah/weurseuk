@@ -253,6 +253,8 @@ export default function EditorialDetail() {
                 <ShareButtons
                   title={editorial.title}
                   excerpt={editorial.excerpt || undefined}
+                  authorName={authorDisplayName}
+                  authorImageUrl={editorial.coverImageUrl || authorPhoto || undefined}
                   url={`${window.location.origin}/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}`}
                   ogUrl={`${window.location.origin}/api/og/editorial/${params.slug}`}
                 />
