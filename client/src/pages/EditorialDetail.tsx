@@ -255,6 +255,7 @@ export default function EditorialDetail() {
                   excerpt={editorial.excerpt || undefined}
                   authorName={authorDisplayName}
                   authorImageUrl={editorial.coverImageUrl || authorPhoto || undefined}
+                  categoryLabel={(editorial as any).categoryName || undefined}
                   url={`${window.location.origin}/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}`}
                   ogUrl={`${window.location.origin}/api/og/editorial/${params.slug}`}
                 />
