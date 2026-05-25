@@ -198,6 +198,7 @@ export default function ShareButtons({
         authorImageUrl,
         categoryLabel,
         articleUrl: shareUrl,
+        excerpt,
       });
       const result = await shareOrDownload(
         blob,
@@ -227,6 +228,7 @@ export default function ShareButtons({
         authorImageUrl,
         categoryLabel,
         articleUrl: shareUrl,
+        excerpt,
       });
       const result = await shareOrDownload(
         blob,

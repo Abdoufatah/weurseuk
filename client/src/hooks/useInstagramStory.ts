@@ -20,6 +20,7 @@ export interface StoryOptions {
   authorImageUrl?: string;
   categoryLabel?: string;
   articleUrl?: string;
+  excerpt?: string;  // Extrait ou résumé court de l'article
 }
 
 export type ReelOptions = StoryOptions;
@@ -114,6 +115,65 @@ async function drawAuthorPhoto(
     ctx.drawImage(photo, sx, sy, sw, sh, photoX, photoY, photoSize, photoSize);
     ctx.restore();
   }
+}
+
+/**
+ * Dessine le bloc extrait / résumé de l'article.
+ * Texte en italique, max 3 lignes, sur fond semi-transparent.
+ * Retourne la coordonnée Y du bas du bloc.
+ */
+function drawExcerptBlock(
+  ctx: CanvasRenderingContext2D,
+  excerpt: string,
+  centerX: number,
+  topY: number,
+  accentColor: string
+): number {
+  const blockW = W - 120;
+  const blockX = (W - blockW) / 2;
+  const maxLineW = blockW - 60;
+  const lineH = 52;
+  const maxLines = 3;
+
+  // Police italique
+  ctx.font = "italic 40px 'Georgia', serif";
+
+  // Tronquer l'extrait à 3 lignes
+  const allLines = wrapText(ctx, excerpt, maxLineW);
+  const lines = allLines.slice(0, maxLines);
+  if (allLines.length > maxLines) {
+    // Ajouter ellipse sur la dernière ligne
+    let last = lines[maxLines - 1];
+    while (ctx.measureText(last + "…").width > maxLineW && last.length > 5) {
+      last = last.slice(0, -1);
+    }
+    lines[maxLines - 1] = last + "…";
+  }
+
+  const padding = 28;
+  const blockH = lines.length * lineH + padding * 2;
+
+  // Fond semi-transparent avec bordure gauche colorée
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(blockX, topY, blockW, blockH, 14);
+  ctx.fillStyle = "rgba(0,0,0,0.45)";
+  ctx.fill();
+  ctx.restore();
+
+  // Barre verticale gauche (accent)
+  ctx.fillStyle = accentColor;
+  ctx.fillRect(blockX, topY + 12, 5, blockH - 24);
+
+  // Texte extrait
+  ctx.font = "italic 40px 'Georgia', serif";
+  ctx.fillStyle = "rgba(255,255,255,0.88)";
+  ctx.textAlign = "left";
+  lines.forEach((line, i) => {
+    ctx.fillText(line, blockX + 30, topY + padding + (i + 1) * lineH - 8);
+  });
+
+  return topY + blockH;
 }
 
 /**
@@ -252,9 +312,15 @@ export async function generateInstagramStory(options: StoryOptions): Promise<Blo
     ctx.fillText(`Par ${authorName}`, W / 2, bylineY);
   }
 
+  // Extrait de l'article
+  let excerptBottomY = bylineY + 20;
+  if (options.excerpt) {
+    excerptBottomY = drawExcerptBlock(ctx, options.excerpt, W / 2, bylineY + 60, GOLD);
+  }
+
   // Bloc lien direct (URL lisible en un coup d'œil)
   if (articleUrl) {
-    drawLinkBlock(ctx, articleUrl, W / 2, bylineY + 70, GOLD);
+    drawLinkBlock(ctx, articleUrl, W / 2, excerptBottomY + 30, GOLD);
   }
 
   // Pied de page
@@ -435,9 +501,15 @@ export async function generateFacebookReel(options: ReelOptions): Promise<Blob> 
     ctx.fillText(`Par ${authorName}`, W / 2, bylineY);
   }
 
+  // Extrait de l'article
+  let excerptBottomY = bylineY + 20;
+  if (options.excerpt) {
+    excerptBottomY = drawExcerptBlock(ctx, options.excerpt, W / 2, bylineY + 60, FB_BLUE_LIGHT);
+  }
+
   // Bloc lien direct
   if (articleUrl) {
-    drawLinkBlock(ctx, articleUrl, W / 2, bylineY + 70, FB_BLUE_LIGHT);
+    drawLinkBlock(ctx, articleUrl, W / 2, excerptBottomY + 30, FB_BLUE_LIGHT);
   }
 
   // Pied de page
