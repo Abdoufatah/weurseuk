@@ -253,7 +253,7 @@ export default function EditorialDetail() {
                 <ShareButtons
                   title={editorial.title}
                   excerpt={editorial.excerpt || undefined}
-                  url={`${window.location.origin}/editorial/${params.slug}`}
+                  url={`${window.location.origin}/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}`}
                   ogUrl={`${window.location.origin}/api/og/editorial/${params.slug}`}
                 />
                 {isBensirac ? (
