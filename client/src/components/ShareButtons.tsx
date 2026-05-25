@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import { Share2, Check, Link2, ImageDown, Loader2 } from "lucide-react";
-import { generateInstagramStory } from "@/hooks/useInstagramStory";
+import { Share2, Check, Link2, Loader2 } from "lucide-react";
+import {
+  generateInstagramStory,
+  generateFacebookReel,
+  shareOrDownload,
+} from "@/hooks/useInstagramStory";
 
 interface ShareButtonsProps {
   title: string;
   url?: string;
-  ogUrl?: string; // URL OG dédiée pour les réseaux sociaux (ex: /api/og/editorial/:slug)
+  ogUrl?: string;
   excerpt?: string;
-  authorName?: string;       // Nom de l'auteur de l'article natif
-  authorImageUrl?: string;   // Photo auteur ou image illustrative (coverImageUrl en priorité)
-  categoryLabel?: string;    // Label de la catégorie (ex: "ANALYSES", "ÉDITORIAL")
+  authorName?: string;
+  authorImageUrl?: string;
+  categoryLabel?: string;
   variant?: "horizontal" | "vertical" | "compact";
   className?: string;
 }
@@ -28,12 +31,11 @@ interface ShareButtonsProps {
  *   2. Le nom de l'auteur (signataire)
  *   3. Le texte d'accroche / résumé condensé (excerpt)
  *   4. L'URL de l'article
- * L'image (photo auteur ou image illustrative) est transmise via les balises
- * Open Graph servies par ogMiddleware — elle apparaît automatiquement sur
- * Facebook, LinkedIn, Twitter/X et Telegram lors du scraping de l'URL.
  *
- * En plus : bouton "Story Instagram" pour générer et télécharger une image
- * 1080×1920 px aux couleurs de Weurseuk (titre + auteur + photo).
+ * Boutons Story Instagram et Reel Facebook :
+ *   - Sur mobile : Web Share API → feuille de partage native (1 clic)
+ *     L'image + l'URL de l'article sont transmises ensemble.
+ *   - Sur desktop : téléchargement PNG + URL copiée dans le presse-papiers.
  */
 
 const NETWORKS = [
@@ -63,9 +65,10 @@ const NETWORKS = [
       const byline = authorName ? ` — ${authorName}` : "";
       const base = `"${title}"${byline}`;
       const maxExcerpt = 240 - base.length;
-      const accroche = excerpt && maxExcerpt > 20
-        ? ` | ${excerpt.substring(0, maxExcerpt - 3)}${excerpt.length > maxExcerpt - 3 ? "…" : ""}`
-        : "";
+      const accroche =
+        excerpt && maxExcerpt > 20
+          ? ` | ${excerpt.substring(0, maxExcerpt - 3)}${excerpt.length > maxExcerpt - 3 ? "…" : ""}`
+          : "";
       return `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${base}${accroche}`)}&url=${encodeURIComponent(url)}`;
     },
   },
@@ -90,7 +93,9 @@ const NETWORKS = [
     ),
     getUrl: (url: string, title: string, excerpt?: string, authorName?: string) => {
       const fullTitle = authorName ? `${title} — ${authorName}` : title;
-      const summary = excerpt ? `&summary=${encodeURIComponent(excerpt.substring(0, 256))}` : "";
+      const summary = excerpt
+        ? `&summary=${encodeURIComponent(excerpt.substring(0, 256))}`
+        : "";
       return `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(fullTitle)}${summary}`;
     },
   },
@@ -112,13 +117,12 @@ const NETWORKS = [
   },
 ];
 
-// Icône Instagram
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-    </svg>
-  );
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .substring(0, 40);
 }
 
 export default function ShareButtons({
@@ -134,6 +138,7 @@ export default function ShareButtons({
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const [generatingStory, setGeneratingStory] = useState(false);
+  const [generatingReel, setGeneratingReel] = useState(false);
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
 
   const handleCopyLink = async () => {
@@ -151,17 +156,16 @@ export default function ShareButtons({
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile && navigator.share) {
       try {
-        const urlToShare = ogUrl || shareUrl;
         await navigator.share({
           title,
           text: excerpt
             ? `${title}${authorName ? ` — ${authorName}` : ""}\n\n${excerpt}`
             : `${title}${authorName ? ` — ${authorName}` : ""}`,
-          url: urlToShare,
+          url: ogUrl || shareUrl,
         });
         return;
       } catch {
-        // Annulé ou non supporté — fallback vers window.open
+        // fallback
       }
     }
     const effectiveUrl = network.name === "Facebook" && ogUrl ? ogUrl : shareUrl;
@@ -172,16 +176,15 @@ export default function ShareButtons({
   const handleNativeShare = async () => {
     if (navigator.share) {
       try {
-        const urlToShare = ogUrl || shareUrl;
         await navigator.share({
           title,
           text: excerpt
             ? `${title}${authorName ? ` — ${authorName}` : ""}\n\n${excerpt}`
             : title,
-          url: urlToShare,
+          url: ogUrl || shareUrl,
         });
       } catch {
-        // User cancelled
+        // cancelled
       }
     }
   };
@@ -196,32 +199,56 @@ export default function ShareButtons({
         categoryLabel,
         articleUrl: shareUrl,
       });
-      // Déclencher le téléchargement
-      const objectUrl = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      // Nom de fichier : slug du titre + timestamp
-      const slug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "")
-        .substring(0, 40);
-      a.download = `weurseuk-story-${slug}.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(objectUrl);
-      toast.success("Story Instagram téléchargée ✓");
+      const result = await shareOrDownload(
+        blob,
+        `weurseuk-story-${slugify(title)}.png`,
+        shareUrl,
+        title
+      );
+      if (result === "shared") {
+        toast.success("Story prête — choisissez Instagram dans la liste");
+      } else {
+        toast.success("Story téléchargée + lien copié ✓");
+      }
     } catch (err) {
-      console.error("[InstagramStory] Error:", err);
+      console.error("[InstagramStory]", err);
       toast.error("Erreur lors de la génération de la story");
     } finally {
       setGeneratingStory(false);
     }
   };
 
-  const isVertical = variant === "vertical";
+  const handleFacebookReel = async () => {
+    setGeneratingReel(true);
+    try {
+      const blob = await generateFacebookReel({
+        title,
+        authorName,
+        authorImageUrl,
+        categoryLabel,
+        articleUrl: shareUrl,
+      });
+      const result = await shareOrDownload(
+        blob,
+        `weurseuk-reel-fb-${slugify(title)}.png`,
+        shareUrl,
+        title
+      );
+      if (result === "shared") {
+        toast.success("Reel prêt — choisissez Facebook dans la liste");
+      } else {
+        toast.success("Vignette Reel téléchargée + lien copié ✓");
+      }
+    } catch (err) {
+      console.error("[FacebookReel]", err);
+      toast.error("Erreur lors de la génération du Reel");
+    } finally {
+      setGeneratingReel(false);
+    }
+  };
+
   const isCompact = variant === "compact";
+  const isVertical = variant === "vertical";
 
   return (
     <div
@@ -237,6 +264,7 @@ export default function ShareButtons({
         </span>
       )}
 
+      {/* Réseaux classiques */}
       {NETWORKS.map((network) => (
         <Tooltip key={network.name}>
           <TooltipTrigger asChild>
@@ -255,7 +283,40 @@ export default function ShareButtons({
         </Tooltip>
       ))}
 
-      {/* Bouton Story Instagram */}
+      {/* Reel Facebook */}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={handleFacebookReel}
+            disabled={generatingReel}
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:scale-110 text-white disabled:opacity-60 disabled:cursor-not-allowed"
+            style={{ backgroundColor: generatingReel ? "#888" : "#1877F2" }}
+            aria-label="Générer une vignette Reel Facebook"
+            title="Reel Facebook"
+          >
+            {generatingReel ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              /* Icône "Reel" : F avec play */
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            )}
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>
+            Reel Facebook
+            <span className="block text-xs text-muted-foreground">
+              {typeof navigator !== "undefined" && "canShare" in navigator
+                ? "Partage direct (1 clic)"
+                : "Télécharger + lien copié"}
+            </span>
+          </p>
+        </TooltipContent>
+      </Tooltip>
+
+      {/* Story Instagram */}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -272,15 +333,25 @@ export default function ShareButtons({
             {generatingStory ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
-              <InstagramIcon />
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
             )}
           </button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Story Instagram (télécharger)</p>
+          <p>
+            Story Instagram
+            <span className="block text-xs text-muted-foreground">
+              {typeof navigator !== "undefined" && "canShare" in navigator
+                ? "Partage direct (1 clic)"
+                : "Télécharger + lien copié"}
+            </span>
+          </p>
         </TooltipContent>
       </Tooltip>
 
+      {/* Copier le lien */}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
@@ -288,11 +359,7 @@ export default function ShareButtons({
             className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:scale-110 bg-gray-500 text-white"
             aria-label="Copier le lien"
           >
-            {copied ? (
-              <Check className="w-4 h-4" />
-            ) : (
-              <Link2 className="w-4 h-4" />
-            )}
+            {copied ? <Check className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
           </button>
         </TooltipTrigger>
         <TooltipContent>
@@ -300,6 +367,7 @@ export default function ShareButtons({
         </TooltipContent>
       </Tooltip>
 
+      {/* Partage natif (mobile) */}
       {typeof navigator !== "undefined" && "share" in navigator && (
         <Tooltip>
           <TooltipTrigger asChild>
