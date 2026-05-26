@@ -285,23 +285,40 @@ export default function ShareButtons({
         </Tooltip>
       ))}
 
-      {/* Reel Facebook */}
+      {/* Reel Facebook — icône bobine de film + triangle play */}
       <Tooltip>
         <TooltipTrigger asChild>
           <button
             onClick={handleFacebookReel}
             disabled={generatingReel}
             className="inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:scale-110 text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            style={{ backgroundColor: generatingReel ? "#888" : "#1877F2" }}
+            style={{
+              background: generatingReel
+                ? "#888"
+                : "linear-gradient(135deg, #0866FF 0%, #1877F2 50%, #0a4fc4 100%)",
+              boxShadow: generatingReel ? "none" : "0 0 0 2px rgba(8,102,255,0.3)",
+            }}
             aria-label="Générer une vignette Reel Facebook"
             title="Reel Facebook"
           >
             {generatingReel ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
-              /* Icône "Reel" : F avec play */
+              /* Icône Reel : bobine de film avec sprockets + triangle play */
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                {/* Cercle extérieur bobine */}
+                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                {/* Sprockets (perforations de bobine) */}
+                <circle cx="12" cy="4" r="1.2" />
+                <circle cx="12" cy="20" r="1.2" />
+                <circle cx="4" cy="12" r="1.2" />
+                <circle cx="20" cy="12" r="1.2" />
+                <circle cx="7.2" cy="7.2" r="1" />
+                <circle cx="16.8" cy="7.2" r="1" />
+                <circle cx="7.2" cy="16.8" r="1" />
+                <circle cx="16.8" cy="16.8" r="1" />
+                {/* Triangle play centré */}
+                <path d="M10 8.5l6 3.5-6 3.5V8.5z" />
               </svg>
             )}
           </button>
