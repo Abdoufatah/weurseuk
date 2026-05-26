@@ -57,6 +57,7 @@ export default function Editoriaux() {
                     authorName={ed.authorName}
                     authorPhotoUrl={ed.authorPhotoUrl}
                     authorRole={ed.authorRole}
+                    articleType={ed.type}
                   />
                 ))}
               </div>

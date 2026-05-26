@@ -111,6 +111,12 @@ export default function Home() {
                         <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
                           {editorial.categoryName || 'Éditorial'}
                         </span>
+                        {editorial.type === 'exclusive' && (
+                          <span className="inline-flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ml-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            EXCLUSIF
+                          </span>
+                        )}
                         <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
                           {editorial.title}
                         </h3>

@@ -200,9 +200,22 @@ export default function EditorialDetail() {
           <article className="lg:col-span-2">
             {/* Header */}
             <header className="mb-8">
-              <span className="text-xs font-semibold uppercase tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded">
-                {(editorial as any).categoryName || 'Éditorial'}
-              </span>
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded">
+                  {(editorial as any).categoryName || 'Éditorial'}
+                </span>
+                {(editorial as any).type === 'exclusive' && (
+                  <>
+                    <span className="inline-flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wide">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      EXCLUSIF
+                    </span>
+                    <span className="inline-flex items-center gap-1 bg-amber-500 text-white text-xs font-bold px-2.5 py-1 rounded uppercase tracking-wide">
+                      &#9889; URGENT
+                    </span>
+                  </>
+                )}
+              </div>
               <h1 className="font-editorial text-3xl md:text-4xl font-bold mt-4 leading-tight text-foreground">
                 {editorial.title}
               </h1>

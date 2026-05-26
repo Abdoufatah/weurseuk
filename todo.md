@@ -294,6 +294,15 @@
 - [x] authorRole retourné par toutes les fonctions DB (getPublishedEditorials, getLatestNativeEditorials, getEditorialsByCategory)
 - [x] Props authorName/authorPhotoUrl/authorRole passées à ArticleCard dans Editoriaux.tsx
 
+## BADGES EXCLUSIF+URGENT (26/05/2026)
+
+- [x] Champ `type` ajouté dans getPublishedEditorials, getLatestNativeEditorials, getEditorialsByCategory, getEditorialBySlug (server/db.ts)
+- [x] Badge EXCLUSIF (rouge, point animé) + URGENT (ambre, ⚡) dans ArticleCard.tsx (prop articleType)
+- [x] Badge EXCLUSIF+URGENT dans EditorialDetail.tsx (page de lecture, header article)
+- [x] Badge EXCLUSIF dans le bloc latestThree de Home.tsx (À la Une)
+- [x] articleType={ed.type} passé dans Editoriaux.tsx (sans cast any)
+- [x] Éditorial "La recomposition silencieuse" (id 1860001) publié avec type='exclusive'
+
 ### Règle permanente — à appliquer à chaque nouvel article natif
 1. Demander à Fatah : "Avez-vous une image pour cet article ?"
    - OUI → optimiser (recadrage 16:9) + uploader sur CDN

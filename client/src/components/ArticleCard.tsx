@@ -20,6 +20,8 @@ interface ArticleCardProps {
   authorName?: string | null;
   authorPhotoUrl?: string | null;
   authorRole?: string | null;
+  // Type d'article pour les badges ("exclusive", "editorial", etc.)
+  articleType?: string | null;
 }
 
 const ROLE_LABELS: Record<string, string> = {
@@ -56,6 +58,7 @@ export default function ArticleCard({
   authorName,
   authorPhotoUrl,
   authorRole,
+  articleType,
 }: ArticleCardProps) {
   const regionLabel = region ? REGIONS[region as keyof typeof REGIONS] : null;
 
@@ -69,6 +72,7 @@ export default function ArticleCard({
     !imageUrl.includes(authorPhotoUrl.replace("/manus-storage/", "").split("_")[0]);
 
   const roleLabel = authorRole ? (ROLE_LABELS[authorRole] ?? authorRole) : null;
+  const isExclusive = articleType === "exclusive";
 
   const content = (
     <div
@@ -84,6 +88,19 @@ export default function ArticleCard({
               : "aspect-[16/9]"
           }`}
         >
+          {/* Badge EXCLUSIF + URGENT */}
+          {isExclusive && (
+            <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold tracking-widest uppercase bg-red-600 text-white shadow-lg">
+                <span className="animate-pulse inline-block w-1.5 h-1.5 rounded-full bg-white"></span>
+                EXCLUSIF
+              </span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold tracking-widest uppercase bg-amber-500 text-black shadow-lg">
+                ⚡ URGENT
+              </span>
+            </div>
+          )}
+
           {/* Image principale */}
           <img
             src={imageUrl}

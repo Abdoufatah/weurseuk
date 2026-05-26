@@ -125,6 +125,7 @@ export async function getPublishedEditorials(limit = 20, offset = 0) {
     authorName: journalistProfiles.name,
     authorPhotoUrl: journalistProfiles.photoUrl,
     authorRole: journalistProfiles.role,
+    type: editorials.type,
     isPublished: editorials.isPublished,
     isFeatured: editorials.isFeatured,
     publishedAt: editorials.publishedAt,
@@ -156,6 +157,7 @@ export async function getLatestNativeEditorials(limit = 3) {
     authorName: journalistProfiles.name,
     authorPhotoUrl: journalistProfiles.photoUrl,
     authorRole: journalistProfiles.role,
+    type: editorials.type,
     isPublished: editorials.isPublished,
     publishedAt: editorials.publishedAt,
   })
@@ -202,6 +204,7 @@ export async function getEditorialBySlug(slug: string) {
       authorPhotoUrl: journalistProfiles.photoUrl,
       authorBio: journalistProfiles.bio,
       authorRole: journalistProfiles.role,
+      type: editorials.type,
     })
     .from(editorials)
     .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
@@ -245,6 +248,7 @@ export async function getEditorialsByCategory(categoryId: number) {
       publishedAt: editorials.publishedAt,
       createdAt: editorials.createdAt,
       updatedAt: editorials.updatedAt,
+      type: editorials.type,
       // Données auteur
       authorName: journalistProfiles.name,
       authorPhotoUrl: journalistProfiles.photoUrl,
