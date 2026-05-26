@@ -149,6 +149,7 @@ export default function ShareButtons({
   const [generatingReel, setGeneratingReel] = useState(false);
   const [showReelGuide, setShowReelGuide] = useState(false);
   const [reelCaptionCopied, setReelCaptionCopied] = useState(false);
+  const [reelBlob, setReelBlob] = useState<Blob | null>(null);
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
 
   // Texte complet à coller dans la description du Reel Facebook
@@ -262,45 +263,12 @@ export default function ShareButtons({
       const isIOSDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       if (isIOSDevice) {
-        // iOS : 1) Sauvegarder l'image dans la galerie via un lien de téléchargement
-        //        2) Copier le texte de description dans le presse-papiers
-        //        3) Ouvrir directement l'interface Reels de Facebook
-        const ext = ".jpg";
-        const objectUrl = URL.createObjectURL(blob);
-
-        // Étape 1 : déclencher la sauvegarde de l'image dans la galerie iOS
-        const a = document.createElement("a");
-        a.href = objectUrl;
-        a.download = `weurseuk-reel-fb-${slugify(title)}${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
-
-        // Étape 2 : copier la description complète dans le presse-papiers
-        const caption = buildReelCaption();
-        await navigator.clipboard.writeText(caption).catch(() => {});
-
-        // Étape 3 : ouvrir directement Facebook Reels (deep link iOS)
-        // Essayer d'abord le deep link natif, fallback vers l'URL web
-        const fbReelsUrl = "fb://reels/create";
-        const fbWebUrl = "https://www.facebook.com/reels/create";
-
-        // Toast avec instructions claires
-        toast.success(
-          "Image sauvegardée + texte copié. Ouverture Facebook Reels...",
-          { duration: 4000 }
-        );
-
-        // Tentative d'ouverture du deep link Facebook Reels
-        setTimeout(() => {
-          // Tenter le deep link natif
-          window.location.href = fbReelsUrl;
-          // Si l'app n'est pas installée, fallback vers le web après 2s
-          setTimeout(() => {
-            window.open(fbWebUrl, "_blank");
-          }, 2000);
-        }, 500);
+        // iOS : stocker le blob et afficher le Dialog
+        // Le Dialog permet :
+        //   1. Copier le texte (appui explicite = Safari autorise le presse-papiers)
+        //   2. Partager l'image via la feuille native (Enregistrer dans Photos + Facebook)
+        setReelBlob(blob);
+        setShowReelGuide(true);
 
       } else if (isMobile) {  // Android
         // Android : partage natif via Web Share API
@@ -517,47 +485,89 @@ export default function ShareButtons({
           </DialogHeader>
 
           <div className="space-y-4 mt-2">
-            {/* Étapes */}
-            <ol className="space-y-3">
-              {[
-                { n: 1, label: "Ouvrez Facebook et appuyez sur \"Créer un Reel\"" },
-                { n: 2, label: "Importez l'image téléchargée (weurseuk-reel-fb-…png) depuis votre galerie" },
-                { n: 3, label: "Dans le champ \"Description\", collez le texte (Ctrl+V ou ⌘V) — il contient déjà le titre, l'auteur, l'accroche et le lien de l'article" },
-                { n: 4, label: "Publiez votre Reel" },
-              ].map(({ n, label }) => (
-                <li key={n} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1877F2] text-white text-xs font-bold flex items-center justify-center">{n}</span>
-                  <span className="text-sm text-foreground leading-snug">{label}</span>
-                </li>
-              ))}
-            </ol>
 
-            {/* Aperçu du texte copié */}
+            {/* Étape 1 : Copier le texte (appui explicite requis par Safari) */}
             <div className="rounded-lg border border-border bg-muted/40 p-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Texte copié</span>
-                <button
-                  onClick={copyReelCaption}
-                  className="text-xs text-[#1877F2] hover:underline font-medium"
-                >
-                  {reelCaptionCopied ? "✓ Copié" : "Recopier"}
-                </button>
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Étape 1 — Texte de description
+                </span>
               </div>
-              <pre className="text-xs text-foreground whitespace-pre-wrap font-sans leading-relaxed max-h-40 overflow-y-auto">
+              <pre className="text-xs text-foreground whitespace-pre-wrap font-sans leading-relaxed max-h-32 overflow-y-auto mb-3">
                 {buildReelCaption()}
               </pre>
+              <Button
+                className="w-full"
+                variant="outline"
+                onClick={copyReelCaption}
+              >
+                {reelCaptionCopied ? (
+                  <span className="flex items-center gap-2 text-green-600">
+                    <Check className="w-4 h-4" /> Texte copié !
+                  </span>
+                ) : (
+                  "Copier le texte"
+                )}
+              </Button>
             </div>
 
-            <Button
-              className="w-full"
-              style={{ backgroundColor: "#1877F2" }}
-              onClick={() => {
-                setShowReelGuide(false);
-                window.open("https://www.facebook.com/reels/create", "_blank", "noopener,noreferrer");
-              }}
-            >
-              Ouvrir Facebook Reels
-            </Button>
+            {/* Étape 2 : Enregistrer l'image + ouvrir Facebook */}
+            <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground block">
+                Étape 2 — Enregistrer l’image
+              </span>
+              <p className="text-xs text-muted-foreground">
+                Appuyez sur le bouton ci-dessous. La feuille de partage iOS s’ouvre :
+                choisissez <strong>« Enregistrer dans Photos »</strong> pour sauvegarder l’image dans votre galerie.
+              </p>
+              <Button
+                className="w-full"
+                style={{ backgroundColor: "#1877F2" }}
+                onClick={async () => {
+                  if (!reelBlob) return;
+                  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                  const mimeType = isIOS ? "image/jpeg" : "image/png";
+                  const ext = isIOS ? ".jpg" : ".png";
+                  const file = new File(
+                    [reelBlob],
+                    `weurseuk-reel-fb-${slugify(title)}${ext}`,
+                    { type: mimeType }
+                  );
+                  try {
+                    await navigator.share({ files: [file], title });
+                  } catch {
+                    // ignore annulation
+                  }
+                }}
+              >
+                Enregistrer l’image dans Photos
+              </Button>
+            </div>
+
+            {/* Étape 3 : Ouvrir Facebook Reels */}
+            <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground block">
+                Étape 3 — Publier le Reel
+              </span>
+              <p className="text-xs text-muted-foreground">
+                Ouvrez Facebook Reels, importez l’image depuis votre galerie, puis collez le texte dans la description.
+              </p>
+              <Button
+                className="w-full"
+                style={{ backgroundColor: "#1877F2" }}
+                onClick={() => {
+                  setShowReelGuide(false);
+                  // Deep link natif iOS, fallback web
+                  window.location.href = "fb://reels/create";
+                  setTimeout(() => {
+                    window.open("https://www.facebook.com/reels/create", "_blank");
+                  }, 2000);
+                }}
+              >
+                Ouvrir Facebook Reels
+              </Button>
+            </div>
+
           </div>
         </DialogContent>
       </Dialog>
