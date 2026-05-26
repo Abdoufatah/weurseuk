@@ -260,15 +260,19 @@ export default function ShareButtons({
         excerpt,
       });
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile && navigator.canShare && navigator.canShare({ files: [new File([blob], "reel.png", { type: "image/png" })] })) {
-        // Mobile : partage natif avec image + texte
-        const file = new File([blob], `weurseuk-reel-fb-${slugify(title)}.png`, { type: "image/png" });
-        await navigator.share({
-          title,
-          text: buildReelCaption(),
-          files: [file],
-        });
-        toast.success("Reel prêt — choisissez Facebook dans la liste");
+      if (isMobile) {
+        // Mobile (iOS + Android) : partage natif via shareOrDownload
+        // L'image est en JPEG sur iOS (plus léger, accepté par Safari)
+        const ext = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? ".jpg" : ".png";
+        const result = await shareOrDownload(
+          blob,
+          `weurseuk-reel-fb-${slugify(title)}${ext}`,
+          shareUrl,
+          title
+        );
+        if (result === "shared") {
+          toast.success("Reel prêt — choisissez Facebook dans la liste");
+        }
       } else {
         // Desktop : téléchargement + copie du texte + guide visuel
         const link = document.createElement("a");

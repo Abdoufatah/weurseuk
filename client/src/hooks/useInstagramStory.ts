@@ -30,8 +30,11 @@ const ANTHRACITE = "#1a1c22";
 const WHITE = "#ffffff";
 const GOLD_LIGHT = "#e8c97a";
 
-const W = 1080;
-const H = 1920;
+// Résolution adaptative : 720×1280 sur iOS (Safari limite le partage de fichiers lourds)
+// 1080×1920 sur desktop pour la qualité maximale
+const isIOS = typeof navigator !== "undefined" && /iPhone|iPad|iPod/i.test(navigator.userAgent);
+const W = isIOS ? 720 : 1080;
+const H = isIOS ? 1280 : 1920;
 
 async function loadImage(src: string): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
@@ -338,10 +341,13 @@ export async function generateInstagramStory(options: StoryOptions): Promise<Blo
   ctx.fillStyle = GOLD;
   ctx.fillRect(0, H - 12, W, 12);
 
-  return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
+    // Sur iOS, utiliser JPEG (compression meilleure) pour passer sous la limite Safari
+    const format = isIOS ? "image/jpeg" : "image/png";
+    const quality = isIOS ? 0.88 : 1.0;
     canvas.toBlob(
       (blob) => { if (blob) resolve(blob); else reject(new Error("toBlob failed")); },
-      "image/png", 1.0
+      format, quality
     );
   });
 }
@@ -532,9 +538,12 @@ export async function generateFacebookReel(options: ReelOptions): Promise<Blob> 
   ctx.fillRect(0, H - 12, W, 12);
 
   return new Promise((resolve, reject) => {
+    // Sur iOS, utiliser JPEG pour passer sous la limite Safari
+    const format = isIOS ? "image/jpeg" : "image/png";
+    const quality = isIOS ? 0.88 : 1.0;
     canvas.toBlob(
       (blob) => { if (blob) resolve(blob); else reject(new Error("toBlob failed")); },
-      "image/png", 1.0
+      format, quality
     );
   });
 }
@@ -557,27 +566,28 @@ export async function shareOrDownload(
   articleUrl?: string,
   title?: string
 ): Promise<"shared" | "downloaded"> {
-  // Tentative de partage natif avec fichier (mobile)
-  if (
-    typeof navigator !== "undefined" &&
-    "share" in navigator &&
-    "canShare" in navigator
-  ) {
-    const file = new File([blob], filename, { type: "image/png" });
-    if ((navigator as Navigator & { canShare: (data: ShareData) => boolean }).canShare({ files: [file] })) {
-      try {
-        await navigator.share({
-          files: [file],
-          title: title || "Weurseuk",
-          text: articleUrl
-            ? `Lire l'article : ${articleUrl}`
-            : undefined,
-          url: articleUrl,
-        });
-        return "shared";
-      } catch {
-        // Annulé par l'utilisateur ou erreur — fallback download
-      }
+  const isMobileDevice = typeof navigator !== "undefined" && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // Sur mobile : tentative de partage natif avec fichier
+  if (isMobileDevice && typeof navigator !== "undefined" && "share" in navigator) {
+    // Déterminer le bon type MIME selon le format généré
+    const mimeType = isIOS ? "image/jpeg" : "image/png";
+    const ext = isIOS ? ".jpg" : ".png";
+    const safeFilename = filename.replace(/\.png$/, ext);
+    const file = new File([blob], safeFilename, { type: mimeType });
+    try {
+      // Sur iOS Safari, on tente directement sans canShare (trop restrictif)
+      await navigator.share({
+        files: [file],
+        title: title || "Weurseuk",
+        text: articleUrl
+          ? `Lire l'article complet : ${articleUrl}`
+          : undefined,
+      });
+      return "shared";
+    } catch (err: unknown) {
+      // Si l'erreur est "AbortError", l'utilisateur a annulé — ne pas fallback
+      if (err instanceof Error && err.name === "AbortError") return "shared";
+      // Sinon fallback download
     }
   }
 
