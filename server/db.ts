@@ -124,6 +124,7 @@ export async function getPublishedEditorials(limit = 20, offset = 0) {
     authorId: editorials.authorId,
     authorName: journalistProfiles.name,
     authorPhotoUrl: journalistProfiles.photoUrl,
+    authorRole: journalistProfiles.role,
     isPublished: editorials.isPublished,
     isFeatured: editorials.isFeatured,
     publishedAt: editorials.publishedAt,
@@ -154,6 +155,7 @@ export async function getLatestNativeEditorials(limit = 3) {
     authorId: editorials.authorId,
     authorName: journalistProfiles.name,
     authorPhotoUrl: journalistProfiles.photoUrl,
+    authorRole: journalistProfiles.role,
     isPublished: editorials.isPublished,
     publishedAt: editorials.publishedAt,
   })

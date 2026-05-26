@@ -287,3 +287,19 @@
 - [x] Uploader sur CDN : /manus-storage/hero-video-crossfade-opt_b953971a.mp4
 - [x] Intégrer dans Home.tsx avec autoplay, muted, loop, playsInline et poster fallback
 >>>>>>> Stashed changes
+
+## PROCESS IMAGES D'ILLUSTRATION (26/05/2026 - RÈGLE DÉFINITIVE)
+
+- [x] Overlay de survol auteur sur les cartes articles natifs (photo auteur + nom + rôle + accroche)
+- [x] authorRole retourné par toutes les fonctions DB (getPublishedEditorials, getLatestNativeEditorials, getEditorialsByCategory)
+- [x] Props authorName/authorPhotoUrl/authorRole passées à ArticleCard dans Editoriaux.tsx
+
+### Règle permanente — à appliquer à chaque nouvel article natif
+1. Demander à Fatah : "Avez-vous une image pour cet article ?"
+   - OUI → optimiser (recadrage 16:9) + uploader sur CDN
+   - NON → au choix de Fatah :
+     a. Générer une image IA thématique **avec filigrane weurseuk.com**
+     b. Utiliser la photo de l'auteur en 16:9 (sans filigrane)
+2. Filigrane "weurseuk.com" : uniquement sur photos d'auteurs (portraits) ET images IA générées
+3. Images fournies par Fatah : sans filigrane (sauf demande explicite)
+4. Overlay hover sur les cartes : photo auteur + nom + rôle + accroche (100 chars)
