@@ -259,14 +259,54 @@ export default function ShareButtons({
         articleUrl: shareUrl,
         excerpt,
       });
+      const isIOSDevice = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) {
-        // Mobile (iOS + Android) : partage natif via shareOrDownload
-        // L'image est en JPEG sur iOS (plus léger, accepté par Safari)
-        const ext = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? ".jpg" : ".png";
+      if (isIOSDevice) {
+        // iOS : 1) Sauvegarder l'image dans la galerie via un lien de téléchargement
+        //        2) Copier le texte de description dans le presse-papiers
+        //        3) Ouvrir directement l'interface Reels de Facebook
+        const ext = ".jpg";
+        const objectUrl = URL.createObjectURL(blob);
+
+        // Étape 1 : déclencher la sauvegarde de l'image dans la galerie iOS
+        const a = document.createElement("a");
+        a.href = objectUrl;
+        a.download = `weurseuk-reel-fb-${slugify(title)}${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+
+        // Étape 2 : copier la description complète dans le presse-papiers
+        const caption = buildReelCaption();
+        await navigator.clipboard.writeText(caption).catch(() => {});
+
+        // Étape 3 : ouvrir directement Facebook Reels (deep link iOS)
+        // Essayer d'abord le deep link natif, fallback vers l'URL web
+        const fbReelsUrl = "fb://reels/create";
+        const fbWebUrl = "https://www.facebook.com/reels/create";
+
+        // Toast avec instructions claires
+        toast.success(
+          "Image sauvegardée + texte copié. Ouverture Facebook Reels...",
+          { duration: 4000 }
+        );
+
+        // Tentative d'ouverture du deep link Facebook Reels
+        setTimeout(() => {
+          // Tenter le deep link natif
+          window.location.href = fbReelsUrl;
+          // Si l'app n'est pas installée, fallback vers le web après 2s
+          setTimeout(() => {
+            window.open(fbWebUrl, "_blank");
+          }, 2000);
+        }, 500);
+
+      } else if (isMobile) {  // Android
+        // Android : partage natif via Web Share API
         const result = await shareOrDownload(
           blob,
-          `weurseuk-reel-fb-${slugify(title)}${ext}`,
+          `weurseuk-reel-fb-${slugify(title)}.png`,
           shareUrl,
           title
         );
