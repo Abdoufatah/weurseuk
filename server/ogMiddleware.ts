@@ -48,6 +48,8 @@ function buildOgHtmlWithRedirect(params: {
   <title>${escaped(title)}</title>
   <meta name="description" content="${escaped(description)}" />
   <link rel="canonical" href="${escaped(canonicalUrl)}" />
+  <!-- Redirection immédiate pour les navigateurs humains (WebView Facebook, Safari, Chrome) -->
+  <meta http-equiv="refresh" content="0;url=${escaped(canonicalUrl)}" />
   <!-- Open Graph -->
   <meta property="og:type" content="${type}" />
   <meta property="og:title" content="${escaped(title)}" />
@@ -61,8 +63,8 @@ function buildOgHtmlWithRedirect(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
-  <!-- Redirect humains vers le SPA -->
-  <script>if (!navigator.userAgent.match(/facebookexternalhit|twitterbot|linkedinbot|telegrambot|whatsapp|slackbot|discordbot/i)) { window.location.replace("${escaped(canonicalUrl)}"); }</script>
+  <!-- Fallback JS redirect -->
+  <script>window.location.replace("${escaped(canonicalUrl)}");</script>
 </head>
 <body>
   <h1>${escaped(title)}</h1>
@@ -136,10 +138,10 @@ export function ogMiddleware() {
     const editorialMatch = req.path.match(/^(?:\/editorial)?\/([^/]+)$/);
     if (editorialMatch) {
       const slug = editorialMatch[1];
-      // Si monté sur /editorial, n'intercepter QUE les bots sociaux
-      // Les humains doivent recevoir le SPA React normalement
-      const isMountedOnEditorial = req.baseUrl === "/editorial";
-      if (isMountedOnEditorial && !isSocialBot(userAgent)) {
+      // RÈGLE : seuls les bots sociaux reçoivent la page OG HTML.
+      // Les humains (y compris WebView Facebook) doivent recevoir le SPA React.
+      // Cela s'applique quel que soit le point de montage du middleware.
+      if (!isSocialBot(userAgent)) {
         return next();
       }
       try {
