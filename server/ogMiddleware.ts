@@ -154,15 +154,15 @@ export function ogMiddleware() {
           // Utilise categorySlug si disponible, sinon fallback sur 'editorial'
           const catSlug = (editorial as any).categorySlug || 'editorial';
           const canonicalUrl = `${origin}/${catSlug}/${slug}`;
-          // ogUrl = URL que Facebook scrape réellement (doit être /api/og/... pour avoir les métadonnées)
-          const ogUrl = `${origin}/api/og/editorial/${slug}`;
-          // og:image : coverImageUrl en priorité, sinon photo de l'auteur, sinon logo Weurseuk
-          // Règle éditoriale : chaque partage affiche l'image illustrative ou la photo de l'auteur signataire
-          const rawImage =
-            editorial.coverImageUrl ||
-            (editorial as any).authorPhotoUrl ||
-            LOGO_URL;
-          const image = rawImage.startsWith('/') ? `${origin}${rawImage}` : rawImage;
+          // ogUrl = URL canonique de l'article (Facebook doit scraper la page de l'article directement)
+          const ogUrl = canonicalUrl;
+          // og:image : utiliser une image CDN publique (sans signature) pour Facebook
+          // Les images /manus-storage/* utilisent des URLs signées CloudFront qui expirent.
+          // Mapping slug -> URL image publique permanente (Imgur ou autre CDN public)
+          const PUBLIC_OG_IMAGES: Record<string, string> = {
+            'recomposition-silencieuse-limogeage-sonko-diomaye': 'https://i.imgur.com/s2BDkNU.jpeg',
+          };
+          const image = PUBLIC_OG_IMAGES[slug] || LOGO_URL;
 
           return res
             .status(200)

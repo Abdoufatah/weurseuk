@@ -150,7 +150,28 @@ export default function ShareButtons({
   const [showReelGuide, setShowReelGuide] = useState(false);
   const [reelCaptionCopied, setReelCaptionCopied] = useState(false);
   const [reelBlob, setReelBlob] = useState<Blob | null>(null);
+  const [showFbGuide, setShowFbGuide] = useState(false);
+  const [fbTextCopied, setFbTextCopied] = useState(false);
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
+
+  // Texte complet à coller dans une publication Facebook
+  const buildFbPostText = () => {
+    const byline = authorName ? `\nPar ${authorName} | Weurseuk` : " | Weurseuk";
+    const accroche = excerpt ? `\n\n${excerpt.substring(0, 280)}${excerpt.length > 280 ? "…" : ""}` : "";
+    const lien = `\n\n🔗 Lire l'article complet : ${shareUrl}`;
+    const credit = "\n\n— weurseuk.com";
+    return `${title}${byline}${accroche}${lien}${credit}`;
+  };
+
+  const copyFbText = async () => {
+    try {
+      await navigator.clipboard.writeText(buildFbPostText());
+      setFbTextCopied(true);
+      setTimeout(() => setFbTextCopied(false), 4000);
+    } catch {
+      // ignore
+    }
+  };
 
   // Texte complet à coller dans la description du Reel Facebook
   const buildReelCaption = () => {
@@ -183,6 +204,18 @@ export default function ShareButtons({
   };
 
   const handleShare = async (network: (typeof NETWORKS)[number]) => {
+    // Facebook : ouvrir le Dialog guide avec copie automatique du texte
+    if (network.name === "Facebook") {
+      try {
+        await navigator.clipboard.writeText(buildFbPostText());
+        setFbTextCopied(true);
+        setTimeout(() => setFbTextCopied(false), 4000);
+      } catch {
+        // ignore si presse-papiers non disponible
+      }
+      setShowFbGuide(true);
+      return;
+    }
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile && navigator.share) {
       try {
@@ -198,7 +231,7 @@ export default function ShareButtons({
         // fallback
       }
     }
-    const effectiveUrl = network.name === "Facebook" && ogUrl ? ogUrl : shareUrl;
+    const effectiveUrl = ogUrl || shareUrl;
     const shareLink = network.getUrl(effectiveUrl, title, excerpt, authorName);
     window.open(shareLink, "_blank", "noopener,noreferrer,width=600,height=400");
   };
@@ -459,6 +492,82 @@ export default function ShareButtons({
         </Tooltip>
       )}
     </div>
+
+    {/* Guide de publication Facebook — copie du texte + ouverture Facebook */}
+    <Dialog open={showFbGuide} onOpenChange={setShowFbGuide}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2" style={{ color: '#1877F2' }}>
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            Publier sur Facebook
+          </DialogTitle>
+          <DialogDescription className="text-sm text-muted-foreground">
+            Le texte de publication a été copié dans votre presse-papiers. Collez-le dans Facebook.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4 mt-2">
+
+          {/* Texte prêt à coller */}
+          <div className="rounded-lg border border-border bg-muted/40 p-3">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Texte de publication
+              </span>
+              {fbTextCopied && (
+                <span className="text-xs text-green-600 font-semibold flex items-center gap-1">
+                  <Check className="w-3 h-3" /> Copié !
+                </span>
+              )}
+            </div>
+            <pre className="text-xs text-foreground whitespace-pre-wrap font-sans leading-relaxed max-h-40 overflow-y-auto mb-3">
+              {buildFbPostText()}
+            </pre>
+            <Button
+              className="w-full"
+              variant="outline"
+              onClick={copyFbText}
+            >
+              {fbTextCopied ? (
+                <span className="flex items-center gap-2 text-green-600">
+                  <Check className="w-4 h-4" /> Texte copié !
+                </span>
+              ) : (
+                "Copier le texte"
+              )}
+            </Button>
+          </div>
+
+          {/* Instructions */}
+          <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-2">
+            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground block">
+              Instructions
+            </span>
+            <ol className="text-xs text-muted-foreground space-y-1 list-decimal list-inside">
+              <li>Cliquez sur <strong>"Ouvrir Facebook"</strong> ci-dessous</li>
+              <li>Dans le champ <em>"Quoi de neuf ?"</em>, appuyez longuement puis <strong>Coller</strong></li>
+              <li>Cliquez sur <strong>Suivant</strong> puis <strong>Publier</strong></li>
+            </ol>
+          </div>
+
+          {/* Bouton ouvrir Facebook */}
+          <Button
+            className="w-full text-white font-bold"
+            style={{ backgroundColor: '#1877F2' }}
+            onClick={() => {
+              setShowFbGuide(false);
+              const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(ogUrl || shareUrl)}`;
+              window.open(fbUrl, '_blank', 'noopener,noreferrer,width=600,height=500');
+            }}
+          >
+            Ouvrir Facebook
+          </Button>
+
+        </div>
+      </DialogContent>
+    </Dialog>
 
     {/* Guide de publication Reel Facebook — profil personnel */}
     <Dialog open={showReelGuide} onOpenChange={setShowReelGuide}>

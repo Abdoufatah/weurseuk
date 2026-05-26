@@ -312,3 +312,12 @@
 2. Filigrane "weurseuk.com" : uniquement sur photos d'auteurs (portraits) ET images IA générées
 3. Images fournies par Fatah : sans filigrane (sauf demande explicite)
 4. Overlay hover sur les cartes : photo auteur + nom + rôle + accroche (100 chars)
+
+## AMÉLIORATION PARTAGE FACEBOOK (26/05/2026)
+
+- [x] Dialog guide Facebook : copie automatique du texte (titre + auteur + chapeau + lien) avant ouverture de Facebook
+- [x] Bouton Facebook ouvre un Dialog avec le texte prêt à coller + instructions en 3 étapes
+- [x] Middleware OG corrigé : og:url = URL canonique de l'article (plus /api/og/...)
+- [x] Image OG : mapping slug → URL Imgur publique permanente (sans signature CloudFront)
+- [x] Image OG éditorial Sonko/Diomaye : https://i.imgur.com/s2BDkNU.jpeg (accessible par Facebook)
+- [ ] Pour chaque nouvel éditorial : uploader l'image sur Imgur et ajouter dans PUBLIC_OG_IMAGES (ogMiddleware.ts)
