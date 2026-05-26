@@ -1,5 +1,13 @@
 import { useState } from "react";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -139,7 +147,28 @@ export default function ShareButtons({
   const [copied, setCopied] = useState(false);
   const [generatingStory, setGeneratingStory] = useState(false);
   const [generatingReel, setGeneratingReel] = useState(false);
+  const [showReelGuide, setShowReelGuide] = useState(false);
+  const [reelCaptionCopied, setReelCaptionCopied] = useState(false);
   const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
+
+  // Texte complet à coller dans la description du Reel Facebook
+  const buildReelCaption = () => {
+    const byline = authorName ? `Par ${authorName}` : "";
+    const accroche = excerpt ? `\n\n${excerpt.substring(0, 220)}${excerpt.length > 220 ? "…" : ""}` : "";
+    const lien = `\n\n🔗 Lire l'article complet : ${shareUrl}`;
+    const credit = "\n\n— weurseuk.com";
+    return `${title}${byline ? `\n${byline}` : ""}${accroche}${lien}${credit}`;
+  };
+
+  const copyReelCaption = async () => {
+    try {
+      await navigator.clipboard.writeText(buildReelCaption());
+      setReelCaptionCopied(true);
+      setTimeout(() => setReelCaptionCopied(false), 3000);
+    } catch {
+      // ignore
+    }
+  };
 
   const handleCopyLink = async () => {
     try {
@@ -230,16 +259,29 @@ export default function ShareButtons({
         articleUrl: shareUrl,
         excerpt,
       });
-      const result = await shareOrDownload(
-        blob,
-        `weurseuk-reel-fb-${slugify(title)}.png`,
-        shareUrl,
-        title
-      );
-      if (result === "shared") {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile && navigator.canShare && navigator.canShare({ files: [new File([blob], "reel.png", { type: "image/png" })] })) {
+        // Mobile : partage natif avec image + texte
+        const file = new File([blob], `weurseuk-reel-fb-${slugify(title)}.png`, { type: "image/png" });
+        await navigator.share({
+          title,
+          text: buildReelCaption(),
+          files: [file],
+        });
         toast.success("Reel prêt — choisissez Facebook dans la liste");
       } else {
-        toast.success("Vignette Reel téléchargée + lien copié ✓");
+        // Desktop : téléchargement + copie du texte + guide visuel
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `weurseuk-reel-fb-${slugify(title)}.png`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        // Copie automatique du texte de description
+        await navigator.clipboard.writeText(buildReelCaption()).catch(() => {});
+        setReelCaptionCopied(true);
+        setTimeout(() => setReelCaptionCopied(false), 5000);
+        // Afficher le guide visuel
+        setShowReelGuide(true);
       }
     } catch (err) {
       console.error("[FacebookReel]", err);
@@ -253,6 +295,7 @@ export default function ShareButtons({
   const isVertical = variant === "vertical";
 
   return (
+    <>
     <div
       className={`${
         isVertical
@@ -404,5 +447,76 @@ export default function ShareButtons({
         </Tooltip>
       )}
     </div>
+
+    {/* Guide de publication Reel Facebook — profil personnel */}
+    <Dialog open={showReelGuide} onOpenChange={setShowReelGuide}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-[#1877F2]">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="12" cy="4" r="1.2" />
+                <circle cx="12" cy="20" r="1.2" />
+                <circle cx="4" cy="12" r="1.2" />
+                <circle cx="20" cy="12" r="1.2" />
+                <circle cx="7.2" cy="7.2" r="1" />
+                <circle cx="16.8" cy="7.2" r="1" />
+                <circle cx="7.2" cy="16.8" r="1" />
+                <circle cx="16.8" cy="16.8" r="1" />
+                <path d="M10 8.5l6 3.5-6 3.5V8.5z" />
+              </svg>
+              Publier votre Reel Facebook
+            </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              L'image a été téléchargée et le texte de description a été copié dans votre presse-papiers.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-2">
+            {/* Étapes */}
+            <ol className="space-y-3">
+              {[
+                { n: 1, label: "Ouvrez Facebook et appuyez sur \"Créer un Reel\"" },
+                { n: 2, label: "Importez l'image téléchargée (weurseuk-reel-fb-…png) depuis votre galerie" },
+                { n: 3, label: "Dans le champ \"Description\", collez le texte (Ctrl+V ou ⌘V) — il contient déjà le titre, l'auteur, l'accroche et le lien de l'article" },
+                { n: 4, label: "Publiez votre Reel" },
+              ].map(({ n, label }) => (
+                <li key={n} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1877F2] text-white text-xs font-bold flex items-center justify-center">{n}</span>
+                  <span className="text-sm text-foreground leading-snug">{label}</span>
+                </li>
+              ))}
+            </ol>
+
+            {/* Aperçu du texte copié */}
+            <div className="rounded-lg border border-border bg-muted/40 p-3">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Texte copié</span>
+                <button
+                  onClick={copyReelCaption}
+                  className="text-xs text-[#1877F2] hover:underline font-medium"
+                >
+                  {reelCaptionCopied ? "✓ Copié" : "Recopier"}
+                </button>
+              </div>
+              <pre className="text-xs text-foreground whitespace-pre-wrap font-sans leading-relaxed max-h-40 overflow-y-auto">
+                {buildReelCaption()}
+              </pre>
+            </div>
+
+            <Button
+              className="w-full"
+              style={{ backgroundColor: "#1877F2" }}
+              onClick={() => {
+                setShowReelGuide(false);
+                window.open("https://www.facebook.com/reels/create", "_blank", "noopener,noreferrer");
+              }}
+            >
+              Ouvrir Facebook Reels
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
