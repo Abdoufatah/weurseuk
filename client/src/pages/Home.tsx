@@ -66,9 +66,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== BLOC À LA UNE — chevauchement sur le hero ===== */}
+      {/* ===== BLOC À LA UNE — aligné sur le bas du hero, sans chevauchement ===== */}
       {latestThree && latestThree.length > 0 && (
-        <div className="relative z-10" style={{ marginTop: '-3rem', animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
+        <div className="relative z-10" style={{ animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
           <div className="container pb-2">
             {/* Label À la Une */}
             <div className="flex items-center justify-between mb-2">
@@ -91,12 +91,12 @@ export default function Home() {
                       opacity: idx === 0 ? 1 : idx === 1 ? 0.92 : 0.84,
                     }}
                   >
-                    {/* Photo auteur / couverture — traitement portrait éditorial */}
-                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: '130px', height: '110px' }}>
+                    {/* Photo auteur / couverture — cadrage uniforme tous navigateurs */}
+                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: '130px', minWidth: '130px', height: '110px', minHeight: '110px' }}>
                       {editorial.coverImageUrl ? (
-                        <img src={editorial.coverImageUrl} alt={editorial.title} className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+                        <img src={editorial.coverImageUrl} alt={editorial.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} className="group-hover:scale-105 transition-transform duration-700" />
                       ) : editorial.authorPhotoUrl ? (
-                        <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" />
+                        <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }} className="group-hover:scale-105 transition-transform duration-700" />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
                       )}
@@ -108,12 +108,12 @@ export default function Home() {
                     {/* Contenu texte */}
                     <div className="flex-1 px-4 py-3 flex flex-col justify-between min-w-0">
                       <div>
-                        <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded-full mb-1.5 uppercase tracking-wide">
+                        <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded mb-1.5 uppercase tracking-wide" style={{ background: 'rgba(200,147,58,0.18)', color: '#C8933A', border: '1px solid rgba(200,147,58,0.35)' }}>
                           {editorial.categoryName || 'Éditorial'}
                         </span>
                         {editorial.type === 'exclusive' && (
-                          <span className="inline-flex items-center gap-1 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ml-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ml-1" style={{ background: 'rgba(180,40,40,0.22)', color: '#E07070', border: '1px solid rgba(180,40,40,0.35)' }}>
+                            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#E07070' }} />
                             EXCLUSIF
                           </span>
                         )}
