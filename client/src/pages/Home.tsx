@@ -108,15 +108,21 @@ export default function Home() {
                     {/* Contenu texte */}
                     <div className="flex-1 px-4 py-3 flex flex-col justify-between min-w-0">
                       <div>
-                        <span className="inline-block text-xs font-semibold px-2 py-0.5 rounded mb-1.5 uppercase tracking-wide" style={{ background: 'rgba(200,147,58,0.18)', color: '#C8933A', border: '1px solid rgba(200,147,58,0.35)' }}>
+                        <span style={{
+                          display: 'inline-block',
+                          fontSize: '9px',
+                          fontWeight: 700,
+                          letterSpacing: '0.18em',
+                          textTransform: 'uppercase',
+                          padding: '3px 8px',
+                          borderRadius: '2px',
+                          marginBottom: '6px',
+                          color: '#C8933A',
+                          background: 'transparent',
+                          borderBottom: '1px solid rgba(200,147,58,0.5)',
+                        }}>
                           {editorial.categoryName || 'Éditorial'}
                         </span>
-                        {editorial.type === 'exclusive' && (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wide ml-1" style={{ background: 'rgba(180,40,40,0.22)', color: '#E07070', border: '1px solid rgba(180,40,40,0.35)' }}>
-                            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#E07070' }} />
-                            EXCLUSIF
-                          </span>
-                        )}
                         <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
                           {editorial.title}
                         </h3>
