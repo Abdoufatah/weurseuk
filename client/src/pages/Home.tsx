@@ -87,12 +87,15 @@ export default function Home() {
                   <div
                     className="flex rounded-lg overflow-hidden border border-white/10 backdrop-blur-md shadow-xl hover:brightness-110 transition-all"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(20,20,20,0.88) 100%)',
+                      background: idx === 0
+                        ? 'linear-gradient(135deg, rgba(5,5,5,0.92) 0%, rgba(15,12,5,0.95) 100%)'
+                        : 'linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(20,20,20,0.88) 100%)',
                       opacity: idx === 0 ? 1 : idx === 1 ? 0.92 : 0.84,
+                      borderLeft: idx === 0 ? '3px solid rgba(200,147,58,0.8)' : 'none',
                     }}
                   >
                     {/* Photo auteur / couverture — cadrage uniforme tous navigateurs */}
-                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: '130px', minWidth: '130px', height: '110px', minHeight: '110px' }}>
+                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: idx === 0 ? '160px' : '130px', minWidth: idx === 0 ? '160px' : '130px', height: idx === 0 ? '130px' : '110px', minHeight: idx === 0 ? '130px' : '110px' }}>
                       {editorial.coverImageUrl ? (
                         <img src={editorial.coverImageUrl} alt={editorial.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} className="group-hover:scale-105 transition-transform duration-700" />
                       ) : editorial.authorPhotoUrl ? (
@@ -123,11 +126,11 @@ export default function Home() {
                         }}>
                           {editorial.categoryName || 'Éditorial'}
                         </span>
-                        <h3 className="font-editorial text-sm md:text-base font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                        <h3 className={`font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2 ${idx === 0 ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
                           {editorial.title}
                         </h3>
                         {idx === 0 && editorial.excerpt && (
-                          <p className="text-white/65 text-xs leading-relaxed line-clamp-1 mt-1 hidden md:block">{editorial.excerpt}</p>
+                          <p className="text-white/70 text-xs leading-relaxed line-clamp-2 mt-1.5">{editorial.excerpt}</p>
                         )}
                       </div>
                       <div className="flex items-center justify-between pt-2 border-t border-white/15 mt-2">
