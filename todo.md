@@ -321,3 +321,11 @@
 - [x] Image OG : mapping slug → URL Imgur publique permanente (sans signature CloudFront)
 - [x] Image OG éditorial Sonko/Diomaye : https://i.imgur.com/s2BDkNU.jpeg (accessible par Facebook)
 - [ ] Pour chaque nouvel éditorial : uploader l'image sur Imgur et ajouter dans PUBLIC_OG_IMAGES (ogMiddleware.ts)
+
+## ARTICLE SONKO / DETTE CACHÉE (16/06/2026)
+
+- [x] Transcrire l'audio de l'interview Sonko (RFI/France 24, 15 juin 2026) — 1min41s
+- [x] Analyser la transcription : stratégies rhétoriques, implicites, jeu discursif
+- [x] Rédiger l'article complet d'analyse politico-linguistique (Bensirac, rubrique Analyses)
+- [x] Insérer l'article en base de données (ID 1860007, authorId=30001, categoryId=30008)
+- [x] Rédiger la version condensée Facebook (500 mots, accroche percutante, lien Weurseuk)
