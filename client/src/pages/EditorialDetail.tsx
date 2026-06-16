@@ -219,24 +219,43 @@ export default function EditorialDetail() {
                 {editorial.title}
               </h1>
 
-              {/* Chapeau + photo auteur côte à côte */}
-              {editorial.excerpt && (
-                <div className="flex items-start gap-5 mt-5 p-5 bg-muted/20 rounded-lg border-l-4 border-primary">
-                  <div className="flex-shrink-0">
-                    <img
-                      src={authorPhoto}
-                      alt={authorDisplayName}
-                      className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-top shadow-md"
-                    />
+              {/* Chapeau + media auteur côte à côte */}
+              {editorial.excerpt && (() => {
+                // Détecter si le contenu contient une vidéo intégrée
+                const videoMatch = editorial.content?.match(/\/manus-storage\/[^"'\s]+\.mp4/);
+                const videoUrl = videoMatch ? videoMatch[0] : null;
+                return (
+                  <div className="flex flex-col md:flex-row items-start gap-5 mt-5 p-5 bg-muted/20 rounded-lg border-l-4 border-primary">
+                    <div className="flex-shrink-0 w-full md:w-48">
+                      {videoUrl ? (
+                        <video
+                          controls
+                          playsInline
+                          className="w-full rounded-lg shadow-md"
+                          poster={editorial.coverImageUrl || undefined}
+                        >
+                          <source src={videoUrl} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <img
+                          src={authorPhoto}
+                          alt={authorDisplayName}
+                          className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-top shadow-md"
+                        />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-light italic">
+                        {editorial.excerpt}
+                      </p>
+                      <p className="mt-2 text-sm font-semibold text-primary">{authorDisplayName}</p>
+                      {videoUrl && (
+                        <p className="mt-1 text-xs text-muted-foreground">Extrait © RFI / France 24</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base md:text-lg text-foreground/90 leading-relaxed font-light italic">
-                      {editorial.excerpt}
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-primary">{authorDisplayName}</p>
-                  </div>
-                </div>
-              )}
+                );
+              })()}
 
               <div className="flex items-center gap-4 mt-6 pt-4 border-t border-border">
                 <div className="w-10 h-10 rounded-full overflow-hidden">

@@ -333,3 +333,4 @@
 - [x] Signer l'article du vrai nom : Abdou Fatah FALL (au lieu de Bensirac)
 - [x] Intégrer l'extrait vidéo (1:41) dans l'article avec lecteur HTML5 et crédit © RFI / France 24
 - [x] Mettre à jour la version Facebook v2
+- [x] Remplacer l'espace vide à côté du chapeau par le lecteur vidéo de l'extrait (détection auto si contenu contient .mp4)
