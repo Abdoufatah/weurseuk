@@ -479,6 +479,20 @@ export const appRouter = router({
     }),
   }),
 
+  youtube: router({
+    getLatestVideos: publicProcedure
+      .input(z.object({ limit: z.number().min(1).max(50).default(12) }).optional())
+      .query(async ({ input }) => {
+        const { getLatestYouTubeVideos } = await import("./youtube-sync");
+        return getLatestYouTubeVideos(input?.limit ?? 12);
+      }),
+    sync: adminProcedure
+      .mutation(async () => {
+        const { syncYouTubeVideos } = await import("./youtube-sync");
+        return syncYouTubeVideos();
+      }),
+  }),
+
   n8n: router({
     createArticle: publicProcedure
       .input(z.object({

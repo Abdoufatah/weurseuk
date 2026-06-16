@@ -10,6 +10,7 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { startRssCron } from "../rssCron";
+import { startYouTubeCron } from "../youtubeCron";
 import { initializePressReviewScheduler } from "../journalists/press-review-scheduler";
 import { ogMiddleware } from "../ogMiddleware";
 import { registerStorageProxy } from "./storageProxy";
@@ -92,6 +93,8 @@ async function startServer() {
     startRssCron();
     // Start press review agent scheduler
     initializePressReviewScheduler();
+    // Start YouTube video sync cron (every 2 hours)
+    startYouTubeCron();
   });
 }
 

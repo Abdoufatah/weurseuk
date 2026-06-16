@@ -181,4 +181,38 @@ export const comments = mysqlTable("comments", {
 export type Comment = typeof comments.$inferSelect;
 export type InsertComment = typeof comments.$inferInsert;
 
+/**
+ * YouTube Channels - Top Senegalese channels for traffic generation
+ */
+export const youtubeChannels = mysqlTable("youtube_channels", {
+  id: int("id").autoincrement().primaryKey(),
+  channelId: varchar("channelId", { length: 100 }).notNull().unique(),
+  name: varchar("name", { length: 300 }).notNull(),
+  subscribers: varchar("subscribers", { length: 20 }),
+  category: varchar("category", { length: 100 }),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type YoutubeChannel = typeof youtubeChannels.$inferSelect;
+export type InsertYoutubeChannel = typeof youtubeChannels.$inferInsert;
+
+/**
+ * YouTube Videos - Latest videos from tracked channels
+ */
+export const youtubeVideos = mysqlTable("youtube_videos", {
+  id: int("id").autoincrement().primaryKey(),
+  videoId: varchar("videoId", { length: 20 }).notNull().unique(),
+  channelId: varchar("channelId", { length: 100 }).notNull(),
+  channelName: varchar("channelName", { length: 300 }).notNull(),
+  title: varchar("title", { length: 500 }).notNull(),
+  thumbnailUrl: text("thumbnailUrl"),
+  publishedAt: timestamp("publishedAt"),
+  fetchedAt: timestamp("fetchedAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type YoutubeVideo = typeof youtubeVideos.$inferSelect;
+export type InsertYoutubeVideo = typeof youtubeVideos.$inferInsert;
+
 

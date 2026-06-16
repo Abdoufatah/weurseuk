@@ -272,21 +272,15 @@
 - [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
 - [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
 
-<<<<<<< Updated upstream
-## VIDÉO HERO PAGE D'ACCUEIL (08/05/2026)
+## VIDÉO HERO PAGE D'ACCUEIL (08-09/05/2026)
 
 - [x] Convertir PAGEACCUEILWEURSEUK.MOV en MP4/WebM optimisé pour le web (15Mo, 1080p, H.264)
 - [x] Uploader la vidéo sur le CDN (/manus-storage/hero-video_61b2ff3e.mp4)
 - [x] Remplacer l'image hero par la vidéo (autoplay, muted, loop) dans Home.tsx
-=======
-## VIDÉO HERO CROSSFADE (09/05/2026)
-
-- [x] Télécharger la vidéo hero depuis le CDN (hero-video_61b2ff3e.mp4, 9.8s, 15Mo)
 - [x] Créer vidéo crossfade avec ffmpeg xfade (fondu croisé 1.5s entre fin et début)
 - [x] Optimiser la vidéo (CRF 28, 12Mo, 18.2s)
 - [x] Uploader sur CDN : /manus-storage/hero-video-crossfade-opt_b953971a.mp4
 - [x] Intégrer dans Home.tsx avec autoplay, muted, loop, playsInline et poster fallback
->>>>>>> Stashed changes
 
 ## PROCESS IMAGES D'ILLUSTRATION (26/05/2026 - RÈGLE DÉFINITIVE)
 
@@ -334,3 +328,14 @@
 - [x] Intégrer l'extrait vidéo (1:41) dans l'article avec lecteur HTML5 et crédit © RFI / France 24
 - [x] Mettre à jour la version Facebook v2
 - [x] Remplacer l'espace vide à côté du chapeau par le lecteur vidéo de l'extrait (détection auto si contenu contient .mp4)
+
+## INTÉGRATION VIDÉOS YOUTUBE SÉNÉGAL — GÉNÉRATION DE TRAFIC (16/06/2026)
+
+- [x] Créer la table youtube_channels en base (channelId, name, subscribers, category)
+- [x] Créer la table youtube_videos en base (videoId, channelId, title, thumbnail, publishedAt)
+- [x] Insérer les 25 plus grandes chaînes YouTube sénégalaises (EvenProd, Pikini, 2STV, Senegal7, Yesdakar, etc.)
+- [x] Implémenter le cron de récupération des dernières vidéos via RSS YouTube (toutes les 30 min)
+- [x] Créer le composant frontend YouTubeVideoSlot (sidebar + horizontal + grid)
+- [x] Intégrer le composant dans la page d'accueil (horizontal après section Musique + sidebar)
+- [x] Corriger l'erreur LIMIT MySQL (paramètre interpolé au lieu de prepared statement)
+- [x] Tester l'affichage : 234 vidéos synchronisées, 4 vignettes affichées en tendances

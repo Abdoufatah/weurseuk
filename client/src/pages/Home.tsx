@@ -3,6 +3,7 @@ import { ASSETS, BENSIRAC } from "@shared/constants";
 import { Link } from "wouter";
 import ArticleCard from "@/components/ArticleCard";
 import AdPlacement from "@/components/AdPlacement";
+import YouTubeVideoSlot from "@/components/YouTubeVideoSlot";
 import { Newspaper, PenLine, Globe, ChevronRight } from "lucide-react";
 
 // Fallback categories if API fails
@@ -281,9 +282,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Leaderboard Ad */}
+      {/* YouTube Videos - Horizontal Banner */}
       <div className="container mt-6">
-        <AdPlacement type="leaderboard" />
+        <YouTubeVideoSlot variant="horizontal" count={4} />
       </div>
 
       {/* Featured Articles */}
@@ -333,8 +334,6 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main column */}
           <div className="lg:col-span-2 space-y-10">
-            {/* Banner Ad */}
-            <AdPlacement type="banner" />
 
             {/* All latest articles */}
             {articles && articles.length > 0 && (
@@ -390,6 +389,9 @@ export default function Home() {
                 </div>
               </section>
             )}
+
+            {/* YouTube Videos Sidebar */}
+            <YouTubeVideoSlot variant="sidebar" count={5} className="bg-card border border-border rounded-lg p-4" />
 
             {/* Bensirac Profile */}
             <section className="bg-card border border-border rounded-lg p-6">
