@@ -329,3 +329,7 @@
 - [x] Rédiger l'article complet d'analyse politico-linguistique (Bensirac, rubrique Analyses)
 - [x] Insérer l'article en base de données (ID 1860007, authorId=30001, categoryId=30008)
 - [x] Rédiger la version condensée Facebook (500 mots, accroche percutante, lien Weurseuk)
+- [x] Réécrire l'article v2 : glissement sémantique comme axe central, différenciation typographique des intervenants
+- [x] Signer l'article du vrai nom : Abdou Fatah FALL (au lieu de Bensirac)
+- [x] Intégrer l'extrait vidéo (1:41) dans l'article avec lecteur HTML5 et crédit © RFI / France 24
+- [x] Mettre à jour la version Facebook v2
