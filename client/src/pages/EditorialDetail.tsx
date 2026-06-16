@@ -224,6 +224,9 @@ export default function EditorialDetail() {
                 // Détecter si le contenu contient une vidéo intégrée
                 const videoMatch = editorial.content?.match(/\/manus-storage\/[^"'\s]+\.mp4/);
                 const videoUrl = videoMatch ? videoMatch[0] : null;
+                // Extraire le poster de la vidéo (image jpg correspondante dans le contenu ou fallback)
+                const posterMatch = editorial.content?.match(/\/manus-storage\/[^"'\s]+poster[^"'\s]*\.jpg/);
+                const videoPoster = posterMatch ? posterMatch[0] : '/manus-storage/sonko-dette-poster_6a5b10b1.jpg';
                 return (
                   <div className="flex flex-col md:flex-row items-start gap-5 mt-5 p-5 bg-muted/20 rounded-lg border-l-4 border-primary">
                     <div className="flex-shrink-0 w-full md:w-48">
@@ -232,7 +235,7 @@ export default function EditorialDetail() {
                           controls
                           playsInline
                           className="w-full rounded-lg shadow-md"
-                          poster={editorial.coverImageUrl || undefined}
+                          poster={videoPoster}
                         >
                           <source src={videoUrl} type="video/mp4" />
                         </video>
