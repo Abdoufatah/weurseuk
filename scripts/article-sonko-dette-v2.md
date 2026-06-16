@@ -14,7 +14,7 @@ Sur les 17 minutes d'entretien exclusif accordé par Ousmane Sonko à RFI et Fra
 
 ### I. Préambule méthodologique
 
-L'entretien intégral entre Ousmane Sonko et les journalistes Xavier Lambrechts et Léa-Lisa Westerhoff a duré 17 minutes. La séquence analysée ici — 101 secondes, de 00:00 à 01:41 — a été isolée et découpée par nos soins, parce qu'elle concentre le nœud analytique que l'ensemble des commentateurs a manqué. Ce découpage n'est pas arbitraire : il procède d'une lecture attentive de la dynamique discursive entre les trois intervenants, et de l'identification d'un pivot sémantique invisible à l'écoute superficielle.
+L'entretien intégral entre Ousmane Sonko et les journalistes Marc Perelman et Léa-Lisa Westerhoff a duré 17 minutes. La séquence analysée ici — 101 secondes, de 00:00 à 01:41 — a été isolée et découpée par nos soins, parce qu'elle concentre le nœud analytique que l'ensemble des commentateurs a manqué. Ce découpage n'est pas arbitraire : il procède d'une lecture attentive de la dynamique discursive entre les trois intervenants, et de l'identification d'un pivot sémantique invisible à l'écoute superficielle.
 
 La transcription intégrale de cette séquence est reproduite ci-dessous, avec différenciation typographique des intervenants. C'est à partir de ce matériau brut — et de lui seul — que l'analyse est conduite.
 
@@ -22,7 +22,7 @@ La transcription intégrale de cette séquence est reproduite ci-dessous, avec d
 
 ### II. Transcription intégrale de la séquence (00:00–01:41)
 
-**XAVIER LAMBRECHTS** [00:00–00:24] :
+**MARC PERELMAN** [00:00–00:24] :
 *Vous avez beaucoup parlé de souveraineté économique. Or, la dette, vous avez continué à vous endetter auprès de bailleurs internationaux, publics, privés. Est-ce que vous ne regrettez pas, finalement, cette dette que vous avez découverte, cachée ? Est-ce que vous ne regrettez pas de ne pas avoir demandé son annulation pure et simple, mais plutôt d'entrer dans des négociations qui semblent s'enliser ? Est-ce que c'est un regret ?*
 
 **OUSMANE SONKO** [00:24–01:04] :
@@ -34,7 +34,7 @@ La transcription intégrale de cette séquence est reproduite ci-dessous, avec d
 **OUSMANE SONKO** [01:07–01:25] :
 *Oui, dette odieuse, vous utilisez le terme, je l'ai utilisé une ou deux fois. C'est toute une procédure. Je n'avais pas tous les leviers. Quand je parlais à certaines occasions, je parlais en tant que chef de parti politique qui donne son opinion. N'oubliez pas que j'étais simple Premier ministre. Les pouvoirs du Premier ministre sont extrêmement limités dans ce pays.*
 
-**XAVIER LAMBRECHTS** [01:25–01:28] :
+**MARC PERELMAN** [01:25–01:28] :
 *Vous étiez en désaccord avec le Président sur ce sujet ?*
 
 **OUSMANE SONKO** [01:28–01:41] :
@@ -44,7 +44,7 @@ La transcription intégrale de cette séquence est reproduite ci-dessous, avec d
 
 ### III. Le glissement que personne n'a vu
 
-Relisons la séquence avec attention. La question de Xavier Lambrechts est limpide : elle porte sur la **dette cachée** — celle découverte par les audits post-électoraux, les 25 points de PIB dissimulés sous le régime Macky Sall. Lambrechts demande à Sonko s'il regrette de ne pas avoir demandé **l'annulation de cette dette cachée** plutôt que d'entrer dans des négociations qui s'enlisent.
+Relisons la séquence avec attention. La question de Marc Perelman est limpide : elle porte sur la **dette cachée** — celle découverte par les audits post-électoraux, les 25 points de PIB dissimulés sous le régime Macky Sall. Lambrechts demande à Sonko s'il regrette de ne pas avoir demandé **l'annulation de cette dette cachée** plutôt que d'entrer dans des négociations qui s'enlisent.
 
 Sonko répond à cette question. Il parle de transparence, de la nécessité de révéler les vrais chiffres, du précédent grec, du refinancement. Il est sur le terrain de la **dette cachée**. Jusque-là, la cohérence discursive est intacte.
 

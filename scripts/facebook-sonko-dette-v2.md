@@ -10,7 +10,7 @@ Voici la mécanique.
 
 ---
 
-**La question de Xavier Lambrechts porte sur la dette CACHÉE :**
+**La question de Marc Perelman porte sur la dette CACHÉE :**
 
 *« Est-ce que vous ne regrettez pas cette dette que vous avez découverte, cachée ? Est-ce que vous ne regrettez pas de ne pas avoir demandé son annulation pure et simple ? »*
 

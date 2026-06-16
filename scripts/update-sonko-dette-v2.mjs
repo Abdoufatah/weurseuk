@@ -21,7 +21,7 @@ const content = `<div class="editorial-body">
 
 <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.4rem; font-weight:700; margin:2rem 0 1rem; color:#1a1a1a; border-bottom:1px solid #e0c97a; padding-bottom:0.4rem;">I. Préambule méthodologique</h2>
 
-<p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">L'entretien intégral entre Ousmane Sonko et les journalistes Xavier Lambrechts et Léa-Lisa Westerhoff a duré 17 minutes. La séquence analysée ici — 101 secondes, de 00:00 à 01:41 — a été isolée et découpée par nos soins, parce qu'elle concentre le nœud analytique que l'ensemble des commentateurs a manqué. Ce découpage n'est pas arbitraire : il procède d'une lecture attentive de la dynamique discursive entre les trois intervenants, et de l'identification d'un pivot sémantique invisible à l'écoute superficielle.</p>
+<p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">L'entretien intégral entre Ousmane Sonko et les journalistes Marc Perelman et Léa-Lisa Westerhoff a duré 17 minutes. La séquence analysée ici — 101 secondes, de 00:00 à 01:41 — a été isolée et découpée par nos soins, parce qu'elle concentre le nœud analytique que l'ensemble des commentateurs a manqué. Ce découpage n'est pas arbitraire : il procède d'une lecture attentive de la dynamique discursive entre les trois intervenants, et de l'identification d'un pivot sémantique invisible à l'écoute superficielle.</p>
 
 <p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">La transcription intégrale de cette séquence est reproduite ci-dessous, avec différenciation typographique des intervenants. C'est à partir de ce matériau brut — et de lui seul — que l'analyse est conduite.</p>
 
@@ -29,7 +29,7 @@ const content = `<div class="editorial-body">
 
 <div style="background:#fdf9f0; border:1px solid #e0c97a; border-radius:6px; padding:1.5rem; margin:1.5rem 0;">
 
-<p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#8b0000;">XAVIER LAMBRECHTS</strong> <span style="font-size:0.85rem; color:#888;">[00:00–00:24]</span></p>
+<p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#8b0000;">MARC PERELMAN</strong> <span style="font-size:0.85rem; color:#888;">[00:00–00:24]</span></p>
 <p style="font-family:'Libre Baskerville', serif; font-size:0.95rem; line-height:1.8; margin-bottom:1.5rem; padding-left:1rem; border-left:3px solid #8b0000;"><em>Vous avez beaucoup parlé de souveraineté économique. Or, la dette, vous avez continué à vous endetter auprès de bailleurs internationaux, publics, privés. Est-ce que vous ne regrettez pas, finalement, cette dette que vous avez découverte, cachée ? Est-ce que vous ne regrettez pas de ne pas avoir demandé son annulation pure et simple, mais plutôt d'entrer dans des négociations qui semblent s'enliser ? Est-ce que c'est un regret ?</em></p>
 
 <p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#1a5c1a;">OUSMANE SONKO</strong> <span style="font-size:0.85rem; color:#888;">[00:24–01:04]</span></p>
@@ -41,7 +41,7 @@ const content = `<div class="editorial-body">
 <p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#1a5c1a;">OUSMANE SONKO</strong> <span style="font-size:0.85rem; color:#888;">[01:07–01:25]</span></p>
 <p style="font-family:'Libre Baskerville', serif; font-size:0.95rem; line-height:1.8; margin-bottom:1.5rem; padding-left:1rem; border-left:3px solid #1a5c1a;"><em>Oui, dette odieuse, vous utilisez le terme, je l'ai utilisé une ou deux fois. C'est toute une procédure. Je n'avais pas tous les leviers. Quand je parlais à certaines occasions, je parlais en tant que chef de parti politique qui donne son opinion. N'oubliez pas que j'étais simple Premier ministre. Les pouvoirs du Premier ministre sont extrêmement limités dans ce pays.</em></p>
 
-<p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#8b0000;">XAVIER LAMBRECHTS</strong> <span style="font-size:0.85rem; color:#888;">[01:25–01:28]</span></p>
+<p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#8b0000;">MARC PERELMAN</strong> <span style="font-size:0.85rem; color:#888;">[01:25–01:28]</span></p>
 <p style="font-family:'Libre Baskerville', serif; font-size:0.95rem; line-height:1.8; margin-bottom:1.5rem; padding-left:1rem; border-left:3px solid #8b0000;"><em>Vous étiez en désaccord avec le Président sur ce sujet ?</em></p>
 
 <p style="margin-bottom:1rem;"><strong style="font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:#1a5c1a;">OUSMANE SONKO</strong> <span style="font-size:0.85rem; color:#888;">[01:28–01:41]</span></p>
@@ -51,7 +51,7 @@ const content = `<div class="editorial-body">
 
 <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.4rem; font-weight:700; margin:2rem 0 1rem; color:#1a1a1a; border-bottom:1px solid #e0c97a; padding-bottom:0.4rem;">III. Le glissement que personne n'a vu</h2>
 
-<p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">Relisons la séquence avec attention. La question de Xavier Lambrechts est limpide : elle porte sur la <strong>dette cachée</strong> — celle découverte par les audits post-électoraux, les 25 points de PIB dissimulés sous le régime Macky Sall. Lambrechts demande à Sonko s'il regrette de ne pas avoir demandé <strong>l'annulation de cette dette cachée</strong> plutôt que d'entrer dans des négociations qui s'enlisent.</p>
+<p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">Relisons la séquence avec attention. La question de Marc Perelman est limpide : elle porte sur la <strong>dette cachée</strong> — celle découverte par les audits post-électoraux, les 25 points de PIB dissimulés sous le régime Macky Sall. Lambrechts demande à Sonko s'il regrette de ne pas avoir demandé <strong>l'annulation de cette dette cachée</strong> plutôt que d'entrer dans des négociations qui s'enlisent.</p>
 
 <p style="font-family:'Libre Baskerville', serif; font-size:1rem; line-height:1.85; text-indent:1.5rem; margin-bottom:1.2rem;">Sonko répond à cette question. Il parle de transparence, de la nécessité de révéler les vrais chiffres, du précédent grec, du refinancement. Il est sur le terrain de la <strong>dette cachée</strong>. Jusque-là, la cohérence discursive est intacte.</p>
 
