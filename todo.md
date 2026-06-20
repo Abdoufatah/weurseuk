@@ -339,3 +339,10 @@
 - [x] Intégrer le composant dans la page d'accueil (horizontal après section Musique + sidebar)
 - [x] Corriger l'erreur LIMIT MySQL (paramètre interpolé au lieu de prepared statement)
 - [x] Tester l'affichage : 234 vidéos synchronisées, 4 vignettes affichées en tendances
+
+## DOSSIER TRAITE NÉGRIÈRE (20/06/2026)
+
+- [x] Publier le dossier "Traite négrière : le temps de solder les comptes" sur Weurseuk
+- [x] Insérer en base de données (rubrique Dossiers ID 30010, auteur Abdou Fatah FALL)
+- [x] Mettre en featured (À la Une)
+- [ ] Préparer la version Facebook (en attente)

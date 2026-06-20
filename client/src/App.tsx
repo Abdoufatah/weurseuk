@@ -69,6 +69,9 @@ function Router() {
       <Route path="/analyses">
         <PublicLayout><Section /></PublicLayout>
       </Route>
+      <Route path="/dossiers">
+        <PublicLayout><Section /></PublicLayout>
+      </Route>
       <Route path="/a-propos">
         <PublicLayout><APropos /></PublicLayout>
       </Route>
