@@ -349,3 +349,10 @@
 - [x] Corriger bio Pape Amadou Fall : journaliste, historien et écrivain (pas analyste)
 - [x] Mettre en featured (À la Une)
 - [ ] Préparer la version Facebook (en attente)
+
+## PAGE TÉLÉVISION — RTS / TFM / SenTV (21/06/2026)
+
+- [x] Identifier les channel IDs YouTube de RTS (UCdtKKcnU-hHejE2mVVk61kA), TFM (UCRTvsVtErHN7whqmn8sbwvA), SenTV (UClbOJguayTPGnpVXKDF3hRw)
+- [x] Créer la page Télévision avec lecteurs YouTube intégrés (live + dernières vidéos)
+- [x] Ajouter "Télévision" dans la navigation principale
+- [x] Tester l'affichage et déployer

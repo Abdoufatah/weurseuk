@@ -16,6 +16,7 @@ export const NAV_SECTIONS = [
   { label: "Analyses", href: "/analyses" },
   { label: "Dossiers", href: "/dossiers" },
   { label: "Éditoriaux", href: "/editoriaux" },
+  { label: "Télévision", href: "/television" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

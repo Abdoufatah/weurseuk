@@ -14,6 +14,7 @@ import Category from "./pages/Category";
 import Admin from "./pages/Admin";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
+import Television from "./pages/Television";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
@@ -77,6 +78,9 @@ function Router() {
       </Route>
       <Route path="/contact">
         <PublicLayout><Contact /></PublicLayout>
+      </Route>
+      <Route path="/television">
+        <Television />
       </Route>
       <Route path="/admin" component={Admin} />
       <Route path="/404">
