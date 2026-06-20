@@ -343,6 +343,9 @@
 ## DOSSIER TRAITE NÉGRIÈRE (20/06/2026)
 
 - [x] Publier le dossier "Traite négrière : le temps de solder les comptes" sur Weurseuk
-- [x] Insérer en base de données (rubrique Dossiers ID 30010, auteur Abdou Fatah FALL)
+- [x] Insérer en base de données (rubrique Dossiers ID 30010, auteur Pape Amadou Fall ID 60002)
+- [x] Corriger attribution auteur : Pape Amadou Fall (pas Abdou Fatah Fall)
+- [x] Supprimer mention incorrecte « Dossier rédigé par Abdou Fatah FALL » du contenu HTML
+- [x] Corriger bio Pape Amadou Fall : journaliste, historien et écrivain (pas analyste)
 - [x] Mettre en featured (À la Une)
 - [ ] Préparer la version Facebook (en attente)
