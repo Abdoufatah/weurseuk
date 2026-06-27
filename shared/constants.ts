@@ -14,6 +14,7 @@ export const NAV_SECTIONS = [
   { label: "International", href: "/international" },
   { label: "Société", href: "/societe" },
   { label: "Analyses", href: "/analyses" },
+  { label: "Essai", href: "/essai" },
   { label: "Dossiers", href: "/dossiers" },
   { label: "Éditoriaux", href: "/editoriaux" },
   { label: "Télévision", href: "/television" },
