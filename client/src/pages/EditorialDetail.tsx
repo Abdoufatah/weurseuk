@@ -171,7 +171,9 @@ export default function EditorialDetail() {
     editorial.authorAlias === 'Bensirac';
 
   const authorPhoto = editorial.authorPhotoUrl || (isBensirac ? BENSIRAC.photo : undefined);
-  const authorDisplayName = editorial.authorAlias || editorial.authorName || BENSIRAC.alias;
+  // useAlias=true → afficher l'alias (ex: Bensirac), useAlias=false → afficher le vrai nom
+  const shouldUseAlias = (editorial as any).useAlias !== false;
+  const authorDisplayName = (shouldUseAlias && editorial.authorAlias) ? editorial.authorAlias : (editorial.authorName || BENSIRAC.alias);
   const authorBioText = editorial.authorBio || (isBensirac ? BENSIRAC.bio : undefined);
 
   // Titre/rôle de l'auteur affiché sous son nom

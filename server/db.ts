@@ -205,6 +205,7 @@ export async function getEditorialBySlug(slug: string) {
       authorBio: journalistProfiles.bio,
       authorRole: journalistProfiles.role,
       type: editorials.type,
+      useAlias: editorials.useAlias,
     })
     .from(editorials)
     .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))

@@ -48,6 +48,7 @@ export const editorials = mysqlTable("editorials", {
   authorId: int("authorId"),
   isPublished: boolean("isPublished").default(false).notNull(),
   isFeatured: boolean("isFeatured").default(false).notNull(),
+  useAlias: boolean("useAlias").default(true).notNull(),
   publishedAt: timestamp("publishedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
