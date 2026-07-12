@@ -352,7 +352,14 @@
 
 ## PAGE TÉLÉVISION — RTS / TFM / SenTV (21/06/2026)
 
-- [x] Identifier les channel IDs YouTube de RTS (UCdtKKcnU-hHejE2mVVk61kA), TFM (UCRTvsVtErHN7whqmn8sbwvA), SenTV (UClbOJguayTPGnpVXKDF3hRw)
+- [x] Identifier les channel IDs YouTube de RTS (UCdtKKcnU-hHejE2mVVk61kA), TFM (UCRTvsVtErHN7whqmn8sbwvA), SenTV (UClbOJguayTPGnpVVk61kA)
 - [x] Créer la page Télévision avec lecteurs YouTube intégrés (live + dernières vidéos)
 - [x] Ajouter "Télévision" dans la navigation principale
 - [x] Tester l'affichage et déployer
+
+## ARTICLE SÉNÉGAL-FMI : RIGUEUR COMPTABLE (12/07/2026)
+
+- [x] Transcrire et analyser le document AWERSEK-RESTRUCTURATIONDETTE.docx
+- [x] Publier l'article "Sénégal-FMI : Le piège de la rigueur comptable face aux impératifs du développement"
+- [x] Insérer en base de données (rubrique Dossiers ID 30010, auteur Pape Amadou Fall ID 60002)
+- [x] Mettre en featured (À la Une)
