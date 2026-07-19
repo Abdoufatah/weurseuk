@@ -363,3 +363,10 @@
 - [x] Publier l'article "Sénégal-FMI : Le piège de la rigueur comptable face aux impératifs du développement"
 - [x] Insérer en base de données (rubrique Dossiers ID 30010, auteur Pape Amadou Fall ID 60002)
 - [x] Mettre en featured (À la Une)
+
+## ARTICLE XENOPHOBIE EN AFRIQUE (12/07/2026)
+
+- [x] Transcrire et analyser le texte Pape Fall sur la xenophobie en Afrique du Sud et au Senegal
+- [x] Publier l'article "De Pretoria a Dakar : la xenophobie, exutoire d'economies en peine"
+- [x] Inserer en base de donnees (rubrique Analyses ID 30008, auteur Pape Amadou Fall ID 60002)
+- [x] Mettre en featured (A la Une)
