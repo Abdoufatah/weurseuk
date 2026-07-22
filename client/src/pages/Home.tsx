@@ -127,7 +127,7 @@ export default function Home() {
                         }}>
                           {editorial.categoryName || 'Éditorial'}
                         </span>
-                        <h3 className={`font-serif font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2 ${idx === 0 ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
+                        <h3 className={`font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2 ${idx === 0 ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
                           {editorial.title}
                         </h3>
                         {idx === 0 && editorial.excerpt && (
@@ -180,7 +180,7 @@ export default function Home() {
             {/* Présentation éditoriale */}
             <div className="lg:w-2/5 px-5 py-5 flex flex-col justify-between">
               <div>
-                <h2 className="font-serif text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
+                <h2 className="font-editorial text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
                   JANGGI
                 </h2>
                 <p className="text-primary text-sm font-semibold mb-4 uppercase tracking-widest">
@@ -291,7 +291,7 @@ export default function Home() {
       {featuredArticles && featuredArticles.length > 0 && (
         <section className="container mt-10">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-serif text-2xl font-bold text-foreground flex items-center gap-2">
+            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               À la Une
             </h2>
@@ -339,7 +339,7 @@ export default function Home() {
             {articles && articles.length > 0 && (
               <section>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-serif text-xl font-bold text-foreground flex items-center gap-2">
+                  <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
                     <span className="w-1 h-5 bg-primary rounded-full" />
                     Dernières actualités
                   </h2>
@@ -367,7 +367,7 @@ export default function Home() {
             {/* Editorials Sidebar */}
             {editorials && editorials.length > 0 && (
               <section>
-                <h3 className="font-serif text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="font-editorial text-lg font-bold text-foreground mb-4 flex items-center gap-2">
                   <span className="w-1 h-5 bg-primary rounded-full" />
                   Éditoriaux récents
                 </h3>
@@ -400,7 +400,7 @@ export default function Home() {
                   <PenLine className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-serif font-bold text-foreground text-sm">{BENSIRAC.alias}</h4>
+                  <h4 className="font-editorial font-bold text-foreground text-sm">{BENSIRAC.alias}</h4>
                   <p className="text-xs text-muted-foreground">{BENSIRAC.title}</p>
                 </div>
               </div>

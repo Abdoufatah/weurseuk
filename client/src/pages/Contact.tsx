@@ -56,7 +56,7 @@ export default function Contact() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/10 to-primary/5 py-12 md:py-16">
         <div className="container">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Nous contacter</h1>
+          <h1 className="font-editorial text-4xl md:text-5xl font-bold mb-4">Nous contacter</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Avez-vous une question ou une suggestion ? Nous serions heureux de vous entendre.
           </p>
@@ -73,7 +73,7 @@ export default function Contact() {
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-serif font-bold text-lg mb-1">{info.title}</h3>
+                  <h3 className="font-editorial font-bold text-lg mb-1">{info.title}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{info.description}</p>
                   <a
                     href={`mailto:${info.email}`}
@@ -90,7 +90,7 @@ export default function Contact() {
         {/* Contact Form */}
         <div className="max-w-2xl mx-auto">
           <div className="bg-card rounded-lg border border-border p-8">
-            <h2 className="font-serif text-2xl font-bold mb-6">Envoyez-nous un message</h2>
+            <h2 className="font-editorial text-2xl font-bold mb-6">Envoyez-nous un message</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

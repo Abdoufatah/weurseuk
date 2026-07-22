@@ -32,7 +32,7 @@ export default function APropos() {
               <p className="text-primary font-medium text-sm tracking-widest uppercase mb-3">
                 À propos
               </p>
-              <h1 className="font-serif text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+              <h1 className="font-editorial text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
                 Weurseuk, l'information{" "}
                 <span className="text-primary">de référence</span>
               </h1>
@@ -52,7 +52,7 @@ export default function APropos() {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Target className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+              <h2 className="font-editorial text-2xl md:text-3xl font-bold text-foreground">
                 Notre mission
               </h2>
             </div>
@@ -69,7 +69,7 @@ export default function APropos() {
             </div>
           </div>
           <div className="bg-accent/30 rounded-2xl p-8 border border-border">
-            <h3 className="font-serif text-lg font-bold text-foreground mb-6">
+            <h3 className="font-editorial text-lg font-bold text-foreground mb-6">
               Weurseuk en chiffres
             </h3>
             <div className="grid grid-cols-2 gap-6">
@@ -102,7 +102,7 @@ export default function APropos() {
               <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                 <Eye className="w-5 h-5 text-primary" />
               </div>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold">
+              <h2 className="font-editorial text-2xl md:text-3xl font-bold">
                 Notre vision
               </h2>
             </div>
@@ -114,21 +114,21 @@ export default function APropos() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-background/5 rounded-xl p-6 border border-background/10">
               <MapPin className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-serif text-lg font-bold mb-3">Ancrage sénégalais</h3>
+              <h3 className="font-editorial text-lg font-bold mb-3">Ancrage sénégalais</h3>
               <p className="text-background/70 text-sm leading-relaxed">
                 Le Sénégal est notre point d'ancrage. Nous couvrons en profondeur la vie politique, économique, sociale et culturelle du pays, avec une attention particulière aux dynamiques qui échappent souvent aux radars des médias généralistes.
               </p>
             </div>
             <div className="bg-background/5 rounded-xl p-6 border border-background/10">
               <Globe className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-serif text-lg font-bold mb-3">Périphérie ouest-africaine</h3>
+              <h3 className="font-editorial text-lg font-bold mb-3">Périphérie ouest-africaine</h3>
               <p className="text-background/70 text-sm leading-relaxed">
                 L'Afrique de l'Ouest constitue notre périphérie naturelle. Les enjeux sécuritaires, les intégrations régionales, les transitions politiques et les dynamiques transnationales y sont suivis avec la même exigence analytique.
               </p>
             </div>
             <div className="bg-background/5 rounded-xl p-6 border border-background/10">
               <Lightbulb className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-serif text-lg font-bold mb-3">Ouverture mondiale</h3>
+              <h3 className="font-editorial text-lg font-bold mb-3">Ouverture mondiale</h3>
               <p className="text-background/70 text-sm leading-relaxed">
                 Weurseuk est ouvert sur le monde. Les perspectives internationales, les analyses comparatives et les éclairages géopolitiques nourrissent une compréhension globale des enjeux qui traversent nos sociétés.
               </p>
@@ -144,7 +144,7 @@ export default function APropos() {
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Shield className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+            <h2 className="font-editorial text-2xl md:text-3xl font-bold text-foreground">
               Nos valeurs
             </h2>
           </div>
@@ -159,7 +159,7 @@ export default function APropos() {
               <Scale className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-foreground mb-2">Rigueur et exactitude</h3>
+              <h3 className="font-editorial font-bold text-foreground mb-2">Rigueur et exactitude</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Chaque fait est vérifié, chaque source est identifiée, chaque analyse est fondée sur des données vérifiables. La rigueur scientifique guide notre travail éditorial au quotidien.
               </p>
@@ -171,7 +171,7 @@ export default function APropos() {
               <BookOpen className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-foreground mb-2">Indépendance éditoriale</h3>
+              <h3 className="font-editorial font-bold text-foreground mb-2">Indépendance éditoriale</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Weurseuk n'est affilié à aucun parti politique, aucun groupe d'intérêt, aucune puissance économique. Notre seule allégeance est envers la vérité des faits et la qualité de l'analyse.
               </p>
@@ -183,7 +183,7 @@ export default function APropos() {
               <Users className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-foreground mb-2">Respect des sources</h3>
+              <h3 className="font-editorial font-bold text-foreground mb-2">Respect des sources</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Les articles agrégés renvoient systématiquement vers leurs sources originales. Nous ne republions jamais intégralement le contenu de tiers, conformément au droit d'auteur et à l'éthique journalistique.
               </p>
@@ -195,7 +195,7 @@ export default function APropos() {
               <Newspaper className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-foreground mb-2">Séparation publicité / éditorial</h3>
+              <h3 className="font-editorial font-bold text-foreground mb-2">Séparation publicité / éditorial</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Conformément au Code de la Presse du Sénégal (Loi n° 2017-27), tout espace publicitaire est clairement identifié et visuellement distinct du contenu éditorial. Aucune confusion n'est tolérée.
               </p>
@@ -217,7 +217,7 @@ export default function APropos() {
                 />
               </div>
               <div className="absolute -bottom-4 -right-4 bg-primary text-primary-foreground rounded-xl px-6 py-3 shadow-lg">
-                <p className="font-serif font-bold text-lg">{BENSIRAC.alias}</p>
+                <p className="font-editorial font-bold text-lg">{BENSIRAC.alias}</p>
                 <p className="text-sm opacity-90">{BENSIRAC.title}</p>
               </div>
             </div>
@@ -226,7 +226,7 @@ export default function APropos() {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <PenLine className="w-5 h-5 text-primary" />
                 </div>
-                <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+                <h2 className="font-editorial text-2xl md:text-3xl font-bold text-foreground">
                   L'éditorialiste
                 </h2>
               </div>
@@ -269,7 +269,7 @@ export default function APropos() {
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Shield className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+            <h2 className="font-editorial text-2xl md:text-3xl font-bold text-foreground">
               Conformité et engagement juridique
             </h2>
           </div>
@@ -293,7 +293,7 @@ export default function APropos() {
       {/* CTA Section */}
       <section className="bg-primary/5 border-t border-border">
         <div className="container py-12 text-center">
-          <h3 className="font-serif text-xl font-bold text-foreground mb-3">
+          <h3 className="font-editorial text-xl font-bold text-foreground mb-3">
             Rejoignez la communauté Weurseuk
           </h3>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">

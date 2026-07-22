@@ -39,7 +39,7 @@ export default function Category() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="font-serif text-2xl font-bold mb-2">Rubrique non trouvée</h1>
+          <h1 className="font-editorial text-2xl font-bold mb-2">Rubrique non trouvée</h1>
           <p className="text-muted-foreground mb-6">La rubrique demandée n'existe pas.</p>
           <Link href="/" className="text-primary font-medium hover:underline">← Retour à l'accueil</Link>
         </div>
@@ -54,7 +54,7 @@ export default function Category() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary/10 to-primary/5 py-12 md:py-16">
         <div className="container">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">Section {category.name}</h1>
+          <h1 className="font-editorial text-4xl md:text-5xl font-bold mb-4">Section {category.name}</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">{category.description}</p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function Category() {
         {/* Tags filter for Société */}
         {slug === "societe" && tags && tags.length > 0 && (
           <div className="mb-8">
-            <h3 className="font-serif font-bold mb-4">Filtrer par thématique</h3>
+            <h3 className="font-editorial font-bold mb-4">Filtrer par thématique</h3>
             <div className="flex flex-wrap gap-2">
               <Button
                 variant={selectedTag === null ? "default" : "outline"}
@@ -108,7 +108,7 @@ export default function Category() {
                           </span>
                         )}
                       </div>
-                      <h3 className="font-serif font-bold text-lg mb-2 line-clamp-2">{article.title}</h3>
+                      <h3 className="font-editorial font-bold text-lg mb-2 line-clamp-2">{article.title}</h3>
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-3 flex-1">{article.excerpt || article.content?.substring(0, 150)}</p>
                       <div className="text-xs text-muted-foreground">
                         {new Date(article.createdAt).toLocaleDateString("fr-FR", {
