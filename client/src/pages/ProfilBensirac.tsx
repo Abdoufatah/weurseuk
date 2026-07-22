@@ -26,7 +26,7 @@ export default function ProfilBensirac() {
               </div>
             </div>
             <div className="text-center md:text-left">
-              <h1 className="font-editorial text-4xl md:text-5xl font-bold">{BENSIRAC.alias}</h1>
+              <h1 className="font-serif text-4xl md:text-5xl font-bold">{BENSIRAC.alias}</h1>
               <p className="text-primary text-lg font-medium mt-2">{BENSIRAC.title}</p>
               <div className="flex items-center justify-center md:justify-start gap-2 mt-3">
                 <span className="inline-flex items-center gap-1.5 text-sm text-background/70 bg-background/10 px-3 py-1 rounded-full">
@@ -66,7 +66,7 @@ export default function ProfilBensirac() {
       <section className="container mt-10 mb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="font-editorial text-2xl font-bold mb-6 flex items-center gap-2">
+            <h2 className="font-serif text-2xl font-bold mb-6 flex items-center gap-2">
               <PenLine className="w-5 h-5 text-primary" />
               Éditoriaux publiés
             </h2>
@@ -78,7 +78,7 @@ export default function ProfilBensirac() {
                       <span className="text-[10px] font-semibold uppercase tracking-wider text-primary-foreground bg-primary px-2 py-0.5 rounded">
                         Éditorial
                       </span>
-                      <h3 className="font-editorial text-xl font-semibold mt-3 group-hover:text-primary transition-colors">
+                      <h3 className="font-serif text-xl font-semibold mt-3 group-hover:text-primary transition-colors">
                         {ed.title}
                       </h3>
                       {ed.excerpt && (
@@ -100,7 +100,7 @@ export default function ProfilBensirac() {
             ) : (
               <div className="bg-muted/30 rounded-lg p-12 text-center">
                 <PenLine className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-editorial text-lg font-semibold mb-2">Aucun éditorial publié</h3>
+                <h3 className="font-serif text-lg font-semibold mb-2">Aucun éditorial publié</h3>
                 <p className="text-muted-foreground text-sm">Les publications de Bensirac apparaîtront ici.</p>
               </div>
             )}
@@ -108,7 +108,7 @@ export default function ProfilBensirac() {
 
           <aside className="space-y-6">
             <div className="bg-card rounded-lg border border-border p-5">
-              <h3 className="font-editorial text-base font-bold mb-3">Domaines d'expertise</h3>
+              <h3 className="font-serif text-base font-bold mb-3">Domaines d'expertise</h3>
               <ul className="space-y-2">
                 {[
                   "Sciences religieuses",

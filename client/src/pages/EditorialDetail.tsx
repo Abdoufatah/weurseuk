@@ -41,7 +41,7 @@ function CommentsSection({ editorialId }: { editorialId: number }) {
 
   return (
     <div className="mt-12 pt-8 border-t border-border">
-      <h3 className="font-editorial text-2xl font-bold mb-6">Commentaires</h3>
+      <h3 className="font-serif text-2xl font-bold mb-6">Commentaires</h3>
 
       {/* Comments list */}
       {isLoading ? (
@@ -79,7 +79,7 @@ function CommentsSection({ editorialId }: { editorialId: number }) {
 
       {/* Comment form */}
       <div className="bg-card rounded-lg border border-border p-6">
-        <h4 className="font-editorial font-bold mb-4">Laisser un commentaire</h4>
+        <h4 className="font-serif font-bold mb-4">Laisser un commentaire</h4>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
@@ -153,7 +153,7 @@ export default function EditorialDetail() {
   if (error || !editorial) {
     return (
       <div className="container py-20 text-center">
-        <h2 className="font-editorial text-2xl font-bold mb-4">Éditorial introuvable</h2>
+        <h2 className="font-serif text-2xl font-bold mb-4">Éditorial introuvable</h2>
         <p className="text-muted-foreground mb-6">Cet éditorial n'existe pas ou a été retiré.</p>
         <Link href="/editoriaux" className="text-primary font-medium hover:underline">
           ← Retour aux éditoriaux
@@ -219,7 +219,7 @@ export default function EditorialDetail() {
                   {(editorial as any).categoryName || 'Éditorial'}
                 </span>
               </div>
-              <h1 className="font-editorial text-3xl md:text-4xl font-bold mt-4 leading-tight text-foreground">
+              <h1 className="font-serif text-3xl md:text-4xl font-bold mt-4 leading-tight text-foreground">
                 {editorial.title}
               </h1>
 
@@ -300,7 +300,7 @@ export default function EditorialDetail() {
                 dangerouslySetInnerHTML={{ __html: editorial.content }}
               />
             ) : (
-              <div className="prose prose-lg max-w-none prose-headings:font-editorial prose-p:leading-relaxed prose-p:text-foreground/90">
+              <div className="prose prose-lg max-w-none prose-headings:font-serif prose-p:leading-relaxed prose-p:text-foreground/90">
                 <Streamdown>{editorial.content}</Streamdown>
               </div>
             )}
@@ -340,7 +340,7 @@ export default function EditorialDetail() {
           <aside className="space-y-6">
             <AdPlacement type="mpu" />
             <div className="bg-card rounded-lg border border-border p-5">
-              <h3 className="font-editorial text-base font-bold mb-3">À propos de l'auteur</h3>
+              <h3 className="font-serif text-base font-bold mb-3">À propos de l'auteur</h3>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full overflow-hidden">
                   <img src={authorPhoto} alt={authorDisplayName} className="w-full h-full object-cover object-top" />

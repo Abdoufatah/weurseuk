@@ -12,31 +12,31 @@ export default function Header() {
   const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/98 backdrop-blur-md border-b border-border" style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)' }}>
 
       {/* Main nav : logo + rubriques sur la même ligne */}
       <div className="container">
-        <div className="flex items-stretch justify-between gap-4" style={{ minHeight: '56px' }}>
+        <div className="flex items-stretch justify-between gap-4" style={{ minHeight: '64px' }}>
           {/* Logo — occupe toute la hauteur du header */}
           <Link href="/" className="flex-shrink-0 flex items-stretch">
             <img
               src={ASSETS.logo}
               alt="Weurseuk"
               className="h-full w-auto object-contain"
-              style={{ maxHeight: '56px' }}
+              style={{ maxHeight: '64px' }}
             />
           </Link>
 
           {/* Desktop nav — rubriques principales */}
-          <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+          <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
             {NAV_SECTIONS.map((section) => (
               <Link
                 key={section.href}
                 href={section.href}
-                className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md whitespace-nowrap ${
+                className={`px-4 py-2 text-sm font-medium transition-all rounded-lg whitespace-nowrap ${
                   location === section.href
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+                    ? "text-primary bg-primary/8 border border-primary/20"
+                    : "text-foreground/70 hover:text-primary hover:bg-primary/5 border border-transparent"
                 }`}
               >
                 {section.label}

@@ -29,7 +29,7 @@ export default function Admin() {
     return (
       <div className="min-h-screen flex items-center justify-center font-sans-editorial">
         <div className="text-center">
-          <h2 className="font-editorial text-2xl font-bold mb-4">Accès restreint</h2>
+          <h2 className="font-serif text-2xl font-bold mb-4">Accès restreint</h2>
           <p className="text-muted-foreground mb-6">Connectez-vous pour accéder à l'administration.</p>
           <a href={getLoginUrl()} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium">
             Se connecter
@@ -43,7 +43,7 @@ export default function Admin() {
     return (
       <div className="min-h-screen flex items-center justify-center font-sans-editorial">
         <div className="text-center">
-          <h2 className="font-editorial text-2xl font-bold mb-4">Accès non autorisé</h2>
+          <h2 className="font-serif text-2xl font-bold mb-4">Accès non autorisé</h2>
           <p className="text-muted-foreground mb-6">Seuls les administrateurs peuvent accéder à cette section.</p>
           <Link href="/" className="text-primary font-medium hover:underline">← Retour à l'accueil</Link>
         </div>
@@ -70,7 +70,7 @@ export default function Admin() {
             <Link href="/" className="text-background/60 hover:text-background transition-colors">
               <ArrowLeft className="w-5 h-5" />
             </Link>
-            <h1 className="font-editorial text-xl font-bold">Administration Weurseuk</h1>
+            <h1 className="font-serif text-xl font-bold">Administration Weurseuk</h1>
           </div>
           <span className="text-sm text-background/60">{user?.name || "Admin"}</span>
         </div>
@@ -150,7 +150,7 @@ function EditorialsTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Gestion des éditoriaux</h2>
+        <h2 className="font-serif text-lg font-bold">Gestion des éditoriaux</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Nouvel éditorial
@@ -292,7 +292,7 @@ function ArticlesTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Articles agrégés</h2>
+        <h2 className="font-serif text-lg font-bold">Articles agrégés</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Ajouter manuellement
@@ -458,7 +458,7 @@ function RssTab() {
       </div>
 
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Sources RSS ({sources?.length ?? 0})</h2>
+        <h2 className="font-serif text-lg font-bold">Sources RSS ({sources?.length ?? 0})</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Ajouter une source
@@ -541,7 +541,7 @@ function BreakingTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Breaking News</h2>
+        <h2 className="font-serif text-lg font-bold">Breaking News</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Nouvelle alerte
@@ -602,12 +602,12 @@ function StatsTab() {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div className="bg-card rounded-lg border border-border p-6 text-center">
         <Newspaper className="w-8 h-8 text-primary mx-auto mb-2" />
-        <p className="text-3xl font-bold font-editorial">{stats?.articleCount ?? 0}</p>
+        <p className="text-3xl font-bold font-serif">{stats?.articleCount ?? 0}</p>
         <p className="text-sm text-muted-foreground mt-1">Articles agrégés</p>
       </div>
       <div className="bg-card rounded-lg border border-border p-6 text-center">
         <PenLine className="w-8 h-8 text-primary mx-auto mb-2" />
-        <p className="text-3xl font-bold font-editorial">{stats?.editorialCount ?? 0}</p>
+        <p className="text-3xl font-bold font-serif">{stats?.editorialCount ?? 0}</p>
         <p className="text-sm text-muted-foreground mt-1">Éditoriaux</p>
       </div>
     </div>
@@ -648,7 +648,7 @@ function JournalistsTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Profils journalistes</h2>
+        <h2 className="font-serif text-lg font-bold">Profils journalistes</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Nouveau profil
@@ -762,7 +762,7 @@ function TagsTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-editorial text-lg font-bold">Tags pour la rubrique Société</h2>
+        <h2 className="font-serif text-lg font-bold">Tags pour la rubrique Société</h2>
         <Button onClick={() => setShowForm(!showForm)} size="sm" className="gap-2">
           <Plus className="w-4 h-4" />
           Nouveau tag
@@ -845,7 +845,7 @@ function CommentsTab() {
 
   return (
     <div className="space-y-4">
-      <h2 className="font-editorial text-lg font-bold">Commentaires en attente de modération</h2>
+      <h2 className="font-serif text-lg font-bold">Commentaires en attente de modération</h2>
 
       {isLoading ? (
         <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-24 bg-muted/30 rounded-lg animate-pulse" />)}</div>

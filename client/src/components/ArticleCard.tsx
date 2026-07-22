@@ -167,7 +167,7 @@ export default function ArticleCard({
         </div>
 
         <h3
-          className={`font-editorial font-semibold leading-tight text-card-foreground group-hover:text-primary transition-colors ${
+          className={`font-serif font-semibold leading-tight text-card-foreground group-hover:text-primary transition-colors ${
             isFeatured ? "text-xl md:text-2xl mb-3" : "text-base mb-2"
           }`}
         >

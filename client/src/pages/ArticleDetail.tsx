@@ -47,7 +47,7 @@ export default function ArticleDetail() {
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="font-editorial font-bold text-sm md:text-base text-foreground truncate">
+            <h1 className="font-serif font-bold text-sm md:text-base text-foreground truncate">
               {article.title}
             </h1>
           </div>
@@ -80,7 +80,7 @@ export default function ArticleDetail() {
             )}
           </div>
 
-          <h1 className="font-editorial font-bold text-3xl md:text-4xl text-foreground mb-3 leading-tight">
+          <h1 className="font-serif font-bold text-3xl md:text-4xl text-foreground mb-3 leading-tight">
             {article.title}
           </h1>
 
@@ -128,7 +128,7 @@ export default function ArticleDetail() {
         {article.content && (
           <div className="prose prose-invert max-w-none mb-12">
             <div
-              className="font-editorial text-foreground leading-relaxed space-y-4"
+              className="font-serif text-foreground leading-relaxed space-y-4"
               dangerouslySetInnerHTML={{
                 __html: article.content
                   .split("\n\n")

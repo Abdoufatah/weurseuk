@@ -75,7 +75,7 @@ export default function Section() {
       {/* Section header */}
       <section className="bg-foreground text-background py-10 md:py-14">
         <div className="container">
-          <h1 className="font-editorial text-3xl md:text-4xl font-bold">{config.title}</h1>
+          <h1 className="font-serif text-3xl md:text-4xl font-bold">{config.title}</h1>
           <p className="text-background/60 mt-2 max-w-2xl">{config.description}</p>
         </div>
       </section>
@@ -99,7 +99,7 @@ export default function Section() {
                   <a key={item.id} href={`/${(item as any).categorySlug || 'editorial'}/${item.slug}`}>
                     <div className="bg-card rounded-lg border border-border overflow-hidden hover:shadow-lg transition-shadow cursor-pointer h-full flex flex-col">
                       <div className="p-6 flex-1 flex flex-col">
-                        <h3 className="font-editorial text-lg font-bold mb-2 line-clamp-2">{item.title}</h3>
+                        <h3 className="font-serif text-lg font-bold mb-2 line-clamp-2">{item.title}</h3>
                         <p className="text-sm text-muted-foreground line-clamp-3 mb-4">{item.excerpt}</p>
                         <div className="mt-auto text-xs text-muted-foreground">
                           {new Date(item.publishedAt).toLocaleDateString('fr-FR')}
@@ -112,7 +112,7 @@ export default function Section() {
             ) : (
               <div className="bg-muted/30 rounded-lg p-12 text-center">
                 <Newspaper className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-editorial text-lg font-semibold mb-2">Aucun article disponible</h3>
+                <h3 className="font-serif text-lg font-semibold mb-2">Aucun article disponible</h3>
                 <p className="text-muted-foreground text-sm">
                   {"Aucun article dans cette rubrique pour le moment."}
                 </p>
