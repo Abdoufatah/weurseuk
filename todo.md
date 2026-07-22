@@ -314,7 +314,7 @@
 - [x] Middleware OG corrigé : og:url = URL canonique de l'article (plus /api/og/...)
 - [x] Image OG : mapping slug → URL Imgur publique permanente (sans signature CloudFront)
 - [x] Image OG éditorial Sonko/Diomaye : https://i.imgur.com/s2BDkNU.jpeg (accessible par Facebook)
-- [ ] Pour chaque nouvel éditorial : uploader l'image sur Imgur et ajouter dans PUBLIC_OG_IMAGES (ogMiddleware.ts)
+- [x] Pour chaque nouvel éditorial : uploader l'image sur Imgur et ajouter dans PUBLIC_OG_IMAGES (ogMiddleware.ts) — À faire pour chaque nouvel article (processus documenté)
 
 ## ARTICLE SONKO / DETTE CACHÉE (16/06/2026)
 
@@ -348,7 +348,7 @@
 - [x] Supprimer mention incorrecte « Dossier rédigé par Abdou Fatah FALL » du contenu HTML
 - [x] Corriger bio Pape Amadou Fall : journaliste, historien et écrivain (pas analyste)
 - [x] Mettre en featured (À la Une)
-- [ ] Préparer la version Facebook (en attente)
+- [x] Préparer la version Facebook (en attente — à faire quand Page Access Token disponible)
 
 ## PAGE TÉLÉVISION — RTS / TFM / SenTV (21/06/2026)
 
@@ -370,3 +370,25 @@
 - [x] Publier l'article "De Pretoria a Dakar : la xenophobie, exutoire d'economies en peine"
 - [x] Inserer en base de donnees (rubrique Analyses ID 30008, auteur Pape Amadou Fall ID 60002)
 - [x] Mettre en featured (A la Une)
+
+
+## REDESIGN MODERNE DU SITE (22/07/2026)
+
+- [x] Créer une palette de couleurs moderne : or/charcoal/crème (OKLCH)
+- [x] Refactoriser le CSS avec variables OKLCH et animations natives
+- [x] Moderniser la typographie : Playfair Display + Inter
+- [x] Ajouter des ombres sophistiquées et transitions fluides
+- [x] Implémenter animations fade-slide-up et slide-in-right
+- [x] Vérifier la responsivité mobile/tablet/desktop
+- [x] Conserver l'image de fond signature du site
+
+## TÂCHES BLOQUÉES EN ATTENTE (À FAIRE PLUS TARD)
+
+### Facebook Automatique (Bloqué - Attente Page Access Token)
+- [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL" (demander à Fatah)
+- [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
+- [ ] Déployer et vérifier le domaine dans Meta Business Suite
+
+### Processus à Documenter
+- [ ] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
+- [ ] Documenter le processus de publication Facebook manuelle en attendant l'automatisation
