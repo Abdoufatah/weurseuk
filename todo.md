@@ -381,6 +381,12 @@
 - [x] Implémenter animations fade-slide-up et slide-in-right
 - [x] Vérifier la responsivité mobile/tablet/desktop
 - [x] Conserver l'image de fond signature du site
+- [x] Corriger le redesign cassé : approche minimale (variables CSS + Header seulement)
+- [x] Navigation uppercase avec soulignement doré actif
+- [x] Ajout shadow-sm/md/lg au thème Tailwind 4
+- [x] Couleurs or plus profondes (oklch 0.65 0.16 70)
+- [x] Typographie Inter avec font-smoothing et kerning
+- [x] Transitions cubic-bezier pour les cards hover
 
 ## TÂCHES BLOQUÉES EN ATTENTE (À FAIRE PLUS TARD)
 

@@ -12,7 +12,7 @@ export default function Header() {
   const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/98 backdrop-blur-md border-b border-border" style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03)' }}>
 
       {/* Main nav : logo + rubriques sur la même ligne */}
       <div className="container">
@@ -28,16 +28,17 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav — rubriques principales */}
-          <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+          <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center">
             {NAV_SECTIONS.map((section) => (
               <Link
                 key={section.href}
                 href={section.href}
-                className={`px-3 py-2 text-sm font-semibold transition-colors rounded-md whitespace-nowrap ${
+                className={`px-3.5 py-2 text-[13px] font-semibold tracking-wide uppercase transition-all duration-200 whitespace-nowrap relative ${
                   location === section.href
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+                    ? "text-primary"
+                    : "text-foreground/70 hover:text-primary"
                 }`}
+                style={location === section.href ? { borderBottom: '2px solid currentColor', marginBottom: '-1px' } : {}}
               >
                 {section.label}
               </Link>
