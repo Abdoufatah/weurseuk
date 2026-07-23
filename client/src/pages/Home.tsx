@@ -81,62 +81,44 @@ export default function Home() {
                 Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            {/* 3 bandeaux verticaux empilés — même taille, ordre chronologique décroissant */}
-            <div className="flex flex-col gap-3">
+            {/* 3 blocs éditoriaux — design magazine premium */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {latestThree.map((editorial: any, idx: number) => (
                 <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
                   <div
-                    className="flex rounded-lg overflow-hidden border border-white/10 backdrop-blur-md shadow-xl hover:brightness-110 transition-all"
+                    className="relative rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02]"
                     style={{
-                      background: idx === 0
-                        ? 'linear-gradient(135deg, rgba(5,5,5,0.92) 0%, rgba(15,12,5,0.95) 100%)'
-                        : 'linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(20,20,20,0.88) 100%)',
-                      opacity: idx === 0 ? 1 : idx === 1 ? 0.92 : 0.84,
-                      borderLeft: idx === 0 ? '3px solid rgba(200,147,58,0.8)' : 'none',
+                      height: '280px',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
                     }}
                   >
-                    {/* Photo auteur / couverture — cadrage uniforme tous navigateurs */}
-                    <div className="relative flex-shrink-0 overflow-hidden" style={{ width: idx === 0 ? '160px' : '130px', minWidth: idx === 0 ? '160px' : '130px', height: idx === 0 ? '130px' : '110px', minHeight: idx === 0 ? '130px' : '110px' }}>
-                      {editorial.coverImageUrl ? (
-                        <img src={editorial.coverImageUrl} alt={editorial.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} className="group-hover:scale-105 transition-transform duration-700" />
-                      ) : editorial.authorPhotoUrl ? (
-                        <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }} className="group-hover:scale-105 transition-transform duration-700" />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
-                      )}
-                      {/* Vignette latérale droite — fondu vers le fond du bandeau */}
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 55%, rgba(10,10,10,0.85) 100%)' }} />
-                      {/* Vignette basse subtile */}
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.45) 100%)' }} />
+                    {/* Image de fond plein cadre */}
+                    {editorial.coverImageUrl ? (
+                      <img src={editorial.coverImageUrl} alt={editorial.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    ) : editorial.authorPhotoUrl ? (
+                      <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-black/80" />
+                    )}
+                    {/* Overlay gradient du bas vers le haut */}
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 70%)' }} />
+                    {/* Badge catégorie en haut à gauche */}
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full" style={{ background: 'rgba(200,147,58,0.9)', color: '#fff' }}>
+                        {editorial.categoryName || 'Éditorial'}
+                      </span>
                     </div>
-                    {/* Contenu texte */}
-                    <div className="flex-1 px-4 py-3 flex flex-col justify-between min-w-0">
-                      <div>
-                        <span style={{
-                          display: 'inline-block',
-                          fontSize: '9px',
-                          fontWeight: 700,
-                          letterSpacing: '0.18em',
-                          textTransform: 'uppercase',
-                          padding: '3px 8px',
-                          borderRadius: '2px',
-                          marginBottom: '6px',
-                          color: '#C8933A',
-                          background: 'transparent',
-                          borderBottom: '1px solid rgba(200,147,58,0.5)',
-                        }}>
-                          {editorial.categoryName || 'Éditorial'}
-                        </span>
-                        <h3 className={`font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors line-clamp-2 ${idx === 0 ? 'text-base md:text-lg' : 'text-sm md:text-base'}`}>
-                          {editorial.title}
-                        </h3>
-                        {idx === 0 && editorial.excerpt && (
-                          <p className="text-white/70 text-xs leading-relaxed line-clamp-2 mt-1.5">{editorial.excerpt}</p>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-white/15 mt-2">
-                        {editorial.authorName && <span className="text-xs text-white/75 font-semibold truncate">{editorial.authorName}</span>}
-                        <span className="text-xs text-primary font-semibold group-hover:underline flex-shrink-0 ml-2">Lire →</span>
+                    {/* Contenu texte en bas */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="font-editorial font-bold text-white leading-tight group-hover:text-primary transition-colors text-base md:text-lg line-clamp-3">
+                        {editorial.title}
+                      </h3>
+                      {editorial.excerpt && idx === 0 && (
+                        <p className="text-white/70 text-xs leading-relaxed line-clamp-2 mt-2">{editorial.excerpt}</p>
+                      )}
+                      <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/20">
+                        {editorial.authorName && <span className="text-xs text-white/80 font-medium">{editorial.authorName}</span>}
+                        <span className="text-xs text-primary font-bold group-hover:translate-x-1 transition-transform">Lire →</span>
                       </div>
                     </div>
                   </div>

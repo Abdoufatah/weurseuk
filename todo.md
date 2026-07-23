@@ -387,6 +387,9 @@
 - [x] Couleurs or plus profondes (oklch 0.65 0.16 70)
 - [x] Typographie Inter avec font-smoothing et kerning
 - [x] Transitions cubic-bezier pour les cards hover
+- [x] Restaurer les polices d'origine (suppression Inter forcé)
+- [x] Corriger le dépassement du header (text-[11px], px-2, sans flex-wrap)
+- [x] Moderniser les blocs À la Une : grille 3 colonnes, cards plein-cadre, overlay gradient, badges dorés, zoom hover
 
 ## TÂCHES BLOQUÉES EN ATTENTE (À FAIRE PLUS TARD)
 

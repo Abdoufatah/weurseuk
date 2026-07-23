@@ -33,7 +33,7 @@ export default function Header() {
               <Link
                 key={section.href}
                 href={section.href}
-                className={`px-3.5 py-2 text-[13px] font-semibold tracking-wide uppercase transition-all duration-200 whitespace-nowrap relative ${
+                className={`px-2 py-2 text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 whitespace-nowrap relative ${
                   location === section.href
                     ? "text-primary"
                     : "text-foreground/70 hover:text-primary"
