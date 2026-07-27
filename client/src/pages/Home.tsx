@@ -81,41 +81,44 @@ export default function Home() {
                 Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            {/* 3 blocs éditoriaux — design magazine premium */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {latestThree.map((editorial: any, idx: number) => (
+            {/* 3 blocs éditoriaux — layout horizontal professionnel */}
+            <div className="flex flex-col gap-2">
+              {latestThree.map((editorial: any) => (
                 <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
                   <div
-                    className="relative rounded-lg overflow-hidden transition-all duration-400 group-hover:scale-[1.015]"
+                    className="flex items-stretch rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-lg"
                     style={{
-                      height: '180px',
-                      boxShadow: '0 4px 16px rgba(0,0,0,0.35)',
+                      background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2318 100%)',
+                      border: '1px solid rgba(200,147,58,0.2)',
                     }}
                   >
-                    {/* Image de fond plein cadre */}
-                    {editorial.coverImageUrl ? (
-                      <img src={editorial.coverImageUrl} alt={editorial.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-600" />
-                    ) : editorial.authorPhotoUrl ? (
-                      <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-600" />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-black/80" />
-                    )}
-                    {/* Overlay gradient du bas vers le haut */}
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 45%, transparent 75%)' }} />
-                    {/* Badge catégorie en haut à gauche */}
-                    <div className="absolute top-2 left-2">
-                      <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded" style={{ background: 'rgba(200,147,58,0.9)', color: '#fff' }}>
-                        {editorial.categoryName || 'Éditorial'}
-                      </span>
+                    {/* Photo auteur — vignette carrée propre à gauche */}
+                    <div className="flex-shrink-0 w-20 h-20 self-center ml-3 my-3 rounded-md overflow-hidden" style={{ border: '2px solid rgba(200,147,58,0.5)' }}>
+                      {editorial.authorPhotoUrl ? (
+                        <img
+                          src={editorial.authorPhotoUrl}
+                          alt={editorial.authorName || 'Auteur'}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      ) : (
+                        <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #C8933A 0%, #8B6520 100%)' }} />
+                      )}
                     </div>
-                    {/* Contenu texte en bas */}
-                    <div className="absolute bottom-0 left-0 right-0 p-3">
-                      <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-2">
-                        {editorial.title}
-                      </h3>
-                      <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-white/15">
-                        {editorial.authorName && <span className="text-[11px] text-white/75 font-medium truncate">{editorial.authorName}</span>}
-                        <span className="text-[11px] text-primary font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2">Lire →</span>
+                    {/* Contenu texte à droite */}
+                    <div className="flex flex-col justify-between flex-1 px-3 py-3 min-w-0">
+                      <div>
+                        <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded mb-1.5" style={{ background: 'rgba(200,147,58,0.85)', color: '#fff' }}>
+                          {editorial.categoryName || 'Éditorial'}
+                        </span>
+                        <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-2">
+                          {editorial.title}
+                        </h3>
+                      </div>
+                      <div className="flex items-center justify-between mt-2 pt-1.5" style={{ borderTop: '1px solid rgba(200,147,58,0.2)' }}>
+                        {editorial.authorName && (
+                          <span className="text-[11px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{editorial.authorName}</span>
+                        )}
+                        <span className="text-[11px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2" style={{ color: '#C8933A' }}>Lire →</span>
                       </div>
                     </div>
                   </div>
