@@ -82,43 +82,40 @@ export default function Home() {
               </Link>
             </div>
             {/* 3 blocs éditoriaux — design magazine premium */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {latestThree.map((editorial: any, idx: number) => (
                 <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
                   <div
-                    className="relative rounded-xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02]"
+                    className="relative rounded-lg overflow-hidden transition-all duration-400 group-hover:scale-[1.015]"
                     style={{
-                      height: '280px',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                      height: '180px',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.35)',
                     }}
                   >
                     {/* Image de fond plein cadre */}
                     {editorial.coverImageUrl ? (
-                      <img src={editorial.coverImageUrl} alt={editorial.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <img src={editorial.coverImageUrl} alt={editorial.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-600" />
                     ) : editorial.authorPhotoUrl ? (
-                      <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" />
+                      <img src={editorial.authorPhotoUrl} alt={editorial.authorName || 'Auteur'} className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-600" />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-black/80" />
                     )}
                     {/* Overlay gradient du bas vers le haut */}
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 70%)' }} />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 45%, transparent 75%)' }} />
                     {/* Badge catégorie en haut à gauche */}
-                    <div className="absolute top-3 left-3">
-                      <span className="inline-block px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full" style={{ background: 'rgba(200,147,58,0.9)', color: '#fff' }}>
+                    <div className="absolute top-2 left-2">
+                      <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded" style={{ background: 'rgba(200,147,58,0.9)', color: '#fff' }}>
                         {editorial.categoryName || 'Éditorial'}
                       </span>
                     </div>
                     {/* Contenu texte en bas */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="font-editorial font-bold text-white leading-tight group-hover:text-primary transition-colors text-base md:text-lg line-clamp-3">
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-2">
                         {editorial.title}
                       </h3>
-                      {editorial.excerpt && idx === 0 && (
-                        <p className="text-white/70 text-xs leading-relaxed line-clamp-2 mt-2">{editorial.excerpt}</p>
-                      )}
-                      <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/20">
-                        {editorial.authorName && <span className="text-xs text-white/80 font-medium">{editorial.authorName}</span>}
-                        <span className="text-xs text-primary font-bold group-hover:translate-x-1 transition-transform">Lire →</span>
+                      <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-white/15">
+                        {editorial.authorName && <span className="text-[11px] text-white/75 font-medium truncate">{editorial.authorName}</span>}
+                        <span className="text-[11px] text-primary font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2">Lire →</span>
                       </div>
                     </div>
                   </div>
