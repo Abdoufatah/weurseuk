@@ -105,20 +105,25 @@ export default function Home() {
                       )}
                     </div>
                     {/* Contenu texte à droite */}
-                    <div className="flex flex-col justify-between flex-1 px-3 py-3 min-w-0">
+                    <div className="flex flex-col justify-between flex-1 px-3 py-2.5 min-w-0">
                       <div>
-                        <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded mb-1.5" style={{ background: 'rgba(200,147,58,0.85)', color: '#fff' }}>
+                        <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded mb-1" style={{ background: 'rgba(200,147,58,0.85)', color: '#fff' }}>
                           {editorial.categoryName || 'Éditorial'}
                         </span>
-                        <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-2">
+                        <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-1 mb-1">
                           {editorial.title}
                         </h3>
-                      </div>
-                      <div className="flex items-center justify-between mt-2 pt-1.5" style={{ borderTop: '1px solid rgba(200,147,58,0.2)' }}>
-                        {editorial.authorName && (
-                          <span className="text-[11px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{editorial.authorName}</span>
+                        {editorial.excerpt && (
+                          <p className="text-[11px] leading-relaxed line-clamp-2" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                            {editorial.excerpt}
+                          </p>
                         )}
-                        <span className="text-[11px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2" style={{ color: '#C8933A' }}>Lire →</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-1.5 pt-1.5" style={{ borderTop: '1px solid rgba(200,147,58,0.15)' }}>
+                        {editorial.authorName && (
+                          <span className="text-[10px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{editorial.authorName}</span>
+                        )}
+                        <span className="text-[10px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2" style={{ color: '#C8933A' }}>Lire →</span>
                       </div>
                     </div>
                   </div>
@@ -130,24 +135,24 @@ export default function Home() {
       )}
 
       {/* ===== PROMOTION MUSICALE PERMANENTE : JANGGI — BenSiraC Fatah DePalmarin ===== */}
-      <section className="container mt-8">
-        <div className="rounded-2xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-2xl">
+      <section className="container mt-6">
+        <div className="rounded-xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-xl">
           {/* En-tête de la section */}
-          <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1.5 bg-primary/15 border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 bg-primary/15 border border-primary/30 text-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
                 Musique
               </span>
-              <span className="text-white/40 text-xs hidden sm:inline">Wër Sëk Musiques</span>
+              <span className="text-white/40 text-[10px] hidden sm:inline">Wër Sëk Musiques</span>
             </div>
-            <span className="text-white/30 text-xs font-medium uppercase tracking-wider">Clip exclusif</span>
+            <span className="text-white/30 text-[10px] font-medium uppercase tracking-wider">Clip exclusif</span>
           </div>
 
           {/* Corps : vidéo + texte */}
           <div className="flex flex-col lg:flex-row gap-0">
-            {/* Lecteur YouTube embed */}
-            <div className="lg:w-3/5 flex-shrink-0">
+            {/* Lecteur YouTube embed — réduit */}
+            <div className="lg:w-1/2 flex-shrink-0">
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute inset-0 w-full h-full"
@@ -160,7 +165,7 @@ export default function Home() {
             </div>
 
             {/* Présentation éditoriale */}
-            <div className="lg:w-2/5 px-5 py-5 flex flex-col justify-between">
+            <div className="lg:w-1/2 px-4 py-4 flex flex-col justify-between">
               <div>
                 <h2 className="font-editorial text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
                   JANGGI
