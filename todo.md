@@ -401,3 +401,12 @@
 ### Processus à Documenter
 - [ ] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
 - [ ] Documenter le processus de publication Facebook manuelle en attendant l'automatisation
+
+## REVUE DE PRESSE AHMED AÏDARA — AUTOMATISATION (28/07/2026)
+
+- [ ] Analyser l'architecture YouTube existante (cron, table youtube_videos)
+- [ ] Créer endpoint tRPC `pressReview.getLatest` : récupère la 1ère vidéo de la playlist PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa
+- [ ] Intégrer la sync playlist dans le cron YouTube existant (toutes les 2h)
+- [ ] Créer section "Revue de presse du jour" sur la page d'accueil avec lecteur YouTube intégré
+- [ ] Afficher automatiquement la revue la plus récente en Une chaque jour
+- [ ] Tester et publier

@@ -4,7 +4,7 @@ import { Link } from "wouter";
 import ArticleCard from "@/components/ArticleCard";
 import AdPlacement from "@/components/AdPlacement";
 import YouTubeVideoSlot from "@/components/YouTubeVideoSlot";
-import { Newspaper, PenLine, Globe, ChevronRight } from "lucide-react";
+import { Newspaper, PenLine, Globe, ChevronRight, Tv } from "lucide-react";
 
 // Fallback categories if API fails
 const FALLBACK_CATEGORIES = [
@@ -22,6 +22,7 @@ export default function Home() {
   const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
   const { data: latestThree } = trpc.editorials.latestThree.useQuery();
+  const { data: aidaraLatest } = trpc.youtube.getAidaraLatest.useQuery();
 
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
@@ -273,6 +274,70 @@ export default function Home() {
       <div className="container mt-6">
         <YouTubeVideoSlot variant="horizontal" count={4} />
       </div>
+
+      {/* ===== REVUE DE PRESSE DU JOUR — AHMED AÏDARA (2A TV) ===== */}
+      {aidaraLatest && (
+        <section className="container mt-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-1 h-6 bg-primary rounded-full" />
+            <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
+              <Tv className="w-5 h-5 text-primary" />
+              Revue de presse du jour
+            </h2>
+            <span className="ml-auto text-xs text-muted-foreground font-medium uppercase tracking-widest">Ahmed Aïdara · 2A TV</span>
+          </div>
+          <div className="flex flex-col md:flex-row gap-6 bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+            {/* Lecteur YouTube embed */}
+            <div className="w-full md:w-[480px] shrink-0 aspect-video">
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${aidaraLatest.videoId}?rel=0&modestbranding=1&color=white`}
+                title={aidaraLatest.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            {/* Infos */}
+            <div className="flex flex-col justify-center gap-3 p-5 md:p-6">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
+                  <Tv className="w-3 h-3" /> Revue de presse
+                </span>
+                {aidaraLatest.publishedAt && (
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(aidaraLatest.publishedAt).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                  </span>
+                )}
+              </div>
+              <h3 className="font-editorial text-lg font-bold text-foreground leading-snug line-clamp-3">
+                {aidaraLatest.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                La revue de la presse sénégalaise par Ahmed Aïdara, journaliste et directeur de publication de 2A TV — La Chaîne du Peuple. Un tour d’horizon rigoureux de l’actualité à travers les éditions du jour.
+              </p>
+              <div className="flex items-center gap-3 mt-2">
+                <a
+                  href={`https://www.youtube.com/watch?v=${aidaraLatest.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                >
+                  Voir sur YouTube
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+                <a
+                  href={`https://www.youtube.com/playlist?list=PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Toutes les revues →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Featured Articles */}
       {featuredArticles && featuredArticles.length > 0 && (

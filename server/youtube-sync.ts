@@ -1,5 +1,10 @@
 // YouTube RSS feed URL format
 const YOUTUBE_RSS_BASE = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+const YOUTUBE_PLAYLIST_RSS_BASE = "https://www.youtube.com/feeds/videos.xml?playlist_id=";
+
+// Ahmed Aïdara press review playlist ID (2A TV - LA CHAÎNE DU PEUPLE)
+const AIDARA_PLAYLIST_ID = "PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa";
+const AIDARA_CHANNEL_ID = "UCh57LRfcD3Z4TK6WrzL39GA";
 
 interface YouTubeRSSEntry {
   videoId: string;
@@ -132,6 +137,80 @@ export async function syncYouTubeVideos(): Promise<{ newVideos: number; errors: 
   await connection.end();
   console.log(`[YouTube] ✅ Sync complete: ${newVideos} new videos, ${errors} errors`);
   return { newVideos, errors };
+}
+
+/**
+ * Fetch and store the latest videos from Ahmed Aïdara's press review playlist
+ * Returns the most recent video (today's press review)
+ */
+export async function syncAidaraPressReview(): Promise<{ newVideos: number; latestVideo: any | null }> {
+  try {
+    const url = `${YOUTUBE_PLAYLIST_RSS_BASE}${AIDARA_PLAYLIST_ID}`;
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(10000),
+      headers: { "User-Agent": "Weurseuk/1.0 (News Aggregator)" }
+    });
+
+    if (!response.ok) {
+      console.log(`[Aïdara] ⚠️ HTTP ${response.status} for playlist`);
+      return { newVideos: 0, latestVideo: null };
+    }
+
+    const xml = await response.text();
+    const entries = parseYouTubeRSS(xml, AIDARA_CHANNEL_ID);
+
+    if (entries.length === 0) return { newVideos: 0, latestVideo: null };
+
+    const connection = await import("mysql2/promise").then(m =>
+      m.createConnection(process.env.DATABASE_URL!)
+    );
+
+    let newVideos = 0;
+    for (const video of entries) {
+      try {
+        await connection.execute(
+          `INSERT IGNORE INTO youtube_videos (videoId, channelId, channelName, title, thumbnailUrl, publishedAt) 
+           VALUES (?, ?, ?, ?, ?, ?)`,
+          [video.videoId, video.channelId, video.channelName, video.title, video.thumbnailUrl, video.publishedAt]
+        );
+        const [res] = await connection.execute("SELECT ROW_COUNT() as cnt") as any;
+        if (res[0].cnt > 0) newVideos++;
+      } catch (e: any) {
+        if (!e.message?.includes("Duplicate")) console.log(`[Aïdara] ⚠️ Insert error: ${e.message}`);
+      }
+    }
+
+    await connection.end();
+
+    // Return the most recent video (index 0 = latest)
+    const latest = entries[0];
+    console.log(`[Aïdara] ✅ Sync complete: ${newVideos} new videos. Latest: "${latest.title}"`);
+    return { newVideos, latestVideo: latest };
+  } catch (error: any) {
+    console.log(`[Aïdara] ⚠️ Sync error: ${error.message}`);
+    return { newVideos: 0, latestVideo: null };
+  }
+}
+
+/**
+ * Get the latest Ahmed Aïdara press review video from the database
+ */
+export async function getLatestAidaraPressReview(): Promise<any | null> {
+  const connection = await import("mysql2/promise").then(m =>
+    m.createConnection(process.env.DATABASE_URL!)
+  );
+
+  const [rows] = await connection.execute(
+    `SELECT videoId, channelId, channelName, title, thumbnailUrl, publishedAt
+     FROM youtube_videos
+     WHERE channelId = ?
+     ORDER BY publishedAt DESC
+     LIMIT 1`,
+    [AIDARA_CHANNEL_ID]
+  ) as any;
+
+  await connection.end();
+  return rows.length > 0 ? rows[0] : null;
 }
 
 /**

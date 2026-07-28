@@ -491,6 +491,17 @@ export const appRouter = router({
         const { syncYouTubeVideos } = await import("./youtube-sync");
         return syncYouTubeVideos();
       }),
+    // Ahmed Aïdara daily press review
+    getAidaraLatest: publicProcedure
+      .query(async () => {
+        const { getLatestAidaraPressReview } = await import("./youtube-sync");
+        return getLatestAidaraPressReview();
+      }),
+    syncAidara: adminProcedure
+      .mutation(async () => {
+        const { syncAidaraPressReview } = await import("./youtube-sync");
+        return syncAidaraPressReview();
+      }),
   }),
 
   n8n: router({
