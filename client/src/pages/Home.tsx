@@ -122,7 +122,7 @@ export default function Home() {
                       </div>
                       <div className="flex items-center justify-between mt-1.5 pt-1.5" style={{ borderTop: '1px solid rgba(200,147,58,0.15)' }}>
                         {editorial.authorName && (
-                          <span className="text-[10px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{editorial.authorName}</span>
+                          <span className="text-[10px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{(editorial as any).useAlias && (editorial as any).authorAlias ? (editorial as any).authorAlias : editorial.authorName}</span>
                         )}
                         <span className="text-[10px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2" style={{ color: '#C8933A' }}>Lire →</span>
                       </div>

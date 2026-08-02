@@ -155,11 +155,13 @@ export async function getLatestNativeEditorials(limit = 3) {
     categorySlug: categories.slug,
     authorId: editorials.authorId,
     authorName: journalistProfiles.name,
+    authorAlias: journalistProfiles.alias,
     authorPhotoUrl: journalistProfiles.photoUrl,
     authorRole: journalistProfiles.role,
     type: editorials.type,
     isPublished: editorials.isPublished,
     publishedAt: editorials.publishedAt,
+    useAlias: editorials.useAlias,
   })
     .from(editorials)
     .leftJoin(categories, eq(editorials.categoryId, categories.id))
