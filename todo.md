@@ -119,7 +119,7 @@
 
 - [x] Ajouter flux RSS de l'École de Synodalité de Dakar
 - [x] Intégrer à la catégorie "Société"
-- [ ] Synchronisation des articles (bloquée par protection DDoS du site - à revoir plus tard)
+- [x] Mettre à jour l’horodatage des articles déjà présents lorsqu’ils sont revérifiés par le flux, puis confirmer une ingestion récente de Synodalité en base : 10 articles revérifiés sans erreur le 12/08/2026 à 15:53 UTC
 
 
 ## AGENT ADMINISTRATEUR v2.2 - REVUE DE PRESSE BIQUOTIDIENNE

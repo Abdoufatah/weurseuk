@@ -31,6 +31,7 @@ interface SyncResult {
   sourceId: number;
   sourceName: string;
   newArticles: number;
+  verifiedArticles: number;
   errors: string[];
 }
 
@@ -61,6 +62,7 @@ export async function syncRssSource(source: RssSource): Promise<SyncResult> {
     sourceId: source.id,
     sourceName: source.name,
     newArticles: 0,
+    verifiedArticles: 0,
     errors: [],
   };
 
@@ -78,7 +80,11 @@ export async function syncRssSource(source: RssSource): Promise<SyncResult> {
 
         // Check if article already exists by sourceUrl
         const exists = await db.articleExistsBySourceUrl(sourceUrl);
-        if (exists) continue;
+        if (exists) {
+          await db.markAggregatedArticleFetched(sourceUrl);
+          result.verifiedArticles++;
+          continue;
+        }
 
         const excerpt = truncateText(item.contentSnippet || (item as any).description, 300);
         const imageUrl = extractImageUrl(item);

@@ -555,3 +555,12 @@ export async function articleExistsBySourceUrl(sourceUrl: string): Promise<boole
     .limit(1);
   return result.length > 0;
 }
+
+export async function markAggregatedArticleFetched(sourceUrl: string) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db
+    .update(aggregatedArticles)
+    .set({ fetchedAt: new Date() })
+    .where(eq(aggregatedArticles.sourceUrl, sourceUrl));
+}
