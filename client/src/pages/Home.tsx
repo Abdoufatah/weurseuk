@@ -73,61 +73,68 @@ export default function Home() {
         <div className="relative z-10" style={{ animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
           <div className="container pb-2">
             {/* Label À la Une */}
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-white text-xs font-semibold uppercase tracking-widest flex items-center gap-2">
-                <span className="w-4 h-px bg-primary inline-block" />
+            <div className="flex items-center justify-between mb-2.5 px-1">
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] flex items-center gap-2" style={{ color: '#6D522B' }}>
+                <span className="w-5 h-px bg-primary inline-block" />
                 À la Une
               </span>
-              <Link href="/editoriaux" className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
+              <Link href="/editoriaux" className="text-primary text-[11px] font-semibold hover:underline underline-offset-4 flex items-center gap-1">
                 Tous les éditoriaux <ChevronRight className="w-3 h-3" />
               </Link>
             </div>
-            {/* 3 blocs éditoriaux — layout horizontal professionnel */}
-            <div className="flex flex-col gap-2">
-              {latestThree.map((editorial: any) => (
+            {/* 3 articles — cartes éditoriales douces, compactes et lisibles */}
+            <div className="flex flex-col gap-2.5">
+              {latestThree.map((editorial: any, index: number) => (
                 <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
-                  <div
-                    className="flex items-stretch rounded-lg overflow-hidden transition-all duration-300 group-hover:shadow-lg"
+                  <article
+                    className="relative flex items-stretch rounded-xl overflow-hidden transition-all duration-200 group-hover:-translate-y-0.5"
                     style={{
-                      background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2318 100%)',
-                      border: '1px solid rgba(200,147,58,0.2)',
+                      background: 'linear-gradient(108deg, rgba(255,254,249,0.98) 0%, rgba(252,248,239,0.98) 100%)',
+                      border: '1px solid rgba(172,130,61,0.20)',
+                      boxShadow: '0 5px 18px rgba(71, 48, 16, 0.09)',
                     }}
                   >
-                    {/* Photo auteur — vignette carrée propre à gauche */}
-                    <div className="flex-shrink-0 w-20 h-20 self-center ml-3 my-3 rounded-md overflow-hidden" style={{ border: '2px solid rgba(200,147,58,0.5)' }}>
+                    <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-primary/80" aria-hidden="true" />
+                    {/* Photo de l'auteur : présence éditoriale discrète, sans effet de filigrane */}
+                    <div className="flex-shrink-0 flex items-center justify-center w-[76px] sm:w-[92px] ml-3 sm:ml-4">
+                      <div className="w-[54px] h-[54px] sm:w-[64px] sm:h-[64px] rounded-full overflow-hidden" style={{ background: '#F4EAD7', border: '1px solid rgba(184,142,70,0.42)', boxShadow: '0 3px 9px rgba(89, 62, 19, 0.12)' }}>
                       {editorial.authorPhotoUrl ? (
                         <img
                           src={editorial.authorPhotoUrl}
                           alt={editorial.authorName || 'Auteur'}
-                          className="w-full h-full object-cover object-top"
+                          className="w-full h-full object-contain"
                         />
                       ) : (
-                        <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #C8933A 0%, #8B6520 100%)' }} />
+                        <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #DEC38E 0%, #AA7D34 100%)' }} />
                       )}
+                      </div>
                     </div>
-                    {/* Contenu texte à droite */}
-                    <div className="flex flex-col justify-between flex-1 px-3 py-2.5 min-w-0">
+                    {/* Contenu : hiérarchie éditoriale aérée et contraste doux */}
+                    <div className="flex flex-col justify-center flex-1 py-3 pr-3 sm:pr-4 min-w-0">
                       <div>
-                        <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded mb-1" style={{ background: 'rgba(200,147,58,0.85)', color: '#fff' }}>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] rounded-full" style={{ background: '#E9D7AF', color: '#684A20' }}>
                           {editorial.categoryName || 'Éditorial'}
-                        </span>
-                        <h3 className="font-editorial font-bold text-white leading-snug group-hover:text-primary transition-colors text-sm line-clamp-1 mb-1">
+                          </span>
+                          <span className="text-[10px] tracking-wide" style={{ color: '#A3804C' }}>0{index + 1}</span>
+                        </div>
+                        <h3 className="font-editorial font-bold leading-snug group-hover:text-primary transition-colors text-[15px] sm:text-base line-clamp-2 mb-1" style={{ color: '#302317' }}>
                           {editorial.title}
                         </h3>
                         {editorial.excerpt && (
-                          <p className="text-[11px] leading-relaxed line-clamp-2" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                          <p className="text-[11px] leading-relaxed line-clamp-1 sm:line-clamp-2" style={{ color: '#776B5C' }}>
                             {editorial.excerpt}
                           </p>
                         )}
                       </div>
-                      <div className="flex items-center justify-between mt-1.5 pt-1.5" style={{ borderTop: '1px solid rgba(200,147,58,0.15)' }}>
+                      <div className="flex items-center justify-between mt-2 pt-1.5" style={{ borderTop: '1px solid rgba(172,130,61,0.14)' }}>
                         {editorial.authorName && (
-                          <span className="text-[10px] font-medium truncate" style={{ color: 'rgba(200,147,58,0.8)' }}>{(editorial as any).useAlias && (editorial as any).authorAlias ? (editorial as any).authorAlias : editorial.authorName}</span>
+                          <span className="text-[10px] font-semibold truncate" style={{ color: '#86622F' }}>{(editorial as any).useAlias && (editorial as any).authorAlias ? (editorial as any).authorAlias : editorial.authorName}</span>
                         )}
-                        <span className="text-[10px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2" style={{ color: '#C8933A' }}>Lire →</span>
+                        <span className="text-[10px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2 inline-flex items-center gap-0.5" style={{ color: '#9A702F' }}>Lire <span aria-hidden="true">→</span></span>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>

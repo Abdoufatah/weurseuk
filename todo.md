@@ -403,10 +403,19 @@
 - [ ] Documenter le processus de publication Facebook manuelle en attendant l'automatisation
 
 ## REVUE DE PRESSE AHMED AÏDARA — AUTOMATISATION (28/07/2026)
+- [x] Analyser l'architecture YouTube existante (cron, table youtube_videos)
+- [x] Créer endpoint tRPC `pressReview.getLatest` : récupère la 1ère vidéo de la playlist PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa
+- [x] Intégrer la sync playlist dans le cron YouTube existant (toutes les 2h)
+- [x] Créer section "Revue de presse du jour" sur la page d'accueil avec lecteur YouTube intégré
+- [x] Afficher automatiquement la revue la plus récente en Une chaque jour
+- [x] Tester et publier
 
-- [ ] Analyser l'architecture YouTube existante (cron, table youtube_videos)
-- [ ] Créer endpoint tRPC `pressReview.getLatest` : récupère la 1ère vidéo de la playlist PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa
-- [ ] Intégrer la sync playlist dans le cron YouTube existant (toutes les 2h)
-- [ ] Créer section "Revue de presse du jour" sur la page d'accueil avec lecteur YouTube intégré
-- [ ] Afficher automatiquement la revue la plus récente en Une chaque jour
-- [ ] Tester et publier
+## ANALYSE BENSIRAC — CAPTURE LÉGISLATIVE (12/08/2026)
+- [x] Publier « Capture législative : la 14ᵉ législature sénégalaise au filtre des faits » sous la signature Bensirac
+- [x] Classer l’analyse dans la rubrique Éditoriaux et la mettre à la Une
+- [x] Vérifier la signature, le rendu complet et le lien de lecture
+
+## REFINEMENT DES ARTICLES À LA UNE (12/08/2026)
+- [x] Repenser uniquement le graphisme des cartes À la Une dans un style doux, haut de gamme et engageant
+- [x] Préserver la compacité, la lisibilité mobile, l’accroche et les données éditoriales existantes
+- [x] Vérifier le rendu desktop et mobile, puis publier
