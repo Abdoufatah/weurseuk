@@ -235,7 +235,7 @@
 - [x] Middleware Open Graph (ogMiddleware.ts) intégré pour partage social
 - [x] Partage Facebook corrigé : URL complète de l'article transmise
 - [x] Republier article Montréal (ID 120001) dans rubrique Société (pas de rubrique Culture en base)
-- [ ] Désactiver définitivement le générateur de seeds fictifs
+- [x] Désactiver définitivement le générateur de seeds fictifs — les tests de création utilisent désormais des mocks et n’écrivent plus en base
 - [ ] Intégration Facebook automatique (en attente du Page Access Token)
 - [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
 

@@ -1,17 +1,10 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { like } from "drizzle-orm";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
-import { getDb } from "./db";
-import { aggregatedArticles, breakingNews, editorials } from "../drizzle/schema";
+import * as db from "./db";
 
-afterEach(async () => {
-  const db = await getDb();
-  if (!db) return;
-
-  await db.delete(editorials).where(like(editorials.title, "Test Editorial from Bensirac%"));
-  await db.delete(aggregatedArticles).where(like(aggregatedArticles.title, "Actualité Sénégal - Test%"));
-  await db.delete(breakingNews).where(like(breakingNews.headline, "URGENT: Test Breaking News%"));
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
@@ -147,6 +140,7 @@ describe("Weurseuk Backend Procedures", () => {
     });
 
     it("editorials.create works for admin", async () => {
+      const createEditorial = vi.spyOn(db, "createEditorial").mockResolvedValue(undefined);
       const caller = appRouter.createCaller(createAdminContext());
       const result = await caller.editorials.create({
         title: "Test Editorial from Bensirac",
@@ -158,6 +152,7 @@ describe("Weurseuk Backend Procedures", () => {
       expect(result.success).toBe(true);
       expect(result.slug).toBeDefined();
       expect(result.slug.length).toBeGreaterThan(0);
+      expect(createEditorial).toHaveBeenCalledOnce();
     });
   });
 
@@ -192,6 +187,7 @@ describe("Weurseuk Backend Procedures", () => {
     });
 
     it("articles.create works for admin", async () => {
+      const createArticle = vi.spyOn(db, "createAggregatedArticle").mockResolvedValue(undefined);
       const caller = appRouter.createCaller(createAdminContext());
       const result = await caller.articles.create({
         title: "Actualité Sénégal - Test",
@@ -201,6 +197,7 @@ describe("Weurseuk Backend Procedures", () => {
         excerpt: "Un article de test",
       });
       expect(result.success).toBe(true);
+      expect(createArticle).toHaveBeenCalledOnce();
     });
   });
 
@@ -220,12 +217,14 @@ describe("Weurseuk Backend Procedures", () => {
     });
 
     it("breakingNews.create works for admin", async () => {
+      const createBreakingNews = vi.spyOn(db, "createBreakingNewsItem").mockResolvedValue(undefined);
       const caller = appRouter.createCaller(createAdminContext());
       const result = await caller.breakingNews.create({
         headline: "URGENT: Test Breaking News",
         sourceName: "Weurseuk",
       });
       expect(result.success).toBe(true);
+      expect(createBreakingNews).toHaveBeenCalledOnce();
     });
   });
 
