@@ -209,13 +209,15 @@ export default function ArticleCard({
                     ? `${
                         typeof window !== "undefined" ? window.location.origin : ""
                       }/editorial/${editorialSlug}`
-                    : sourceUrl
+                    : isInternalArticle && sourceUrl?.startsWith("/")
+                      ? `${typeof window !== "undefined" ? window.location.origin : ""}${sourceUrl}`
+                      : sourceUrl
                 }
                 ogUrl={
                   isEditorial && editorialSlug
                     ? `${
                         typeof window !== "undefined" ? window.location.origin : ""
-                      }/api/og/editorial/${editorialSlug}`
+                      }/editorial/${editorialSlug}`
                     : undefined
                 }
                 variant="compact"

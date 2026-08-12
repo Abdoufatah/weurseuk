@@ -213,8 +213,10 @@
 
 ## PARTAGE SOCIAL (19/04/2026)
 
-- [ ] Corriger les boutons de partage : l'URL complète de l'article doit être transmise (Facebook, Twitter, WhatsApp, LinkedIn, Telegram)
-- [ ] Vérifier les méta-données Open Graph (og:url, og:title, og:image) pour chaque article
+- [x] Vérifier que ShareButtons reçoit une URL canonique complète dans EditorialDetail et dans les cartes d’articles agrégés, pour Facebook, X, WhatsApp, LinkedIn et Telegram
+- [x] Ajouter un test unitaire exécutable couvrant la génération des URLs de partage pour les cinq réseaux
+- [x] Auditer des pages représentatives — éditorial, article natif hors éditorial et article agrégé — pour confirmer og:url, og:title et og:image
+- [x] Documenter et appliquer une stratégie d’image Open Graph par article ; conserver le logo comme repli technique lorsque l’article ne dispose pas d’image dédiée
 
 
 ## RÈGLE ÉDITORIALE À LA UNE (23/04/2026)
@@ -399,8 +401,8 @@
 - [ ] Déployer et vérifier le domaine dans Meta Business Suite
 
 ### Processus à Documenter
-- [ ] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
-- [ ] Documenter le processus de publication Facebook manuelle en attendant l'automatisation
+- [x] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
+- [x] Documenter le processus de publication Facebook manuelle en attendant l'automatisation
 
 ## REVUE DE PRESSE AHMED AÏDARA — AUTOMATISATION (28/07/2026)
 - [x] Analyser l'architecture YouTube existante (cron, table youtube_videos)

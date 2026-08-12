@@ -5,7 +5,7 @@
  * Les visiteurs humains reçoivent normalement le React SPA.
  */
 import { Request, Response, NextFunction } from "express";
-import { getEditorialBySlug } from "./db";
+import { getAggregatedArticleBySlug, getEditorialBySlug } from "./db";
 
 // Liste des user-agents des bots de réseaux sociaux
 const SOCIAL_BOT_PATTERNS = [
@@ -133,9 +133,9 @@ export function ogMiddleware() {
       ? `${req.protocol}://${host}`
       : "https://weurseuk.com";
 
-    // Route : /:slug (monté sur /editorial ou /api/og/editorial)
-    // ou /editorial/:slug (monté sur /api/og)
-    const editorialMatch = req.path.match(/^(?:\/editorial)?\/([^/]+)$/);
+    // Routes natives : /:slug lorsque le middleware est monté sur /editorial,
+    // ou /rubrique/:slug lorsqu'il est monté globalement en production.
+    const editorialMatch = req.path.match(/^(?:\/(?:editorial|editoriaux|analyses|politique-economie|essai|dossiers))?\/([^/]+)$/);
     if (editorialMatch) {
       const slug = editorialMatch[1];
       // RÈGLE : seuls les bots sociaux reçoivent la page OG HTML.
@@ -164,7 +164,12 @@ export function ogMiddleware() {
           const PUBLIC_OG_IMAGES: Record<string, string> = {
             'recomposition-silencieuse-limogeage-sonko-diomaye': 'https://i.imgur.com/s2BDkNU.jpeg',
           };
-          const image = PUBLIC_OG_IMAGES[slug] || LOGO_URL;
+          // Une couverture interne est exposée via le proxy stable du portail :
+          // le robot social obtient ainsi une redirection fraîche vers le CDN à chaque récupération.
+          const coverImage = editorial.coverImageUrl?.startsWith('/manus-storage/')
+            ? `${origin}${editorial.coverImageUrl}`
+            : undefined;
+          const image = PUBLIC_OG_IMAGES[slug] || coverImage || LOGO_URL;
 
           return res
             .status(200)
@@ -174,6 +179,40 @@ export function ogMiddleware() {
         }
       } catch (err) {
         console.error("[OG Middleware] Error fetching editorial:", err);
+      }
+    }
+
+    // Route des articles agrégés sauvegardés dans Weurseuk : /article/:slug.
+    // Les lecteurs humains reçoivent le SPA ; les robots sociaux reçoivent un aperçu exploitable.
+    const aggregatedArticleMatch = req.path.match(/^\/article\/([^/]+)$/);
+    if (aggregatedArticleMatch) {
+      if (!isSocialBot(userAgent)) {
+        return next();
+      }
+      try {
+        const slug = aggregatedArticleMatch[1];
+        const article = await getAggregatedArticleBySlug(slug);
+        if (article) {
+          const canonicalUrl = `${origin}/article/${slug}`;
+          const description =
+            article.excerpt ||
+            article.content?.replace(/<[^>]+>/g, "").substring(0, 200) ||
+            `Article sélectionné par Weurseuk depuis ${article.sourceName}.`;
+          const image = article.imageUrl?.startsWith("http") ? article.imageUrl : LOGO_URL;
+          return res
+            .status(200)
+            .setHeader("Content-Type", "text/html; charset=utf-8")
+            .setHeader("Cache-Control", "no-store, no-cache, must-revalidate")
+            .send(buildOgHtmlWithRedirect({
+              title: `${article.title} — Weurseuk`,
+              description,
+              ogUrl: canonicalUrl,
+              canonicalUrl,
+              image,
+            }));
+        }
+      } catch (err) {
+        console.error("[OG Middleware] Error fetching aggregated article:", err);
       }
     }
 
