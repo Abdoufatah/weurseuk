@@ -9,3 +9,7 @@ Points à confirmer lors de la validation technique : absence de débordement ho
 ## Validation de l’aperçu
 
 L’aperçu du 12 août confirme que l’analyse « Capture législative : la 14ᵉ législature sénégalaise au filtre des faits » est disponible sous la signature **Bensirac**, avec son chapeau, ses sections, ses sources et ses contrôles de partage. La première carte À la Une présente bien la signature d’alias. Le contrôle DOM a mesuré trois cartes de 141 px de hauteur, sans débordement horizontal de page ni de carte à une largeur de 1280 px.
+
+## Correctif de qualité des tests
+
+La vérification a détecté deux faux éditoriaux et deux alertes de test injectés par la suite Vitest. Ils ont été supprimés de la base. Les tests concernés effectuent désormais leur nettoyage après chaque exécution : une nouvelle suite de 31 tests réussis a confirmé l’absence résiduelle de faux éditoriaux et de fausses alertes. L’aperçu final affiche à nouveau les trois contenus réels attendus à la Une.

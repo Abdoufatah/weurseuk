@@ -1,6 +1,18 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+import { like } from "drizzle-orm";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
+import { getDb } from "./db";
+import { aggregatedArticles, breakingNews, editorials } from "../drizzle/schema";
+
+afterEach(async () => {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.delete(editorials).where(like(editorials.title, "Test Editorial from Bensirac%"));
+  await db.delete(aggregatedArticles).where(like(aggregatedArticles.title, "Actualité Sénégal - Test%"));
+  await db.delete(breakingNews).where(like(breakingNews.headline, "URGENT: Test Breaking News%"));
+});
 
 type AuthenticatedUser = NonNullable<TrpcContext["user"]>;
 
