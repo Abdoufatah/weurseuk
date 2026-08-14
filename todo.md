@@ -417,6 +417,11 @@
 - [x] Classer l’analyse dans la rubrique Éditoriaux et la mettre à la Une
 - [x] Vérifier la signature, le rendu complet et le lien de lecture
 
+## ANALYSE ABDOU FATAH FALL — FONDS SPÉCIAUX (14/08/2026)
+- [x] Publier « Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage » sous la signature d’Abdou Fatah Fall
+- [x] Classer l’analyse dans la rubrique Analyses et la mettre à la Une
+- [x] Vérifier l’affichage, la signature et les boutons de partage
+
 ## REFINEMENT DES ARTICLES À LA UNE (12/08/2026)
 - [x] Repenser uniquement le graphisme des cartes À la Une dans un style doux, haut de gamme et engageant
 - [x] Préserver la compacité, la lisibilité mobile, l’accroche et les données éditoriales existantes
