@@ -21,3 +21,5 @@ Chaque tentative est journalisée avec son statut, le message préparé, l’URL
 ## Validation du 18 août 2026
 
 Après confirmation explicite de l’administrateur, l’article **« Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage »** a été publié en test. La file contient une seule ligne pour cet éditorial, au statut `published`, avec un seul essai réussi et aucune erreur. Le post Meta a été retrouvé par l’API après publication ; il pointe bien vers l’URL canonique de l’analyse Weurseuk. La diffusion automatique est maintenant active pour les futurs articles natifs publiés après l’heure d’activation.
+
+La tâche durable `weurseuk-facebook-publisher` a ensuite exécuté son premier passage autonome avec le statut `success` le 18 août 2026 à 17:30 UTC. La file étant vide après le test, cette exécution n’a envoyé aucun doublon ; elle confirme que l’automatisation planifiée atteint correctement le serveur de production.
