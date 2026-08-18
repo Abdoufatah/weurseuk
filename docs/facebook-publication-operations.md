@@ -17,3 +17,7 @@ L’administrateur doit confirmer explicitement la première diffusion. À cette
 ## Contrôle et reprise
 
 Chaque tentative est journalisée avec son statut, le message préparé, l’URL cible, le compteur d’essais, l’identifiant du post Facebook ou l’erreur retournée par Meta. Une ligne `published` ne peut pas être publiée à nouveau. Les erreurs restent visibles sous le statut `failed` pour un traitement ultérieur.
+
+## Validation du 18 août 2026
+
+Après confirmation explicite de l’administrateur, l’article **« Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage »** a été publié en test. La file contient une seule ligne pour cet éditorial, au statut `published`, avec un seul essai réussi et aucune erreur. Le post Meta a été retrouvé par l’API après publication ; il pointe bien vers l’URL canonique de l’analyse Weurseuk. La diffusion automatique est maintenant active pour les futurs articles natifs publiés après l’heure d’activation.

@@ -223,7 +223,7 @@
 
 - [x] Dernier éditorial publié affiché à la Une du site (position featured/hero) jusqu'au prochain éditorial
 - [x] Éditorial publié dans sa rubrique ET à la Une simultanément
-- [ ] Intégration Facebook automatique : poster l'éditorial sur la page "Abduul Fatah" avec titre + chapeau
+- [x] Intégration Facebook automatique : poster les nouveaux articles natifs sur la page « Abdou Fatah FALL » avec titre, chapeau et lien canonique
 
 
 ## CORRECTIONS SESSION 28/04/2026
@@ -236,7 +236,7 @@
 - [x] Partage Facebook corrigé : URL complète de l'article transmise
 - [x] Republier article Montréal (ID 120001) dans rubrique Société (pas de rubrique Culture en base)
 - [x] Désactiver définitivement le générateur de seeds fictifs — les tests de création utilisent désormais des mocks et n’écrivent plus en base
-- [ ] Intégration Facebook automatique (en attente du Page Access Token)
+- [x] Intégration Facebook automatique : jeton validé, file idempotente, tâche planifiée et post de test réussis le 18/08/2026
 - [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
 
 ## PHOTO DR ADAMA ALY PAM (30/04/2026)
@@ -271,8 +271,8 @@
 
 - [x] Ajouter la balise méta facebook-domain-verification dans le head du site (content: s740xu2sxqhvtjdvo5k9q9mqwjfimd)
 - [ ] Déployer et vérifier le domaine dans Meta Business Suite
-- [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
-- [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
+- [x] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
+- [x] Configurer la publication automatique des éditoriaux sur Facebook — tâche planifiée Weurseuk remplace le webhook n8n
 
 ## VIDÉO HERO PAGE D'ACCUEIL (08-09/05/2026)
 
@@ -406,6 +406,11 @@
 - [x] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
 - [x] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
 - [ ] Vérifier le domaine dans Meta Business Suite et consigner son statut
+
+## TEST FACEBOOK — FONDS SPÉCIAUX (18/08/2026)
+- [x] Activer la diffusion automatique après confirmation explicite de l’administrateur
+- [x] Publier en test l’article « Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage »
+- [x] Vérifier l’identifiant du post, le lien canonique et l’absence de doublon
 
 ### Processus à Documenter
 - [x] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
