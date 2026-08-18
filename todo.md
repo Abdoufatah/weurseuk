@@ -399,12 +399,12 @@
 - [x] Obtenir et vérifier les droits du Page Access Token pour la Page "Abdou Fatah FALL" : `CREATE_CONTENT` confirmé le 18/08/2026
 - [x] Enregistrer le Page Access Token dans un secret sécurisé du projet
 - [x] Valider le Page Access Token contre l’API Meta sans effectuer de publication
-- [ ] Implémenter le flux de publication automatique des éditoriaux sur Facebook avec confirmation explicite avant le premier post
-- [ ] Créer une file de publication persistante, idempotente et traçable pour les contenus natifs publiés
-- [ ] Créer le service serveur Facebook : préparation du message, appel API, journalisation des succès et erreurs
-- [ ] Ajouter une tâche périodique fiable pour vider la file sans doublon après activation
-- [ ] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
-- [ ] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
+- [x] Implémenter le flux de publication automatique des éditoriaux sur Facebook avec confirmation explicite avant le premier post
+- [x] Créer une file de publication persistante, idempotente et traçable pour les contenus natifs publiés
+- [x] Créer le service serveur Facebook : préparation du message, appel API, journalisation des succès et erreurs
+- [x] Ajouter une tâche périodique fiable pour vider la file sans doublon après activation
+- [x] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
+- [x] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
 - [ ] Vérifier le domaine dans Meta Business Suite et consigner son statut
 
 ### Processus à Documenter
