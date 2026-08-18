@@ -396,9 +396,16 @@
 ## TÂCHES BLOQUÉES EN ATTENTE (À FAIRE PLUS TARD)
 
 ### Facebook Automatique (Bloqué - Attente Page Access Token)
-- [ ] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL" (demander à Fatah)
-- [ ] Configurer le webhook n8n pour la publication automatique des éditoriaux sur Facebook
-- [ ] Déployer et vérifier le domaine dans Meta Business Suite
+- [x] Obtenir et vérifier les droits du Page Access Token pour la Page "Abdou Fatah FALL" : `CREATE_CONTENT` confirmé le 18/08/2026
+- [x] Enregistrer le Page Access Token dans un secret sécurisé du projet
+- [x] Valider le Page Access Token contre l’API Meta sans effectuer de publication
+- [ ] Implémenter le flux de publication automatique des éditoriaux sur Facebook avec confirmation explicite avant le premier post
+- [ ] Créer une file de publication persistante, idempotente et traçable pour les contenus natifs publiés
+- [ ] Créer le service serveur Facebook : préparation du message, appel API, journalisation des succès et erreurs
+- [ ] Ajouter une tâche périodique fiable pour vider la file sans doublon après activation
+- [ ] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
+- [ ] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
+- [ ] Vérifier le domaine dans Meta Business Suite et consigner son statut
 
 ### Processus à Documenter
 - [x] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial

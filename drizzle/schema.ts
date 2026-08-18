@@ -58,6 +58,43 @@ export type Editorial = typeof editorials.$inferSelect;
 export type InsertEditorial = typeof editorials.$inferInsert;
 
 /**
+ * Single configuration row governing the Facebook publication queue.
+ * It is disabled by default so that the first real post always requires
+ * an explicit owner confirmation.
+ */
+export const facebookPublisherSettings = mysqlTable("facebook_publisher_settings", {
+  id: int("id").primaryKey(),
+  isEnabled: boolean("isEnabled").default(false).notNull(),
+  firstPostConfirmed: boolean("firstPostConfirmed").default(false).notNull(),
+  enabledAt: timestamp("enabledAt"),
+  scheduleTaskUid: varchar("scheduleTaskUid", { length: 65 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type FacebookPublisherSettings = typeof facebookPublisherSettings.$inferSelect;
+
+/**
+ * Persistent, idempotent outbox for editorial Facebook posts.
+ */
+export const facebookPublicationJobs = mysqlTable("facebook_publication_jobs", {
+  id: int("id").autoincrement().primaryKey(),
+  editorialId: int("editorialId").notNull().unique(),
+  status: mysqlEnum("status", ["pending", "publishing", "published", "failed", "blocked"]).default("pending").notNull(),
+  message: text("message"),
+  targetUrl: varchar("targetUrl", { length: 1000 }),
+  facebookPostId: varchar("facebookPostId", { length: 255 }),
+  attemptCount: int("attemptCount").default(0).notNull(),
+  lastError: text("lastError"),
+  publishedAt: timestamp("publishedAt"),
+  lockedAt: timestamp("lockedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type FacebookPublicationJob = typeof facebookPublicationJobs.$inferSelect;
+
+/**
  * RSS Feed Sources
  */
 export const rssSources = mysqlTable("rss_sources", {
@@ -215,5 +252,4 @@ export const youtubeVideos = mysqlTable("youtube_videos", {
 
 export type YoutubeVideo = typeof youtubeVideos.$inferSelect;
 export type InsertYoutubeVideo = typeof youtubeVideos.$inferInsert;
-
 

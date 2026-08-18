@@ -14,6 +14,7 @@ import { startYouTubeCron } from "../youtubeCron";
 import { initializePressReviewScheduler } from "../journalists/press-review-scheduler";
 import { ogMiddleware } from "../ogMiddleware";
 import { registerStorageProxy } from "./storageProxy";
+import { facebookPublisherScheduledHandler } from "../facebookPublisher";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -49,6 +50,8 @@ async function startServer() {
   // Route /editorial/:slug — intercepte les bots sociaux et retourne les métadonnées OG
   // Les humains reçoivent le SPA normalement (via Vite en dev, ou CDN en prod)
   app.use("/editorial", ogMiddleware());
+  // File Facebook durable : réservée aux appels de tâche planifiée authentifiés.
+  app.post("/api/scheduled/facebook-publisher", facebookPublisherScheduledHandler);
   // tRPC API
   app.use(
     "/api/trpc",

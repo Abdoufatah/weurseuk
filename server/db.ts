@@ -1,4 +1,4 @@
-import { eq, desc, and, sql, like, inArray, isNotNull } from "drizzle-orm";
+import { eq, desc, and, sql, like, inArray, isNotNull, isNull, asc, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
@@ -11,6 +11,8 @@ import {
   articleTags, InsertArticleTag,
   editorialTagsJunction, InsertEditorialTagsJunction,
   comments, InsertComment,
+  facebookPublisherSettings,
+  facebookPublicationJobs,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -280,6 +282,112 @@ export async function deleteEditorial(id: number) {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
   await db.delete(editorials).where(eq(editorials.id, id));
+}
+
+// ==================== FACEBOOK PUBLICATION OUTBOX ====================
+
+export async function getFacebookPublisherSettings() {
+  const db = await getDb();
+  if (!db) return undefined;
+  const existing = await db.select().from(facebookPublisherSettings)
+    .where(eq(facebookPublisherSettings.id, 1)).limit(1);
+  if (existing[0]) return existing[0];
+  await db.insert(facebookPublisherSettings).values({ id: 1 });
+  const created = await db.select().from(facebookPublisherSettings)
+    .where(eq(facebookPublisherSettings.id, 1)).limit(1);
+  return created[0];
+}
+
+export async function updateFacebookPublisherSettings(data: Partial<typeof facebookPublisherSettings.$inferInsert>) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await getFacebookPublisherSettings();
+  await db.update(facebookPublisherSettings).set(data).where(eq(facebookPublisherSettings.id, 1));
+}
+
+export async function enqueueEligibleFacebookEditorials() {
+  const db = await getDb();
+  if (!db) return 0;
+  const settings = await getFacebookPublisherSettings();
+  if (!settings?.enabledAt) return 0;
+  const candidates = await db.select({ editorialId: editorials.id })
+    .from(editorials)
+    .leftJoin(facebookPublicationJobs, eq(facebookPublicationJobs.editorialId, editorials.id))
+    .where(and(
+      eq(editorials.isPublished, true),
+      gte(editorials.publishedAt, settings.enabledAt),
+      isNull(facebookPublicationJobs.id),
+    ));
+  for (const candidate of candidates) {
+    await db.insert(facebookPublicationJobs).values({ editorialId: candidate.editorialId });
+  }
+  return candidates.length;
+}
+
+export async function getPendingFacebookPublicationJobs(limit = 3) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(facebookPublicationJobs)
+    .where(eq(facebookPublicationJobs.status, "pending"))
+    .orderBy(asc(facebookPublicationJobs.createdAt))
+    .limit(limit);
+}
+
+export async function getFacebookPublicationEditorial(editorialId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select({
+    id: editorials.id,
+    title: editorials.title,
+    slug: editorials.slug,
+    excerpt: editorials.excerpt,
+    categorySlug: categories.slug,
+    authorName: journalistProfiles.name,
+    authorAlias: journalistProfiles.alias,
+    useAlias: editorials.useAlias,
+  })
+    .from(editorials)
+    .leftJoin(categories, eq(editorials.categoryId, categories.id))
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
+    .where(and(eq(editorials.id, editorialId), eq(editorials.isPublished, true)))
+    .limit(1);
+  return rows[0];
+}
+
+export async function markFacebookPublicationPublishing(jobId: number, message: string, targetUrl: string) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  const result = await db.update(facebookPublicationJobs).set({
+    status: "publishing",
+    message,
+    targetUrl,
+    lockedAt: new Date(),
+    attemptCount: sql`${facebookPublicationJobs.attemptCount} + 1`,
+    lastError: null,
+  }).where(and(eq(facebookPublicationJobs.id, jobId), eq(facebookPublicationJobs.status, "pending")));
+  return Boolean((result as any)[0]?.affectedRows ?? (result as any).rowsAffected);
+}
+
+export async function markFacebookPublicationPublished(jobId: number, facebookPostId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(facebookPublicationJobs).set({
+    status: "published",
+    facebookPostId,
+    publishedAt: new Date(),
+    lockedAt: null,
+    lastError: null,
+  }).where(eq(facebookPublicationJobs.id, jobId));
+}
+
+export async function markFacebookPublicationFailed(jobId: number, reason: string) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await db.update(facebookPublicationJobs).set({
+    status: "failed",
+    lastError: reason.slice(0, 4000),
+    lockedAt: null,
+  }).where(eq(facebookPublicationJobs.id, jobId));
 }
 
 // ==================== RSS SOURCES ====================

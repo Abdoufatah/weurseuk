@@ -50,6 +50,13 @@
       "when": 1782559566519,
       "tag": "0006_melodic_arachne",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1787073182619,
+      "tag": "0007_mysterious_bug",
+      "breakpoints": true
     }
   ]
 }
