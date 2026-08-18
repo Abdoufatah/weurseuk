@@ -143,10 +143,10 @@ export default function Home() {
       )}
 
       {/* ===== PROMOTION MUSICALE PERMANENTE : JANGGI — BenSiraC Fatah DePalmarin ===== */}
-      <section className="container mt-6">
-        <div className="rounded-xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-xl">
+      <section className="container mt-5">
+        <div className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-lg">
           {/* En-tête de la section */}
-          <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10">
+          <div className="flex items-center justify-between px-3 py-2 border-b border-white/10">
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-1.5 bg-primary/15 border border-primary/30 text-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-widest">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -160,8 +160,8 @@ export default function Home() {
           {/* Corps : vidéo + texte */}
           <div className="flex flex-col lg:flex-row gap-0">
             {/* Lecteur YouTube embed — réduit */}
-            <div className="lg:w-1/2 flex-shrink-0">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <div className="lg:w-[42%] flex-shrink-0">
+              <div className="relative w-full aspect-video lg:aspect-auto lg:h-[244px]">
                 <iframe
                   className="absolute inset-0 w-full h-full"
                   src="https://www.youtube.com/embed/shiwbBx7vro?rel=0&modestbranding=1&color=white"
@@ -173,30 +173,30 @@ export default function Home() {
             </div>
 
             {/* Présentation éditoriale */}
-            <div className="lg:w-1/2 px-4 py-4 flex flex-col justify-between">
+            <div className="lg:w-[58%] px-4 py-3 flex flex-col justify-between">
               <div>
-                <h2 className="font-editorial text-2xl md:text-3xl font-bold text-white mb-1 tracking-tight">
+                <h2 className="font-editorial text-xl md:text-2xl font-bold text-white mb-0.5 tracking-tight">
                   JANGGI
                 </h2>
-                <p className="text-primary text-sm font-semibold mb-4 uppercase tracking-widest">
+                <p className="text-primary text-xs font-semibold mb-2 uppercase tracking-widest">
                   BenSiraC Fatah DePalmarin
                 </p>
-                <p className="text-white/80 text-sm leading-relaxed mb-4">
+                <p className="text-white/80 text-xs leading-relaxed line-clamp-3 mb-2">
                   Une œuvre de world music sérère qui célèbre la beauté singulière de{" "}
                   <strong className="text-white">Palmarin</strong>, village de l'embouchure du{" "}
                   <strong className="text-white">Sine Saloum</strong>, classé Patrimoine mondial de l'UNESCO.
                   Guitare acoustique, percussions traditionnelles, chants en chœur — une invitation
                   au dialogue entre les peuples par la grâce de la musique.
                 </p>
-                <p className="text-white/55 text-xs leading-relaxed italic">
+                <p className="text-white/55 text-[11px] leading-relaxed italic line-clamp-2">
                   « La musique sérère, héritière d'une civilisation du Sine-Saloum, porte en elle
                   la mémoire des eaux, des mangroves et du peuple qui les habite depuis des siècles. »
                 </p>
               </div>
               {/* Boutons de partage dédiés au clip */}
-              <div className="mt-5 pt-4 border-t border-white/10">
-                <p className="text-white/40 text-xs uppercase tracking-widest mb-3">Partager ce clip</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="mt-3 pt-2 border-t border-white/10">
+                <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1.5">Partager</p>
+                <div className="flex flex-wrap gap-1.5">
                   {/* WhatsApp */}
                   <a
                     href={`https://wa.me/?text=${encodeURIComponent('\u{1F3B5} JANGGI \u2014 BenSiraC Fatah DePalmarin\n\nUne œuvre de world music sérère célébrant Palmarin et le Sine Saloum, Patrimoine mondial de l\'UNESCO.\n\nhttps://youtu.be/shiwbBx7vro')}`}
@@ -257,7 +257,7 @@ export default function Home() {
                     Copier le lien
                   </button>
                 </div>
-                <div className="flex items-center justify-between mt-3">
+                <div className="hidden md:flex items-center justify-between mt-2">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                     <span className="text-white/50 text-xs">Musique sérère · World music · Sine Saloum</span>

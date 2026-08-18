@@ -270,7 +270,13 @@
 ## VÉRIFICATION DOMAINE FACEBOOK (06/05/2026)
 
 - [x] Ajouter la balise méta facebook-domain-verification dans le head du site (content: s740xu2sxqhvtjdvo5k9q9mqwjfimd)
+- [ ] Corriger l’injection de la balise : contrôle de production du 18/08/2026 ne la retrouve pas encore dans le HTML servi
+- [ ] Réassocier weurseuk.com et www.weurseuk.com au déploiement actif : les domaines affichent actuellement « Site Unavailable »
 - [ ] Déployer et vérifier le domaine dans Meta Business Suite
+
+## SIGNALEMENT ASSISTANCE — ROUTAGE PUBLIC (18/08/2026)
+- [x] Préparer un dossier de signalement avec constats, URLs concernées et captures de preuve
+- [x] Fournir le message complet prêt à soumettre à l’assistance Manus
 - [x] Obtenir le Page Access Token pour la Page "Abdou Fatah FALL"
 - [x] Configurer la publication automatique des éditoriaux sur Facebook — tâche planifiée Weurseuk remplace le webhook n8n
 
@@ -399,6 +405,7 @@
 - [x] Obtenir et vérifier les droits du Page Access Token pour la Page "Abdou Fatah FALL" : `CREATE_CONTENT` confirmé le 18/08/2026
 - [x] Enregistrer le Page Access Token dans un secret sécurisé du projet
 - [x] Valider le Page Access Token contre l’API Meta sans effectuer de publication
+- [x] Renouveler le Page Access Token : nouveau jeton validé contre l’API Meta le 18/08/2026
 - [x] Implémenter le flux de publication automatique des éditoriaux sur Facebook avec confirmation explicite avant le premier post
 - [x] Créer une file de publication persistante, idempotente et traçable pour les contenus natifs publiés
 - [x] Créer le service serveur Facebook : préparation du message, appel API, journalisation des succès et erreurs
@@ -412,6 +419,7 @@
 - [x] Activer la diffusion automatique après confirmation explicite de l’administrateur
 - [x] Publier en test l’article « Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage »
 - [x] Vérifier l’identifiant du post, le lien canonique et l’absence de doublon
+- [ ] Rétablir l’accès public du domaine et l’aperçu Facebook du post de test, actuellement marqué « Site Unavailable »
 
 ### Processus à Documenter
 - [x] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
@@ -424,6 +432,11 @@
 - [x] Créer section "Revue de presse du jour" sur la page d'accueil avec lecteur YouTube intégré
 - [x] Afficher automatiquement la revue la plus récente en Une chaque jour
 - [x] Tester et publier
+
+## ENCADRÉ MUSICAL JANGGI — AJUSTEMENT VISUEL (18/08/2026)
+- [x] Réduire la hauteur et la largeur visuelle de l’encart musical sur la page d’accueil
+- [x] Conserver le lecteur YouTube et les informations éditoriales dans une mise en page compacte
+- [x] Vérifier le rendu desktop et mobile, puis publier
 
 ## ANALYSE BENSIRAC — CAPTURE LÉGISLATIVE (12/08/2026)
 - [x] Publier « Capture législative : la 14ᵉ législature sénégalaise au filtre des faits » sous la signature Bensirac
