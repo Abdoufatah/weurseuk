@@ -405,6 +405,7 @@
 - [x] Ajouter une tâche périodique fiable pour vider la file sans doublon après activation
 - [x] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
 - [x] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
+- [x] Sélectionner les nouveaux articles Facebook selon leur date d’insertion, et non leur date éditoriale éventuellement rétrodattée
 - [ ] Vérifier le domaine dans Meta Business Suite et consigner son statut
 
 ## TEST FACEBOOK — FONDS SPÉCIAUX (18/08/2026)

@@ -315,7 +315,7 @@ export async function enqueueEligibleFacebookEditorials() {
     .leftJoin(facebookPublicationJobs, eq(facebookPublicationJobs.editorialId, editorials.id))
     .where(and(
       eq(editorials.isPublished, true),
-      gte(editorials.publishedAt, settings.enabledAt),
+      gte(editorials.createdAt, settings.enabledAt),
       isNull(facebookPublicationJobs.id),
     ));
   for (const candidate of candidates) {
