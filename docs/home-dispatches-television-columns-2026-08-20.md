@@ -7,3 +7,5 @@ Après le checkpoint `950fae18`, le contrôle de `weurseuk.com` sert encore la p
 Après la relance de publication `8911fbc8`, le domaine public sert bien le nouveau triptyque. Le contenu rendu affiche deux groupes Télévision — RTS et 2STV à gauche, SenTV et TFM à droite — ainsi que quatre dépêches centrales sous le titre **« Dernières dépêches »**. Les autres chaînes sont disponibles par une ligne de liens, puis les vidéos tendances suivent l’ensemble.
 
 La composition a ensuite été équilibrée à trois écrans par côté. Le contrôle de l’aperçu confirme : **RTS, 2STV et Marodi TV** à gauche ; **SenTV, TFM et Evenprod** à droite. Walf TV, iTV, Canal Info News (archives), TV5MONDE et France 24 demeurent accessibles dans la ligne des autres chaînes.
+
+Le contrôle sur `weurseuk.com`, après le checkpoint `2c12adad`, confirme la même distribution en production : les six libellés sont présents autour des quatre dépêches centrales. Les revues de presse en gabarit compact restent accessibles par leurs liens YouTube au-dessus du triptyque.
