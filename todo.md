@@ -275,9 +275,11 @@
 
 ## VÉRIFICATION DOMAINE FACEBOOK (06/05/2026)
 - [x] Ajouter la balise méta facebook-domain-verification dans le head du site (content: s740xu2sxqhvtjdvo5k9q9mqwjfimd)
-- [ ] Corriger l’injection de la balise : contrôle de production du 18/08/2026 ne la retrouve pas encore dans le HTML servi
+- [x] Corriger l’injection de la balise : la balise est présente dans le HTML public de weurseuk.com lors du contrôle du 20/08/2026
 - [x] Réassocier weurseuk.com et www.weurseuk.com au déploiement actif : le domaine public est de nouveau accessible et la page d’accueil a été vérifiée le 20/08/2026
-- [ ] Déployer et vérifier le domaine dans Meta Business Suite
+- [x] Déployer et vérifier le domaine dans Meta Business Suite
+- [x] Guider l’accès de l’administrateur à Business Settings puis à la rubrique Domains
+- [x] Fournir un accès direct à la rubrique Meta Domains lorsque le menu Business Settings reste introuvable
 
 ## SIGNALEMENT ASSISTANCE — ROUTAGE PUBLIC (18/08/2026)
 - [x] Préparer un dossier de signalement avec constats, URLs concernées et captures de preuve
@@ -418,7 +420,7 @@
 - [x] Créer un mode d’activation explicite, désactivé par défaut, afin de bloquer le premier post réel
 - [x] Ajouter les tests de non-régression du format de publication, de l’idempotence et du blocage avant confirmation
 - [x] Sélectionner les nouveaux articles Facebook selon leur date d’insertion, et non leur date éditoriale éventuellement rétrodattée
-- [ ] Vérifier le domaine dans Meta Business Suite et consigner son statut
+- [x] Vérifier le domaine dans Meta Business Suite et consigner son statut
 
 ## TEST FACEBOOK — FONDS SPÉCIAUX (18/08/2026)
 - [x] Activer la diffusion automatique après confirmation explicite de l’administrateur
