@@ -548,7 +548,7 @@
 - [x] Vérifier la lecture des écrans et les liens, puis publier
 
 ## ÉQUILIBRE DES COLONNES TÉLÉVISION (20/08/2026)
-- [ ] Ajouter Marodi TV et Evenprod pour afficher trois écrans de chaque côté des dépêches
+- [x] Ajouter Marodi TV et Evenprod pour afficher trois écrans de chaque côté des dépêches
 - [ ] Préserver les dimensions compactes et vérifier la nouvelle composition en production
 
 ## SYNTHÈSE DE VEILLE BENSIRAC À LA UNE (20/08/2026)

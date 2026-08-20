@@ -29,9 +29,12 @@ export default function Home() {
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
   const filteredCategories = displayCategories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug));
-  const televisionPreviews = TV_CHANNELS.filter((channel) => channel.group === "senegal" && !channel.isArchive).slice(0, 4);
+  const televisionPreviewIds = ["rts", "2stv", "marodi-tv", "sentv", "tfm", "evenprod"];
+  const televisionPreviews = televisionPreviewIds
+    .map((channelId) => TV_CHANNELS.find((channel) => channel.id === channelId))
+    .filter((channel): channel is (typeof TV_CHANNELS)[number] => Boolean(channel));
   const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
-  const televisionColumns = [televisionPreviews.slice(0, 2), televisionPreviews.slice(2, 4)];
+  const televisionColumns = [televisionPreviews.slice(0, 3), televisionPreviews.slice(3, 6)];
 
   return (
     <div className="min-h-screen font-sans-editorial">

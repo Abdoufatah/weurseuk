@@ -21,6 +21,9 @@ describe("Accueil — revues de presse compactes", () => {
 
   it("répartit la Télévision sur les côtés des dépêches centrales tout en conservant toutes les sources", () => {
     expect(homeSource).toContain("Télévision");
+    expect(homeSource).toContain('"rts", "2stv", "marodi-tv", "sentv", "tfm", "evenprod"');
+    expect(homeSource).toContain("televisionPreviews.slice(0, 3)");
+    expect(homeSource).toContain("televisionPreviews.slice(3, 6)");
     expect(homeSource).toContain("televisionColumns.map");
     expect(homeSource).toContain("otherTelevisionChannels.map");
     expect(homeSource).toContain("getUploadsPlaylistId(channel.channelId)");
