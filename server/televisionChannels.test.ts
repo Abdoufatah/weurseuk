@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getUploadsPlaylistId, isEmbeddableChannel, TV_CHANNELS } from "../client/src/pages/Television";
+import { getTelevisionChannel, getUploadsPlaylistId, isEmbeddableChannel, TV_CHANNELS } from "../client/src/lib/televisionChannels";
 
 describe("Télévision — sélection éditoriale", () => {
   it("inclut les chaînes sénégalaises et internationales demandées avec leurs identifiants officiels", () => {
@@ -30,5 +30,11 @@ describe("Télévision — sélection éditoriale", () => {
 
   it("construit la playlist de publications à partir de l’identifiant de chaîne", () => {
     expect(getUploadsPlaylistId("UCdtKKcnU-hHejE2mVVk61kA")).toBe("UUdtKKcnU-hHejE2mVVk61kA");
+  });
+
+  it("retrouve chaque chaîne par son identifiant pour les liens depuis l’accueil", () => {
+    expect(getTelevisionChannel("itv-senegal")?.name).toBe("iTV");
+    expect(getTelevisionChannel("france24")?.name).toBe("France 24");
+    expect(getTelevisionChannel("inconnue")).toBeUndefined();
   });
 });

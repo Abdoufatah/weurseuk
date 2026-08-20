@@ -16,4 +16,10 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).toContain("https://www.youtube.com/embed/${aidaraLatest.videoId}");
     expect(homeSource).toContain("https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}");
   });
+
+  it("rend les sources Télévision visibles sur l’accueil et liées à leur sélection individuelle", () => {
+    expect(homeSource).toContain("Télévision");
+    expect(homeSource).toContain("TV_CHANNELS.map");
+    expect(homeSource).toContain("/television?channel=${channel.id}");
+  });
 });
