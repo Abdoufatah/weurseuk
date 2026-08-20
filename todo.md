@@ -524,6 +524,10 @@
 - [x] Réduire l’encombrement des encarts Ahmed Aïdara et Fabrice Nguéma sans retirer les lecteurs ni les liens vidéo
 - [x] Vérifier le rendu compact en production, sur mobile et sur ordinateur
 
+## HARMONISATION REVUES ET TÉLÉVISION (20/08/2026)
+- [x] Ajuster les deux revues de presse au gabarit compact des écrans Télévision
+- [ ] Préserver les liens vers les éditions complètes et vérifier le rendu en production
+
 ## HIÉRARCHIE ÉDITORIALE DES REVUES QUOTIDIENNES (20/08/2026)
 - [x] Positionner les revues de presse Ahmed Aïdara et Fabrice Nguéma avant les vidéos tendances sur l’accueil
 - [x] Vérifier l’ordre en production sans modifier la Une ni les formats compacts
@@ -542,6 +546,10 @@
 - [x] Répartir les écrans Télévision dans deux colonnes latérales autour des dépêches centrales
 - [x] Positionner le flux des dernières dépêches juste après la Une sur ordinateur tout en préservant les revues quotidiennes
 - [x] Vérifier la lecture des écrans et les liens, puis publier
+
+## ÉQUILIBRE DES COLONNES TÉLÉVISION (20/08/2026)
+- [ ] Ajouter Marodi TV et Evenprod pour afficher trois écrans de chaque côté des dépêches
+- [ ] Préserver les dimensions compactes et vérifier la nouvelle composition en production
 
 ## SYNTHÈSE DE VEILLE BENSIRAC À LA UNE (20/08/2026)
 - [x] Réaliser une veille croisée des grands médias et sélectionner le sujet dominant du jour

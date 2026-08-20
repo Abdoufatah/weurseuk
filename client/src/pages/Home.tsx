@@ -284,6 +284,41 @@ export default function Home() {
       </section>
       )}
 
+      {/* ===== REVUES DE PRESSE QUOTIDIENNES — FORMAT COMPACT ===== */}
+      {(aidaraLatest || fabriceNguemaLatest) && (
+        <section className="container mt-6">
+          <div className="mx-auto max-w-[640px]">
+            <div className="mb-2 flex items-center gap-2 border-b border-primary/15 pb-1.5">
+              <Tv className="h-3.5 w-3.5 text-primary" />
+              <h2 className="font-editorial text-sm font-bold text-foreground">Revues de presse quotidiennes</h2>
+              <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Éditions du jour</span>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {aidaraLatest && (
+                <a href={`https://www.youtube.com/watch?v=${aidaraLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="group block min-w-0">
+                  <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
+                    <iframe className="pointer-events-none h-full w-full" loading="lazy" src={`https://www.youtube.com/embed/${aidaraLatest.videoId}?rel=0&modestbranding=1&color=white`} title={aidaraLatest.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span></div>
+                  </div>
+                  <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">Ahmed Aïdara · 2A TV</p>
+                </a>
+              )}
+              {fabriceNguemaLatest && (
+                <a href={`https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="group block min-w-0">
+                  <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
+                    <iframe className="pointer-events-none h-full w-full" loading="lazy" src={`https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}?rel=0&modestbranding=1&color=white`} title={fabriceNguemaLatest.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span></div>
+                  </div>
+                  <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">Fabrice Nguéma · SenTV</p>
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Ancien format désactivé : remplacé par deux écrans compacts cohérents avec la Télévision. */}
+      {false && <>
       {/* ===== REVUE DE PRESSE DU JOUR — AHMED AÏDARA (2A TV) ===== */}
       {aidaraLatest && (
         <section className="container mt-6">
@@ -407,6 +442,7 @@ export default function Home() {
           </div>
         </section>
       )}
+      </>}
 
       {/* ===== DÉPÊCHES CENTRALES & TÉLÉVISION LATÉRALE ===== */}
       {articles && articles.length > 0 && (

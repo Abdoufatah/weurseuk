@@ -5,16 +5,18 @@ import { describe, expect, it } from "vitest";
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
 
 describe("Accueil — revues de presse compactes", () => {
-  it("utilise deux lecteurs réduits au lieu des anciens lecteurs de 480 px", () => {
-    expect(homeSource).toContain("sm:w-[260px] md:w-[300px] lg:w-[330px]");
-    expect(homeSource).not.toContain("md:w-[480px]");
+  it("aligne les deux revues sur les écrans Télévision compacts", () => {
+    expect(homeSource).toContain("REVUES DE PRESSE QUOTIDIENNES — FORMAT COMPACT");
+    expect(homeSource).toContain("mx-auto max-w-[640px]");
+    expect(homeSource).toContain("grid grid-cols-1 gap-3 sm:grid-cols-2");
+    expect(homeSource).toContain("relative aspect-video overflow-hidden rounded-md bg-black shadow-sm");
   });
 
-  it("préserve les deux lecteurs et leurs accès vidéo tout en réduisant la densité du texte", () => {
-    expect((homeSource.match(/Revue de presse du jour/g) ?? [])).toHaveLength(2);
-    expect((homeSource.match(/hidden lg:block text-xs text-muted-foreground leading-relaxed line-clamp-2/g) ?? [])).toHaveLength(2);
+  it("préserve les deux lecteurs et leurs accès aux éditions complètes", () => {
     expect(homeSource).toContain("https://www.youtube.com/embed/${aidaraLatest.videoId}");
     expect(homeSource).toContain("https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}");
+    expect(homeSource).toContain("https://www.youtube.com/watch?v=${aidaraLatest.videoId}");
+    expect(homeSource).toContain("https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}");
   });
 
   it("répartit la Télévision sur les côtés des dépêches centrales tout en conservant toutes les sources", () => {
