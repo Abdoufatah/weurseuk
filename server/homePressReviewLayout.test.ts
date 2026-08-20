@@ -17,19 +17,21 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).toContain("https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}");
   });
 
-  it("rend la Télévision au même format compact que les vidéos tendances tout en conservant toutes les sources", () => {
+  it("répartit la Télévision sur les côtés des dépêches centrales tout en conservant toutes les sources", () => {
     expect(homeSource).toContain("Télévision");
-    expect(homeSource).toContain("televisionPreviews.map");
+    expect(homeSource).toContain("televisionColumns.map");
     expect(homeSource).toContain("otherTelevisionChannels.map");
     expect(homeSource).toContain("getUploadsPlaylistId(channel.channelId)");
     expect(homeSource).toContain("Dernières vidéos de ${channel.fullName}");
-    expect(homeSource).toContain("grid-cols-2 gap-3 sm:grid-cols-4");
+    expect(homeSource).toContain("lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)]");
+    expect(homeSource).toContain("Dernières dépêches");
+    expect(homeSource).toContain("articles.slice(0, 4)");
   });
 
   it("place les deux revues quotidiennes avant la télévision et les vidéos tendances", () => {
     const aidaraIndex = homeSource.indexOf("AHMED AÏDARA");
     const fabriceIndex = homeSource.indexOf("FABRICE NGUÉMA");
-    const televisionIndex = homeSource.indexOf("format compact, aligné sur les vidéos tendances");
+    const televisionIndex = homeSource.indexOf("DÉPÊCHES CENTRALES & TÉLÉVISION LATÉRALE");
     const trendsIndex = homeSource.indexOf("Vidéos tendances — après les deux revues quotidiennes");
 
     expect(aidaraIndex).toBeGreaterThan(-1);

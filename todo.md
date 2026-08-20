@@ -537,3 +537,8 @@
 - [x] Aligner les encarts Télévision sur la densité et le format des vidéos tendances
 - [x] Réduire la hauteur du module afin de remonter les dépêches sur l’accueil
 - [ ] Vérifier le rendu compact en production sans modifier l’ordre des revues
+
+## COMPOSITION TÉLÉVISION ET DÉPÊCHES (20/08/2026)
+- [x] Répartir les écrans Télévision dans deux colonnes latérales autour des dépêches centrales
+- [x] Positionner le flux des dernières dépêches juste après la Une sur ordinateur tout en préservant les revues quotidiennes
+- [ ] Vérifier le basculement mobile, la lecture des écrans et les liens, puis publier

@@ -31,6 +31,7 @@ export default function Home() {
   const filteredCategories = displayCategories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug));
   const televisionPreviews = TV_CHANNELS.filter((channel) => channel.group === "senegal" && !channel.isArchive).slice(0, 4);
   const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
+  const televisionColumns = [televisionPreviews.slice(0, 2), televisionPreviews.slice(2, 4)];
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -407,50 +408,77 @@ export default function Home() {
         </section>
       )}
 
-      {/* ===== TÉLÉVISION — format compact, aligné sur les vidéos tendances ===== */}
-      <section className="container mt-6">
-        <div className="border-t border-primary/15 pt-4">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary"><Tv className="h-3.5 w-3.5" /></span>
-              <div>
-                <h2 className="font-editorial text-base font-bold text-foreground">Télévision</h2>
-                <p className="text-[10px] text-muted-foreground">Écrans des principales chaînes sénégalaises</p>
-              </div>
-            </div>
-            <Link href="/television" className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline">
-              Toute la sélection <ChevronRight className="h-3 w-3" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {televisionPreviews.map((channel) => (
-              <Link key={channel.id} href={`/television?channel=${channel.id}`} className="group block min-w-0">
-                <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
-                    <iframe
-                      className="pointer-events-none h-full w-full"
-                      loading="lazy"
-                      src={`https://www.youtube.com/embed?listType=playlist&list=${getUploadsPlaylistId(channel.channelId)}&rel=0&modestbranding=1&color=white`}
-                      title={`Dernières vidéos de ${channel.fullName}`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/85 text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span>
+      {/* ===== DÉPÊCHES CENTRALES & TÉLÉVISION LATÉRALE ===== */}
+      {articles && articles.length > 0 && (
+        <section className="container mt-6 border-t border-primary/15 pt-4">
+          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)]">
+            {televisionColumns.map((column, columnIndex) => (
+              <aside key={columnIndex} className={`${columnIndex === 0 ? "order-2 lg:order-1" : "order-3"} space-y-3`}>
+                <div className="flex items-center gap-1.5 border-b border-primary/15 pb-1.5">
+                  <Tv className="h-3.5 w-3.5 text-primary" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Télévision</span>
+                </div>
+                {column.map((channel) => (
+                  <Link key={channel.id} href={`/television?channel=${channel.id}`} className="group block min-w-0">
+                    <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
+                      <iframe
+                        className="pointer-events-none h-full w-full"
+                        loading="lazy"
+                        src={`https://www.youtube.com/embed?listType=playlist&list=${getUploadsPlaylistId(channel.channelId)}&rel=0&modestbranding=1&color=white`}
+                        title={`Dernières vidéos de ${channel.fullName}`}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span>
+                      </div>
                     </div>
-                  </div>
-                <p className="mt-1.5 truncate text-xs font-medium text-foreground transition-colors group-hover:text-primary">{channel.name}</p>
-                <p className="mt-0.5 text-[10px] text-muted-foreground">Chaîne du Sénégal</p>
-              </Link>
+                    <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">{channel.name}</p>
+                  </Link>
+                ))}
+              </aside>
             ))}
+
+            <section className="order-1 min-w-0 lg:order-2">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Newspaper className="h-4 w-4 text-primary" />
+                  <h2 className="font-editorial text-lg font-bold text-foreground">Dernières dépêches</h2>
+                </div>
+                <Link href="/actualite" className="text-[11px] font-semibold text-primary hover:underline">Toute l’actualité →</Link>
+              </div>
+              <div className="space-y-2.5">
+                {articles.slice(0, 4).map((article) => {
+                  const dispatch = (
+                    <article className="rounded-lg border border-border/60 bg-card px-3 py-2.5 transition-colors hover:border-primary/35">
+                      <div className="mb-1 flex items-center gap-2 text-[10px] text-muted-foreground">
+                        {article.sourceName && <span className="font-semibold text-primary">{article.sourceName}</span>}
+                        {article.publishedAt && <span>{new Date(article.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}</span>}
+                      </div>
+                      <h3 className="font-editorial text-sm font-semibold leading-snug text-foreground">{article.title}</h3>
+                      {article.excerpt && <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground line-clamp-2">{article.excerpt}</p>}
+                    </article>
+                  );
+
+                  return article.sourceUrl ? (
+                    <a key={article.id} href={article.sourceUrl} target={article.sourceUrl.startsWith("http") ? "_blank" : undefined} rel={article.sourceUrl.startsWith("http") ? "noopener noreferrer" : undefined} className="group block">
+                      {dispatch}
+                    </a>
+                  ) : <div key={article.id}>{dispatch}</div>;
+                })}
+              </div>
+            </section>
           </div>
-          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-black/[0.06] pt-2.5">
+
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-black/[0.06] pt-2.5">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Autres chaînes</span>
             {otherTelevisionChannels.map((channel) => (
               <Link key={channel.id} href={`/television?channel=${channel.id}`} className="text-[10px] font-medium text-muted-foreground transition-colors hover:text-primary">
                 {channel.name}{channel.isArchive ? " · archives" : ""}
               </Link>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Vidéos tendances — après les deux revues quotidiennes */}
       <div className="container mt-6">
@@ -505,17 +533,17 @@ export default function Home() {
           {/* Main column */}
           <div className="lg:col-span-2 space-y-10">
 
-            {/* All latest articles */}
-            {articles && articles.length > 0 && (
+            {/* Archive du flux déjà introduit sous la Une */}
+            {articles && articles.length > 4 && (
               <section>
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
                     <span className="w-1 h-5 bg-primary rounded-full" />
-                    Dernières actualités
+                    Autres actualités
                   </h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {articles.map((article) => (
+                  {articles.slice(4).map((article) => (
                     <ArticleCard
                       key={article.id}
                       title={article.title}
