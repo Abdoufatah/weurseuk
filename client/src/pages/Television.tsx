@@ -10,6 +10,7 @@ export type TvChannel = {
   description: string;
   group: "senegal" | "international";
   sourceUrl: string;
+  isArchive?: boolean;
 };
 
 export const TV_CHANNELS: TvChannel[] = [
@@ -64,6 +65,47 @@ export const TV_CHANNELS: TvChannel[] = [
     sourceUrl: "https://www.youtube.com/@WalfadjriTV",
   },
   {
+    id: "itv-senegal",
+    name: "iTV",
+    fullName: "iTV Sénégal — Emedia",
+    channelId: "UCIdNAY1QlzXahhX6lsZv2kg",
+    color: "#2B7ED1",
+    description: "Information et programmes du groupe Emedia",
+    group: "senegal",
+    sourceUrl: "https://www.youtube.com/@iTvSenegal",
+  },
+  {
+    id: "marodi-tv",
+    name: "Marodi TV",
+    fullName: "Marodi TV Sénégal",
+    channelId: "UCqe0sSESmaQbLFdTExctQLA",
+    color: "#EAB308",
+    description: "Créations audiovisuelles et séries sénégalaises",
+    group: "senegal",
+    sourceUrl: "https://www.youtube.com/@maroditvprod",
+  },
+  {
+    id: "evenprod",
+    name: "Evenprod",
+    fullName: "Evenprod Sénégal",
+    channelId: "UCKKbOgsOxOT83r1TdfjMaYg",
+    color: "#C92A2A",
+    description: "Productions, documentaires et créations originales",
+    group: "senegal",
+    sourceUrl: "https://www.youtube.com/@evenprod",
+  },
+  {
+    id: "canal-info-news",
+    name: "Canal Info News",
+    fullName: "Canal Info News — Archives",
+    channelId: "PLBtKFt06Urb4n-6wzf8YI3SV4hUPhC3yT",
+    color: "#64748B",
+    description: "Archives audiovisuelles : la chaîne n’est plus en diffusion active",
+    group: "senegal",
+    sourceUrl: "https://www.youtube.com/playlist?list=PLBtKFt06Urb4n-6wzf8YI3SV4hUPhC3yT",
+    isArchive: true,
+  },
+  {
     id: "tv5monde",
     name: "TV5MONDE",
     fullName: "TV5MONDE",
@@ -92,6 +134,10 @@ const CHANNEL_GROUPS = [
 
 export function getUploadsPlaylistId(channelId: string) {
   return channelId.startsWith("UC") ? `UU${channelId.slice(2)}` : channelId;
+}
+
+export function isEmbeddableChannel(channel: TvChannel) {
+  return !channel.isArchive;
 }
 
 function ChannelMark({ channel, compact = false }: { channel: TvChannel; compact?: boolean }) {
@@ -129,7 +175,10 @@ export default function Television() {
   const getVideosEmbedUrl = (channelId: string) =>
     `https://www.youtube-nocookie.com/embed?listType=playlist&list=${getUploadsPlaylistId(channelId)}&autoplay=0&rel=0&modestbranding=1`;
 
-  const selectChannel = (channel: TvChannel) => setActiveChannel(channel);
+  const selectChannel = (channel: TvChannel) => {
+    setActiveChannel(channel);
+    if (channel.isArchive) setEmbedMode("videos");
+  };
 
   return (
     <main className="min-h-screen bg-[#0c0d0d] text-white">
@@ -157,9 +206,10 @@ export default function Television() {
             </button>
             <button
               onClick={() => setEmbedMode("live")}
-              className={`rounded-full px-4 py-2 transition-colors ${embedMode === "live" ? "bg-red-600 text-white" : "text-white/55 hover:text-white"}`}
+              disabled={activeChannel.isArchive}
+              className={`rounded-full px-4 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${embedMode === "live" ? "bg-red-600 text-white" : "text-white/55 hover:text-white"}`}
             >
-              Direct si disponible
+              {activeChannel.isArchive ? "Archives vidéo" : "Direct si disponible"}
             </button>
           </div>
         </div>
@@ -215,7 +265,7 @@ export default function Television() {
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="font-display text-xl font-semibold">{activeChannel.name}</h2>
                   <span className={`rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.13em] ${embedMode === "live" ? "border-red-400/35 bg-red-500/10 text-red-300" : "border-white/10 bg-white/5 text-white/45"}`}>
-                    {embedMode === "live" ? "Direct" : "Vidéos récentes"}
+                    {activeChannel.isArchive ? "Archives" : embedMode === "live" ? "Direct" : "Vidéos récentes"}
                   </span>
                 </div>
                 <p className="mt-1 text-sm text-white/50">{activeChannel.description}</p>
@@ -226,23 +276,43 @@ export default function Television() {
                 rel="noreferrer"
                 className="text-xs font-semibold text-[#e5ba61] underline-offset-4 hover:underline"
               >
-                Voir la chaîne officielle
+                {activeChannel.isArchive ? "Consulter l’archive vidéo" : "Voir la chaîne officielle"}
               </a>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/25">
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  key={`${activeChannel.id}-${embedMode}`}
-                  src={embedMode === "live" ? getLiveEmbedUrl(activeChannel.channelId) : getVideosEmbedUrl(activeChannel.channelId)}
-                  title={`${activeChannel.name} — ${embedMode === "live" ? "Direct" : "Dernières vidéos"}`}
-                  className="absolute inset-0 h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
+            {isEmbeddableChannel(activeChannel) ? (
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl shadow-black/25">
+                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                  <iframe
+                    key={`${activeChannel.id}-${embedMode}`}
+                    src={embedMode === "live" ? getLiveEmbedUrl(activeChannel.channelId) : getVideosEmbedUrl(activeChannel.channelId)}
+                    title={`${activeChannel.name} — ${embedMode === "live" ? "Direct" : "Dernières vidéos"}`}
+                    className="absolute inset-0 h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex min-h-72 items-center rounded-2xl border border-dashed border-white/15 bg-[radial-gradient(circle_at_top,#202637_0%,#111315_56%,#0a0b0c_100%)] p-8 shadow-2xl shadow-black/25">
+                <div className="max-w-xl">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#d6a847]">Patrimoine audiovisuel</p>
+                  <h3 className="mt-3 font-display text-2xl font-semibold">Canal Info News : consultation d’archives</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/55">
+                    Cette entrée conserve une mémoire documentaire. La chaîne n’étant plus en diffusion active, Weurseuk ne présente pas un lecteur de direct et renvoie vers la playlist d’archives disponible.
+                  </p>
+                  <a
+                    href={activeChannel.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex rounded-full border border-[#d6a847]/50 px-4 py-2 text-xs font-semibold text-[#f0ca76] transition-colors hover:bg-[#d6a847]/10"
+                  >
+                    Ouvrir les archives vidéo
+                  </a>
+                </div>
+              </div>
+            )}
 
             <div className="mt-7 border-t border-white/10 pt-5">
               <div className="mb-3 flex items-center justify-between gap-3">

@@ -475,3 +475,8 @@
 - [x] Ajouter les principales chaînes sénégalaises complémentaires à la sélection Télévision
 - [x] Réorganiser la section Télévision pour distinguer les chaînes sénégalaises et internationales
 - [x] Vérifier le rendu public des lecteurs et publier
+
+## EXTENSION TÉLÉVISION — NOUVELLES CHAÎNES SÉNÉGALAISES (20/08/2026)
+- [x] Vérifier les comptes officiels YouTube de iTV, Marodi TV et Evenprod ; identifier Canal Info News comme archive historique non active
+- [x] Ajouter ces quatre entrées à la sélection sénégalaise de la page Télévision avec un statut d’archive explicite pour Canal Info News
+- [ ] Tester les lecteurs, publier et vérifier leur rendu public
