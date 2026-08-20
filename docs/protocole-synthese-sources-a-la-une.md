@@ -12,4 +12,4 @@ La carte secondaire À la Une reprend la dernière synthèse répondant à ce pr
 
 Le 20 août 2026, cette règle a été appliquée à la synthèse **« Iran : quand la guerre se déplace vers les interdépendances »** : elle a remplacé, dans la section À la Une secondaire, la carte **« Sur la Croisette, une voix venue de Dakar »**. Le bloc éditorial supérieur a été conservé sans modification.
 
-Le contrôle de l’aperçu de développement confirme ce remplacement. Le premier contrôle du domaine public après le checkpoint `2690b8af` sert encore l’ancienne carte Croisette : la propagation du déploiement doit donc être relancée et vérifiée avant de considérer l’opération clôturée.
+Le contrôle de l’aperçu de développement confirme ce remplacement. Le premier contrôle du domaine public après le checkpoint `2690b8af` servait encore l’ancienne carte Croisette ; après relance de la publication, le contrôle public final du 20 août 2026 confirme que la section À la Une secondaire affiche bien la synthèse Bensirac, son illustration créditée et son lien de lecture.
