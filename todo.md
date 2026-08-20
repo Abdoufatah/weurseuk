@@ -532,3 +532,8 @@
 - [x] Positionner la Télévision immédiatement sous les deux revues de presse quotidiennes
 - [x] Afficher des écrans vidéo compacts à partir des sources officielles des chaînes sélectionnées
 - [ ] Tester la galerie de lecteurs sur mobile et ordinateur, puis publier
+
+## FORMAT COMPACT TÉLÉVISION (20/08/2026)
+- [x] Aligner les encarts Télévision sur la densité et le format des vidéos tendances
+- [x] Réduire la hauteur du module afin de remonter les dépêches sur l’accueil
+- [ ] Vérifier le rendu compact en production sans modifier l’ordre des revues

@@ -17,17 +17,19 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).toContain("https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}");
   });
 
-  it("rend les sources Télévision visibles sur l’accueil et liées à leur sélection individuelle", () => {
+  it("rend la Télévision au même format compact que les vidéos tendances tout en conservant toutes les sources", () => {
     expect(homeSource).toContain("Télévision");
-    expect(homeSource).toContain("TV_CHANNELS.map");
+    expect(homeSource).toContain("televisionPreviews.map");
+    expect(homeSource).toContain("otherTelevisionChannels.map");
     expect(homeSource).toContain("getUploadsPlaylistId(channel.channelId)");
     expect(homeSource).toContain("Dernières vidéos de ${channel.fullName}");
+    expect(homeSource).toContain("grid-cols-2 gap-3 sm:grid-cols-4");
   });
 
   it("place les deux revues quotidiennes avant la télévision et les vidéos tendances", () => {
     const aidaraIndex = homeSource.indexOf("AHMED AÏDARA");
     const fabriceIndex = homeSource.indexOf("FABRICE NGUÉMA");
-    const televisionIndex = homeSource.indexOf("galerie des dernières vidéos officielles");
+    const televisionIndex = homeSource.indexOf("format compact, aligné sur les vidéos tendances");
     const trendsIndex = homeSource.indexOf("Vidéos tendances — après les deux revues quotidiennes");
 
     expect(aidaraIndex).toBeGreaterThan(-1);

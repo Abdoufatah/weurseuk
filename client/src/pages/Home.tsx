@@ -5,7 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import AdPlacement from "@/components/AdPlacement";
 import YouTubeVideoSlot from "@/components/YouTubeVideoSlot";
 import { Newspaper, PenLine, Globe, ChevronRight, Tv } from "lucide-react";
-import { TV_CHANNELS, getUploadsPlaylistId, isEmbeddableChannel } from "@/lib/televisionChannels";
+import { TV_CHANNELS, getUploadsPlaylistId } from "@/lib/televisionChannels";
 
 // Fallback categories if API fails
 const FALLBACK_CATEGORIES = [
@@ -29,6 +29,8 @@ export default function Home() {
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
   const filteredCategories = displayCategories.filter(c => ["actualite", "politique-economie", "international", "societe", "analyses", "editorial"].includes(c.slug));
+  const televisionPreviews = TV_CHANNELS.filter((channel) => channel.group === "senegal" && !channel.isArchive).slice(0, 4);
+  const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -405,59 +407,46 @@ export default function Home() {
         </section>
       )}
 
-      {/* ===== TÉLÉVISION — galerie des dernières vidéos officielles ===== */}
+      {/* ===== TÉLÉVISION — format compact, aligné sur les vidéos tendances ===== */}
       <section className="container mt-6">
-        <div className="rounded-xl border border-primary/20 bg-[linear-gradient(105deg,rgba(249,246,238,0.96),rgba(255,255,255,0.98))] p-3.5 shadow-sm sm:p-4">
+        <div className="border-t border-primary/15 pt-4">
           <div className="mb-3 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary"><Tv className="h-3.5 w-3.5" /></span>
               <div>
                 <h2 className="font-editorial text-base font-bold text-foreground">Télévision</h2>
-                <p className="text-[10px] text-muted-foreground">Les dernières publications des chaînes sénégalaises et internationales</p>
+                <p className="text-[10px] text-muted-foreground">Écrans des principales chaînes sénégalaises</p>
               </div>
             </div>
             <Link href="/television" className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline">
               Toute la sélection <ChevronRight className="h-3 w-3" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {TV_CHANNELS.map((channel) => (
-              <article key={channel.id} className="overflow-hidden rounded-lg border border-black/[0.08] bg-white shadow-[0_2px_8px_rgba(48,35,23,0.06)]">
-                {isEmbeddableChannel(channel) ? (
-                  <div className="aspect-video bg-black">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {televisionPreviews.map((channel) => (
+              <Link key={channel.id} href={`/television?channel=${channel.id}`} className="group block min-w-0">
+                <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
                     <iframe
-                      className="h-full w-full"
+                      className="pointer-events-none h-full w-full"
                       loading="lazy"
                       src={`https://www.youtube.com/embed?listType=playlist&list=${getUploadsPlaylistId(channel.channelId)}&rel=0&modestbranding=1&color=white`}
                       title={`Dernières vidéos de ${channel.fullName}`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
                     />
-                  </div>
-                ) : (
-                  <div className="flex aspect-video items-center justify-center bg-slate-800 px-5 text-center text-white">
-                    <div>
-                      <span className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm font-bold">{channel.name.slice(0, 2)}</span>
-                      <p className="text-xs font-semibold">Archives Canal Info News</p>
-                      <p className="mt-1 text-[10px] text-white/70">Chaîne non active : accès aux archives vidéo.</p>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/85 text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span>
                     </div>
                   </div>
-                )}
-                <div className="flex items-center justify-between gap-2 px-3 py-2">
-                  <div className="min-w-0">
-                    <p className="truncate text-[12px] font-bold text-foreground">{channel.name}</p>
-                    <p className="truncate text-[9px] text-muted-foreground">{channel.isArchive ? "Archives" : channel.group === "senegal" ? "Sénégal" : "International"}</p>
-                  </div>
-                  <a
-                    href={channel.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shrink-0 text-[10px] font-semibold text-primary hover:underline"
-                  >
-                    Ouvrir ↗
-                  </a>
-                </div>
-              </article>
+                <p className="mt-1.5 truncate text-xs font-medium text-foreground transition-colors group-hover:text-primary">{channel.name}</p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground">Chaîne du Sénégal</p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-black/[0.06] pt-2.5">
+            {otherTelevisionChannels.map((channel) => (
+              <Link key={channel.id} href={`/television?channel=${channel.id}`} className="text-[10px] font-medium text-muted-foreground transition-colors hover:text-primary">
+                {channel.name}{channel.isArchive ? " · archives" : ""}
+              </Link>
             ))}
           </div>
         </div>
