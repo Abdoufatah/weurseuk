@@ -465,4 +465,4 @@
 - [x] Retirer l’encart vidéo JANGGI de la page d’accueil sans modifier les articles À la Une
 - [x] Identifier la chaîne ou la playlist officielle de Fabrice Nguéma consacrée à sa revue de presse
 - [x] Automatiser l’import et l’affichage de la revue de presse Fabrice Nguéma selon le modèle Ahmed Aïdara
-- [ ] Vérifier en production la présence des deux revues, puis publier
+- [x] Vérifier en production la présence des deux revues, puis publier
