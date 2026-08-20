@@ -239,6 +239,12 @@
 - [x] Intégration Facebook automatique : jeton validé, file idempotente, tâche planifiée et post de test réussis le 18/08/2026
 - [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
 
+## ENQUÊTE EXCLUSIVE — ASER (20/08/2026)
+- [x] Vérifier les faits, documents et formulations relatifs à l’ASER, à l’ARCOP et à la procédure judiciaire
+- [x] Préparer l’enquête « ASER : vingt-cinq ans d’électrification rurale, des engagements inachevés et des capitaux difficiles à suivre » sous la signature d’Abdou Fatah Fall
+- [x] Classer l’article en Enquête exclusive, le mettre à la Une et intégrer des références vérifiables
+- [x] Obtenir confirmation explicite avant diffusion publique et vérification de l’affichage
+
 ## PHOTO DR ADAMA ALY PAM (30/04/2026)
 
 - [x] Uploader la photo du Dr Pam sur le CDN (AdamaAliPAm.png)
@@ -268,10 +274,9 @@
 - [x] Fusionner hero + carte À la Une en un seul bloc immersif pleine largeur visible sans scroll
 
 ## VÉRIFICATION DOMAINE FACEBOOK (06/05/2026)
-
 - [x] Ajouter la balise méta facebook-domain-verification dans le head du site (content: s740xu2sxqhvtjdvo5k9q9mqwjfimd)
 - [ ] Corriger l’injection de la balise : contrôle de production du 18/08/2026 ne la retrouve pas encore dans le HTML servi
-- [ ] Réassocier weurseuk.com et www.weurseuk.com au déploiement actif : les domaines affichent actuellement « Site Unavailable »
+- [x] Réassocier weurseuk.com et www.weurseuk.com au déploiement actif : le domaine public est de nouveau accessible et la page d’accueil a été vérifiée le 20/08/2026
 - [ ] Déployer et vérifier le domaine dans Meta Business Suite
 
 ## SIGNALEMENT ASSISTANCE — ROUTAGE PUBLIC (18/08/2026)
@@ -419,7 +424,7 @@
 - [x] Activer la diffusion automatique après confirmation explicite de l’administrateur
 - [x] Publier en test l’article « Fonds spéciaux au Sénégal : une réforme nécessaire prise en otage »
 - [x] Vérifier l’identifiant du post, le lien canonique et l’absence de doublon
-- [ ] Rétablir l’accès public du domaine et l’aperçu Facebook du post de test, actuellement marqué « Site Unavailable »
+- [x] Rétablir l’accès public du domaine : weurseuk.com est accessible et l’enquête ASER a été vérifiée publiquement le 20/08/2026. L’aperçu Meta reste à contrôler séparément après vérification de domaine.
 
 ### Processus à Documenter
 - [x] Créer un guide pour uploader les images OG sur Imgur pour chaque nouvel éditorial
