@@ -2,7 +2,7 @@
 
 ## Constat du 20 août 2026
 
-La publication automatique de l’enquête ASER a été refusée par l’API Meta car le jeton actuellement stocké avait expiré le 18 août 2026. Cette situation ne remet pas en cause la publication de l’article sur Weurseuk, qui est accessible publiquement ; elle bloque uniquement la diffusion sur la page Facebook.
+La publication automatique de l’enquête ASER a été refusée par l’API Meta car le jeton alors enregistré était expiré lors du contrôle du 20 août 2026. Cette situation ne remet pas en cause la publication de l’article sur Weurseuk, qui est accessible publiquement ; elle bloque uniquement la diffusion sur la page Facebook.
 
 ## Règle de fonctionnement
 
@@ -25,6 +25,14 @@ Cette configuration implique une intervention unique dans l’espace professionn
 Le jeton de page nouvellement enregistré a été vérifié dans l’Explorateur de l’API Graph et côté serveur avec une requête de lecture seule vers `v26.0/me?fields=id,name`. Il identifie la page **Abdou Fatah FALL** (ID `1169698876216799`). Une requête `me/accounts?fields=id,name,tasks`, réalisée avec le jeton utilisateur associé, a également confirmé la tâche **`CREATE_CONTENT`** pour cette page.
 
 Cette vérification confirme que le jeton est utilisable pour la page et que le droit de publication est présent. Elle ne constitue toutefois pas, à elle seule, une preuve de durée non expirante : la migration vers un utilisateur système reste la solution recommandée pour une autonomie de long terme.
+
+## Surveillance préventive toutes les six heures
+
+Le portail dispose d’un contrôle périodique distinct de la file de publication. Toutes les six heures, il adresse à l’API Graph une requête de **lecture seule** sur l’identifiant de page configuré (`/{pageId}?fields=id,name`). Ce contrôle ne consulte ni n’alimente la file de publication et ne peut donc publier aucun contenu.
+
+Le résultat — date du contrôle, statut et diagnostic limité — est conservé dans les réglages Facebook du projet. En cas de refus du jeton, d’absence de configuration ou d’échec réseau, une alerte est adressée au propriétaire du projet. L’alerte rappelle qu’aucune publication n’a été tentée et invite à renouveler le jeton dans les réglages sécurisés, avant qu’une publication éditoriale ne soit bloquée.
+
+Cette surveillance réduit le délai de détection ; elle ne remplace pas le renouvellement du jeton ni la solution à plus long terme fondée sur un utilisateur système Meta.
 
 ## Limite d’accès aux utilisateurs système
 

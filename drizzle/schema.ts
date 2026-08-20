@@ -68,9 +68,13 @@ export const facebookPublisherSettings = mysqlTable("facebook_publisher_settings
   firstPostConfirmed: boolean("firstPostConfirmed").default(false).notNull(),
   enabledAt: timestamp("enabledAt"),
   scheduleTaskUid: varchar("scheduleTaskUid", { length: 65 }),
+  tokenCheckTaskUid: varchar("tokenCheckTaskUid", { length: 65 }),
+  tokenLastCheckedAt: timestamp("tokenLastCheckedAt"),
+  tokenLastStatus: varchar("tokenLastStatus", { length: 32 }),
+  tokenLastDiagnostic: varchar("tokenLastDiagnostic", { length: 1000 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
+}, (table) => [index("facebook_publisher_settings_token_check_task_uid_idx").on(table.tokenCheckTaskUid)]);
 
 export type FacebookPublisherSettings = typeof facebookPublisherSettings.$inferSelect;
 

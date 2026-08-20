@@ -15,6 +15,7 @@ import { initializePressReviewScheduler } from "../journalists/press-review-sche
 import { ogMiddleware } from "../ogMiddleware";
 import { registerStorageProxy } from "./storageProxy";
 import { facebookPublisherScheduledHandler } from "../facebookPublisher";
+import { facebookTokenCheckScheduledHandler } from "../facebookTokenMonitor";
 import { youtubeSyncScheduledHandler } from "../youtubeScheduled";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -53,6 +54,8 @@ async function startServer() {
   app.use("/editorial", ogMiddleware());
   // File Facebook durable : réservée aux appels de tâche planifiée authentifiés.
   app.post("/api/scheduled/facebook-publisher", facebookPublisherScheduledHandler);
+  // Contrôle Facebook de lecture seule : surveille le jeton, sans publier de contenu.
+  app.post("/api/scheduled/facebook-token-check", facebookTokenCheckScheduledHandler);
   // Synchronisation YouTube durable : réservée à la tâche périodique enregistrée.
   app.post("/api/scheduled/youtube-sync", youtubeSyncScheduledHandler);
   // tRPC API

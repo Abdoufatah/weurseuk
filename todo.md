@@ -463,6 +463,9 @@
 ## FIABILISATION DU JETON FACEBOOK (20/08/2026)
 - [ ] Mettre en place une procédure de renouvellement durable du jeton de la page Facebook et documenter son échéance
 - [ ] Contrôler périodiquement la validité du jeton de page et alerter avant qu’une publication ne soit bloquée
+- [ ] Ajouter un endpoint planifié qui valide le jeton et la page Facebook en lecture seule, sans publier de contenu
+- [ ] Persister l’identifiant de tâche, le dernier contrôle et le dernier diagnostic du jeton Facebook
+- [ ] Créer une tâche durable exécutant ce contrôle toutes les six heures
 
 ## CONFIGURATION UTILISATEUR SYSTÈME META (20/08/2026)
 - [ ] Guider la création d’un utilisateur système Meta, l’attribution de la page et de l’application, puis générer un jeton de publication durable
