@@ -47,11 +47,11 @@ export const TV_CHANNELS: TvChannel[] = [
     id: "tfm",
     name: "TFM",
     fullName: "Télévision Futurs Médias",
-    channelId: "UCRTvsVtErHN7whqmn8sbwvA",
+    channelId: "UC5NQ49FVRIAuWE1el6L2gkg",
     color: "#C9181F",
     description: "Actualité, culture et programmes du Groupe Futurs Médias",
     group: "senegal",
-    sourceUrl: "https://www.youtube.com/channel/UCRTvsVtErHN7whqmn8sbwvA",
+    sourceUrl: "https://www.youtube.com/@tfmsn",
   },
   {
     id: "walf-tv",

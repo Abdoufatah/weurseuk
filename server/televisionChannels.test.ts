@@ -7,6 +7,7 @@ describe("Télévision — sélection éditoriale", () => {
 
     expect(names).toEqual(expect.arrayContaining(["RTS", "2STV", "SenTV", "TV5MONDE", "France 24"]));
     expect(TV_CHANNELS.find((channel) => channel.id === "rts")?.channelId).toBe("UC3Pwur55-OPFYDN_xg6JR_w");
+    expect(TV_CHANNELS.find((channel) => channel.id === "tfm")?.channelId).toBe("UC5NQ49FVRIAuWE1el6L2gkg");
     expect(TV_CHANNELS.find((channel) => channel.id === "sentv")?.channelId).toBe("UCKbMNmSR3KlI9v3xeInHEYA");
     expect(TV_CHANNELS.find((channel) => channel.id === "france24")?.channelId).toBe("UCQfwfsi5VrQ8yKZ-UWmAEFg");
   });

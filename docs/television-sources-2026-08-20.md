@@ -8,6 +8,7 @@
 | France 24 | [France 24](https://www.youtube.com/@FRANCE24) | `UCQfwfsi5VrQ8yKZ-UWmAEFg` | Chaîne officielle d’information internationale, direct francophone explicitement proposé 24 h/24. |
 | SenTV | [Sen TV Officiel — D-Media](https://www.youtube.com/channel/UCKbMNmSR3KlI9v3xeInHEYA) | `UCKbMNmSR3KlI9v3xeInHEYA` | Chaîne qui se présente comme officielle, active et associée aux programmes SenTV et Zik FM. |
 | Walfadjri TV | [Walfadjri TV](https://www.youtube.com/channel/UCLx-m9nUdtVEF56rVQy_75Q) | `UCLx-m9nUdtVEF56rVQy_75Q` | Chaîne active de Walfadjri, reliée au groupe Walf et proposant débats, journaux et émissions. |
+| TFM | [TFM — Télé Futurs Médias](https://www.youtube.com/channel/UC5NQ49FVRIAuWE1el6L2gkg) | `UC5NQ49FVRIAuWE1el6L2gkg` | Chaîne officielle active de Télé Futurs Médias, avec journaux et émissions du 20 août 2026. |
 
 Les flux de lecture doivent privilégier les vidéos récentes de ces comptes officiels. Le bouton « Direct » demeure une tentative de diffusion YouTube : lorsqu’une chaîne ne diffuse pas au moment de la consultation, l’interface bascule utilement vers ses dernières vidéos.
 
@@ -22,3 +23,5 @@ Après publication de la version enrichie, le domaine personnalisé servait enco
 Le même décalage a été observé sur le domaine de publication Manus après son chargement complet. Le contrôle reste donc à reprendre après la propagation effective de la version publiée ; l’aperçu de développement demeure la référence de rendu validée à ce stade.
 
 Après une relance de publication, le domaine public `weurseuk.com` a bien servi la version enrichie. Le 20 août 2026, le sélecteur Sénégal / International, les sept chaînes et le lecteur RTS officiel affichant une publication récente ont été contrôlés sur la page publique.
+
+La source TFM a été vérifiée et corrigée après publication initiale. Dans l’aperçu, le lecteur affiche désormais une émission récente de **TFM — Télé Futurs Médias**, confirmant l’utilisation du compte officiel `@tfmsn`.
