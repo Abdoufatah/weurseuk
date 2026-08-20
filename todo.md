@@ -474,4 +474,4 @@
 - [x] Vérifier les chaînes et flux officiels de RTS, 2STV, SenTV, TV5MONDE et France 24
 - [x] Ajouter les principales chaînes sénégalaises complémentaires à la sélection Télévision
 - [x] Réorganiser la section Télévision pour distinguer les chaînes sénégalaises et internationales
-- [ ] Vérifier le rendu public des lecteurs et publier
+- [x] Vérifier le rendu public des lecteurs et publier

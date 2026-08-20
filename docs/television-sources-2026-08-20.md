@@ -20,3 +20,5 @@ L’identifiant RTS a ensuite été corrigé avec la référence de la chaîne o
 Après publication de la version enrichie, le domaine personnalisé servait encore l’ancienne page à trois chaînes, tandis que l’aperçu de développement affichait la version à sept chaînes. Cette divergence relève de la propagation du déploiement public et ne modifie pas les sources ni le code validés.
 
 Le même décalage a été observé sur le domaine de publication Manus après son chargement complet. Le contrôle reste donc à reprendre après la propagation effective de la version publiée ; l’aperçu de développement demeure la référence de rendu validée à ce stade.
+
+Après une relance de publication, le domaine public `weurseuk.com` a bien servi la version enrichie. Le 20 août 2026, le sélecteur Sénégal / International, les sept chaînes et le lecteur RTS officiel affichant une publication récente ont été contrôlés sur la page publique.
