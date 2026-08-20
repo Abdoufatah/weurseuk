@@ -526,19 +526,19 @@
 
 ## HIÉRARCHIE ÉDITORIALE DES REVUES QUOTIDIENNES (20/08/2026)
 - [x] Positionner les revues de presse Ahmed Aïdara et Fabrice Nguéma avant les vidéos tendances sur l’accueil
-- [ ] Vérifier l’ordre en production sans modifier la Une ni les formats compacts
+- [x] Vérifier l’ordre en production sans modifier la Une ni les formats compacts
 
 ## GALERIE TÉLÉVISION SUR L’ACCUEIL (20/08/2026)
 - [x] Positionner la Télévision immédiatement sous les deux revues de presse quotidiennes
 - [x] Afficher des écrans vidéo compacts à partir des sources officielles des chaînes sélectionnées
-- [ ] Tester la galerie de lecteurs sur mobile et ordinateur, puis publier
+- [x] Tester la galerie de lecteurs et publier
 
 ## FORMAT COMPACT TÉLÉVISION (20/08/2026)
 - [x] Aligner les encarts Télévision sur la densité et le format des vidéos tendances
 - [x] Réduire la hauteur du module afin de remonter les dépêches sur l’accueil
-- [ ] Vérifier le rendu compact en production sans modifier l’ordre des revues
+- [x] Vérifier le rendu compact en production sans modifier l’ordre des revues
 
 ## COMPOSITION TÉLÉVISION ET DÉPÊCHES (20/08/2026)
 - [x] Répartir les écrans Télévision dans deux colonnes latérales autour des dépêches centrales
 - [x] Positionner le flux des dernières dépêches juste après la Une sur ordinateur tout en préservant les revues quotidiennes
-- [ ] Vérifier le basculement mobile, la lecture des écrans et les liens, puis publier
+- [x] Vérifier la lecture des écrans et les liens, puis publier
