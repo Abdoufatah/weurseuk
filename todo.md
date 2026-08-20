@@ -461,6 +461,30 @@
 ## FIABILISATION DU JETON FACEBOOK (20/08/2026)
 - [ ] Mettre en place une procédure de renouvellement durable du jeton de la page Facebook et documenter son échéance
 
+## CONFIGURATION UTILISATEUR SYSTÈME META (20/08/2026)
+- [ ] Guider la création d’un utilisateur système Meta, l’attribution de la page et de l’application, puis générer un jeton de publication durable
+- [ ] Enregistrer, valider et documenter le jeton durable avant de relancer les publications Facebook en attente
+
+## VALIDATION DU JETON FACEBOOK FOURNI (20/08/2026)
+- [x] Enregistrer le jeton communiqué dans le stockage sécurisé, contrôler sa validité et ses droits sans publier de contenu
+- [x] Vérifier dans l’Explorateur Meta que le jeton de page Abdou Fatah FALL possède les droits nécessaires, sans créer de publication
+- [x] Confirmer dans la réponse `me/accounts` la présence de la tâche `CREATE_CONTENT` pour la page Abdou Fatah FALL
+- [x] Identifier un canal de transmission sûr du jeton, distinct du champ sécurisé qui bloque le collage
+- [x] Contrôler la nouvelle valeur enregistrée dans Settings par une requête Meta de lecture seule
+- [x] Réarmer et publier uniquement l’enquête ASER après confirmation explicite de l’utilisateur
+
+## AUTORISATIONS META POUR PUBLICATION (20/08/2026)
+- [x] Générer un jeton de page associé aux permissions `pages_manage_posts` et `pages_read_engagement`, requises par Meta pour publier
+- [x] Réenregistrer ce jeton à droits étendus et reprendre la publication ASER autorisée
+- [x] Générer un nouveau jeton après la sélection visible des quatre autorisations, puis resélectionner la page Abdou Fatah FALL
+- [x] Vérifier le jeton de page avec `me?fields=id,name` plutôt que la requête `me/accounts` réservée au jeton utilisateur
+- [x] Recharger et valider côté serveur le nouveau jeton enregistré dans Settings avant la reprise ASER
+
+## PARCOURS META ALTERNATIF (20/08/2026)
+- [x] Guider la génération et la vérification manuelle d’un jeton Meta complet lorsque le champ sécurisé ne peut pas être utilisé
+- [x] Utiliser un parcours Meta direct car le champ sécurisé n’accepte pas le collage du jeton
+- [x] Identifier le chemin de gestion des secrets effectivement visible dans l’interface du projet
+
 ## ACCUEIL ET REVUE DE PRESSE FABRICE NGUÉMA (20/08/2026)
 - [x] Retirer l’encart vidéo JANGGI de la page d’accueil sans modifier les articles À la Une
 - [x] Identifier la chaîne ou la playlist officielle de Fabrice Nguéma consacrée à sa revue de presse

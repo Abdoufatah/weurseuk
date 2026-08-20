@@ -20,6 +20,12 @@ Pour une automatisation durable, rattacher la page et l’application Meta au m�
 
 Cette configuration implique une intervention unique dans l’espace professionnel Meta : elle ne doit pas être répétée à chaque republication d’article.
 
+## Validation d’un jeton de page — 20 août 2026
+
+Le jeton de page nouvellement enregistré a été vérifié dans l’Explorateur de l’API Graph et côté serveur avec une requête de lecture seule vers `v26.0/me?fields=id,name`. Il identifie la page **Abdou Fatah FALL** (ID `1169698876216799`). Une requête `me/accounts?fields=id,name,tasks`, réalisée avec le jeton utilisateur associé, a également confirmé la tâche **`CREATE_CONTENT`** pour cette page.
+
+Cette vérification confirme que le jeton est utilisable pour la page et que le droit de publication est présent. Elle ne constitue toutefois pas, à elle seule, une preuve de durée non expirante : la migration vers un utilisateur système reste la solution recommandée pour une autonomie de long terme.
+
 ## Sources officielles
 
 1. [Meta for Developers — Long-Lived Access Tokens](https://developers.facebook.com/documentation/facebook-login/guides/access-tokens/get-long-lived)

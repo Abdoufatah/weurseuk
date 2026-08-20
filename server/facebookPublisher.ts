@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { sdk } from "./_core/sdk";
+import { normalizeFacebookAccessToken } from "./facebookToken";
 import {
   enqueueEligibleFacebookEditorials,
   getFacebookPublicationEditorial,
@@ -39,7 +40,7 @@ export async function runFacebookPublicationQueue(limit = 3) {
   if (!settings?.isEnabled || !settings.firstPostConfirmed) {
     return { skipped: "publication-not-confirmed", queued: 0, published: 0, failed: 0 };
   }
-  const token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+  const token = normalizeFacebookAccessToken(process.env.FACEBOOK_PAGE_ACCESS_TOKEN);
   const pageId = process.env.FACEBOOK_PAGE_ID;
   if (!token || !pageId) {
     throw new Error("Facebook publisher credentials are not configured");
