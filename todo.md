@@ -557,3 +557,13 @@
 - [x] Rédiger une synthèse native signée Bensirac avec références vérifiables
 - [x] Retirer l’article actuellement à la Une, publier la synthèse dans Éditoriaux et vérifier son affichage public
 - [x] Ajouter une illustration dont les droits de réutilisation et le crédit sont explicitement indiqués
+
+## REMPLACEMENT COMPACT DE LA CARTE CROISE TTE (20/08/2026)
+- [x] Retirer « Sur la Croisette, une voix venue de Dakar » de la section À la Une secondaire, sans modifier le bloc éditorial supérieur
+- [x] Présenter la synthèse Bensirac dans la carte et le gabarit propres à la section À la Une
+- [ ] Vérifier la nouvelle carte À la Une en production
+
+## PROTOCOLE DE SYNTHÈSE SOURCÉE À LA UNE (20/08/2026)
+- [x] Exiger au moins deux sources indépendantes ou une source primaire pour chaque fait publié dans une synthèse
+- [x] Distinguer explicitement les faits établis, les déclarations attribuées et les éléments non confirmés
+- [x] Publier les sources consultées et ne retenir à la Une qu’une synthèse satisfaisant ce protocole

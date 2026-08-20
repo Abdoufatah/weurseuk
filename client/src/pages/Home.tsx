@@ -20,7 +20,6 @@ const FALLBACK_CATEGORIES = [
 export default function Home() {
   const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
-  const { data: featuredArticles } = trpc.articles.featured.useQuery();
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
   const { data: latestThree } = trpc.editorials.latestThree.useQuery();
   const { data: aidaraLatest } = trpc.youtube.getAidaraLatest.useQuery();
@@ -35,6 +34,7 @@ export default function Home() {
     .filter((channel): channel is (typeof TV_CHANNELS)[number] => Boolean(channel));
   const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
   const televisionColumns = [televisionPreviews.slice(0, 3), televisionPreviews.slice(3, 6)];
+  const featuredSynthesis = latestThree?.[0];
 
   return (
     <div className="min-h-screen font-sans-editorial">
@@ -524,44 +524,29 @@ export default function Home() {
         <YouTubeVideoSlot variant="horizontal" count={4} />
       </div>
 
-      {/* Featured Articles */}
-      {featuredArticles && featuredArticles.length > 0 && (
+      {/* ===== À LA UNE — synthèse native sourcée, distincte du bloc éditorial supérieur ===== */}
+      {featuredSynthesis && (
         <section className="container mt-10">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
               <span className="w-1 h-6 bg-primary rounded-full" />
               À la Une
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredArticles.slice(0, 1).map((article) => (
-              <ArticleCard
-                key={article.id}
-                title={article.title}
-                excerpt={article.excerpt}
-                imageUrl={article.imageUrl}
-                sourceUrl={article.sourceUrl}
-                sourceName={article.sourceName}
-                region={article.region}
-                publishedAt={article.publishedAt}
-                isFeatured
-                isInternalArticle={article.sourceUrl?.startsWith('/article/') ?? false}
-              />
-            ))}
-            <div className="space-y-4">
-              {featuredArticles.slice(1, 4).map((article) => (
-                <ArticleCard
-                  key={article.id}
-                  title={article.title}
-                  excerpt={article.excerpt}
-                  sourceUrl={article.sourceUrl}
-                  sourceName={article.sourceName}
-                  region={article.region}
-                  publishedAt={article.publishedAt}
-                  isInternalArticle={article.sourceUrl?.startsWith('/article/') ?? false}
-                />
-              ))}
-            </div>
+          <div className="max-w-3xl">
+            <ArticleCard
+              title={featuredSynthesis.title}
+              excerpt={featuredSynthesis.excerpt}
+              imageUrl={(featuredSynthesis as any).coverImageUrl || (featuredSynthesis as any).imageUrl}
+              publishedAt={featuredSynthesis.publishedAt}
+              isEditorial
+              editorialSlug={featuredSynthesis.slug}
+              authorName={(featuredSynthesis as any).useAlias && (featuredSynthesis as any).authorAlias ? (featuredSynthesis as any).authorAlias : featuredSynthesis.authorName}
+              authorPhotoUrl={featuredSynthesis.authorPhotoUrl}
+              authorRole="editor"
+              articleType="editorial"
+              className="border-primary/25 shadow-sm"
+            />
           </div>
         </section>
       )}

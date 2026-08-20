@@ -44,4 +44,11 @@ describe("Accueil — revues de presse compactes", () => {
     expect(televisionIndex).toBeGreaterThan(fabriceIndex);
     expect(trendsIndex).toBeGreaterThan(televisionIndex);
   });
+
+  it("remplace la carte Croisette par la synthèse Bensirac dans la section À la Une", () => {
+    expect(homeSource).toContain("const featuredSynthesis = latestThree?.[0]");
+    expect(homeSource).toContain("synthèse native sourcée, distincte du bloc éditorial supérieur");
+    expect(homeSource).toContain("editorialSlug={featuredSynthesis.slug}");
+    expect(homeSource).not.toContain("featuredArticles.slice(0, 1)");
+  });
 });
