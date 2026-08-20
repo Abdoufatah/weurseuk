@@ -479,11 +479,11 @@
 ## EXTENSION TÉLÉVISION — NOUVELLES CHAÎNES SÉNÉGALAISES (20/08/2026)
 - [x] Vérifier les comptes officiels YouTube de iTV, Marodi TV et Evenprod ; identifier Canal Info News comme archive historique non active
 - [x] Ajouter ces quatre entrées à la sélection sénégalaise de la page Télévision avec un statut d’archive explicite pour Canal Info News
-- [ ] Tester les lecteurs, publier et vérifier leur rendu public
+- [x] Tester les lecteurs, publier et vérifier leur rendu public
 
 ## VISIBILITÉ TÉLÉVISION SUR L’ACCUEIL (20/08/2026)
 - [x] Ajouter un module compact de sélection Télévision dès la page d’accueil, sans modifier la présentation des articles À la Une
-- [x] Rendre les onze sources cliquables vers la rubrique Télévision et vérifier le rendu responsive dans l’aperçu
+- [x] Rendre les onze sources cliquables vers la rubrique Télévision et vérifier le rendu responsive en production
 
 ## COMPACTION DES REVUES DE PRESSE SUR L’ACCUEIL (20/08/2026)
 - [x] Réduire l’encombrement des encarts Ahmed Aïdara et Fabrice Nguéma sans retirer les lecteurs ni les liens vidéo
