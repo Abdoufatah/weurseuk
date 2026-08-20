@@ -468,4 +468,4 @@
 - [x] Vérifier en production la présence des deux revues, puis publier
 
 ## FIABILISATION DE LA SYNCHRONISATION DES REVUES (20/08/2026)
-- [ ] Migrer l’actualisation YouTube des revues Ahmed Aïdara et Fabrice Nguéma vers une tâche périodique durable et vérifier son exécution
+- [x] Migrer l’actualisation YouTube des revues Ahmed Aïdara et Fabrice Nguéma vers une tâche périodique durable et vérifier son exécution
