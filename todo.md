@@ -457,3 +457,12 @@
 - [x] Repenser uniquement le graphisme des cartes À la Une dans un style doux, haut de gamme et engageant
 - [x] Préserver la compacité, la lisibilité mobile, l’accroche et les données éditoriales existantes
 - [x] Vérifier le rendu desktop et mobile, puis publier
+
+## FIABILISATION DU JETON FACEBOOK (20/08/2026)
+- [ ] Mettre en place une procédure de renouvellement durable du jeton de la page Facebook et documenter son échéance
+
+## ACCUEIL ET REVUE DE PRESSE FABRICE NGUÉMA (20/08/2026)
+- [x] Retirer l’encart vidéo JANGGI de la page d’accueil sans modifier les articles À la Une
+- [x] Identifier la chaîne ou la playlist officielle de Fabrice Nguéma consacrée à sa revue de presse
+- [x] Automatiser l’import et l’affichage de la revue de presse Fabrice Nguéma selon le modèle Ahmed Aïdara
+- [ ] Vérifier en production la présence des deux revues, puis publier

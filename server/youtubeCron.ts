@@ -4,7 +4,7 @@
  * Runs inside the Express server process — no external cron daemon needed.
  */
 
-import { syncYouTubeVideos, syncAidaraPressReview } from "./youtube-sync";
+import { syncYouTubeVideos, syncAidaraPressReview, syncFabriceNguemaPressReview } from "./youtube-sync";
 
 const SYNC_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 hours
 const STARTUP_DELAY_MS = 30 * 1000; // 30 seconds after server start
@@ -25,8 +25,8 @@ async function runSync() {
 
   try {
     const results = await syncYouTubeVideos();
-    // Also sync Aïdara press review playlist
-    await syncAidaraPressReview();
+    // Also sync the two daily press-review programmes shown on the homepage.
+    await Promise.all([syncAidaraPressReview(), syncFabriceNguemaPressReview()]);
     lastSyncAt = new Date();
     lastSyncResults = results;
   } catch (err: any) {

@@ -502,6 +502,17 @@ export const appRouter = router({
         const { syncAidaraPressReview } = await import("./youtube-sync");
         return syncAidaraPressReview();
       }),
+    // Fabrice Nguéma daily press review (SenTV / D-Media)
+    getFabriceNguemaLatest: publicProcedure
+      .query(async () => {
+        const { getLatestFabriceNguemaPressReview } = await import("./youtube-sync");
+        return getLatestFabriceNguemaPressReview();
+      }),
+    syncFabriceNguema: adminProcedure
+      .mutation(async () => {
+        const { syncFabriceNguemaPressReview } = await import("./youtube-sync");
+        return syncFabriceNguemaPressReview();
+      }),
   }),
 
   n8n: router({

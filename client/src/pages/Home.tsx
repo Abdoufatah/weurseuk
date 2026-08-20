@@ -23,6 +23,7 @@ export default function Home() {
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
   const { data: latestThree } = trpc.editorials.latestThree.useQuery();
   const { data: aidaraLatest } = trpc.youtube.getAidaraLatest.useQuery();
+  const { data: fabriceNguemaLatest } = trpc.youtube.getFabriceNguemaLatest.useQuery();
 
   // Use fallback categories if API returns empty
   const displayCategories = (categories && categories.length > 0) ? categories : FALLBACK_CATEGORIES;
@@ -142,7 +143,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* ===== PROMOTION MUSICALE PERMANENTE : JANGGI — BenSiraC Fatah DePalmarin ===== */}
+      {/* Encadré JANGGI retiré de l’accueil à la demande de la direction éditoriale. */}
+      {false && (
       <section className="container mt-5">
         <div className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-primary/20 bg-gradient-to-br from-black/90 via-stone-950/95 to-black/90 shadow-lg">
           {/* En-tête de la section */}
@@ -276,6 +278,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* YouTube Videos - Horizontal Banner */}
       <div className="container mt-6">
@@ -339,6 +342,68 @@ export default function Home() {
                   className="text-xs text-muted-foreground hover:text-primary transition-colors"
                 >
                   Toutes les revues →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ===== REVUE DE PRESSE DU JOUR — FABRICE NGUÉMA (SenTV / D-Media) ===== */}
+      {fabriceNguemaLatest && (
+        <section className="container mt-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-1 h-6 bg-primary rounded-full" />
+            <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
+              <Tv className="w-5 h-5 text-primary" />
+              Revue de presse du jour
+            </h2>
+            <span className="ml-auto text-xs text-muted-foreground font-medium uppercase tracking-widest">Fabrice Nguéma · SenTV</span>
+          </div>
+          <div className="flex flex-col md:flex-row gap-6 bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+            <div className="w-full md:w-[480px] shrink-0 aspect-video">
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}?rel=0&modestbranding=1&color=white`}
+                title={fabriceNguemaLatest.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="flex flex-col justify-center gap-3 p-5 md:p-6">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
+                  <Tv className="w-3 h-3" /> Revue de presse
+                </span>
+                {fabriceNguemaLatest.publishedAt && (
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(fabriceNguemaLatest.publishedAt).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                  </span>
+                )}
+              </div>
+              <h3 className="font-editorial text-lg font-bold text-foreground leading-snug line-clamp-3">
+                {fabriceNguemaLatest.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                La revue de la presse sénégalaise en français présentée par Fabrice Nguéma et diffusée par SenTV, chaîne du groupe D-Media.
+              </p>
+              <div className="flex items-center gap-3 mt-2">
+                <a
+                  href={`https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                >
+                  Voir sur YouTube
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+                <a
+                  href="https://www.youtube.com/@GroupeDMEDIACOM/videos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Autres éditions →
                 </a>
               </div>
             </div>

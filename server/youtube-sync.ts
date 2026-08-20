@@ -6,6 +6,9 @@ const YOUTUBE_PLAYLIST_RSS_BASE = "https://www.youtube.com/feeds/videos.xml?play
 const AIDARA_PLAYLIST_ID = "PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa";
 const AIDARA_CHANNEL_ID = "UCh57LRfcD3Z4TK6WrzL39GA";
 
+// SenTV Officiel [DMEDIA] — source éditrice actuelle des revues de Fabrice Nguéma.
+const FABRICE_NGUEMA_CHANNEL_ID = "UCKbMNmSR3KlI9v3xeInHEYA";
+
 interface YouTubeRSSEntry {
   videoId: string;
   title: string;
@@ -13,6 +16,16 @@ interface YouTubeRSSEntry {
   channelName: string;
   thumbnailUrl: string;
   publishedAt: Date;
+}
+
+export function isFabriceNguemaPressReview(title: string) {
+  const normalized = title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+  const hasPresenter = normalized.includes("fabrice nguema");
+  const hasPressReviewFormat = normalized.includes("revue de presse") || normalized.includes("revue des titres");
+  return hasPresenter && hasPressReviewFormat;
 }
 
 /**
@@ -193,6 +206,46 @@ export async function syncAidaraPressReview(): Promise<{ newVideos: number; late
 }
 
 /**
+ * Fetch and store the latest Fabrice Nguéma press reviews published by SenTV.
+ * SenTV has no dedicated current playlist for this programme, so entries are
+ * selected from the official channel RSS feed by presenter and programme title.
+ */
+export async function syncFabriceNguemaPressReview(): Promise<{ newVideos: number; latestVideo: YouTubeRSSEntry | null }> {
+  try {
+    const entries = (await fetchChannelVideos(FABRICE_NGUEMA_CHANNEL_ID))
+      .filter((entry) => isFabriceNguemaPressReview(entry.title));
+
+    if (entries.length === 0) {
+      console.log("[Fabrice Nguéma] ⚠️ Aucune revue de presse correspondante dans le flux SenTV");
+      return { newVideos: 0, latestVideo: null };
+    }
+
+    const connection = await import("mysql2/promise").then(m =>
+      m.createConnection(process.env.DATABASE_URL!)
+    );
+
+    let newVideos = 0;
+    for (const video of entries) {
+      await connection.execute(
+        `INSERT IGNORE INTO youtube_videos (videoId, channelId, channelName, title, thumbnailUrl, publishedAt)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [video.videoId, video.channelId, video.channelName, video.title, video.thumbnailUrl, video.publishedAt]
+      );
+      const [res] = await connection.execute("SELECT ROW_COUNT() as cnt") as any;
+      if (res[0].cnt > 0) newVideos++;
+    }
+
+    await connection.end();
+    const latest = entries[0];
+    console.log(`[Fabrice Nguéma] ✅ Sync complete: ${newVideos} new videos. Latest: "${latest.title}"`);
+    return { newVideos, latestVideo: latest };
+  } catch (error: any) {
+    console.log(`[Fabrice Nguéma] ⚠️ Sync error: ${error.message}`);
+    return { newVideos: 0, latestVideo: null };
+  }
+}
+
+/**
  * Get the latest Ahmed Aïdara press review video from the database
  */
 export async function getLatestAidaraPressReview(): Promise<any | null> {
@@ -207,6 +260,30 @@ export async function getLatestAidaraPressReview(): Promise<any | null> {
      ORDER BY publishedAt DESC
      LIMIT 1`,
     [AIDARA_CHANNEL_ID]
+  ) as any;
+
+  await connection.end();
+  return rows.length > 0 ? rows[0] : null;
+}
+
+/**
+ * Get the latest press review presented by Fabrice Nguéma from the official
+ * SenTV feed entries stored during synchronization.
+ */
+export async function getLatestFabriceNguemaPressReview(): Promise<any | null> {
+  const connection = await import("mysql2/promise").then(m =>
+    m.createConnection(process.env.DATABASE_URL!)
+  );
+
+  const [rows] = await connection.execute(
+    `SELECT videoId, channelId, channelName, title, thumbnailUrl, publishedAt
+     FROM youtube_videos
+     WHERE channelId = ?
+       AND LOWER(title) LIKE '%fabrice nguema%'
+       AND (LOWER(title) LIKE '%revue de presse%' OR LOWER(title) LIKE '%revue des titres%')
+     ORDER BY publishedAt DESC
+     LIMIT 1`,
+    [FABRICE_NGUEMA_CHANNEL_ID]
   ) as any;
 
   await connection.end();
