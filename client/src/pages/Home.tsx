@@ -5,7 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import AdPlacement from "@/components/AdPlacement";
 import YouTubeVideoSlot from "@/components/YouTubeVideoSlot";
 import { Newspaper, PenLine, Globe, ChevronRight, Tv } from "lucide-react";
-import { TV_CHANNELS } from "@/lib/televisionChannels";
+import { TV_CHANNELS, getUploadsPlaylistId, isEmbeddableChannel } from "@/lib/televisionChannels";
 
 // Fallback categories if API fails
 const FALLBACK_CATEGORIES = [
@@ -281,50 +281,6 @@ export default function Home() {
       </section>
       )}
 
-      {/* YouTube Videos - Horizontal Banner */}
-      <div className="container mt-6">
-        <YouTubeVideoSlot variant="horizontal" count={4} />
-      </div>
-
-      {/* ===== TÉLÉVISION — accès visible à l’ensemble des sources ===== */}
-      <section className="container mt-6">
-        <div className="rounded-xl border border-primary/20 bg-[linear-gradient(105deg,rgba(249,246,238,0.96),rgba(255,255,255,0.98))] p-3.5 shadow-sm sm:p-4">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary"><Tv className="h-3.5 w-3.5" /></span>
-              <div>
-                <h2 className="font-editorial text-base font-bold text-foreground">Télévision</h2>
-                <p className="text-[10px] text-muted-foreground">Chaînes sénégalaises et regards internationaux</p>
-              </div>
-            </div>
-            <Link href="/television" className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline">
-              Ouvrir la télévision <ChevronRight className="h-3 w-3" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {TV_CHANNELS.map((channel) => (
-              <Link
-                key={channel.id}
-                href={`/television?channel=${channel.id}`}
-                className="group flex min-w-0 items-center gap-2 rounded-lg border border-black/[0.06] bg-white/75 px-2.5 py-2 transition-all hover:-translate-y-px hover:border-primary/35 hover:bg-white"
-              >
-                <span
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-[8px] font-black tracking-[-0.05em]"
-                  style={{ backgroundColor: `${channel.color}18`, borderColor: `${channel.color}60`, color: channel.color }}
-                  aria-hidden="true"
-                >
-                  {channel.name.replace(/\s/g, "").slice(0, 3).toUpperCase()}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-[11px] font-bold text-foreground group-hover:text-primary">{channel.name}</span>
-                  <span className="block truncate text-[9px] text-muted-foreground">{channel.isArchive ? "Archives" : channel.group === "senegal" ? "Sénégal" : "International"}</span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== REVUE DE PRESSE DU JOUR — AHMED AÏDARA (2A TV) ===== */}
       {aidaraLatest && (
         <section className="container mt-6">
@@ -448,6 +404,69 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ===== TÉLÉVISION — galerie des dernières vidéos officielles ===== */}
+      <section className="container mt-6">
+        <div className="rounded-xl border border-primary/20 bg-[linear-gradient(105deg,rgba(249,246,238,0.96),rgba(255,255,255,0.98))] p-3.5 shadow-sm sm:p-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary"><Tv className="h-3.5 w-3.5" /></span>
+              <div>
+                <h2 className="font-editorial text-base font-bold text-foreground">Télévision</h2>
+                <p className="text-[10px] text-muted-foreground">Les dernières publications des chaînes sénégalaises et internationales</p>
+              </div>
+            </div>
+            <Link href="/television" className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline">
+              Toute la sélection <ChevronRight className="h-3 w-3" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {TV_CHANNELS.map((channel) => (
+              <article key={channel.id} className="overflow-hidden rounded-lg border border-black/[0.08] bg-white shadow-[0_2px_8px_rgba(48,35,23,0.06)]">
+                {isEmbeddableChannel(channel) ? (
+                  <div className="aspect-video bg-black">
+                    <iframe
+                      className="h-full w-full"
+                      loading="lazy"
+                      src={`https://www.youtube.com/embed?listType=playlist&list=${getUploadsPlaylistId(channel.channelId)}&rel=0&modestbranding=1&color=white`}
+                      title={`Dernières vidéos de ${channel.fullName}`}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <div className="flex aspect-video items-center justify-center bg-slate-800 px-5 text-center text-white">
+                    <div>
+                      <span className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-sm font-bold">{channel.name.slice(0, 2)}</span>
+                      <p className="text-xs font-semibold">Archives Canal Info News</p>
+                      <p className="mt-1 text-[10px] text-white/70">Chaîne non active : accès aux archives vidéo.</p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-center justify-between gap-2 px-3 py-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-[12px] font-bold text-foreground">{channel.name}</p>
+                    <p className="truncate text-[9px] text-muted-foreground">{channel.isArchive ? "Archives" : channel.group === "senegal" ? "Sénégal" : "International"}</p>
+                  </div>
+                  <a
+                    href={channel.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 text-[10px] font-semibold text-primary hover:underline"
+                  >
+                    Ouvrir ↗
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vidéos tendances — après les deux revues quotidiennes */}
+      <div className="container mt-6">
+        <YouTubeVideoSlot variant="horizontal" count={4} />
+      </div>
 
       {/* Featured Articles */}
       {featuredArticles && featuredArticles.length > 0 && (

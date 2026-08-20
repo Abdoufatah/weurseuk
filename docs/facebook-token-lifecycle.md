@@ -26,6 +26,15 @@ Le jeton de page nouvellement enregistré a été vérifié dans l’Explorateur
 
 Cette vérification confirme que le jeton est utilisable pour la page et que le droit de publication est présent. Elle ne constitue toutefois pas, à elle seule, une preuve de durée non expirante : la migration vers un utilisateur système reste la solution recommandée pour une autonomie de long terme.
 
+## Limite d’accès aux utilisateurs système
+
+Meta précise que les utilisateurs système se créent dans **Settings → Users → System users** du portefeuille professionnel, mais que tous les portefeuilles n’y ont pas nécessairement accès. Les essais du 20 août 2026 ont confirmé l’administration de l’application par le portefeuille **WeuRSeuK** et le rôle Admin de l’utilisateur dans l’application ; l’interface Business Suite a néanmoins redirigé vers les paramètres de la page au lieu d’exposer la rubrique d’utilisateurs système. La création devra être reprise uniquement si le portefeuille fait apparaître cette rubrique ou après attribution explicite d’un rôle d’administrateur du portefeuille.
+
+## Références
+
+1. [Meta Business Help Center — Add system users to your business portfolio](https://www.facebook.com/business/help/503306463479099)
+2. [Meta Business Help Center — About system users in Meta Business Suite](https://www.facebook.com/business/help/327596604689624)
+
 ## Sources officielles
 
 1. [Meta for Developers — Long-Lived Access Tokens](https://developers.facebook.com/documentation/facebook-login/guides/access-tokens/get-long-lived)

@@ -462,10 +462,19 @@
 
 ## FIABILISATION DU JETON FACEBOOK (20/08/2026)
 - [ ] Mettre en place une procédure de renouvellement durable du jeton de la page Facebook et documenter son échéance
+- [ ] Contrôler périodiquement la validité du jeton de page et alerter avant qu’une publication ne soit bloquée
 
 ## CONFIGURATION UTILISATEUR SYSTÈME META (20/08/2026)
 - [ ] Guider la création d’un utilisateur système Meta, l’attribution de la page et de l’application, puis générer un jeton de publication durable
 - [ ] Enregistrer, valider et documenter le jeton durable avant de relancer les publications Facebook en attente
+- [ ] Ouvrir l’accès direct aux utilisateurs système du portefeuille WeuRSeuK pour effectuer la configuration par le chemin le plus court
+- [ ] Atteindre Business Settings depuis l’accueil Meta Business Suite lorsque le lien direct redirige vers la page
+- [ ] Passer des paramètres de page aux paramètres du portefeuille WeuRSeuK via le menu de navigation Meta
+- [ ] Contourner la redirection vers la page en ouvrant les paramètres avec l’identifiant du portefeuille WeuRSeuK
+- [ ] Contrôler dans Meta for Developers si l’application Weurseuk page publisher est reliée au portefeuille et si un droit d’administration manque
+- [ ] Examiner les rôles de l’application Weurseuk page publisher avant la création de l’utilisateur système
+- [ ] Ouvrir et contrôler la liste des rôles Meta de l’application Weurseuk page publisher
+- [x] Confirmer que le compte connecté est Admin de l’application Weurseuk page publisher, gérée par le portefeuille WeuRSeuK
 
 ## VALIDATION DU JETON FACEBOOK FOURNI (20/08/2026)
 - [x] Enregistrer le jeton communiqué dans le stockage sécurisé, contrôler sa validité et ses droits sans publier de contenu
@@ -514,3 +523,12 @@
 ## COMPACTION DES REVUES DE PRESSE SUR L’ACCUEIL (20/08/2026)
 - [x] Réduire l’encombrement des encarts Ahmed Aïdara et Fabrice Nguéma sans retirer les lecteurs ni les liens vidéo
 - [x] Vérifier le rendu compact en production, sur mobile et sur ordinateur
+
+## HIÉRARCHIE ÉDITORIALE DES REVUES QUOTIDIENNES (20/08/2026)
+- [x] Positionner les revues de presse Ahmed Aïdara et Fabrice Nguéma avant les vidéos tendances sur l’accueil
+- [ ] Vérifier l’ordre en production sans modifier la Une ni les formats compacts
+
+## GALERIE TÉLÉVISION SUR L’ACCUEIL (20/08/2026)
+- [x] Positionner la Télévision immédiatement sous les deux revues de presse quotidiennes
+- [x] Afficher des écrans vidéo compacts à partir des sources officielles des chaînes sélectionnées
+- [ ] Tester la galerie de lecteurs sur mobile et ordinateur, puis publier
