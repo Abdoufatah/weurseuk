@@ -542,3 +542,10 @@
 - [x] Répartir les écrans Télévision dans deux colonnes latérales autour des dépêches centrales
 - [x] Positionner le flux des dernières dépêches juste après la Une sur ordinateur tout en préservant les revues quotidiennes
 - [x] Vérifier la lecture des écrans et les liens, puis publier
+
+## SYNTHÈSE DE VEILLE BENSIRAC À LA UNE (20/08/2026)
+- [x] Réaliser une veille croisée des grands médias et sélectionner le sujet dominant du jour
+- [x] Vérifier les faits à partir de sources primaires et de médias de référence
+- [x] Rédiger une synthèse native signée Bensirac avec références vérifiables
+- [x] Retirer l’article actuellement à la Une, publier la synthèse dans Éditoriaux et vérifier son affichage public
+- [x] Ajouter une illustration dont les droits de réutilisation et le crédit sont explicitement indiqués
