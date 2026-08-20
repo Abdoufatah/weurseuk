@@ -1,69 +1,39 @@
 /**
- * YouTube Auto-Sync Cron Service
- * Fetches latest videos from top Senegalese YouTube channels via RSS.
- * Runs inside the Express server process — no external cron daemon needed.
+ * Compatibility surface for the former in-process YouTube scheduler.
+ * Recurring execution is exclusively handled by the authenticated platform
+ * task registered on /api/scheduled/youtube-sync.
  */
 
-import { syncYouTubeVideos, syncAidaraPressReview, syncFabriceNguemaPressReview } from "./youtube-sync";
+import { runScheduledYoutubeSync } from "./youtubeScheduled";
 
-const SYNC_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 hours
-const STARTUP_DELAY_MS = 30 * 1000; // 30 seconds after server start
-
-let syncTimer: ReturnType<typeof setInterval> | null = null;
-let isRunning = false;
 let lastSyncAt: Date | null = null;
 let lastSyncResults: { newVideos: number; errors: number } | null = null;
 
-async function runSync() {
-  if (isRunning) {
-    console.log("[YouTube-Cron] Sync already in progress, skipping...");
-    return;
-  }
-
-  isRunning = true;
-  console.log(`[YouTube-Cron] Starting YouTube sync at ${new Date().toISOString()}`);
-
-  try {
-    const results = await syncYouTubeVideos();
-    // Also sync the two daily press-review programmes shown on the homepage.
-    await Promise.all([syncAidaraPressReview(), syncFabriceNguemaPressReview()]);
-    lastSyncAt = new Date();
-    lastSyncResults = results;
-  } catch (err: any) {
-    console.error(`[YouTube-Cron] Sync failed: ${err.message}`);
-  } finally {
-    isRunning = false;
-  }
+/** Manual/server-side invocation retained for diagnostics; it does not schedule work. */
+export async function runYouTubeSyncNow() {
+  const result = await runScheduledYoutubeSync();
+  lastSyncAt = new Date();
+  lastSyncResults = result.videos;
+  return result;
 }
 
-/**
- * Legacy compatibility shim. Scheduled YouTube work now runs through the
- * durable authenticated /api/scheduled/youtube-sync endpoint.
- */
+/** The durable platform task owns recurring execution. */
 export function startYouTubeCron() {
-  console.log("[YouTube-Cron] Synchronisation durable gérée par la tâche périodique de la plateforme");
+  console.log("[YouTube-Cron] Synchronisation récurrente gérée par la tâche périodique de la plateforme");
 }
 
-/**
- * Stop the automatic YouTube sync cron.
- */
+/** Present for compatibility with existing callers; no local timer exists to stop. */
 export function stopYouTubeCron() {
-  if (syncTimer) {
-    clearInterval(syncTimer);
-    syncTimer = null;
-    console.log("[YouTube-Cron] Automatic sync stopped");
-  }
+  console.log("[YouTube-Cron] Aucune minuterie interne active");
 }
 
-/**
- * Get the current status of the YouTube cron.
- */
 export function getYouTubeCronStatus() {
   return {
-    isActive: syncTimer !== null,
-    isCurrentlyRunning: isRunning,
+    isActive: false,
+    isCurrentlyRunning: false,
     lastSyncAt,
     lastSyncResults,
-    intervalHours: SYNC_INTERVAL_MS / 3600000,
+    intervalHours: 2,
+    executionMode: "platform-scheduled" as const,
   };
 }
