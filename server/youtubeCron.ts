@@ -37,25 +37,11 @@ async function runSync() {
 }
 
 /**
- * Start the automatic YouTube sync cron.
- * Called once from the server startup.
+ * Legacy compatibility shim. Scheduled YouTube work now runs through the
+ * durable authenticated /api/scheduled/youtube-sync endpoint.
  */
 export function startYouTubeCron() {
-  console.log(`[YouTube-Cron] Scheduling automatic sync every ${SYNC_INTERVAL_MS / 3600000} hours`);
-
-  // Run first sync after a short delay
-  setTimeout(() => {
-    runSync();
-  }, STARTUP_DELAY_MS);
-
-  // Then run at regular intervals
-  syncTimer = setInterval(() => {
-    runSync();
-  }, SYNC_INTERVAL_MS);
-
-  if (syncTimer.unref) {
-    syncTimer.unref();
-  }
+  console.log("[YouTube-Cron] Synchronisation durable gérée par la tâche périodique de la plateforme");
 }
 
 /**

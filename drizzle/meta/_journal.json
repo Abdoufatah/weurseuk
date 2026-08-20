@@ -57,6 +57,20 @@
       "when": 1787073182619,
       "tag": "0007_mysterious_bug",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1787222057490,
+      "tag": "0008_graceful_tarantula",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1787222169400,
+      "tag": "0009_clumsy_lucky_pierre",
+      "breakpoints": true
     }
   ]
 }

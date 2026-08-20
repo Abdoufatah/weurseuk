@@ -466,3 +466,6 @@
 - [x] Identifier la chaîne ou la playlist officielle de Fabrice Nguéma consacrée à sa revue de presse
 - [x] Automatiser l’import et l’affichage de la revue de presse Fabrice Nguéma selon le modèle Ahmed Aïdara
 - [x] Vérifier en production la présence des deux revues, puis publier
+
+## FIABILISATION DE LA SYNCHRONISATION DES REVUES (20/08/2026)
+- [ ] Migrer l’actualisation YouTube des revues Ahmed Aïdara et Fabrice Nguéma vers une tâche périodique durable et vérifier son exécution

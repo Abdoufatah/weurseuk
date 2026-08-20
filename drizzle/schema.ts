@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean, json, index } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -93,6 +93,20 @@ export const facebookPublicationJobs = mysqlTable("facebook_publication_jobs", {
 });
 
 export type FacebookPublicationJob = typeof facebookPublicationJobs.$inferSelect;
+
+/**
+ * Single configuration row governing the durable YouTube synchronization task.
+ */
+export const youtubeSyncSettings = mysqlTable("youtube_sync_settings", {
+  id: int("id").primaryKey(),
+  scheduleCronTaskUid: varchar("schedule_cron_task_uid", { length: 65 }),
+  isEnabled: boolean("is_enabled").default(true).notNull(),
+  lastRunAt: timestamp("last_run_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+}, (table) => [index("youtube_sync_settings_task_uid_idx").on(table.scheduleCronTaskUid)]);
+
+export type YoutubeSyncSettings = typeof youtubeSyncSettings.$inferSelect;
 
 /**
  * RSS Feed Sources
@@ -252,4 +266,3 @@ export const youtubeVideos = mysqlTable("youtube_videos", {
 
 export type YoutubeVideo = typeof youtubeVideos.$inferSelect;
 export type InsertYoutubeVideo = typeof youtubeVideos.$inferInsert;
-

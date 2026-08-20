@@ -15,6 +15,7 @@ import { initializePressReviewScheduler } from "../journalists/press-review-sche
 import { ogMiddleware } from "../ogMiddleware";
 import { registerStorageProxy } from "./storageProxy";
 import { facebookPublisherScheduledHandler } from "../facebookPublisher";
+import { youtubeSyncScheduledHandler } from "../youtubeScheduled";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -52,6 +53,8 @@ async function startServer() {
   app.use("/editorial", ogMiddleware());
   // File Facebook durable : réservée aux appels de tâche planifiée authentifiés.
   app.post("/api/scheduled/facebook-publisher", facebookPublisherScheduledHandler);
+  // Synchronisation YouTube durable : réservée à la tâche périodique enregistrée.
+  app.post("/api/scheduled/youtube-sync", youtubeSyncScheduledHandler);
   // tRPC API
   app.use(
     "/api/trpc",

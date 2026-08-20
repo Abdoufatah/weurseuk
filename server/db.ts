@@ -13,6 +13,7 @@ import {
   comments, InsertComment,
   facebookPublisherSettings,
   facebookPublicationJobs,
+  youtubeSyncSettings,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -303,6 +304,25 @@ export async function updateFacebookPublisherSettings(data: Partial<typeof faceb
   if (!db) throw new Error("DB not available");
   await getFacebookPublisherSettings();
   await db.update(facebookPublisherSettings).set(data).where(eq(facebookPublisherSettings.id, 1));
+}
+
+export async function getYoutubeSyncSettings() {
+  const db = await getDb();
+  if (!db) return undefined;
+  const existing = await db.select().from(youtubeSyncSettings)
+    .where(eq(youtubeSyncSettings.id, 1)).limit(1);
+  if (existing[0]) return existing[0];
+  await db.insert(youtubeSyncSettings).values({ id: 1 });
+  const created = await db.select().from(youtubeSyncSettings)
+    .where(eq(youtubeSyncSettings.id, 1)).limit(1);
+  return created[0];
+}
+
+export async function updateYoutubeSyncSettings(data: Partial<typeof youtubeSyncSettings.$inferInsert>) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await getYoutubeSyncSettings();
+  await db.update(youtubeSyncSettings).set(data).where(eq(youtubeSyncSettings.id, 1));
 }
 
 export async function enqueueEligibleFacebookEditorials() {
