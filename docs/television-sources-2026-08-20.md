@@ -16,3 +16,7 @@ Les flux de lecture doivent privilégier les vidéos récentes de ces comptes of
 Le 20 août 2026, le sélecteur des sept chaînes et la séparation Sénégal / International ont été vérifiés dans l’aperçu. Le lecteur YouTube générique de RTS a toutefois signalé une indisponibilité : la page doit donc prévoir un repli visible vers la chaîne officielle plutôt que de laisser l’utilisateur face à un lecteur sans contenu.
 
 L’identifiant RTS a ensuite été corrigé avec la référence de la chaîne officielle. Le lecteur affiche désormais une publication récente de **RTS — Radio Télévision Sénégalaise** (SALIMTOO, 20 août 2026) dans l’aperçu de Weurseuk.
+
+Après publication de la version enrichie, le domaine personnalisé servait encore l’ancienne page à trois chaînes, tandis que l’aperçu de développement affichait la version à sept chaînes. Cette divergence relève de la propagation du déploiement public et ne modifie pas les sources ni le code validés.
+
+Le même décalage a été observé sur le domaine de publication Manus après son chargement complet. Le contrôle reste donc à reprendre après la propagation effective de la version publiée ; l’aperçu de développement demeure la référence de rendu validée à ce stade.
