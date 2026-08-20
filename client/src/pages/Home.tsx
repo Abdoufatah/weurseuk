@@ -287,18 +287,17 @@ export default function Home() {
 
       {/* ===== REVUE DE PRESSE DU JOUR — AHMED AÏDARA (2A TV) ===== */}
       {aidaraLatest && (
-        <section className="container mt-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-1 h-6 bg-primary rounded-full" />
-            <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
-              <Tv className="w-5 h-5 text-primary" />
+        <section className="container mt-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1 h-5 bg-primary rounded-full" />
+            <h2 className="font-editorial text-lg font-bold text-foreground flex items-center gap-2">
+              <Tv className="w-4 h-4 text-primary" />
               Revue de presse du jour
             </h2>
-            <span className="ml-auto text-xs text-muted-foreground font-medium uppercase tracking-widest">Ahmed Aïdara · 2A TV</span>
+            <span className="ml-auto text-[10px] text-muted-foreground font-medium uppercase tracking-widest">Ahmed Aïdara · 2A TV</span>
           </div>
-          <div className="flex flex-col md:flex-row gap-6 bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-            {/* Lecteur YouTube embed */}
-            <div className="w-full md:w-[480px] shrink-0 aspect-video">
+          <div className="flex flex-col sm:flex-row bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+            <div className="w-full sm:w-[260px] md:w-[300px] lg:w-[330px] shrink-0 aspect-video">
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${aidaraLatest.videoId}?rel=0&modestbranding=1&color=white`}
@@ -307,30 +306,29 @@ export default function Home() {
                 allowFullScreen
               />
             </div>
-            {/* Infos */}
-            <div className="flex flex-col justify-center gap-3 p-5 md:p-6">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
+            <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 p-3.5 md:p-4">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
                   <Tv className="w-3 h-3" /> Revue de presse
                 </span>
                 {aidaraLatest.publishedAt && (
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-[11px] text-muted-foreground">
                     {new Date(aidaraLatest.publishedAt).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                   </span>
                 )}
               </div>
-              <h3 className="font-editorial text-lg font-bold text-foreground leading-snug line-clamp-3">
+              <h3 className="font-editorial text-base font-bold text-foreground leading-snug line-clamp-2">
                 {aidaraLatest.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="hidden lg:block text-xs text-muted-foreground leading-relaxed line-clamp-2">
                 La revue de la presse sénégalaise par Ahmed Aïdara, journaliste et directeur de publication de 2A TV — La Chaîne du Peuple. Un tour d’horizon rigoureux de l’actualité à travers les éditions du jour.
               </p>
-              <div className="flex items-center gap-3 mt-2">
+              <div className="flex items-center gap-3 mt-1">
                 <a
                   href={`https://www.youtube.com/watch?v=${aidaraLatest.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary hover:underline"
                 >
                   Voir sur YouTube
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -339,7 +337,7 @@ export default function Home() {
                   href={`https://www.youtube.com/playlist?list=PLPiTOZE0J9YbxIu1eRdkPLUAA8EbJ5ywa`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  className="text-[11px] text-muted-foreground hover:text-primary transition-colors"
                 >
                   Toutes les revues →
                 </a>
@@ -351,17 +349,17 @@ export default function Home() {
 
       {/* ===== REVUE DE PRESSE DU JOUR — FABRICE NGUÉMA (SenTV / D-Media) ===== */}
       {fabriceNguemaLatest && (
-        <section className="container mt-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-1 h-6 bg-primary rounded-full" />
-            <h2 className="font-editorial text-xl font-bold text-foreground flex items-center gap-2">
-              <Tv className="w-5 h-5 text-primary" />
+        <section className="container mt-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1 h-5 bg-primary rounded-full" />
+            <h2 className="font-editorial text-lg font-bold text-foreground flex items-center gap-2">
+              <Tv className="w-4 h-4 text-primary" />
               Revue de presse du jour
             </h2>
-            <span className="ml-auto text-xs text-muted-foreground font-medium uppercase tracking-widest">Fabrice Nguéma · SenTV</span>
+            <span className="ml-auto text-[10px] text-muted-foreground font-medium uppercase tracking-widest">Fabrice Nguéma · SenTV</span>
           </div>
-          <div className="flex flex-col md:flex-row gap-6 bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-            <div className="w-full md:w-[480px] shrink-0 aspect-video">
+          <div className="flex flex-col sm:flex-row bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+            <div className="w-full sm:w-[260px] md:w-[300px] lg:w-[330px] shrink-0 aspect-video">
               <iframe
                 className="w-full h-full"
                 src={`https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}?rel=0&modestbranding=1&color=white`}
@@ -370,29 +368,29 @@ export default function Home() {
                 allowFullScreen
               />
             </div>
-            <div className="flex flex-col justify-center gap-3 p-5 md:p-6">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
+            <div className="flex min-w-0 flex-1 flex-col justify-center gap-2 p-3.5 md:p-4">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/20">
                   <Tv className="w-3 h-3" /> Revue de presse
                 </span>
                 {fabriceNguemaLatest.publishedAt && (
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-[11px] text-muted-foreground">
                     {new Date(fabriceNguemaLatest.publishedAt).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                   </span>
                 )}
               </div>
-              <h3 className="font-editorial text-lg font-bold text-foreground leading-snug line-clamp-3">
+              <h3 className="font-editorial text-base font-bold text-foreground leading-snug line-clamp-2">
                 {fabriceNguemaLatest.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="hidden lg:block text-xs text-muted-foreground leading-relaxed line-clamp-2">
                 La revue de la presse sénégalaise en français présentée par Fabrice Nguéma et diffusée par SenTV, chaîne du groupe D-Media.
               </p>
-              <div className="flex items-center gap-3 mt-2">
+              <div className="flex items-center gap-3 mt-1">
                 <a
                   href={`https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary hover:underline"
                 >
                   Voir sur YouTube
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3 h-3"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -401,7 +399,7 @@ export default function Home() {
                   href="https://www.youtube.com/@GroupeDMEDIACOM/videos"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  className="text-[11px] text-muted-foreground hover:text-primary transition-colors"
                 >
                   Autres éditions →
                 </a>

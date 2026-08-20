@@ -35,3 +35,5 @@ Dans la sélection étendue, le choix **iTV Sénégal** bascule bien vers la fic
 Le 20 août 2026, l’ancienne playlist Canal Info News s’est révélée non lisible dans un lecteur intégré. L’interface a donc été corrigée : elle affiche un encart de contexte **« Patrimoine audiovisuel »** et une liaison externe vers les archives, au lieu d’un lecteur signalant une vidéo indisponible.
 
 Le contrôle visuel de l’aperçu a validé les onze sources de la page Télévision. Le lecteur iTV charge une émission récente du compte officiel, tandis que l’entrée Canal Info News présente bien l’encart d’archives et désactive toute promesse de diffusion directe.
+
+Après publication de l’extension, le contrôle automatisé du domaine public n’a pas renvoyé de contenu exploitable dans le navigateur. La version est néanmoins déployée ; un nouveau contrôle public sera effectué après stabilisation de la réponse du navigateur.
