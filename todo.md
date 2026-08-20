@@ -469,3 +469,9 @@
 
 ## FIABILISATION DE LA SYNCHRONISATION DES REVUES (20/08/2026)
 - [x] Migrer l’actualisation YouTube des revues Ahmed Aïdara et Fabrice Nguéma vers une tâche périodique durable et vérifier son exécution
+
+## SECTION TÉLÉVISION — CHAÎNES NATIONALES ET INTERNATIONALES (20/08/2026)
+- [x] Vérifier les chaînes et flux officiels de RTS, 2STV, SenTV, TV5MONDE et France 24
+- [x] Ajouter les principales chaînes sénégalaises complémentaires à la sélection Télévision
+- [x] Réorganiser la section Télévision pour distinguer les chaînes sénégalaises et internationales
+- [ ] Vérifier le rendu public des lecteurs et publier
