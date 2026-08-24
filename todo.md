@@ -63,6 +63,11 @@
 - [x] Consigner ensuite dans le suivi une validation publique desktop et mobile fondée sur ces contrôles interactifs réels
 - [x] Consigner dans la documentation d’audit la validation publique desktop/mobile fondée sur le focus visible du lien de saut, son activation vers `#contenu-principal` et `aria-expanded` du menu mobile
 
+## PRIORITÉ P2 — CONFORT DE MOUVEMENT RÉDUIT (24/08/2026)
+- [x] Auditer les animations de défilement, transitions et médias en mouvement de l’accueil
+- [x] Respecter `prefers-reduced-motion` pour les animations éditoriales non essentielles
+- [ ] Tester et publier le comportement réduit sans modifier les parcours ni l’identité visuelle
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories

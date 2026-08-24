@@ -8,6 +8,7 @@ import LazyYouTubeEmbed from "@/components/LazyYouTubeEmbed";
 import { formatLatestEdition } from "@/lib/editorialFreshness";
 import { Newspaper, PenLine, Globe, ChevronRight, Tv } from "lucide-react";
 import { TV_CHANNELS, getUploadsPlaylistId } from "@/lib/televisionChannels";
+import { useEffect, useRef, useState } from "react";
 
 // Fallback categories if API fails
 const FALLBACK_CATEGORIES = [
@@ -20,6 +21,10 @@ const FALLBACK_CATEGORIES = [
 ];
 
 export default function Home() {
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
@@ -38,6 +43,18 @@ export default function Home() {
   const televisionColumns = [televisionPreviews.slice(0, 3), televisionPreviews.slice(3, 6)];
   const featuredSynthesis = latestThree?.[0];
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) heroVideoRef.current?.pause();
+  }, [prefersReducedMotion]);
+
   return (
     <div className="min-h-screen font-sans-editorial">
 
@@ -45,11 +62,13 @@ export default function Home() {
       <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
         {/* Vidéo hero en boucle avec crossfade imperceptible */}
         <video
-          autoPlay
+          ref={heroVideoRef}
+          autoPlay={!prefersReducedMotion}
           muted
-          loop
+          loop={!prefersReducedMotion}
           playsInline
           poster={ASSETS.coverBanner}
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ objectPosition: 'center 15%' }}
         >
