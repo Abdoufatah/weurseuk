@@ -25,9 +25,10 @@ import BreakingNewsTicker from "./components/BreakingNewsTicker";
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
       <Header />
       <BreakingNewsTicker />
-      <main className="flex-1">{children}</main>
+      <main id="contenu-principal" tabIndex={-1} className="flex-1">{children}</main>
       <Footer />
     </div>
   );

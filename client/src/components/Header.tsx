@@ -28,11 +28,12 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav — rubriques principales */}
-          <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center">
+          <nav aria-label="Navigation principale" className="hidden lg:flex items-center gap-0 flex-1 justify-center">
             {NAV_SECTIONS.map((section) => (
               <Link
                 key={section.href}
                 href={section.href}
+                aria-current={location === section.href ? "page" : undefined}
                 className={`px-2 py-2 text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 whitespace-nowrap relative ${
                   location === section.href
                     ? "text-primary"
@@ -51,7 +52,11 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="lg:hidden p-2 rounded-md hover:bg-accent flex-shrink-0"
+            type="button"
+            aria-label={mobileOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
+            aria-expanded={mobileOpen}
+            aria-controls="navigation-mobile"
+            className="lg:hidden p-2 rounded-md hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex-shrink-0"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -61,8 +66,8 @@ export default function Header() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-border bg-white">
-          <nav className="container py-4 space-y-1">
+        <div id="navigation-mobile" className="lg:hidden border-t border-border bg-white">
+          <nav aria-label="Navigation mobile" className="container py-4 space-y-1">
             <Link href="/recherche" onClick={() => setMobileOpen(false)} className="mb-2 flex items-center gap-2 rounded-md border border-primary/20 px-4 py-2.5 text-sm font-semibold text-primary">
               <SearchIcon className="h-4 w-4" />
               Rechercher dans Weurseuk
@@ -71,6 +76,7 @@ export default function Header() {
               <Link
                 key={section.href}
                 href={section.href}
+                aria-current={location === section.href ? "page" : undefined}
                 className={`block px-4 py-2.5 text-sm font-medium rounded-md transition-colors ${
                   location === section.href
                     ? "text-primary bg-accent"

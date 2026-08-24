@@ -51,6 +51,11 @@
 - [x] Publier et contrôler la page en production
 - [x] Relancer la publication si le domaine public sert encore une version antérieure sans la route de méthodologie
 
+## PRIORITÉ P2 — ACCESSIBILITÉ FONDAMENTALE (24/08/2026)
+- [x] Auditer les repères de navigation, le focus clavier, la destination du contenu principal et les libellés d’interactions
+- [x] Ajouter un accès direct au contenu, des repères sémantiques et des libellés d’accessibilité sans modifier l’identité visuelle
+- [ ] Tester les contrats d’accessibilité et les parcours responsive, puis publier et contrôler en production
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories
