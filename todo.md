@@ -58,9 +58,10 @@
 - [x] Régénérer le bundle et relancer la publication si le domaine public ne sert pas encore l’accès direct au contenu
 - [x] Vérifier sur weurseuk.com en viewport mobile réel que le lien « Aller au contenu principal », le focus visible et les repères de navigation restent corrects après déploiement
 - [x] Consigner explicitement dans le suivi la validation publique desktop et mobile des améliorations d’accessibilité fondamentales
-- [ ] Vérifier sur weurseuk.com en viewport mobile réel, par interaction effective, que le lien de saut reçoit un focus visible et mène bien à `#contenu-principal`
-- [ ] Vérifier sur weurseuk.com en viewport mobile réel que la navigation mobile expose correctement ses attributs accessibles et son état ouvert/fermé après interaction
-- [ ] Consigner ensuite dans le suivi une validation publique desktop et mobile fondée sur ces contrôles interactifs réels
+- [x] Vérifier sur weurseuk.com en viewport mobile réel, par interaction effective, que le lien de saut reçoit un focus visible et mène bien à `#contenu-principal`
+- [x] Vérifier sur weurseuk.com en viewport mobile réel que la navigation mobile expose correctement ses attributs accessibles et son état ouvert/fermé après interaction
+- [x] Consigner ensuite dans le suivi une validation publique desktop et mobile fondée sur ces contrôles interactifs réels
+- [x] Consigner dans la documentation d’audit la validation publique desktop/mobile fondée sur le focus visible du lien de saut, son activation vers `#contenu-principal` et `aria-expanded` du menu mobile
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news

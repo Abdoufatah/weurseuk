@@ -121,7 +121,7 @@ Après régénération du bundle client, le contrôle sur `weurseuk.com` confirm
 
 Le 24 août 2026, Weurseuk a ajouté un accès direct au contenu principal, un indicateur de focus visible, des libellés de navigation explicites, l’annonce de la page active et l’état accessible du menu mobile. Les contrats automatisés, la compilation et le contrôle public confirment que le lien « Aller au contenu principal » est servi dans le HTML de `weurseuk.com` sans affecter le gabarit éditorial.
 
-Le contrôle public en viewport mobile réel (390 × 844 px) confirme que l’en-tête compact et son bouton de navigation restent correctement présentés après déploiement. Le lien d’accès direct demeure servi dans le DOM public, tandis que les règles de focus et les libellés de navigation sont vérifiés par contrat automatisé.
+Le contrôle public en viewport mobile réel (390 × 844 px) confirme que l’en-tête compact et son bouton de navigation restent correctement présentés après déploiement. Une interaction réelle confirme que le lien de saut reçoit le focus visible, termine sa transition à `translateY(0)` et mène à `#contenu-principal`. La même vérification confirme que le menu mobile annonce `aria-expanded="true"` lorsqu’il est ouvert, expose le repère « Navigation mobile », puis revient à `aria-expanded="false"` et retire ce repère à la fermeture.
 
 ## Références
 

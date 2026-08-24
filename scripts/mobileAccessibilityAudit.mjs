@@ -4,7 +4,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 const port = 9333;
 const profile = "/tmp/weurseuk-cdp-mobile-profile";
 const output = "/tmp/weurseuk-mobile-accessibility-audit.json";
-const url = "https://weurseuk.com/?release=99312f02&mobile-interaction-audit=1";
+const url = "https://weurseuk.com/?release=b5af0984&mobile-interaction-audit=1";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -112,6 +112,7 @@ try {
   if (!pageReady) throw new Error("La page publique n’a pas atteint son état interactif.");
 
   await pressKey(cdp, "Tab", "Tab", 9);
+  await delay(220);
   const skipFocused = await evaluate(cdp, `(() => {
     const skip = document.querySelector('.skip-link');
     return {
