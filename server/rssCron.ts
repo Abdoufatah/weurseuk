@@ -30,6 +30,12 @@ async function runSync() {
     const totalErrors = results.reduce((sum, r) => sum + r.errors.length, 0);
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
+    for (const result of results) {
+      if (result.errors.length > 0) {
+        console.warn(`[RSS-Cron] Source en erreur — ${result.sourceName}: ${result.errors.join(" | ")}`);
+      }
+    }
+
     lastSyncAt = new Date();
     lastSyncResults = {
       totalNew,

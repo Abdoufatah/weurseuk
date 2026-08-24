@@ -69,6 +69,15 @@
 - [x] Tester et publier le comportement réduit sans modifier les parcours ni l’identité visuelle
 - [x] Régénérer le bundle si la feuille CSS publique ne contient pas encore la règle `prefers-reduced-motion`
 
+## FIABILISATION RSS — ERREURS DE SYNCHRONISATION (24/08/2026)
+- [x] Identifier les sources RSS responsables des erreurs observées dans les dernières exécutions automatiques
+- [x] Corriger ou isoler proprement toute source RSS défaillante sans interrompre les autres flux
+- [x] Valider une synchronisation complète et consigner les résultats avant publication
+- [x] Journaliser le nom et le diagnostic de chaque source RSS en erreur pour les contrôles futurs
+- [x] Consigner explicitement le diagnostic des deux flux 403 et la synchronisation validée des quatorze autres flux
+- [ ] Créer un checkpoint pour figer l’isolement des sources RSS bloquées et la journalisation détaillée
+- [ ] Créer un nouveau checkpoint après les changements RSS et relire le suivi avant de cocher la sauvegarde finale
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories
