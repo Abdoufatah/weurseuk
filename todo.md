@@ -318,9 +318,10 @@
 - [x] Reconstituer les 5 profils journalistes réels (noms à confirmer)
 - [x] Créer ou mettre à jour les profils Fatou Ndiaye, Birama Diop, Sougoufara Diaw, Mously Diakhaté et Moustapha Faye
 - [x] Associer les cinq profils aux rubriques éditoriales existantes sans modifier les signatures déjà publiées
-- [x] Vérifier en base et dans l’interface l’intégration des cinq profils, puis publier
+- [ ] Vérifier en base et dans l’interface l’intégration des cinq profils, puis publier
 - [x] Préserver le profil, la photographie et les attributions du Dr Adama Aly Pam dans l’équipe éditoriale
-- [x] Afficher l’équipe éditoriale réelle dans la page À propos avec les rubriques et portraits disponibles
+- [ ] Afficher l’équipe éditoriale réelle dans la page À propos avec les rubriques et portraits disponibles
+- [ ] Régénérer et republier le bundle de la page À propos si le domaine public sert encore une version sans l’équipe
 
 ## ENQUÊTE EXCLUSIVE — ASER (20/08/2026)
 - [x] Vérifier les faits, documents et formulations relatifs à l’ASER, à l’ARCOP et à la procédure judiciaire

@@ -21,7 +21,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
-// Deployment trigger: 2026-08-24 - Synchroniser les styles publics de mouvement réduit
+// Deployment trigger: 2026-08-24 - Propager l’équipe éditoriale publique
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
