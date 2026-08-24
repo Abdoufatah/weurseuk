@@ -67,6 +67,7 @@
 - [x] Auditer les animations de défilement, transitions et médias en mouvement de l’accueil
 - [x] Respecter `prefers-reduced-motion` pour les animations éditoriales non essentielles
 - [ ] Tester et publier le comportement réduit sans modifier les parcours ni l’identité visuelle
+- [ ] Régénérer le bundle si la feuille CSS publique ne contient pas encore la règle `prefers-reduced-motion`
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
