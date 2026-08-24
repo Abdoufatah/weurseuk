@@ -554,6 +554,8 @@
 - [x] Créer une tâche durable exécutant ce contrôle toutes les six heures
 - [x] Vérifier en lecture seule le nouveau jeton de page enregistré le 24 août 2026, sans publier de contenu
 - [x] Exécuter un contrôle immédiat de lecture seule afin d’actualiser le statut opérationnel du nouveau jeton
+- [x] Réactiver uniquement les dix publications Facebook échouées les plus récentes du 24 août 2026 après confirmation explicite
+- [x] Vérifier les résultats idempotents de cette reprise sans toucher au stock ancien d’échecs
 
 ## CONFIGURATION UTILISATEUR SYSTÈME META (20/08/2026)
 - [ ] Guider la création d’un utilisateur système Meta, l’attribution de la page et de l’application, puis générer un jeton de publication durable
