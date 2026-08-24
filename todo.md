@@ -39,6 +39,7 @@
 - [x] Rendre la recherche disponible depuis l’en-tête sans alourdir la navigation existante
 - [x] Tester les résultats, les états vides, le clavier et les liens, puis publier
 - [ ] Déployer la recherche et vérifier en production les requêtes par sujet, auteur et source externe
+- [ ] Relancer la publication si weurseuk.com sert encore une version antérieure ne reconnaissant pas la route `/recherche`
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
