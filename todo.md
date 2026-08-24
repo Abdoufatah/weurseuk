@@ -49,6 +49,7 @@
 - [x] Créer une page publique « Méthodologie et corrections » avec un parcours de signalement clair
 - [x] Ajouter un accès discret depuis le footer et tester la page sur ordinateur et mobile
 - [ ] Publier et contrôler la page en production
+- [ ] Relancer la publication si le domaine public sert encore une version antérieure sans la route de méthodologie
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
