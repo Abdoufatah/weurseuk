@@ -507,6 +507,9 @@
 
 ## FIABILISATION DE LA SYNCHRONISATION DES REVUES (20/08/2026)
 - [x] Migrer l’actualisation YouTube des revues Ahmed Aïdara et Fabrice Nguéma vers une tâche périodique durable et vérifier son exécution
+- [x] Diagnostiquer la tâche durable et les dates d’import des revues Ahmed Aïdara et Fabrice Nguéma
+- [x] Corriger toute synchronisation ou sélection qui affiche une édition antérieure alors qu’une édition plus récente est disponible
+- [x] Vérifier sur l’accueil les deux dernières éditions effectivement disponibles, puis publier
 
 ## SECTION TÉLÉVISION — CHAÎNES NATIONALES ET INTERNATIONALES (20/08/2026)
 - [x] Vérifier les chaînes et flux officiels de RTS, 2STV, SenTV, TV5MONDE et France 24
