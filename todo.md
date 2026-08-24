@@ -1,5 +1,12 @@
 # Weurseuk - Project TODO
 
+## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
+- [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux
+- [x] Auditer la hiérarchie visuelle, la lecture mobile, la recherche, l’accessibilité, la performance et les signaux de confiance
+- [x] Formaliser une feuille de route d’améliorations priorisée, en distinguant les actions sobres des évolutions structurelles
+- [x] Stabiliser la note d’audit comparative et sa feuille de route priorisée dans la documentation du projet
+- [ ] Présenter les recommandations P0, P1 et P2, puis recueillir l’orientation de mise en œuvre
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories
