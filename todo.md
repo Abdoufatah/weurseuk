@@ -75,8 +75,8 @@
 - [x] Valider une synchronisation complète et consigner les résultats avant publication
 - [x] Journaliser le nom et le diagnostic de chaque source RSS en erreur pour les contrôles futurs
 - [x] Consigner explicitement le diagnostic des deux flux 403 et la synchronisation validée des quatorze autres flux
-- [ ] Créer un checkpoint pour figer l’isolement des sources RSS bloquées et la journalisation détaillée
-- [ ] Créer un nouveau checkpoint après les changements RSS et relire le suivi avant de cocher la sauvegarde finale
+- [x] Créer un checkpoint pour figer l’isolement des sources RSS bloquées et la journalisation détaillée
+- [x] Créer un nouveau checkpoint après les changements RSS et relire le suivi avant de cocher la sauvegarde finale
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
@@ -315,7 +315,12 @@
 - [x] Republier article Montréal (ID 120001) dans rubrique Société (pas de rubrique Culture en base)
 - [x] Désactiver définitivement le générateur de seeds fictifs — les tests de création utilisent désormais des mocks et n’écrivent plus en base
 - [x] Intégration Facebook automatique : jeton validé, file idempotente, tâche planifiée et post de test réussis le 18/08/2026
-- [ ] Reconstituer les 5 profils journalistes réels (noms à confirmer)
+- [x] Reconstituer les 5 profils journalistes réels (noms à confirmer)
+- [x] Créer ou mettre à jour les profils Fatou Ndiaye, Birama Diop, Sougoufara Diaw, Mously Diakhaté et Moustapha Faye
+- [x] Associer les cinq profils aux rubriques éditoriales existantes sans modifier les signatures déjà publiées
+- [x] Vérifier en base et dans l’interface l’intégration des cinq profils, puis publier
+- [x] Préserver le profil, la photographie et les attributions du Dr Adama Aly Pam dans l’équipe éditoriale
+- [x] Afficher l’équipe éditoriale réelle dans la page À propos avec les rubriques et portraits disponibles
 
 ## ENQUÊTE EXCLUSIVE — ASER (20/08/2026)
 - [x] Vérifier les faits, documents et formulations relatifs à l’ASER, à l’ARCOP et à la procédure judiciaire

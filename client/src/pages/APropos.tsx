@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ASSETS, BENSIRAC } from "@shared/constants";
+import { trpc } from "@/lib/trpc";
 import {
   Globe,
   Eye,
@@ -13,9 +14,28 @@ import {
   MapPin,
   Newspaper,
   PenLine,
+  UserRound,
 } from "lucide-react";
 
 export default function APropos() {
+  const { data: journalists = [] } = trpc.journalists.list.useQuery();
+  const teamMembers = journalists.filter((journalist) => journalist.id !== 30001);
+  const categoryLabels: Record<number, string> = {
+    30004: "Actualité",
+    30005: "Politique & Économie",
+    30006: "International",
+    30007: "Société",
+    30008: "Analyses",
+    30009: "Éditoriaux",
+  };
+  const roleLabels: Record<string, string> = {
+    reporter: "Journaliste",
+    analyst: "Analyste",
+    correspondent: "Correspondant",
+    columnist: "Chroniqueur",
+    editorialist: "Éditorialiste",
+  };
+
   return (
     <div className="min-h-screen font-sans-editorial">
       {/* Hero Section */}
@@ -201,6 +221,59 @@ export default function APropos() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Editorial team */}
+      <section className="container py-16 md:py-20" aria-labelledby="equipe-editoriale">
+        <div className="max-w-3xl mb-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Users className="w-5 h-5 text-primary" />
+            </div>
+            <h2 id="equipe-editoriale" className="font-editorial text-2xl md:text-3xl font-bold text-foreground">
+              L’équipe éditoriale
+            </h2>
+          </div>
+          <p className="text-muted-foreground leading-relaxed">
+            Une rédaction organisée par domaines de compétence, réunie par une même exigence de vérification, d’attribution et de clarté.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {teamMembers.map((journalist) => {
+            const initials = journalist.name
+              .split(" ")
+              .filter(Boolean)
+              .slice(0, 2)
+              .map((name) => name[0])
+              .join("");
+
+            return (
+              <article key={journalist.id} className="rounded-xl border border-border bg-card p-5 flex items-center gap-4 transition-colors hover:border-primary/40">
+                {journalist.photoUrl ? (
+                  <img
+                    src={journalist.photoUrl}
+                    alt={`Portrait de ${journalist.name}`}
+                    className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-primary/25"
+                  />
+                ) : (
+                  <div className="h-14 w-14 shrink-0 rounded-full bg-primary/10 text-primary flex items-center justify-center font-editorial font-bold" aria-hidden="true">
+                    {initials || <UserRound className="w-5 h-5" />}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <h3 className="font-editorial text-lg font-bold text-foreground leading-tight">{journalist.name}</h3>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+                    {categoryLabels[journalist.categoryId] ?? "Rédaction"}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {roleLabels[journalist.role] ?? "Membre de la rédaction"}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
