@@ -38,8 +38,11 @@
 - [x] Ajouter une page de résultats accessible, responsive et fidèle à l’identité éditoriale du portail
 - [x] Rendre la recherche disponible depuis l’en-tête sans alourdir la navigation existante
 - [x] Tester les résultats, les états vides, le clavier et les liens, puis publier
-- [ ] Déployer la recherche et vérifier en production les requêtes par sujet, auteur et source externe
-- [ ] Relancer la publication si weurseuk.com sert encore une version antérieure ne reconnaissant pas la route `/recherche`
+- [x] Déployer la recherche et vérifier en production les requêtes par sujet, auteur et source externe
+- [x] Relancer la publication si weurseuk.com sert encore une version antérieure ne reconnaissant pas la route `/recherche`
+- [x] Vérifier sur weurseuk.com une recherche par sujet et confirmer l’affichage des résultats attendus
+- [x] Vérifier sur weurseuk.com qu’un résultat agrégé de recherche ouvre bien une source externe correcte
+- [x] Consigner explicitement dans le suivi la validation publique des trois cas de recherche : sujet, auteur et source externe
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
