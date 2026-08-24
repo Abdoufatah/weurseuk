@@ -103,6 +103,12 @@ Une fois les fondations P0 et P1 sécurisées, deux évolutions peuvent augmente
 | **1 à 2 mois** | Audit WCAG AA, suivi des Core Web Vitals, module d’alerte administrable, page Méthodologie / Corrections | Média plus fiable, mesurable et robuste |
 | **Après consolidation** | Newsletter, favoris de rubriques, podcast / formats courts contextualisés | Fidélisation et diffusion, sans dépendance exclusive aux plateformes |
 
+## Contrôle de mise en œuvre — priorité P1
+
+La priorité P1 a été publiée le 24 août 2026. Sur le domaine public, les deux revues signalent désormais qu’il s’agit de la **dernière édition disponible** et exposent leur date de publication. Le contrôle mobile réel à largeur 390 px a confirmé les deux libellés complets : « Dernière édition disponible · publiée le lundi 24 août 2026 ».
+
+La même vérification a confirmé qu’aucun lecteur YouTube n’était préchargé dans le DOM avant une action du lecteur : les huit entrées — deux revues et six aperçus Télévision — étaient représentées par des boutons d’activation accessibles. Le contrôle desktop a également confirmé zéro `iframe` YouTube avant interaction et huit boutons d’activation. Les liens directs vers YouTube et vers la rubrique Télévision restent disponibles.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.

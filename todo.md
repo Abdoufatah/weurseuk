@@ -20,9 +20,18 @@
 - [x] Rendre la date et le statut de dernière édition disponible explicites dans les deux revues de presse
 - [x] Remplacer les lecteurs YouTube non essentiels chargés d’emblée par une activation au clic, sans retirer les contenus ni les liens
 - [x] Tester la lecture, l’accessibilité et la densité de l’accueil sur ordinateur et mobile, puis publier
-- [ ] Créer un checkpoint et déployer explicitement la version P1 avec lecteurs activables
-- [ ] Vérifier sur le domaine public les revues datées et les aperçus Télévision à activation au clic sur ordinateur et mobile
+- [x] Créer un checkpoint et déployer explicitement la version P1 avec lecteurs activables
+- [x] Vérifier sur le domaine public les revues datées et les aperçus Télévision à activation au clic sur ordinateur et mobile
 - [x] Ajouter une vérification dédiée du bouton d’activation, de son libellé et de son focus clavier
+- [x] Vérifier sur weurseuk.com en viewport mobile que les deux revues affichent bien la date explicite de dernière édition disponible
+- [x] Vérifier sur weurseuk.com en viewport mobile que les aperçus Télévision restent à activation au clic sans lecteur YouTube préchargé
+- [x] Consigner le contrôle public desktop et mobile de la version P1 après propagation complète
+- [x] Vérifier sur weurseuk.com en viewport mobile réel que les deux revues affichent bien « Dernière édition disponible » avec leur date
+- [x] Vérifier sur weurseuk.com en viewport mobile réel que les aperçus Télévision restent en activation au clic sans iframe YouTube préchargée
+- [x] Consigner explicitement le contrôle public desktop et mobile de la version P1 après propagation complète, puis seulement marquer ces items comme terminés
+- [x] Vérifier sur weurseuk.com en viewport mobile réel que chaque revue affiche à la fois le libellé « Dernière édition disponible » et sa date complète, puis conserver une preuve textuelle de ce contrôle
+- [x] Consigner explicitement dans le suivi ou la documentation la validation publique desktop et mobile de la version P1 après propagation complète
+- [x] Créer un checkpoint après cette consignation finale pour figer la version P1 publiquement validée
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
