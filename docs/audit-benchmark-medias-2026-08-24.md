@@ -123,6 +123,10 @@ Le 24 août 2026, Weurseuk a ajouté un accès direct au contenu principal, un i
 
 Le contrôle public en viewport mobile réel (390 × 844 px) confirme que l’en-tête compact et son bouton de navigation restent correctement présentés après déploiement. Une interaction réelle confirme que le lien de saut reçoit le focus visible, termine sa transition à `translateY(0)` et mène à `#contenu-principal`. La même vérification confirme que le menu mobile annonce `aria-expanded="true"` lorsqu’il est ouvert, expose le repère « Navigation mobile », puis revient à `aria-expanded="false"` et retire ce repère à la fermeture.
 
+## Contrôle de mise en œuvre — confort de mouvement réduit
+
+Le portail respecte désormais `prefers-reduced-motion`. Lorsque cette préférence est active, les animations et transitions non essentielles sont neutralisées, le bandeau d’alerte ne défile plus et la vidéo d’ouverture est arrêtée au profit de son visuel de couverture. Le contrôle du CSS public confirme la présence de la règle de média et de la durée réduite d’animation ; le rendu normal n’a pas été modifié.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.
