@@ -12,11 +12,18 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).toContain("relative aspect-video overflow-hidden rounded-md bg-black shadow-sm");
   });
 
-  it("préserve les deux lecteurs et leurs accès aux éditions complètes", () => {
+  it("préserve les deux lecteurs à la demande et leurs accès aux éditions complètes", () => {
+    expect(homeSource).toContain("<LazyYouTubeEmbed");
     expect(homeSource).toContain("https://www.youtube.com/embed/${aidaraLatest.videoId}");
     expect(homeSource).toContain("https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}");
     expect(homeSource).toContain("https://www.youtube.com/watch?v=${aidaraLatest.videoId}");
     expect(homeSource).toContain("https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}");
+  });
+
+  it("indique que les encarts présentent la dernière édition effectivement disponible", () => {
+    expect(homeSource).toContain("Dernières éditions disponibles");
+    expect(homeSource).toContain("formatLatestEdition(aidaraLatest.publishedAt)");
+    expect(homeSource).toContain("formatLatestEdition(fabriceNguemaLatest.publishedAt)");
   });
 
   it("répartit la Télévision sur les côtés des dépêches centrales tout en conservant toutes les sources", () => {

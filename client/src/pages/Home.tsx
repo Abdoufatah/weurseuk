@@ -4,6 +4,8 @@ import { Link } from "wouter";
 import ArticleCard from "@/components/ArticleCard";
 import AdPlacement from "@/components/AdPlacement";
 import YouTubeVideoSlot from "@/components/YouTubeVideoSlot";
+import LazyYouTubeEmbed from "@/components/LazyYouTubeEmbed";
+import { formatLatestEdition } from "@/lib/editorialFreshness";
 import { Newspaper, PenLine, Globe, ChevronRight, Tv } from "lucide-react";
 import { TV_CHANNELS, getUploadsPlaylistId } from "@/lib/televisionChannels";
 
@@ -294,26 +296,36 @@ export default function Home() {
             <div className="mb-2 flex items-center gap-2 border-b border-primary/15 pb-1.5">
               <Tv className="h-3.5 w-3.5 text-primary" />
               <h2 className="font-editorial text-sm font-bold text-foreground">Revues de presse quotidiennes</h2>
-              <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Éditions du jour</span>
+              <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Dernières éditions disponibles</span>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {aidaraLatest && (
-                <a href={`https://www.youtube.com/watch?v=${aidaraLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="group block min-w-0">
+                <article className="min-w-0">
                   <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
-                    <iframe className="pointer-events-none h-full w-full" loading="lazy" src={`https://www.youtube.com/embed/${aidaraLatest.videoId}?rel=0&modestbranding=1&color=white`} title={aidaraLatest.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span></div>
+                    <LazyYouTubeEmbed
+                      src={`https://www.youtube.com/embed/${aidaraLatest.videoId}?rel=0&modestbranding=1&color=white`}
+                      title={aidaraLatest.title}
+                      thumbnailUrl={aidaraLatest.thumbnailUrl || `https://i.ytimg.com/vi/${aidaraLatest.videoId}/hqdefault.jpg`}
+                      ariaLabel={`Lancer la revue de presse Ahmed Aïdara : ${aidaraLatest.title}`}
+                    />
                   </div>
-                  <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">Ahmed Aïdara · 2A TV</p>
-                </a>
+                  <a href={`https://www.youtube.com/watch?v=${aidaraLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="mt-1 block truncate text-[11px] font-semibold text-foreground transition-colors hover:text-primary">Ahmed Aïdara · 2A TV</a>
+                  <p className="mt-0.5 text-[9px] leading-snug text-muted-foreground">{formatLatestEdition(aidaraLatest.publishedAt)}</p>
+                </article>
               )}
               {fabriceNguemaLatest && (
-                <a href={`https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="group block min-w-0">
+                <article className="min-w-0">
                   <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
-                    <iframe className="pointer-events-none h-full w-full" loading="lazy" src={`https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}?rel=0&modestbranding=1&color=white`} title={fabriceNguemaLatest.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span></div>
+                    <LazyYouTubeEmbed
+                      src={`https://www.youtube.com/embed/${fabriceNguemaLatest.videoId}?rel=0&modestbranding=1&color=white`}
+                      title={fabriceNguemaLatest.title}
+                      thumbnailUrl={fabriceNguemaLatest.thumbnailUrl || `https://i.ytimg.com/vi/${fabriceNguemaLatest.videoId}/hqdefault.jpg`}
+                      ariaLabel={`Lancer la revue de presse Fabrice Nguéma : ${fabriceNguemaLatest.title}`}
+                    />
                   </div>
-                  <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">Fabrice Nguéma · SenTV</p>
-                </a>
+                  <a href={`https://www.youtube.com/watch?v=${fabriceNguemaLatest.videoId}`} target="_blank" rel="noopener noreferrer" className="mt-1 block truncate text-[11px] font-semibold text-foreground transition-colors hover:text-primary">Fabrice Nguéma · SenTV</a>
+                  <p className="mt-0.5 text-[9px] leading-snug text-muted-foreground">{formatLatestEdition(fabriceNguemaLatest.publishedAt)}</p>
+                </article>
               )}
             </div>
           </div>
@@ -458,21 +470,17 @@ export default function Home() {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Télévision</span>
                 </div>
                 {column.map((channel) => (
-                  <Link key={channel.id} href={`/television?channel=${channel.id}`} className="group block min-w-0">
+                  <article key={channel.id} className="min-w-0">
                     <div className="relative aspect-video overflow-hidden rounded-md bg-black shadow-sm">
-                      <iframe
-                        className="pointer-events-none h-full w-full"
-                        loading="lazy"
+                      <LazyYouTubeEmbed
                         src={`https://www.youtube.com/embed?listType=playlist&list=${getUploadsPlaylistId(channel.channelId)}&rel=0&modestbranding=1&color=white`}
                         title={`Dernières vidéos de ${channel.fullName}`}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        placeholderLabel={channel.name}
+                        ariaLabel={`Charger les dernières vidéos de ${channel.fullName}`}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/20">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/85 text-[10px] text-primary opacity-0 shadow-sm transition-opacity group-hover:opacity-100">▶</span>
-                      </div>
                     </div>
-                    <p className="mt-1 truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary">{channel.name}</p>
-                  </Link>
+                    <Link href={`/television?channel=${channel.id}`} className="mt-1 block truncate text-[11px] font-semibold text-foreground transition-colors hover:text-primary">{channel.name}</Link>
+                  </article>
                 ))}
               </aside>
             ))}

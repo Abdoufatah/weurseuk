@@ -16,6 +16,14 @@
 - [x] Ajouter un test de non-régression de la sortie HTML du middleware pour l’accueil, un éditorial et un article agrégé
 - [x] Contrôler en production les fichiers d’indexation et les pages canoniques servies aux crawlers
 
+## PRIORITÉ P1 — FRAÎCHEUR ÉDITORIALE ET VIDÉO À LA DEMANDE (24/08/2026)
+- [x] Rendre la date et le statut de dernière édition disponible explicites dans les deux revues de presse
+- [x] Remplacer les lecteurs YouTube non essentiels chargés d’emblée par une activation au clic, sans retirer les contenus ni les liens
+- [x] Tester la lecture, l’accessibilité et la densité de l’accueil sur ordinateur et mobile, puis publier
+- [ ] Créer un checkpoint et déployer explicitement la version P1 avec lecteurs activables
+- [ ] Vérifier sur le domaine public les revues datées et les aperçus Télévision à activation au clic sur ordinateur et mobile
+- [x] Ajouter une vérification dédiée du bouton d’activation, de son libellé et de son focus clavier
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories
