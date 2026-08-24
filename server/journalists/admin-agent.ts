@@ -17,6 +17,14 @@ const CATEGORY_MAP: Record<string, number> = {
   "Analyses": 30008,
 };
 
+const AUTHOR_PROFILE_MAP: Record<string, number> = {
+  fatou_ndiaye: 1,
+  birama_diop: 3,
+  sougoufara_diaw: 4,
+  mously_diakhate: 5,
+  moustapha_faye: 6,
+};
+
 export interface PublishedArticle {
   id: number;
   title: string;
@@ -78,7 +86,7 @@ export async function generateAndPublishPressReview(): Promise<PressReviewSessio
     const topicsResponse = await invokeLLM({
       messages: [
         { role: "system", content: `Tu es un rédacteur en chef sénégalais. Tu dois sélectionner les sujets les plus importants UNIQUEMENT parmi les dépêches RSS fournies. Date actuelle: ${now.toISOString()}. INTERDIT d'inventer des sujets. Réponds UNIQUEMENT en JSON valide.` },
-        { role: "user", content: `Voici les dépêches RSS disponibles:\n\n${depechesResume}\n\nSélectionne 1 sujet par thématique PARMI CES DÉPÊCHES UNIQUEMENT. Réponds en JSON:\n{\n  "politique": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact de la dépêche" },\n  "economie": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "international": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "sports": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "actualites": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" }\n}\nSi aucune dépêche ne correspond à une thématique, mets null pour ce champ.` },
+        { role: "user", content: `Voici les dépêches RSS disponibles:\n\n${depechesResume}\n\nSélectionne 1 sujet par rubrique PARMI CES DÉPÊCHES UNIQUEMENT. Réponds en JSON:\n{\n  "actualites": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "politique": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "international": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "societe": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" },\n  "analyses": { "topic": "...", "sources": ["nom source"], "angle": "...", "depeche_ref": "titre exact" }\n}\nSi aucune dépêche ne correspond à une rubrique, mets null pour ce champ.` },
       ],
     });
 
@@ -102,11 +110,11 @@ export async function generateAndPublishPressReview(): Promise<PressReviewSessio
 
     // Step 2: Invoquer chaque journaliste et publier en DB
     const assignments = [
-      { key: "actualites", journalistId: "fatou_sow", rubrique: "Actualité" },
-      { key: "politique", journalistId: "awa_diop", rubrique: "Politique & Économie" },
-      { key: "economie", journalistId: "moussa_fall", rubrique: "Politique & Économie" },
-      { key: "international", journalistId: "aicha_benali", rubrique: "International" },
-      { key: "sports", journalistId: "ousmane_ndiaye", rubrique: "Société" },
+      { key: "actualites", journalistId: "fatou_ndiaye", rubrique: "Actualité" },
+      { key: "politique", journalistId: "birama_diop", rubrique: "Politique & Économie" },
+      { key: "international", journalistId: "sougoufara_diaw", rubrique: "International" },
+      { key: "societe", journalistId: "mously_diakhate", rubrique: "Société" },
+      { key: "analyses", journalistId: "moustapha_faye", rubrique: "Analyses" },
     ];
 
     for (const assignment of assignments) {
@@ -155,6 +163,7 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
           excerpt,
           content,
           categoryId,
+          authorId: AUTHOR_PROFILE_MAP[assignment.journalistId],
           isPublished: true,
           isFeatured: false,
           publishedAt: new Date(),
