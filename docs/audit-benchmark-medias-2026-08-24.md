@@ -117,6 +117,12 @@ Le contrôle visuel de développement a validé une lecture hiérarchisée sur o
 
 Après régénération du bundle client, le contrôle sur `weurseuk.com` confirme que la route publique `/methodologie-corrections` est servie sans erreur et que le lien de pied de page, le parcours de contact et l’ensemble des engagements éditoriaux sont présents dans la version publiée.
 
+## Contrôle de mise en œuvre — priorité P2 : accessibilité fondamentale
+
+Le 24 août 2026, Weurseuk a ajouté un accès direct au contenu principal, un indicateur de focus visible, des libellés de navigation explicites, l’annonce de la page active et l’état accessible du menu mobile. Les contrats automatisés, la compilation et le contrôle public confirment que le lien « Aller au contenu principal » est servi dans le HTML de `weurseuk.com` sans affecter le gabarit éditorial.
+
+Le contrôle public en viewport mobile réel (390 × 844 px) confirme que l’en-tête compact et son bouton de navigation restent correctement présentés après déploiement. Le lien d’accès direct demeure servi dans le DOM public, tandis que les règles de focus et les libellés de navigation sont vérifiés par contrat automatisé.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.

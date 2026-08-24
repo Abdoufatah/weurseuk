@@ -26,5 +26,7 @@ describe("repères fondamentaux d’accessibilité", () => {
   it("préserve un indicateur de focus visible au clavier", () => {
     expect(styles).toContain(":focus-visible");
     expect(styles).toContain("outline-offset: 3px");
+    expect(styles).toContain(".skip-link:focus-visible");
+    expect(styles).toContain("translateY(0) !important");
   });
 });

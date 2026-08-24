@@ -54,8 +54,13 @@
 ## PRIORITÉ P2 — ACCESSIBILITÉ FONDAMENTALE (24/08/2026)
 - [x] Auditer les repères de navigation, le focus clavier, la destination du contenu principal et les libellés d’interactions
 - [x] Ajouter un accès direct au contenu, des repères sémantiques et des libellés d’accessibilité sans modifier l’identité visuelle
-- [ ] Tester les contrats d’accessibilité et les parcours responsive, puis publier et contrôler en production
-- [ ] Régénérer le bundle et relancer la publication si le domaine public ne sert pas encore l’accès direct au contenu
+- [x] Tester les contrats d’accessibilité et les parcours responsive, puis publier et contrôler en production
+- [x] Régénérer le bundle et relancer la publication si le domaine public ne sert pas encore l’accès direct au contenu
+- [x] Vérifier sur weurseuk.com en viewport mobile réel que le lien « Aller au contenu principal », le focus visible et les repères de navigation restent corrects après déploiement
+- [x] Consigner explicitement dans le suivi la validation publique desktop et mobile des améliorations d’accessibilité fondamentales
+- [ ] Vérifier sur weurseuk.com en viewport mobile réel, par interaction effective, que le lien de saut reçoit un focus visible et mène bien à `#contenu-principal`
+- [ ] Vérifier sur weurseuk.com en viewport mobile réel que la navigation mobile expose correctement ses attributs accessibles et son état ouvert/fermé après interaction
+- [ ] Consigner ensuite dans le suivi une validation publique desktop et mobile fondée sur ces contrôles interactifs réels
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
