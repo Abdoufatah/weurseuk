@@ -55,6 +55,7 @@
 - [x] Auditer les repères de navigation, le focus clavier, la destination du contenu principal et les libellés d’interactions
 - [x] Ajouter un accès direct au contenu, des repères sémantiques et des libellés d’accessibilité sans modifier l’identité visuelle
 - [ ] Tester les contrats d’accessibilité et les parcours responsive, puis publier et contrôler en production
+- [ ] Régénérer le bundle et relancer la publication si le domaine public ne sert pas encore l’accès direct au contenu
 
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
