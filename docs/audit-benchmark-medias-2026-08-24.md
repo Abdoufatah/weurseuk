@@ -115,6 +115,8 @@ Une page publique **« Méthodologie et corrections »** a été ajoutée le 24 
 
 Le contrôle visuel de développement a validé une lecture hiérarchisée sur ordinateur et à 390 px : le parcours de signalement est visible, le lien vers la page de contact est actionnable et l’accès « Méthodologie et corrections » est présent dans le pied de page.
 
+Après régénération du bundle client, le contrôle sur `weurseuk.com` confirme que la route publique `/methodologie-corrections` est servie sans erreur et que le lien de pied de page, le parcours de contact et l’ensemble des engagements éditoriaux sont présents dans la version publiée.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.
