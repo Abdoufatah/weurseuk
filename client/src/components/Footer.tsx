@@ -47,6 +47,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/methodologie-corrections" className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-all">
+                  Méthodologie et corrections
+                </Link>
+              </li>
             </ul>
           </div>
 

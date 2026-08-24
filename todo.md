@@ -44,6 +44,12 @@
 - [x] Vérifier sur weurseuk.com qu’un résultat agrégé de recherche ouvre bien une source externe correcte
 - [x] Consigner explicitement dans le suivi la validation publique des trois cas de recherche : sujet, auteur et source externe
 
+## PRIORITÉ P2 — MÉTHODOLOGIE ET CORRECTIONS (24/08/2026)
+- [x] Formaliser les principes de sources, d’attribution, de distinction des faits et de corrections
+- [x] Créer une page publique « Méthodologie et corrections » avec un parcours de signalement clair
+- [x] Ajouter un accès discret depuis le footer et tester la page sur ordinateur et mobile
+- [ ] Publier et contrôler la page en production
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories

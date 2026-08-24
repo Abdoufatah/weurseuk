@@ -109,6 +109,12 @@ La priorité P1 a été publiée le 24 août 2026. Sur le domaine public, les de
 
 La même vérification a confirmé qu’aucun lecteur YouTube n’était préchargé dans le DOM avant une action du lecteur : les huit entrées — deux revues et six aperçus Télévision — étaient représentées par des boutons d’activation accessibles. Le contrôle desktop a également confirmé zéro `iframe` YouTube avant interaction et huit boutons d’activation. Les liens directs vers YouTube et vers la rubrique Télévision restent disponibles.
 
+## Contrôle de mise en œuvre — priorité P2 : méthode et corrections
+
+Une page publique **« Méthodologie et corrections »** a été ajoutée le 24 août 2026. Elle rend explicites les principes de vérification, d’attribution, de séparation entre faits, déclarations, analyses et agrégation, ainsi que le traitement des signalements et des corrections. Cette structuration reprend de façon proportionnée les principes de transparence, d’exactitude, de responsabilité et d’engagement avec le public mis en avant par la Journalism Trust Initiative et le Trust Project.[6][7]
+
+Le contrôle visuel de développement a validé une lecture hiérarchisée sur ordinateur et à 390 px : le parcours de signalement est visible, le lien vers la page de contact est actionnable et l’accès « Méthodologie et corrections » est présent dans le pied de page.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.
@@ -120,3 +126,7 @@ La même vérification a confirmé qu’aucun lecteur YouTube n’était précha
 [4] [Google Search Central, « Understanding Core Web Vitals and Google search results »](https://developers.google.com/search/docs/appearance/core-web-vitals), consulté le 24 août 2026.
 
 [5] [W3C, *Web Content Accessibility Guidelines (WCAG) 2.2*](https://www.w3.org/TR/WCAG22/), recommandation du 12 décembre 2024.
+
+[6] [Journalism Trust Initiative, *The JTI Standard*](https://journalismtrustinitiative.org/jti-the-standard/), consulté le 24 août 2026.
+
+[7] [The Trust Project, *About us*](https://thetrustproject.org/about/), consulté le 24 août 2026.
