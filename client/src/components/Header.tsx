@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { ASSETS, NAV_SECTIONS } from "@shared/constants";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
-import { Menu, X, User, LogOut, Settings } from "lucide-react";
+import { Menu, X, Search as SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
@@ -45,6 +45,10 @@ export default function Header() {
             ))}
           </nav>
 
+          <Link href="/recherche" aria-label="Rechercher dans Weurseuk" className="hidden lg:flex h-9 w-9 flex-shrink-0 items-center justify-center self-center rounded-md text-foreground/70 transition-colors hover:bg-accent hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+            <SearchIcon className="h-4 w-4" />
+          </Link>
+
           {/* Mobile toggle */}
           <button
             className="lg:hidden p-2 rounded-md hover:bg-accent flex-shrink-0"
@@ -59,6 +63,10 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden border-t border-border bg-white">
           <nav className="container py-4 space-y-1">
+            <Link href="/recherche" onClick={() => setMobileOpen(false)} className="mb-2 flex items-center gap-2 rounded-md border border-primary/20 px-4 py-2.5 text-sm font-semibold text-primary">
+              <SearchIcon className="h-4 w-4" />
+              Rechercher dans Weurseuk
+            </Link>
             {NAV_SECTIONS.map((section) => (
               <Link
                 key={section.href}

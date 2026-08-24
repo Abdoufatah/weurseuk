@@ -198,6 +198,15 @@ export const appRouter = router({
     }),
   }),
 
+  search: router({
+    query: publicProcedure.input(z.object({
+      q: z.string().trim().min(2).max(100),
+      limit: z.number().min(1).max(50).default(30),
+    })).query(async ({ input }) => {
+      return db.searchPublishedContent(input.q, input.limit);
+    }),
+  }),
+
   // ==================== RSS SOURCES ====================
   rssSources: router({
     list: adminProcedure.query(async () => {

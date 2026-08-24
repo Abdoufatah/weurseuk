@@ -15,6 +15,7 @@ import Admin from "./pages/Admin";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
 import Television from "./pages/Television";
+import Search from "./pages/Search";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
@@ -84,6 +85,9 @@ function Router() {
       </Route>
       <Route path="/television">
         <Television />
+      </Route>
+      <Route path="/recherche">
+        <PublicLayout><Search /></PublicLayout>
       </Route>
       <Route path="/admin" component={Admin} />
       <Route path="/404">

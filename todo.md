@@ -33,6 +33,13 @@
 - [x] Consigner explicitement dans le suivi ou la documentation la validation publique desktop et mobile de la version P1 après propagation complète
 - [x] Créer un checkpoint après cette consignation finale pour figer la version P1 publiquement validée
 
+## PRIORITÉ P1 — RECHERCHE ÉDITORIALE TRANSVERSALE (24/08/2026)
+- [x] Créer une recherche publique couvrant articles agrégés, éditoriaux, auteurs et rubriques
+- [x] Ajouter une page de résultats accessible, responsive et fidèle à l’identité éditoriale du portail
+- [x] Rendre la recherche disponible depuis l’en-tête sans alourdir la navigation existante
+- [x] Tester les résultats, les états vides, le clavier et les liens, puis publier
+- [ ] Déployer la recherche et vérifier en production les requêtes par sujet, auteur et source externe
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories

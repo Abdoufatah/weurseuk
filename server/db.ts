@@ -16,6 +16,7 @@ import {
   youtubeSyncSettings,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import { rankSearchCandidates } from "./searchRanking";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -126,9 +127,11 @@ export async function getPublishedEditorials(limit = 20, offset = 0) {
     categorySlug: categories.slug,
     authorId: editorials.authorId,
     authorName: journalistProfiles.name,
+    authorAlias: journalistProfiles.alias,
     authorPhotoUrl: journalistProfiles.photoUrl,
     authorRole: journalistProfiles.role,
     type: editorials.type,
+    useAlias: editorials.useAlias,
     isPublished: editorials.isPublished,
     isFeatured: editorials.isFeatured,
     publishedAt: editorials.publishedAt,
@@ -480,6 +483,43 @@ export async function getAggregatedArticleBySlug(slug: string) {
     .where(eq(aggregatedArticles.sourceUrl, internalUrl))
     .limit(1);
   return result[0];
+}
+
+export async function searchPublishedContent(query: string, limit = 30) {
+  const [nativeContent, aggregatedContent, allCategories] = await Promise.all([
+    getPublishedEditorials(500, 0),
+    getAggregatedArticles(1000, 0),
+    getAllCategories(),
+  ]);
+  const categoryById = new Map(allCategories.map((category) => [category.id, category.name]));
+  const candidates = [
+    ...nativeContent.map((editorial) => ({
+      id: editorial.id,
+      title: editorial.title,
+      excerpt: editorial.excerpt,
+      authorName: editorial.authorName,
+      authorAlias: editorial.authorAlias,
+      useAlias: editorial.useAlias,
+      categoryName: editorial.categoryName,
+      publishedAt: editorial.publishedAt,
+      contentType: "editorial" as const,
+      slug: editorial.slug,
+      imageUrl: editorial.coverImageUrl,
+    })),
+    ...aggregatedContent.map((article) => ({
+      id: article.id,
+      title: article.title,
+      excerpt: article.excerpt,
+      sourceName: article.sourceName,
+      categoryName: article.categoryId ? categoryById.get(article.categoryId) : "Actualité",
+      publishedAt: article.publishedAt,
+      contentType: "article" as const,
+      slug: article.sourceUrl?.replace(/^\/article\//, "") || String(article.id),
+      sourceUrl: article.sourceUrl,
+      imageUrl: article.imageUrl,
+    })),
+  ];
+  return rankSearchCandidates(candidates, query, limit);
 }
 
 export async function createAggregatedArticle(data: InsertAggregatedArticle) {
