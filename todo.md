@@ -7,6 +7,15 @@
 - [x] Stabiliser la note d’audit comparative et sa feuille de route priorisée dans la documentation du projet
 - [ ] Présenter les recommandations P0, P1 et P2, puis recueillir l’orientation de mise en œuvre
 
+## PRIORITÉ P0 — INDEXATION ET DÉCOUVRABILITÉ (24/08/2026)
+- [x] Créer un fichier `robots.txt` public pointant vers le sitemap canonique
+- [x] Exposer un sitemap XML dynamique référençant les rubriques et contenus publiés
+- [x] Ajouter les URL canoniques et les données structurées `Organization`, `WebSite`, `NewsArticle` et `BreadcrumbList`
+- [ ] Tester les réponses publiques, la validité XML et les données structurées sans modifier l’interface visuelle
+- [x] Vérifier sur un éditorial et un article agrégé les balises canoniques et les schémas `NewsArticle` et `BreadcrumbList` servis aux crawlers
+- [x] Ajouter un test de non-régression de la sortie HTML du middleware pour l’accueil, un éditorial et un article agrégé
+- [ ] Contrôler en production les fichiers d’indexation et les pages canoniques servies aux crawlers
+
 - [x] Upload static assets (logo, author photos, cover banner) to CDN
 - [x] Database schema: articles, editorials, categories, RSS sources, breaking news
 - [x] tRPC procedures: CRUD editorials, list articles, RSS aggregation, categories

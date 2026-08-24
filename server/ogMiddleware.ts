@@ -6,6 +6,12 @@
  */
 import { Request, Response, NextFunction } from "express";
 import { getAggregatedArticleBySlug, getEditorialBySlug } from "./db";
+import {
+  buildBreadcrumbStructuredData,
+  buildNewsArticleStructuredData,
+  buildWebsiteStructuredData,
+  serializeStructuredData,
+} from "./seo";
 
 // Liste des user-agents des bots de réseaux sociaux
 const SOCIAL_BOT_PATTERNS = [
@@ -36,8 +42,9 @@ function buildOgHtmlWithRedirect(params: {
   canonicalUrl: string;
   image: string;
   type?: string;
+  structuredData?: unknown[];
 }): string {
-  const { title, description, ogUrl, canonicalUrl, image, type = "article" } = params;
+  const { title, description, ogUrl, canonicalUrl, image, type = "article", structuredData = [] } = params;
   const escaped = (s: string) =>
     s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -63,6 +70,7 @@ function buildOgHtmlWithRedirect(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
+  ${structuredData.map((data) => `<script type="application/ld+json">${serializeStructuredData(data)}</script>`).join("\n  ")}
   <!-- Fallback JS redirect -->
   <script>window.location.replace("${escaped(canonicalUrl)}");</script>
 </head>
@@ -91,6 +99,7 @@ function buildOgHtml(params: {
   <meta charset="UTF-8" />
   <title>${escaped(title)}</title>
   <meta name="description" content="${escaped(description)}" />
+  <link rel="canonical" href="${escaped(url)}" />
   <!-- Open Graph -->
   <meta property="og:type" content="${type}" />
   <meta property="og:title" content="${escaped(title)}" />
@@ -104,6 +113,7 @@ function buildOgHtml(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
+  <script type="application/ld+json">${serializeStructuredData(buildWebsiteStructuredData())}</script>
 </head>
 <body>
   <h1>${escaped(title)}</h1>
@@ -152,10 +162,10 @@ export function ogMiddleware() {
           const description =
             editorial.excerpt ||
             editorial.content.replace(/<[^>]+>/g, "").substring(0, 200) + "...";
-          // canonicalUrl = URL lisible de l'article (pour le SEO et les humains)
-          // Utilise categorySlug si disponible, sinon fallback sur 'editorial'
+          // La route singulière est l’URL canonique historique et contractuelle des contenus natifs.
+          // Les routes de rubrique restent des accès de navigation secondaires.
           const catSlug = (editorial as any).categorySlug || 'editorial';
-          const canonicalUrl = `${origin}/${catSlug}/${slug}`;
+          const canonicalUrl = `${origin}/editorial/${slug}`;
           // ogUrl = URL canonique de l'article (Facebook doit scraper la page de l'article directement)
           const ogUrl = canonicalUrl;
           // og:image : utiliser une image CDN publique (sans signature) pour Facebook
@@ -170,12 +180,31 @@ export function ogMiddleware() {
             ? `${origin}${editorial.coverImageUrl}`
             : undefined;
           const image = PUBLIC_OG_IMAGES[slug] || coverImage || LOGO_URL;
+          const authorName = editorial.useAlias && editorial.authorAlias ? editorial.authorAlias : editorial.authorName;
+          const structuredData = [
+            buildWebsiteStructuredData(),
+            buildNewsArticleStructuredData({
+              headline: editorial.title,
+              description,
+              canonicalUrl,
+              image,
+              datePublished: editorial.publishedAt,
+              dateModified: editorial.updatedAt,
+              authorName,
+              articleSection: editorial.categoryName,
+            }),
+            buildBreadcrumbStructuredData([
+              { name: "Accueil", url: origin },
+              { name: editorial.categoryName || "Éditoriaux", url: `${origin}/${catSlug}` },
+              { name: editorial.title, url: canonicalUrl },
+            ]),
+          ];
 
           return res
             .status(200)
             .setHeader("Content-Type", "text/html; charset=utf-8")
             .setHeader("Cache-Control", "no-store, no-cache, must-revalidate")
-            .send(buildOgHtmlWithRedirect({ title, description, ogUrl, canonicalUrl, image }));
+            .send(buildOgHtmlWithRedirect({ title, description, ogUrl, canonicalUrl, image, structuredData }));
         }
       } catch (err) {
         console.error("[OG Middleware] Error fetching editorial:", err);
@@ -199,6 +228,24 @@ export function ogMiddleware() {
             article.content?.replace(/<[^>]+>/g, "").substring(0, 200) ||
             `Article sélectionné par Weurseuk depuis ${article.sourceName}.`;
           const image = article.imageUrl?.startsWith("http") ? article.imageUrl : LOGO_URL;
+          const structuredData = [
+            buildWebsiteStructuredData(),
+            buildNewsArticleStructuredData({
+              headline: article.title,
+              description,
+              canonicalUrl,
+              image,
+              datePublished: article.publishedAt,
+              dateModified: article.fetchedAt ?? article.publishedAt,
+              authorName: article.sourceName,
+              articleSection: article.region,
+            }),
+            buildBreadcrumbStructuredData([
+              { name: "Accueil", url: origin },
+              { name: "Actualité", url: `${origin}/actualite` },
+              { name: article.title, url: canonicalUrl },
+            ]),
+          ];
           return res
             .status(200)
             .setHeader("Content-Type", "text/html; charset=utf-8")
@@ -209,6 +256,7 @@ export function ogMiddleware() {
               ogUrl: canonicalUrl,
               canonicalUrl,
               image,
+              structuredData,
             }));
         }
       } catch (err) {

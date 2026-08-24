@@ -17,6 +17,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { facebookPublisherScheduledHandler } from "../facebookPublisher";
 import { facebookTokenCheckScheduledHandler } from "../facebookTokenMonitor";
 import { youtubeSyncScheduledHandler } from "../youtubeScheduled";
+import { sitemapHandler } from "../seo";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -47,6 +48,8 @@ async function startServer() {
   registerStorageProxy(app);
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  // Indexation publique : le sitemap dynamique doit être servi avant le fallback SPA.
+  app.get("/sitemap.xml", sitemapHandler);
   // Route OG dédiée sous /api/og/* — accessible en production car /api/* passe par Express
   app.use("/api/og", ogMiddleware());
   // Route /editorial/:slug — intercepte les bots sociaux et retourne les métadonnées OG
