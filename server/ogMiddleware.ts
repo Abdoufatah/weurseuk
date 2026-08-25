@@ -63,6 +63,8 @@ function buildOgHtmlWithRedirect(params: {
   <meta property="og:description" content="${escaped(description)}" />
   <meta property="og:url" content="${escaped(ogUrl)}" />
   <meta property="og:image" content="${escaped(image)}" />
+  <meta property="og:image:secure_url" content="${escaped(image)}" />
+  <meta property="og:image:alt" content="${escaped(title)}" />
   <meta property="og:site_name" content="Weurseuk" />
   <meta property="og:locale" content="fr_FR" />
   <!-- Twitter Card -->
@@ -70,6 +72,7 @@ function buildOgHtmlWithRedirect(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
+  <meta name="twitter:image:alt" content="${escaped(title)}" />
   ${structuredData.map((data) => `<script type="application/ld+json">${serializeStructuredData(data)}</script>`).join("\n  ")}
   <!-- Fallback JS redirect -->
   <script>window.location.replace("${escaped(canonicalUrl)}");</script>
@@ -106,6 +109,8 @@ function buildOgHtml(params: {
   <meta property="og:description" content="${escaped(description)}" />
   <meta property="og:url" content="${escaped(url)}" />
   <meta property="og:image" content="${escaped(image)}" />
+  <meta property="og:image:secure_url" content="${escaped(image)}" />
+  <meta property="og:image:alt" content="${escaped(title)}" />
   <meta property="og:site_name" content="Weurseuk" />
   <meta property="og:locale" content="fr_FR" />
   <!-- Twitter Card -->
@@ -113,6 +118,7 @@ function buildOgHtml(params: {
   <meta name="twitter:title" content="${escaped(title)}" />
   <meta name="twitter:description" content="${escaped(description)}" />
   <meta name="twitter:image" content="${escaped(image)}" />
+  <meta name="twitter:image:alt" content="${escaped(title)}" />
   <script type="application/ld+json">${serializeStructuredData(buildWebsiteStructuredData())}</script>
 </head>
 <body>
@@ -177,8 +183,10 @@ export function ogMiddleware() {
           // Une couverture interne est exposée via le proxy stable du portail :
           // le robot social obtient ainsi une redirection fraîche vers le CDN à chaque récupération.
           const coverImage = editorial.coverImageUrl?.startsWith('/manus-storage/')
-            ? `${origin}${editorial.coverImageUrl}`
-            : undefined;
+            ? `${origin}${editorial.coverImageUrl}?v=${editorial.updatedAt?.getTime?.() ?? editorial.publishedAt?.getTime?.() ?? "1"}`
+            : editorial.coverImageUrl?.startsWith("https://")
+              ? editorial.coverImageUrl
+              : undefined;
           const image = PUBLIC_OG_IMAGES[slug] || coverImage || LOGO_URL;
           const authorName = editorial.useAlias && editorial.authorAlias ? editorial.authorAlias : editorial.authorName;
           const structuredData = [

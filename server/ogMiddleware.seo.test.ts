@@ -76,6 +76,8 @@ describe("middleware OG — rendu SEO crawler", () => {
     const page = await renderForCrawler("/editorial/analyse-reference");
 
     expect(page.body).toContain('href="https://weurseuk.com/editorial/analyse-reference"');
+    expect(page.body).toContain('<meta property="og:image:secure_url" content="https://images.example.org/editorial.jpg" />');
+    expect(page.body).toContain('<meta property="og:image:alt" content="Une analyse de référence — Weurseuk" />');
     expect(page.body).toContain('"@type":"NewsArticle"');
     expect(page.body).toContain('"@type":"BreadcrumbList"');
     expect(page.body).toContain('"name":"Bensirac"');
@@ -96,8 +98,29 @@ describe("middleware OG — rendu SEO crawler", () => {
     const page = await renderForCrawler("/article/depeche-verifiee");
 
     expect(page.body).toContain('href="https://weurseuk.com/article/depeche-verifiee"');
+    expect(page.body).toContain('<meta property="og:image:secure_url" content="https://images.example.org/article.jpg" />');
     expect(page.body).toContain('"@type":"NewsArticle"');
     expect(page.body).toContain('"@type":"BreadcrumbList"');
     expect(page.body).toContain('"name":"Source partenaire"');
+  });
+
+  it("versionne l’image interne de couverture afin que les réseaux sociaux puissent renouveler leur cache", async () => {
+    vi.mocked(getEditorialBySlug).mockResolvedValue({
+      title: "Éditorial illustré",
+      slug: "editorial-illustre",
+      excerpt: "Un chapeau.",
+      content: "<p>Contenu</p>",
+      coverImageUrl: "/manus-storage/couverture.png",
+      categorySlug: "editoriaux",
+      categoryName: "Éditoriaux",
+      authorName: "Abdou Fatah Fall",
+      useAlias: false,
+      publishedAt: new Date("2026-08-25T10:00:00Z"),
+      updatedAt: new Date("2026-08-25T12:00:00Z"),
+    } as any);
+
+    const page = await renderForCrawler("/editorial/editorial-illustre");
+
+    expect(page.body).toContain('https://weurseuk.com/manus-storage/couverture.png?v=1787659200000');
   });
 });

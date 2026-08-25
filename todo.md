@@ -1,6 +1,10 @@
 # Weurseuk - Project TODO
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [x] Diagnostiquer et corriger l’image Open Graph du dernier éditorial pour l’aperçu Facebook
+- [ ] Vérifier les métadonnées Open Graph publiques et documenter le renouvellement du cache Facebook
+- [ ] Déployer la correction Open Graph puis confirmer sur weurseuk.com les balises `og:image:secure_url`, `og:image:alt` et l’URL versionnée de couverture
+- [ ] Renouveler explicitement le cache Facebook et confirmer que l’aperçu du lien affiche la photo au lieu du bloc gris
 - [x] Héberger la photo fournie par Fatah et l’utiliser comme illustration de couverture du dernier éditorial
 - [x] Vérifier explicitement sur l’article publié que l’illustration s’affiche correctement dans la page de lecture
 - [x] Contrôler sur weurseuk.com que la grande Une utilise bien la couverture du dernier éditorial approuvé après propagation
