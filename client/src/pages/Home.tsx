@@ -99,14 +99,14 @@ export default function Home() {
 
       {/* ===== À LA UNE — gabarit éditorial vertical de référence, juste après la vidéo ===== */}
       {featuredSynthesis && (
-        <section className="container mt-10">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded-full" />
+        <section className="container mt-12 md:mt-14">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="font-editorial text-4xl md:text-5xl font-bold text-foreground flex items-center gap-3 tracking-tight">
+              <span className="w-1.5 h-10 md:h-12 bg-primary rounded-full" />
               À la Une
             </h2>
           </div>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl ml-5 md:ml-10">
             <ArticleCard
               title={featuredSynthesis.title}
               excerpt={featuredSynthesis.excerpt}
@@ -118,6 +118,7 @@ export default function Home() {
               authorPhotoUrl={featuredSynthesis.authorPhotoUrl}
               authorRole="editor"
               articleType="editorial"
+              isFeatured
               className="border-primary/25 shadow-sm"
             />
           </div>

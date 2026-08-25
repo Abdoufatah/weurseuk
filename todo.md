@@ -2,18 +2,20 @@
 
 ## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
 - [x] Conserver la vidéo hero comme premier élément visuel après l’en-tête et le bandeau d’alerte
-- [x] Placer la présentation compacte À la Une immédiatement sous la vidéo hero
-- [x] Reproduire sans changement de forme le gabarit À la Une de référence fourni par Fatah
-- [x] Restaurer le grand titre, le filet doré et la carte éditoriale verticale ample visibles dans la capture de référence
-- [x] Repositionner la section À la Une immédiatement sous l’en-tête et le bandeau d’alerte
+- [x] Placer la présentation verticale ample À la Une immédiatement sous la vidéo hero
+- [ ] Reproduire sans changement de forme le gabarit À la Une de référence fourni par Fatah
+- [ ] Restaurer le grand titre, le filet doré et la carte éditoriale verticale ample visibles dans la capture de référence
+- [x] Ajuster l’ordre éditorial à la demande finale : bandeau d’alerte, vidéo hero, puis section À la Une
 - [x] Préserver le contenu, le gabarit et les liens de la section À la Une lors de son déplacement
-- [ ] Vérifier la hiérarchie de lecture sur ordinateur et mobile, puis publier
-- [ ] Créer un checkpoint pour le déplacement de la section À la Une au sommet de l’accueil
-- [ ] Vérifier sur weurseuk.com que la section À la Une apparaît bien immédiatement sous l’en-tête et le bandeau d’alerte, sur desktop et mobile
-- [ ] Consigner la validation publique du repositionnement avant de cocher l’item de publication
-- [ ] Régénérer et republier le bundle si weurseuk.com sert encore le visuel immersif avant la section À la Une
+- [x] Vérifier la hiérarchie de lecture sur ordinateur et mobile, puis publier
+- [x] Créer un checkpoint pour le déplacement de la section À la Une au sommet de l’accueil
+- [x] Vérifier sur weurseuk.com l’ordre publié : bandeau d’alerte, vidéo hero, puis section À la Une, sur desktop et mobile
+- [x] Consigner la validation publique du repositionnement avant de cocher l’item de publication
+- [x] Régénérer et republier le bundle si weurseuk.com sert encore le visuel immersif avant la section À la Une
 - [ ] Vérifier visuellement en développement puis sur weurseuk.com que la Une reprend exactement le gabarit de la capture de référence : titre, filet doré, proportions verticales et espacement
 - [ ] Consigner une preuve explicite de fidélité au gabarit de référence avant de cocher les items de restitution visuelle exacte
+- [ ] Créer un checkpoint après les derniers ajustements du gabarit À la Une et de son test de structure
+- [ ] Vérifier sur weurseuk.com la version finale publiée : bandeau d’alerte, vidéo hero, puis gabarit À la Une de référence
 
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux

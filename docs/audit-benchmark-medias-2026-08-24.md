@@ -131,6 +131,10 @@ Le portail respecte désormais `prefers-reduced-motion`. Lorsque cette préfére
 
 La composition finale maintient la vidéo hero en ouverture. Le bloc qui suit reprend le gabarit vertical de référence validé par Fatah : titre **« À la Une »** à forte présence typographique, filet doré vertical, espacement généreux et carte éditoriale pleine largeur à lecture verticale. Les contrôles de développement desktop et mobile confirment que la vidéo précède ce bloc sans l’écraser et que la carte conserve les proportions, la respiration et les repères visuels de la capture de référence.
 
+Le contrôle final sur `https://weurseuk.com/?release=239837db` confirme la même composition dans la version publique : après le bandeau d’alerte, la vidéo hero est première ; elle est suivie immédiatement de la Une verticale, avant les revues de presse et les autres modules.
+
+La restitution a été mesurée à partir de classes stables du composant : titre éditorial `text-4xl md:text-5xl`, filet doré vertical `w-1.5 h-10 md:h-12`, marge supérieure `mt-12 md:mt-14`, espacement titre-carte `mb-6` et retrait de la carte `ml-5 md:ml-10`. Les captures de contrôle à 1280 × 900 px et 390 × 844 px confirment visuellement la correspondance : la vidéo ouvre la page, le grand titre noir à empattements et son filet doré suivent, puis la carte éditoriale encadrée conserve une respiration verticale ample.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.
