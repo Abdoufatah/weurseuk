@@ -21,7 +21,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
-// Deployment trigger: 2026-08-25 - Propager les métadonnées Open Graph de l’éditorial illustré
+// Deployment trigger: 2026-08-25 - Propager l’identifiant Meta de l’éditorial illustré
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
