@@ -58,4 +58,12 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).toContain("editorialSlug={featuredSynthesis.slug}");
     expect(homeSource).not.toContain("featuredArticles.slice(0, 1)");
   });
+
+  it("place le bloc éditorial À la Une avant le visuel immersif de l’accueil", () => {
+    const uneIndex = homeSource.indexOf("BLOC À LA UNE — priorité éditoriale");
+    const heroIndex = homeSource.indexOf("HERO IMMERSIF");
+
+    expect(uneIndex).toBeGreaterThan(-1);
+    expect(heroIndex).toBeGreaterThan(uneIndex);
+  });
 });

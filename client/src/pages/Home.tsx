@@ -58,48 +58,9 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans-editorial">
 
-      {/* ===== HERO IMMERSIF : vidéo en boucle avec crossfade + À la Une superposés ===== */}
-      <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
-        {/* Vidéo hero en boucle avec crossfade imperceptible */}
-        <video
-          ref={heroVideoRef}
-          autoPlay={!prefersReducedMotion}
-          muted
-          loop={!prefersReducedMotion}
-          playsInline
-          poster={ASSETS.coverBanner}
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'center 15%' }}
-        >
-          <source src="/manus-storage/hero-video-crossfade-opt_b953971a.mp4" type="video/mp4" />
-          {/* Fallback image si la vidéo ne charge pas */}
-          <img
-            src={ASSETS.coverBanner}
-            alt="Weurseuk - Portail d'Information"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ objectPosition: 'center 15%' }}
-          />
-        </video>
-        {/* Dégradé léger en bas uniquement pour la transition */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-        {/* Logo Weurseuk — bas droite, bien visible */}
-        <div className="absolute bottom-4 right-0">
-          <div className="container flex justify-end">
-            <img
-              src={ASSETS.logo}
-              alt="Weurseuk"
-              className="h-20 md:h-24 w-auto drop-shadow-2xl"
-              style={{ filter: 'brightness(2.2) drop-shadow(0 2px 16px rgba(0,0,0,0.9))' }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ===== BLOC À LA UNE — aligné sur le bas du hero, sans chevauchement ===== */}
+      {/* ===== BLOC À LA UNE — priorité éditoriale, immédiatement après l’en-tête ===== */}
       {latestThree && latestThree.length > 0 && (
-        <div className="relative z-10" style={{ animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
+        <section className="relative z-10 pt-5 md:pt-6" style={{ animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
           <div className="container pb-2">
             {/* Label À la Une */}
             <div className="flex items-center justify-between mb-2.5 px-1">
@@ -168,8 +129,47 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
+        </section>
       )}
+
+      {/* ===== HERO IMMERSIF : vidéo en boucle avec crossfade + À la Une superposés ===== */}
+      <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
+        {/* Vidéo hero en boucle avec crossfade imperceptible */}
+        <video
+          ref={heroVideoRef}
+          autoPlay={!prefersReducedMotion}
+          muted
+          loop={!prefersReducedMotion}
+          playsInline
+          poster={ASSETS.coverBanner}
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'center 15%' }}
+        >
+          <source src="/manus-storage/hero-video-crossfade-opt_b953971a.mp4" type="video/mp4" />
+          {/* Fallback image si la vidéo ne charge pas */}
+          <img
+            src={ASSETS.coverBanner}
+            alt="Weurseuk - Portail d'Information"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: 'center 15%' }}
+          />
+        </video>
+        {/* Dégradé léger en bas uniquement pour la transition */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+        {/* Logo Weurseuk — bas droite, bien visible */}
+        <div className="absolute bottom-4 right-0">
+          <div className="container flex justify-end">
+            <img
+              src={ASSETS.logo}
+              alt="Weurseuk"
+              className="h-20 md:h-24 w-auto drop-shadow-2xl"
+              style={{ filter: 'brightness(2.2) drop-shadow(0 2px 16px rgba(0,0,0,0.9))' }}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Encadré JANGGI retiré de l’accueil à la demande de la direction éditoriale. */}
       {false && (

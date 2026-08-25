@@ -1,5 +1,13 @@
 # Weurseuk - Project TODO
 
+## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
+- [x] Repositionner la section À la Une immédiatement sous l’en-tête et le bandeau d’alerte
+- [x] Préserver le contenu, le gabarit et les liens de la section À la Une lors de son déplacement
+- [ ] Vérifier la hiérarchie de lecture sur ordinateur et mobile, puis publier
+- [ ] Créer un checkpoint pour le déplacement de la section À la Une au sommet de l’accueil
+- [ ] Vérifier sur weurseuk.com que la section À la Une apparaît bien immédiatement sous l’en-tête et le bandeau d’alerte, sur desktop et mobile
+- [ ] Consigner la validation publique du repositionnement avant de cocher l’item de publication
+
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux
 - [x] Auditer la hiérarchie visuelle, la lecture mobile, la recherche, l’accessibilité, la performance et les signaux de confiance
