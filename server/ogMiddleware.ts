@@ -66,6 +66,7 @@ function buildOgHtmlWithRedirect(params: {
   <meta property="og:image:secure_url" content="${escaped(image)}" />
   <meta property="og:image:alt" content="${escaped(title)}" />
   <meta property="og:site_name" content="Weurseuk" />
+  <meta property="fb:app_id" content="4458832687767856" />
   <meta property="og:locale" content="fr_FR" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />

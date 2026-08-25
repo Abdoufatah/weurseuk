@@ -2,8 +2,10 @@
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
 - [x] Diagnostiquer et corriger l’image Open Graph du dernier éditorial pour l’aperçu Facebook
+- [ ] Ajouter l’identifiant d’application Meta aux métadonnées Open Graph afin de supprimer l’alerte `fb:app_id`
+- [ ] Déployer l’identifiant Meta et confirmer dans le débogueur de partage que l’alerte `fb:app_id` a disparu
 - [ ] Vérifier les métadonnées Open Graph publiques et documenter le renouvellement du cache Facebook
-- [ ] Déployer la correction Open Graph puis confirmer sur weurseuk.com les balises `og:image:secure_url`, `og:image:alt` et l’URL versionnée de couverture
+- [x] Déployer la correction Open Graph puis confirmer sur weurseuk.com les balises `og:image:secure_url`, `og:image:alt` et l’URL versionnée de couverture
 - [ ] Renouveler explicitement le cache Facebook et confirmer que l’aperçu du lien affiche la photo au lieu du bloc gris
 - [x] Héberger la photo fournie par Fatah et l’utiliser comme illustration de couverture du dernier éditorial
 - [x] Vérifier explicitement sur l’article publié que l’illustration s’affiche correctement dans la page de lecture

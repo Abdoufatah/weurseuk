@@ -78,6 +78,7 @@ describe("middleware OG — rendu SEO crawler", () => {
     expect(page.body).toContain('href="https://weurseuk.com/editorial/analyse-reference"');
     expect(page.body).toContain('<meta property="og:image:secure_url" content="https://images.example.org/editorial.jpg" />');
     expect(page.body).toContain('<meta property="og:image:alt" content="Une analyse de référence — Weurseuk" />');
+    expect(page.body).toContain('<meta property="fb:app_id" content="4458832687767856" />');
     expect(page.body).toContain('"@type":"NewsArticle"');
     expect(page.body).toContain('"@type":"BreadcrumbList"');
     expect(page.body).toContain('"name":"Bensirac"');
