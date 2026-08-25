@@ -7,6 +7,7 @@
 - [ ] Créer un checkpoint pour le déplacement de la section À la Une au sommet de l’accueil
 - [ ] Vérifier sur weurseuk.com que la section À la Une apparaît bien immédiatement sous l’en-tête et le bandeau d’alerte, sur desktop et mobile
 - [ ] Consigner la validation publique du repositionnement avant de cocher l’item de publication
+- [ ] Régénérer et republier le bundle si weurseuk.com sert encore le visuel immersif avant la section À la Une
 
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux
