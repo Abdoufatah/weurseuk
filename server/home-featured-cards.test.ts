@@ -8,11 +8,11 @@ const homePageSource = readFileSync(
 );
 
 describe("présentation des articles À la Une", () => {
-  it("utilise une carte éditoriale compacte et douce, plutôt qu’une photo de fond", () => {
-    expect(homePageSource).toContain("cartes éditoriales douces");
-    expect(homePageSource).toContain("object-contain");
-    expect(homePageSource).toContain("rgba(255,254,249,0.98)");
-    expect(homePageSource).toContain("line-clamp-1 sm:line-clamp-2");
+  it("utilise le gabarit vertical de référence sous la vidéo, sans carte compacte", () => {
+    expect(homePageSource).toContain("gabarit éditorial vertical de référence, juste après la vidéo");
+    expect(homePageSource).toContain("max-w-3xl");
+    expect(homePageSource).toContain("className=\"border-primary/25 shadow-sm\"");
+    expect(homePageSource).not.toContain("cartes éditoriales douces");
   });
 
   it("préserve la signature d’alias dans les articles À la Une", () => {

@@ -127,6 +127,10 @@ Le contrôle public en viewport mobile réel (390 × 844 px) confirme que l’en
 
 Le portail respecte désormais `prefers-reduced-motion`. Lorsque cette préférence est active, les animations et transitions non essentielles sont neutralisées, le bandeau d’alerte ne défile plus et la vidéo d’ouverture est arrêtée au profit de son visuel de couverture. Le contrôle du CSS public confirme la présence de la règle de média et de la durée réduite d’animation ; le rendu normal n’a pas été modifié.
 
+## Contrôle de mise en œuvre — vidéo hero et gabarit À la Une
+
+La composition finale maintient la vidéo hero en ouverture. Le bloc qui suit reprend le gabarit vertical de référence validé par Fatah : titre **« À la Une »** à forte présence typographique, filet doré vertical, espacement généreux et carte éditoriale pleine largeur à lecture verticale. Les contrôles de développement desktop et mobile confirment que la vidéo précède ce bloc sans l’écraser et que la carte conserve les proportions, la respiration et les repères visuels de la capture de référence.
+
 ## Références
 
 [1] [France 24, « FRANCE 24’s app and websites get a redesign »](https://www.france24.com/en/communiqu%C3%A9-de-presse/20250117-france-24-s-app-and-websites-get-a-redesign), 17 janvier 2025.

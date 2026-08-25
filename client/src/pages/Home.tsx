@@ -58,80 +58,6 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans-editorial">
 
-      {/* ===== BLOC À LA UNE — priorité éditoriale, immédiatement après l’en-tête ===== */}
-      {latestThree && latestThree.length > 0 && (
-        <section className="relative z-10 pt-5 md:pt-6" style={{ animation: 'fadeSlideUp 0.8s ease-out 0.3s both' }}>
-          <div className="container pb-2">
-            {/* Label À la Une */}
-            <div className="flex items-center justify-between mb-2.5 px-1">
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] flex items-center gap-2" style={{ color: '#6D522B' }}>
-                <span className="w-5 h-px bg-primary inline-block" />
-                À la Une
-              </span>
-              <Link href="/editoriaux" className="text-primary text-[11px] font-semibold hover:underline underline-offset-4 flex items-center gap-1">
-                Tous les éditoriaux <ChevronRight className="w-3 h-3" />
-              </Link>
-            </div>
-            {/* 3 articles — cartes éditoriales douces, compactes et lisibles */}
-            <div className="flex flex-col gap-2.5">
-              {latestThree.map((editorial: any, index: number) => (
-                <Link key={editorial.id} href={`/${editorial.categorySlug || 'editorial'}/${editorial.slug}`} className="group block">
-                  <article
-                    className="relative flex items-stretch rounded-xl overflow-hidden transition-all duration-200 group-hover:-translate-y-0.5"
-                    style={{
-                      background: 'linear-gradient(108deg, rgba(255,254,249,0.98) 0%, rgba(252,248,239,0.98) 100%)',
-                      border: '1px solid rgba(172,130,61,0.20)',
-                      boxShadow: '0 5px 18px rgba(71, 48, 16, 0.09)',
-                    }}
-                  >
-                    <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-primary/80" aria-hidden="true" />
-                    {/* Photo de l'auteur : présence éditoriale discrète, sans effet de filigrane */}
-                    <div className="flex-shrink-0 flex items-center justify-center w-[76px] sm:w-[92px] ml-3 sm:ml-4">
-                      <div className="w-[54px] h-[54px] sm:w-[64px] sm:h-[64px] rounded-full overflow-hidden" style={{ background: '#F4EAD7', border: '1px solid rgba(184,142,70,0.42)', boxShadow: '0 3px 9px rgba(89, 62, 19, 0.12)' }}>
-                      {editorial.authorPhotoUrl ? (
-                        <img
-                          src={editorial.authorPhotoUrl}
-                          alt={editorial.authorName || 'Auteur'}
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #DEC38E 0%, #AA7D34 100%)' }} />
-                      )}
-                      </div>
-                    </div>
-                    {/* Contenu : hiérarchie éditoriale aérée et contraste doux */}
-                    <div className="flex flex-col justify-center flex-1 py-3 pr-3 sm:pr-4 min-w-0">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <span className="inline-block px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] rounded-full" style={{ background: '#E9D7AF', color: '#684A20' }}>
-                          {editorial.categoryName || 'Éditorial'}
-                          </span>
-                          <span className="text-[10px] tracking-wide" style={{ color: '#A3804C' }}>0{index + 1}</span>
-                        </div>
-                        <h3 className="font-editorial font-bold leading-snug group-hover:text-primary transition-colors text-[15px] sm:text-base line-clamp-2 mb-1" style={{ color: '#302317' }}>
-                          {editorial.title}
-                        </h3>
-                        {editorial.excerpt && (
-                          <p className="text-[11px] leading-relaxed line-clamp-1 sm:line-clamp-2" style={{ color: '#776B5C' }}>
-                            {editorial.excerpt}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between mt-2 pt-1.5" style={{ borderTop: '1px solid rgba(172,130,61,0.14)' }}>
-                        {editorial.authorName && (
-                          <span className="text-[10px] font-semibold truncate" style={{ color: '#86622F' }}>{(editorial as any).useAlias && (editorial as any).authorAlias ? (editorial as any).authorAlias : editorial.authorName}</span>
-                        )}
-                        <span className="text-[10px] font-bold group-hover:translate-x-0.5 transition-transform flex-shrink-0 ml-2 inline-flex items-center gap-0.5" style={{ color: '#9A702F' }}>Lire <span aria-hidden="true">→</span></span>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ===== HERO IMMERSIF : vidéo en boucle avec crossfade + À la Une superposés ===== */}
       <section className="relative w-full overflow-hidden" style={{ height: 'calc(100vh - 112px)', minHeight: '400px', maxHeight: '560px' }}>
         {/* Vidéo hero en boucle avec crossfade imperceptible */}
@@ -170,6 +96,33 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ===== À LA UNE — gabarit éditorial vertical de référence, juste après la vidéo ===== */}
+      {featuredSynthesis && (
+        <section className="container mt-10">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
+              <span className="w-1 h-6 bg-primary rounded-full" />
+              À la Une
+            </h2>
+          </div>
+          <div className="max-w-3xl">
+            <ArticleCard
+              title={featuredSynthesis.title}
+              excerpt={featuredSynthesis.excerpt}
+              imageUrl={(featuredSynthesis as any).coverImageUrl || (featuredSynthesis as any).imageUrl}
+              publishedAt={featuredSynthesis.publishedAt}
+              isEditorial
+              editorialSlug={featuredSynthesis.slug}
+              authorName={(featuredSynthesis as any).useAlias && (featuredSynthesis as any).authorAlias ? (featuredSynthesis as any).authorAlias : featuredSynthesis.authorName}
+              authorPhotoUrl={featuredSynthesis.authorPhotoUrl}
+              authorRole="editor"
+              articleType="editorial"
+              className="border-primary/25 shadow-sm"
+            />
+          </div>
+        </section>
+      )}
 
       {/* Encadré JANGGI retiré de l’accueil à la demande de la direction éditoriale. */}
       {false && (
@@ -550,33 +503,6 @@ export default function Home() {
       <div className="container mt-6">
         <YouTubeVideoSlot variant="horizontal" count={4} />
       </div>
-
-      {/* ===== À LA UNE — synthèse native sourcée, distincte du bloc éditorial supérieur ===== */}
-      {featuredSynthesis && (
-        <section className="container mt-10">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-editorial text-2xl font-bold text-foreground flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded-full" />
-              À la Une
-            </h2>
-          </div>
-          <div className="max-w-3xl">
-            <ArticleCard
-              title={featuredSynthesis.title}
-              excerpt={featuredSynthesis.excerpt}
-              imageUrl={(featuredSynthesis as any).coverImageUrl || (featuredSynthesis as any).imageUrl}
-              publishedAt={featuredSynthesis.publishedAt}
-              isEditorial
-              editorialSlug={featuredSynthesis.slug}
-              authorName={(featuredSynthesis as any).useAlias && (featuredSynthesis as any).authorAlias ? (featuredSynthesis as any).authorAlias : featuredSynthesis.authorName}
-              authorPhotoUrl={featuredSynthesis.authorPhotoUrl}
-              authorRole="editor"
-              articleType="editorial"
-              className="border-primary/25 shadow-sm"
-            />
-          </div>
-        </section>
-      )}
 
       {/* Main content grid */}
       <div className="container mt-10">

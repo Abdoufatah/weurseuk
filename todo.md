@@ -1,6 +1,10 @@
 # Weurseuk - Project TODO
 
 ## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
+- [x] Conserver la vidéo hero comme premier élément visuel après l’en-tête et le bandeau d’alerte
+- [x] Placer la présentation compacte À la Une immédiatement sous la vidéo hero
+- [x] Reproduire sans changement de forme le gabarit À la Une de référence fourni par Fatah
+- [x] Restaurer le grand titre, le filet doré et la carte éditoriale verticale ample visibles dans la capture de référence
 - [x] Repositionner la section À la Une immédiatement sous l’en-tête et le bandeau d’alerte
 - [x] Préserver le contenu, le gabarit et les liens de la section À la Une lors de son déplacement
 - [ ] Vérifier la hiérarchie de lecture sur ordinateur et mobile, puis publier
@@ -8,6 +12,8 @@
 - [ ] Vérifier sur weurseuk.com que la section À la Une apparaît bien immédiatement sous l’en-tête et le bandeau d’alerte, sur desktop et mobile
 - [ ] Consigner la validation publique du repositionnement avant de cocher l’item de publication
 - [ ] Régénérer et republier le bundle si weurseuk.com sert encore le visuel immersif avant la section À la Une
+- [ ] Vérifier visuellement en développement puis sur weurseuk.com que la Une reprend exactement le gabarit de la capture de référence : titre, filet doré, proportions verticales et espacement
+- [ ] Consigner une preuve explicite de fidélité au gabarit de référence avant de cocher les items de restitution visuelle exacte
 
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux
