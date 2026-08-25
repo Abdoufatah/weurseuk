@@ -24,6 +24,9 @@ function slugify(text: string): string {
     .substring(0, 200);
 }
 
+const editorialFormatSchema = z.enum(["editorial", "analysis", "synthesis", "dossier", "exclusive", "standard"]);
+const EDITORIAL_CATEGORY_ID = 30009;
+
 export const appRouter = router({
   system: systemRouter,
 
@@ -84,6 +87,9 @@ export const appRouter = router({
       // Retourne les 3 derniers contenus natifs publiés (authorId non NULL = article signé, pas une dépêche RSS)
       return db.getLatestNativeEditorials(3);
     }),
+    homepageEditorial: publicProcedure.query(async () => {
+      return db.getApprovedHomepageEditorial();
+    }),
     // Admin CRUD
     listAll: adminProcedure.input(z.object({
       limit: z.number().min(1).max(100).default(50),
@@ -98,14 +104,38 @@ export const appRouter = router({
       content: z.string().min(1),
       coverImageUrl: z.string().optional(),
       categoryId: z.number().optional(),
+      type: editorialFormatSchema.default("analysis"),
       isPublished: z.boolean().default(false),
       isFeatured: z.boolean().default(false),
+      approvalConfirmedByFatah: z.boolean().default(false),
+      signature: z.enum(["bensirac", "abdou_fatah_fall"]).optional(),
     })).mutation(async ({ ctx, input }) => {
+      if (input.isPublished && !input.approvalConfirmedByFatah) {
+        throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Arbitrage explicite de Fatah requis avant publication." });
+      }
+      if (input.isFeatured && (
+        !input.isPublished ||
+        !input.approvalConfirmedByFatah ||
+        input.type !== "editorial" ||
+        input.categoryId !== EDITORIAL_CATEGORY_ID
+      )) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "La Une est réservée à un éditorial approuvé, publié et classé dans la rubrique Éditorial.",
+        });
+      }
       const slug = slugify(input.title) + "-" + Date.now().toString(36);
+      const { approvalConfirmedByFatah, signature, ...editorialInput } = input;
+      const resolvedSignature = (await import("./editorialGovernance"))
+        .resolveDefaultEditorialSignature(input.categoryId, signature);
       await db.createEditorial({
-        ...input,
+        ...editorialInput,
         slug,
-        authorId: ctx.user.id,
+        authorId: resolvedSignature.authorId,
+        useAlias: resolvedSignature.useAlias,
+        approvalStatus: approvalConfirmedByFatah ? "approved" : "pending",
+        approvedBy: approvalConfirmedByFatah ? (ctx.user.name || "Fatah") : undefined,
+        approvedAt: approvalConfirmedByFatah ? new Date() : undefined,
         publishedAt: input.isPublished ? new Date() : undefined,
       });
       return { success: true, slug };
@@ -117,14 +147,47 @@ export const appRouter = router({
       content: z.string().optional(),
       coverImageUrl: z.string().optional(),
       categoryId: z.number().optional(),
+      type: editorialFormatSchema.optional(),
       isPublished: z.boolean().optional(),
       isFeatured: z.boolean().optional(),
+      approvalConfirmedByFatah: z.boolean().optional(),
+      signature: z.enum(["bensirac", "abdou_fatah_fall"]).optional(),
     })).mutation(async ({ input }) => {
-      const { id, ...data } = input;
+      const { id, approvalConfirmedByFatah, signature, ...data } = input;
       const existing = await db.getEditorialById(id);
       if (!existing) throw new TRPCError({ code: 'NOT_FOUND' });
+      const targetType = data.type ?? existing.type;
+      const targetCategoryId = data.categoryId ?? existing.categoryId;
       if (data.isPublished && !existing.isPublished) {
+        if (!approvalConfirmedByFatah) {
+          throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Arbitrage explicite de Fatah requis avant publication." });
+        }
         (data as any).publishedAt = new Date();
+        (data as any).approvalStatus = "approved";
+        (data as any).approvedBy = "Fatah";
+        (data as any).approvedAt = new Date();
+      }
+      if (data.isFeatured) {
+        if (
+          !approvalConfirmedByFatah ||
+          (!existing.isPublished && data.isPublished !== true) ||
+          targetType !== "editorial" ||
+          targetCategoryId !== EDITORIAL_CATEGORY_ID
+        ) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: "La Une est réservée à un éditorial approuvé, publié et classé dans la rubrique Éditorial.",
+          });
+        }
+        (data as any).approvalStatus = "approved";
+        (data as any).approvedBy = "Fatah";
+        (data as any).approvedAt = new Date();
+      }
+      if (signature) {
+        const resolvedSignature = (await import("./editorialGovernance"))
+          .resolveDefaultEditorialSignature(data.categoryId ?? existing.categoryId ?? undefined, signature);
+        (data as any).authorId = resolvedSignature.authorId;
+        (data as any).useAlias = resolvedSignature.useAlias;
       }
       if (data.title) {
         (data as any).slug = slugify(data.title) + "-" + Date.now().toString(36);
@@ -540,6 +603,8 @@ export const appRouter = router({
           content: input.content,
           slug: slugify(input.title) + "-" + Date.now(),
           isPublished: false,
+          approvalStatus: "pending",
+          type: "analysis",
           authorId: 1,
         });
         return { success: true, status: "draft", message: "Brouillon créé : arbitrage explicite requis avant publication." };

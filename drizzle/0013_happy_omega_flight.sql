@@ -1,0 +1,1 @@
+ALTER TABLE `editorials` MODIFY COLUMN `type` enum('editorial','analysis','synthesis','dossier','exclusive','standard') NOT NULL DEFAULT 'analysis';

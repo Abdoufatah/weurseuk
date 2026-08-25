@@ -167,6 +167,8 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
           authorId: AUTHOR_PROFILE_MAP[assignment.journalistId],
           isPublished: false,
           isFeatured: false,
+          approvalStatus: "pending",
+          type: "analysis",
         });
 
         articlesPublished.push({

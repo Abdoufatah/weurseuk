@@ -1,5 +1,15 @@
 # Weurseuk - Project TODO
 
+## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [x] Héberger la photo fournie par Fatah et l’utiliser comme illustration de couverture du dernier éditorial
+- [ ] Vérifier explicitement sur l’article et l’accueil publiés que l’illustration s’affiche dans l’article et la grande Une
+- [ ] Contrôler sur weurseuk.com que la grande Une utilise bien la couverture du dernier éditorial approuvé après propagation
+- [x] Extraire le texte propre du document fourni, écarter les éléments d’interface et vérifier les affirmations sensibles citées
+- [ ] Vérifier et documenter source par source les affirmations sensibles de l’éditorial publié, après autorisation explicite de Fatah
+- [ ] Consigner les limites de vérification factuelle de l’éditorial et appliquer toute correction nécessaire
+- [x] Publier l’éditorial dans la rubrique Éditorial sous la signature réelle Abdou Fatah Fall, avec validation explicite de Fatah
+- [ ] Mettre l’éditorial approuvé à la Une et vérifier la page publique
+
 ## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
 - [x] Conserver la vidéo hero comme premier élément visuel après l’en-tête et le bandeau d’alerte
 - [x] Placer la présentation verticale ample À la Une immédiatement sous la vidéo hero
@@ -23,22 +33,39 @@
 - [ ] Vérifier le flux complet de lecture sur ordinateur et mobile, puis publier
 
 ## GOUVERNANCE DES ÉDITORIAUX — ARBITRAGE PRÉALABLE (25/08/2026)
-- [ ] Suspendre toute publication automatique d’éditorial tant que le cycle d’arbitrage n’est pas configuré
-- [ ] Retirer le déclencheur biquotidien qui publie directement des contenus sans arbitrage
-- [ ] Définir une périodicité éditoriale approuvée : hebdomadaire, bimensuelle ou mensuelle
-- [ ] Prévoir une publication exceptionnelle hors calendrier lorsqu’une actualité majeure le justifie et après arbitrage de Fatah
+- [x] Suspendre toute publication automatique d’éditorial tant que le cycle d’arbitrage n’est pas configuré
+- [x] Retirer le déclencheur biquotidien qui publie directement des contenus sans arbitrage
+- [x] Définir une périodicité éditoriale approuvée : hebdomadaire, bimensuelle ou mensuelle
+- [x] Prévoir une publication exceptionnelle hors calendrier lorsqu’une actualité majeure le justifie et après arbitrage de Fatah
 - [x] Comparer les pratiques de fréquence des éditoriaux de médias de référence avant de retenir le rythme Weurseuk
-- [ ] Exiger la validation explicite de Fatah avant chaque publication d’éditorial
-- [ ] Appliquer par défaut la signature Abdou Fatah Fall ou Bensirac selon le registre, sauf instruction différente de Fatah
-- [ ] Tester et publier le nouveau cycle éditorial, puis documenter la procédure d’arbitrage
-- [ ] Comparer samedi matin et lundi matin à partir des données d’audience disponibles pour retenir le créneau hebdomadaire
-- [ ] Définir les principes de méthode, de sources, de structure et de présentation des grands dossiers bimensuels
-- [ ] Configurer le créneau approuvé : lundi à 08:30 GMT, avec arbitrage préalable obligatoire de Fatah
-- [ ] Documenter le traitement exceptionnel d’une actualité majeure hors calendrier
-- [ ] Rédiger la charte de fond et de forme des grands dossiers bimensuels
-- [ ] Transformer toute génération éditoriale automatisée en brouillon non publié, y compris en cas de déclenchement manuel
-- [ ] Empêcher l’endpoint d’intégration automatisée de publier directement un éditorial sans validation de Fatah
-- [ ] Créer un rappel hebdomadaire non publiant le lundi à 08:30 GMT et persister son identifiant de tâche
+- [x] Exiger la validation explicite de Fatah avant chaque publication d’éditorial
+- [x] Appliquer par défaut la signature Abdou Fatah Fall ou Bensirac selon le registre, sauf instruction différente de Fatah
+- [x] Tester et publier le nouveau cycle éditorial, puis documenter la procédure d’arbitrage
+- [x] Comparer samedi matin et lundi matin à partir des données d’audience disponibles pour retenir le créneau hebdomadaire
+- [x] Définir les principes de méthode, de sources, de structure et de présentation des grands dossiers bimensuels
+- [x] Configurer le créneau approuvé : lundi à 08:30 GMT, avec arbitrage préalable obligatoire de Fatah
+- [x] Documenter le traitement exceptionnel d’une actualité majeure hors calendrier
+- [x] Rédiger la charte de fond et de forme des grands dossiers bimensuels
+- [x] Transformer toute génération éditoriale automatisée en brouillon non publié, y compris en cas de déclenchement manuel
+- [x] Empêcher l’endpoint d’intégration automatisée de publier directement un éditorial sans validation de Fatah
+- [x] Créer un rappel hebdomadaire non publiant le lundi à 08:30 GMT et persister son identifiant de tâche
+- [x] Ajouter un état d’approbation éditoriale et bloquer toute publication sans validation explicite de Fatah, avec tests de non-régression
+- [ ] Implémenter et tester la signature par défaut Abdou Fatah Fall ou Bensirac selon le registre éditorial
+
+## CANONS DE L’ÉDITORIAL — SYNTHÈSE DISTINCTE (25/08/2026)
+- [x] Auditer tous les contenus publiés de la rubrique Éditorial afin d’identifier les synthèses et notes de lecture historiques
+- [x] Ajouter un format explicite (`editorial`, `analysis`, `synthesis`, `dossier`) et bloquer au CRUD toute mise à la Une d’un contenu non éditorial approuvé
+- [x] Ajouter des tests prouvant qu’une analyse ou synthèse, même publiée et récente, ne peut jamais alimenter la grande carte À la Une
+- [ ] Auditer substantiellement les douze contenus historiques de la rubrique Éditorial et consigner une qualification de format par contenu
+- [ ] Ajouter un test explicite prouvant qu’une synthèse publiée et récente ne peut ni être promue par le CRUD ni alimenter `homepageEditorial`
+- [ ] Soumettre à Fatah le traitement de l’enquête courte historique « Sénégalais au Maroc : Épisode 1 » (ID 1140001), sans modification automatique
+- [ ] Identifier et retirer de la sélection éditoriale tout contenu qui relève d’une synthèse de veille ou d’un assemblage d’articles
+- [x] Identifier et traiter l’article Felwine Sarr « La fabrique du présent », actuellement à la Une, comme exemple de contenu ne répondant pas aux canons éditoriaux
+- [x] Reclassifier l’article Felwine Sarr en analyse courte et le retirer de la grande carte À la Une, sans le dépublier
+- [x] Restreindre la sélection de la grande Une aux seuls éditoriaux publiés, approuvés et rangés dans la rubrique Éditorial
+- [ ] Définir une longueur, une thèse originale, une architecture argumentative et un seuil de sources propres à l’éditorial Weurseuk
+- [x] Rendre impossible la sélection À la Une d’une synthèse sous l’étiquette « Éditorial »
+- [x] Soumettre le traitement du contenu de Une existant et la nouvelle charte à l’arbitrage de Fatah
 
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux

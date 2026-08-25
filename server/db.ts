@@ -178,11 +178,58 @@ export async function getLatestNativeEditorials(limit = 3) {
     .limit(limit);
 }
 
+/**
+ * Retourne uniquement l’éditorial explicitement éligible à la grande carte
+ * de l’accueil. Une analyse, une synthèse, un brouillon ou un contenu rejeté
+ * ne peut pas être promu par sa seule récence.
+ */
+export async function getApprovedHomepageEditorial() {
+  const db = await getDb();
+  if (!db) return undefined;
+  const results = await db.select({
+    id: editorials.id,
+    title: editorials.title,
+    slug: editorials.slug,
+    excerpt: editorials.excerpt,
+    coverImageUrl: editorials.coverImageUrl,
+    categoryId: editorials.categoryId,
+    categoryName: categories.name,
+    categorySlug: categories.slug,
+    authorId: editorials.authorId,
+    authorName: journalistProfiles.name,
+    authorAlias: journalistProfiles.alias,
+    authorPhotoUrl: journalistProfiles.photoUrl,
+    authorRole: journalistProfiles.role,
+    type: editorials.type,
+    isPublished: editorials.isPublished,
+    publishedAt: editorials.publishedAt,
+    useAlias: editorials.useAlias,
+  })
+    .from(editorials)
+    .leftJoin(categories, eq(editorials.categoryId, categories.id))
+    .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
+    .where(and(
+      eq(editorials.isPublished, true),
+      eq(editorials.categoryId, 30009),
+      eq(editorials.type, "editorial"),
+      eq(editorials.approvalStatus, "approved"),
+    ))
+    .orderBy(desc(editorials.publishedAt))
+    .limit(1);
+  return results[0];
+}
+
 export async function getFeaturedEditorials(limit = 5) {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(editorials)
-    .where(and(eq(editorials.isPublished, true), eq(editorials.isFeatured, true)))
+    .where(and(
+      eq(editorials.isPublished, true),
+      eq(editorials.isFeatured, true),
+      eq(editorials.categoryId, 30009),
+      eq(editorials.type, "editorial"),
+      eq(editorials.approvalStatus, "approved"),
+    ))
     .orderBy(desc(editorials.publishedAt))
     .limit(limit);
 }
@@ -219,7 +266,7 @@ export async function getEditorialBySlug(slug: string) {
     .from(editorials)
     .leftJoin(journalistProfiles, eq(editorials.authorId, journalistProfiles.id))
     .leftJoin(categories, eq(editorials.categoryId, categories.id))
-    .where(eq(editorials.slug, slug))
+    .where(and(eq(editorials.slug, slug), eq(editorials.isPublished, true)))
     .limit(1);
   return result[0];
 }
@@ -273,6 +320,9 @@ export async function getEditorialsByCategory(categoryId: number) {
 export async function createEditorial(data: InsertEditorial) {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
+  if (data.isPublished && data.approvalStatus !== "approved") {
+    throw new Error("Arbitrage de Fatah requis avant toute publication éditoriale.");
+  }
   const result = await db.insert(editorials).values(data);
   return result;
 }
@@ -280,6 +330,12 @@ export async function createEditorial(data: InsertEditorial) {
 export async function updateEditorial(id: number, data: Partial<InsertEditorial>) {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
+  if (data.isPublished && data.approvalStatus !== "approved") {
+    const existing = await getEditorialById(id);
+    if (!existing?.isPublished) {
+      throw new Error("Arbitrage de Fatah requis avant toute publication éditoriale.");
+    }
+  }
   await db.update(editorials).set(data).where(eq(editorials.id, id));
 }
 

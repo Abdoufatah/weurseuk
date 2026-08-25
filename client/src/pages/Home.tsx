@@ -28,7 +28,7 @@ export default function Home() {
   const { data: categories } = trpc.categories.list.useQuery();
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
-  const { data: latestThree } = trpc.editorials.latestThree.useQuery();
+  const { data: featuredEditorial } = trpc.editorials.homepageEditorial.useQuery();
   const { data: aidaraLatest } = trpc.youtube.getAidaraLatest.useQuery();
   const { data: fabriceNguemaLatest } = trpc.youtube.getFabriceNguemaLatest.useQuery();
 
@@ -41,7 +41,6 @@ export default function Home() {
     .filter((channel): channel is (typeof TV_CHANNELS)[number] => Boolean(channel));
   const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
   const televisionColumns = [televisionPreviews.slice(0, 3), televisionPreviews.slice(3, 6)];
-  const featuredSynthesis = latestThree?.[0];
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -98,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* ===== À LA UNE — gabarit éditorial vertical de référence, juste après la vidéo ===== */}
-      {featuredSynthesis && (
+      {featuredEditorial && (
         <section className="container mt-12 md:mt-14">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-editorial text-4xl md:text-5xl font-bold text-foreground flex items-center gap-3 tracking-tight">
@@ -108,14 +107,14 @@ export default function Home() {
           </div>
           <div className="max-w-3xl ml-5 md:ml-10">
             <ArticleCard
-              title={featuredSynthesis.title}
-              excerpt={featuredSynthesis.excerpt}
-              imageUrl={(featuredSynthesis as any).coverImageUrl || (featuredSynthesis as any).imageUrl}
-              publishedAt={featuredSynthesis.publishedAt}
+              title={featuredEditorial.title}
+              excerpt={featuredEditorial.excerpt}
+              imageUrl={(featuredEditorial as any).coverImageUrl || (featuredEditorial as any).imageUrl}
+              publishedAt={featuredEditorial.publishedAt}
               isEditorial
-              editorialSlug={featuredSynthesis.slug}
-              authorName={(featuredSynthesis as any).useAlias && (featuredSynthesis as any).authorAlias ? (featuredSynthesis as any).authorAlias : featuredSynthesis.authorName}
-              authorPhotoUrl={featuredSynthesis.authorPhotoUrl}
+              editorialSlug={featuredEditorial.slug}
+              authorName={(featuredEditorial as any).useAlias && (featuredEditorial as any).authorAlias ? (featuredEditorial as any).authorAlias : featuredEditorial.authorName}
+              authorPhotoUrl={featuredEditorial.authorPhotoUrl}
               authorRole="editor"
               articleType="editorial"
               isFeatured

@@ -52,10 +52,11 @@ describe("Accueil — revues de presse compactes", () => {
     expect(trendsIndex).toBeGreaterThan(televisionIndex);
   });
 
-  it("place la synthèse Bensirac dans le gabarit À la Une de référence", () => {
-    expect(homeSource).toContain("const featuredSynthesis = latestThree?.[0]");
+  it("place seulement un éditorial approuvé dans le gabarit À la Une de référence", () => {
+    expect(homeSource).toContain("trpc.editorials.homepageEditorial.useQuery()");
     expect(homeSource).toContain("gabarit éditorial vertical de référence, juste après la vidéo");
-    expect(homeSource).toContain("editorialSlug={featuredSynthesis.slug}");
+    expect(homeSource).toContain("editorialSlug={featuredEditorial.slug}");
+    expect(homeSource).not.toContain("latestThree?.[0]");
     expect(homeSource).not.toContain("featuredArticles.slice(0, 1)");
   });
 

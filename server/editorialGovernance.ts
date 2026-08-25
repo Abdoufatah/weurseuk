@@ -4,6 +4,21 @@ import { notifyOwner } from "./_core/notification";
 import { sdk } from "./_core/sdk";
 
 export const WEEKLY_EDITORIAL_REMINDER_CRON = "0 30 8 * * 1";
+export const ABDOU_FATAH_FALL_AUTHOR_ID = 30001;
+
+export type EditorialSignature = "bensirac" | "abdou_fatah_fall";
+
+export function resolveDefaultEditorialSignature(
+  categoryId: number | undefined,
+  requestedSignature?: EditorialSignature,
+) {
+  const signature = requestedSignature ?? (categoryId === 30009 ? "bensirac" : "abdou_fatah_fall");
+  return {
+    authorId: ABDOU_FATAH_FALL_AUTHOR_ID,
+    useAlias: signature === "bensirac",
+    signature,
+  };
+}
 
 /**
  * This reminder is deliberately non-generative and non-publishing. It asks
