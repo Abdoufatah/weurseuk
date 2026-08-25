@@ -2,13 +2,13 @@
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
 - [x] Héberger la photo fournie par Fatah et l’utiliser comme illustration de couverture du dernier éditorial
-- [ ] Vérifier explicitement sur l’article et l’accueil publiés que l’illustration s’affiche dans l’article et la grande Une
-- [ ] Contrôler sur weurseuk.com que la grande Une utilise bien la couverture du dernier éditorial approuvé après propagation
+- [x] Vérifier explicitement sur l’article publié que l’illustration s’affiche correctement dans la page de lecture
+- [x] Contrôler sur weurseuk.com que la grande Une utilise bien la couverture du dernier éditorial approuvé après propagation
 - [x] Extraire le texte propre du document fourni, écarter les éléments d’interface et vérifier les affirmations sensibles citées
 - [ ] Vérifier et documenter source par source les affirmations sensibles de l’éditorial publié, après autorisation explicite de Fatah
 - [ ] Consigner les limites de vérification factuelle de l’éditorial et appliquer toute correction nécessaire
 - [x] Publier l’éditorial dans la rubrique Éditorial sous la signature réelle Abdou Fatah Fall, avec validation explicite de Fatah
-- [ ] Mettre l’éditorial approuvé à la Une et vérifier la page publique
+- [x] Mettre l’éditorial approuvé à la Une et vérifier la page publique
 
 ## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
 - [x] Conserver la vidéo hero comme premier élément visuel après l’en-tête et le bandeau d’alerte
