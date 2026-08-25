@@ -556,6 +556,8 @@
 - [x] Exécuter un contrôle immédiat de lecture seule afin d’actualiser le statut opérationnel du nouveau jeton
 - [x] Réactiver uniquement les dix publications Facebook échouées les plus récentes du 24 août 2026 après confirmation explicite
 - [x] Vérifier les résultats idempotents de cette reprise sans toucher au stock ancien d’échecs
+- [x] Vérifier en lecture seule le jeton Facebook mis à jour après la reprise de publication du 24 août 2026
+- [x] Confirmer que la surveillance et la file Facebook restent opérationnelles avec le jeton mis à jour
 
 ## CONFIGURATION UTILISATEUR SYSTÈME META (20/08/2026)
 - [ ] Guider la création d’un utilisateur système Meta, l’attribution de la page et de l’application, puis générer un jeton de publication durable
