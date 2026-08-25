@@ -79,6 +79,24 @@ export const facebookPublisherSettings = mysqlTable("facebook_publisher_settings
 export type FacebookPublisherSettings = typeof facebookPublisherSettings.$inferSelect;
 
 /**
+ * Single configuration row for the editorial cadence. The schedule is only a
+ * reminder to arbitrate; it never creates or publishes an editorial.
+ */
+export const editorialGovernanceSettings = mysqlTable("editorial_governance_settings", {
+  id: int("id").primaryKey(),
+  weeklyReminderTaskUid: varchar("weeklyReminderTaskUid", { length: 65 }),
+  weeklyCron: varchar("weeklyCron", { length: 64 }).default("0 30 8 * * 1").notNull(),
+  automaticPublicationSuspended: boolean("automaticPublicationSuspended").default(true).notNull(),
+  exceptionalPublicationRequiresApproval: boolean("exceptionalPublicationRequiresApproval").default(true).notNull(),
+  defaultSignaturePolicy: varchar("defaultSignaturePolicy", { length: 120 }).default("Abdou Fatah Fall ou Bensirac").notNull(),
+  lastReminderAt: timestamp("lastReminderAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [index("editorial_governance_settings_task_uid_idx").on(table.weeklyReminderTaskUid)]);
+
+export type EditorialGovernanceSettings = typeof editorialGovernanceSettings.$inferSelect;
+
+/**
  * Persistent, idempotent outbox for editorial Facebook posts.
  */
 export const facebookPublicationJobs = mysqlTable("facebook_publication_jobs", {

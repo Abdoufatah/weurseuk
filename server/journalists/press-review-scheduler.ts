@@ -1,34 +1,20 @@
 /**
  * Press Review Scheduler v2.2
- * Exécute les sessions de revue de presse à 07h30 et 14h30 GMT
- * Les articles sont directement publiés en base de données
+ * Les anciens déclenchements automatiques sont suspendus.
+ * Toute parution éditoriale relève désormais d’un arbitrage explicite.
  */
 
 import { generateAndPublishPressReview, PressReviewSession } from "./admin-agent";
-import { schedule } from "node-cron";
 
 // Historique des sessions en mémoire
 const sessions: Map<string, PressReviewSession> = new Map();
 
 /**
- * Initialise le scheduler biquotidien
+ * Conserve le point d’initialisation sans planifier de publication.
+ * La périodicité sera rétablie uniquement après choix et arbitrage de Fatah.
  */
 export function initializePressReviewScheduler() {
-  console.log("[PressReviewScheduler] Initialisation du scheduler v2.2");
-
-  // 07h30 GMT
-  schedule("30 7 * * *", async () => {
-    console.log("[PressReviewScheduler] Session matinale (07:30 GMT)");
-    await runPressReviewSession();
-  }, { timezone: "UTC" });
-
-  // 14h30 GMT
-  schedule("30 14 * * *", async () => {
-    console.log("[PressReviewScheduler] Session après-midi (14:30 GMT)");
-    await runPressReviewSession();
-  }, { timezone: "UTC" });
-
-  console.log("[PressReviewScheduler] ✅ Scheduler v2.2 actif (07h30 et 14h30 GMT)");
+  console.log("[PressReviewScheduler] Publication automatique suspendue : arbitrage éditorial requis");
 }
 
 /**
@@ -39,8 +25,8 @@ async function runPressReviewSession() {
     const session = await generateAndPublishPressReview();
     sessions.set(session.sessionId, session);
 
-    if (session.status === "published") {
-      console.log(`[PressReviewScheduler] ✅ ${session.articlesPublished.length} articles publiés`);
+    if (session.status === "drafted") {
+      console.log(`[PressReviewScheduler] ✅ ${session.articlesPublished.length} brouillons créés, arbitrage requis`);
     } else {
       console.log(`[PressReviewScheduler] ⚠️ Session échouée: ${session.incidents.join(", ")}`);
     }
@@ -62,6 +48,5 @@ export async function validateAndPublish(id: string, _ids: number[]) {
   console.log(`[Scheduler] Session ${id} déjà publiée automatiquement`);
 }
 export async function runNow() {
-  console.log("[PressReviewScheduler] Exécution manuelle");
-  await runPressReviewSession();
+  throw new Error("Publication éditoriale suspendue : arbitrage explicite de Fatah requis");
 }

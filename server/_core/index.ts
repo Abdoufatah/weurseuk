@@ -16,6 +16,7 @@ import { ogMiddleware } from "../ogMiddleware";
 import { registerStorageProxy } from "./storageProxy";
 import { facebookPublisherScheduledHandler } from "../facebookPublisher";
 import { facebookTokenCheckScheduledHandler } from "../facebookTokenMonitor";
+import { editorialArbitrationReminderScheduledHandler } from "../editorialGovernance";
 import { youtubeSyncScheduledHandler } from "../youtubeScheduled";
 import { sitemapHandler } from "../seo";
 
@@ -59,6 +60,8 @@ async function startServer() {
   app.post("/api/scheduled/facebook-publisher", facebookPublisherScheduledHandler);
   // Contrôle Facebook de lecture seule : surveille le jeton, sans publier de contenu.
   app.post("/api/scheduled/facebook-token-check", facebookTokenCheckScheduledHandler);
+  // Rappel éditorial : demande un arbitrage, sans générer ni publier de contenu.
+  app.post("/api/scheduled/editorial-arbitration-reminder", editorialArbitrationReminderScheduledHandler);
   // Synchronisation YouTube durable : réservée à la tâche périodique enregistrée.
   app.post("/api/scheduled/youtube-sync", youtubeSyncScheduledHandler);
   // tRPC API

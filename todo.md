@@ -17,6 +17,29 @@
 - [ ] Créer un checkpoint après les derniers ajustements du gabarit À la Une et de son test de structure
 - [ ] Vérifier sur weurseuk.com la version finale publiée : bandeau d’alerte, vidéo hero, puis gabarit À la Une de référence
 
+## CONTINUITÉ ÉDITORIALE APRÈS LA UNE (25/08/2026)
+- [ ] Diagnostiquer si les articles suivant la Une sont masqués, déplacés ou retirés de l’accueil
+- [ ] Restaurer les articles et modules éditoriaux devant suivre la Une, sans modifier la vidéo ni la carte À la Une
+- [ ] Vérifier le flux complet de lecture sur ordinateur et mobile, puis publier
+
+## GOUVERNANCE DES ÉDITORIAUX — ARBITRAGE PRÉALABLE (25/08/2026)
+- [ ] Suspendre toute publication automatique d’éditorial tant que le cycle d’arbitrage n’est pas configuré
+- [ ] Retirer le déclencheur biquotidien qui publie directement des contenus sans arbitrage
+- [ ] Définir une périodicité éditoriale approuvée : hebdomadaire, bimensuelle ou mensuelle
+- [ ] Prévoir une publication exceptionnelle hors calendrier lorsqu’une actualité majeure le justifie et après arbitrage de Fatah
+- [x] Comparer les pratiques de fréquence des éditoriaux de médias de référence avant de retenir le rythme Weurseuk
+- [ ] Exiger la validation explicite de Fatah avant chaque publication d’éditorial
+- [ ] Appliquer par défaut la signature Abdou Fatah Fall ou Bensirac selon le registre, sauf instruction différente de Fatah
+- [ ] Tester et publier le nouveau cycle éditorial, puis documenter la procédure d’arbitrage
+- [ ] Comparer samedi matin et lundi matin à partir des données d’audience disponibles pour retenir le créneau hebdomadaire
+- [ ] Définir les principes de méthode, de sources, de structure et de présentation des grands dossiers bimensuels
+- [ ] Configurer le créneau approuvé : lundi à 08:30 GMT, avec arbitrage préalable obligatoire de Fatah
+- [ ] Documenter le traitement exceptionnel d’une actualité majeure hors calendrier
+- [ ] Rédiger la charte de fond et de forme des grands dossiers bimensuels
+- [ ] Transformer toute génération éditoriale automatisée en brouillon non publié, y compris en cas de déclenchement manuel
+- [ ] Empêcher l’endpoint d’intégration automatisée de publier directement un éditorial sans validation de Fatah
+- [ ] Créer un rappel hebdomadaire non publiant le lundi à 08:30 GMT et persister son identifiant de tâche
+
 ## AUDIT INTERNATIONAL — GRAPHISME ET FONDATIONS TECHNIQUES (24/08/2026)
 - [x] Comparer l’expérience de Weurseuk aux pratiques actuelles de grands portails d’information internationaux
 - [x] Auditer la hiérarchie visuelle, la lecture mobile, la recherche, l’accessibilité, la performance et les signaux de confiance

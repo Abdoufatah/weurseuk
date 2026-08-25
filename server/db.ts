@@ -13,6 +13,7 @@ import {
   comments, InsertComment,
   facebookPublisherSettings,
   facebookPublicationJobs,
+  editorialGovernanceSettings,
   youtubeSyncSettings,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -326,6 +327,30 @@ export async function updateYoutubeSyncSettings(data: Partial<typeof youtubeSync
   if (!db) throw new Error("DB not available");
   await getYoutubeSyncSettings();
   await db.update(youtubeSyncSettings).set(data).where(eq(youtubeSyncSettings.id, 1));
+}
+
+// ==================== EDITORIAL GOVERNANCE ====================
+
+export async function getEditorialGovernanceSettings() {
+  const db = await getDb();
+  if (!db) return undefined;
+  const existing = await db.select().from(editorialGovernanceSettings)
+    .where(eq(editorialGovernanceSettings.id, 1)).limit(1);
+  if (existing[0]) return existing[0];
+  await db.insert(editorialGovernanceSettings).values({ id: 1 });
+  const created = await db.select().from(editorialGovernanceSettings)
+    .where(eq(editorialGovernanceSettings.id, 1)).limit(1);
+  return created[0];
+}
+
+export async function updateEditorialGovernanceSettings(
+  data: Partial<typeof editorialGovernanceSettings.$inferInsert>,
+) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  await getEditorialGovernanceSettings();
+  await db.update(editorialGovernanceSettings).set(data)
+    .where(eq(editorialGovernanceSettings.id, 1));
 }
 
 export async function enqueueEligibleFacebookEditorials() {

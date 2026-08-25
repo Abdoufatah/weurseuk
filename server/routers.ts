@@ -539,11 +539,10 @@ export const appRouter = router({
           title: input.title,
           content: input.content,
           slug: slugify(input.title) + "-" + Date.now(),
-          isPublished: true,
+          isPublished: false,
           authorId: 1,
-          publishedAt: new Date(),
         });
-        return { success: true };
+        return { success: true, status: "draft", message: "Brouillon créé : arbitrage explicite requis avant publication." };
       }),
   }),
 });

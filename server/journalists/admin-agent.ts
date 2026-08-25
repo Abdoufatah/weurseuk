@@ -1,6 +1,7 @@
 /**
  * Admin Agent v2.2 - Orchestre la revue de presse biquotidienne
- * Génère des articles via les 5 journalistes IA et les PUBLIE en base de données
+ * Génère des brouillons via les 5 journalistes IA. Toute parution reste soumise
+ * à l’arbitrage explicite de Fatah.
  */
 
 import { invokeJournalistWithFallback } from "./service";
@@ -37,7 +38,7 @@ export interface PublishedArticle {
 export interface PressReviewSession {
   sessionId: string;
   dateTimeGmt: string;
-  status: "generating" | "published" | "failed";
+  status: "generating" | "drafted" | "failed";
   articlesPublished: PublishedArticle[];
   incidents: string[];
   publishedAt?: string;
@@ -54,7 +55,7 @@ function slugify(text: string): string {
 }
 
 /**
- * Génère et PUBLIE une session de revue de presse
+ * Génère une session de brouillons. Cette fonction ne publie aucun contenu.
  */
 export async function generateAndPublishPressReview(): Promise<PressReviewSession> {
   const sessionId = `session-${Date.now()}`;
@@ -108,7 +109,7 @@ export async function generateAndPublishPressReview(): Promise<PressReviewSessio
       return { sessionId, dateTimeGmt, status: "failed", articlesPublished, incidents };
     }
 
-    // Step 2: Invoquer chaque journaliste et publier en DB
+    // Step 2: Invoquer chaque journaliste et créer des brouillons en DB
     const assignments = [
       { key: "actualites", journalistId: "fatou_ndiaye", rubrique: "Actualité" },
       { key: "politique", journalistId: "birama_diop", rubrique: "Politique & Économie" },
@@ -156,7 +157,7 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
 
         const excerpt = article.N1_breve || (content.substring(0, 200) + "...");
 
-        // PUBLIER EN BASE DE DONNÉES
+        // Enregistrer uniquement comme brouillon en attente d’arbitrage.
         await db.createEditorial({
           title,
           slug,
@@ -164,9 +165,8 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
           content,
           categoryId,
           authorId: AUTHOR_PROFILE_MAP[assignment.journalistId],
-          isPublished: true,
+          isPublished: false,
           isFeatured: false,
-          publishedAt: new Date(),
         });
 
         articlesPublished.push({
@@ -178,7 +178,7 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
           categoryId,
         });
 
-        console.log(`[AdminAgent] ✅ Article publié: "${title}" par ${journalistName} dans ${assignment.rubrique}`);
+        console.log(`[AdminAgent] ✅ Brouillon créé: "${title}" par ${journalistName} dans ${assignment.rubrique}`);
 
       } catch (err) {
         const errMsg = err instanceof Error ? err.message : String(err);
@@ -187,8 +187,8 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
       }
     }
 
-    const status = articlesPublished.length > 0 ? "published" : "failed";
-    console.log(`[AdminAgent] === FIN SESSION ${sessionId}: ${articlesPublished.length} articles publiés, ${incidents.length} incidents ===`);
+    const status = articlesPublished.length > 0 ? "drafted" : "failed";
+    console.log(`[AdminAgent] === FIN SESSION ${sessionId}: ${articlesPublished.length} brouillons créés, ${incidents.length} incidents ===`);
 
     return {
       sessionId,
@@ -196,7 +196,7 @@ Sources: ${(article.sources || topicData.sources || []).join(", ")}`;
       status,
       articlesPublished,
       incidents,
-      publishedAt: status === "published" ? new Date().toISOString() : undefined,
+      publishedAt: undefined,
     };
 
   } catch (error) {
