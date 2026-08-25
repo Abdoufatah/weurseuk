@@ -21,7 +21,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
-// Deployment trigger: 2026-08-25 - Propager la Une au sommet de l’accueil
+// Deployment trigger: 2026-08-25 - Propager la vidéo suivie de la Une de référence
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
