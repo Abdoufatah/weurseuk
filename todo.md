@@ -1,8 +1,12 @@
 # Weurseuk - Project TODO
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [x] Réduire la taille de la photo d’illustration dans la carte À la Une sans modifier la vidéo hero ni la hiérarchie de la carte
+- [x] Vérifier les proportions de la carte À la Une ajustée sur ordinateur et mobile, puis publier
+- [ ] Déployer la réduction de la photo de la carte À la Une et vérifier son rendu sur weurseuk.com, sur ordinateur et mobile
+- [ ] Confirmer publiquement que la vidéo hero et la hiérarchie de la carte À la Une restent intactes après propagation
 - [x] Diagnostiquer et corriger l’image Open Graph du dernier éditorial pour l’aperçu Facebook
-- [ ] Ajouter l’identifiant d’application Meta aux métadonnées Open Graph afin de supprimer l’alerte `fb:app_id`
+- [x] Ajouter l’identifiant d’application Meta aux métadonnées Open Graph afin de supprimer l’alerte `fb:app_id`
 - [ ] Déployer l’identifiant Meta et confirmer dans le débogueur de partage que l’alerte `fb:app_id` a disparu
 - [ ] Vérifier les métadonnées Open Graph publiques et documenter le renouvellement du cache Facebook
 - [x] Déployer la correction Open Graph puis confirmer sur weurseuk.com les balises `og:image:secure_url`, `og:image:alt` et l’URL versionnée de couverture

@@ -83,7 +83,7 @@ export default function ArticleCard({
         <div
           className={`relative overflow-hidden ${
             isFeatured
-              ? "aspect-[16/9] md:aspect-auto md:w-2/5 md:min-h-[280px]"
+              ? "aspect-[2/1] md:aspect-auto md:w-[30%] md:min-h-[220px]"
               : "aspect-[16/9]"
           }`}
         >
@@ -139,7 +139,7 @@ export default function ArticleCard({
         </div>
       )}
 
-      <div className={`p-4 ${isFeatured ? "md:w-3/5 md:p-6" : ""}`}>
+      <div className={`p-4 ${isFeatured ? "md:w-[70%] md:p-6" : ""}`}>
         <div className="flex items-center gap-2 mb-2">
           {regionLabel && (
             <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-accent px-2 py-0.5 rounded">
