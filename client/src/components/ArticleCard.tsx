@@ -83,7 +83,7 @@ export default function ArticleCard({
         <div
           className={`relative overflow-hidden ${
             isFeatured
-              ? "aspect-[2/1] md:aspect-auto md:w-[30%] md:min-h-[220px]"
+              ? "h-32 md:h-auto md:w-[22%] md:min-h-[200px]"
               : "aspect-[16/9]"
           }`}
         >
@@ -93,7 +93,7 @@ export default function ArticleCard({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className={`w-full h-full ${isFeatured ? "object-contain bg-muted/30" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
           />
 
           {/* Overlay auteur au survol — uniquement articles natifs avec image thématique */}
@@ -139,7 +139,7 @@ export default function ArticleCard({
         </div>
       )}
 
-      <div className={`p-4 ${isFeatured ? "md:w-[70%] md:p-6" : ""}`}>
+      <div className={`p-4 ${isFeatured ? "md:w-[78%] md:p-6" : ""}`}>
         <div className="flex items-center gap-2 mb-2">
           {regionLabel && (
             <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-accent px-2 py-0.5 rounded">

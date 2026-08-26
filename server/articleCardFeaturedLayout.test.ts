@@ -9,8 +9,8 @@ const articleCardSource = readFileSync(
 
 describe("carte À la Une — illustration", () => {
   it("réserve une place réduite à la couverture sur ordinateur tout en conservant une carte lisible", () => {
-    expect(articleCardSource).toContain('aspect-[2/1] md:aspect-auto');
-    expect(articleCardSource).toContain('md:w-[30%] md:min-h-[220px]');
-    expect(articleCardSource).toContain('md:w-[70%] md:p-6');
+    expect(articleCardSource).toContain('h-32 md:h-auto md:w-[22%] md:min-h-[200px]');
+    expect(articleCardSource).toContain('object-contain bg-muted/30');
+    expect(articleCardSource).toContain('md:w-[78%] md:p-6');
   });
 });
