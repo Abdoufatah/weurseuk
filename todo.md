@@ -25,7 +25,7 @@
 ## HIÉRARCHIE ÉDITORIALE — À LA UNE AU SOMMET (25/08/2026)
 - [x] Réintroduire immédiatement sous la grande carte À la Une une rangée de trois articles récents, sans modifier la vidéo hero
 - [x] Équilibrer les trois cartes de continuité éditoriale avec la grande Une et vérifier leur lisibilité sur ordinateur et mobile
-- [ ] Publier la rangée de trois articles récents et confirmer sur weurseuk.com que la vidéo hero, la grande Une et la continuité éditoriale se succèdent correctement
+- [x] Publier la rangée de trois articles récents et confirmer sur weurseuk.com que la vidéo hero, la grande Une et la continuité éditoriale se succèdent correctement
 - [x] Conserver la vidéo hero comme premier élément visuel après l’en-tête et le bandeau d’alerte
 - [x] Placer la présentation verticale ample À la Une immédiatement sous la vidéo hero
 - [ ] Reproduire sans changement de forme le gabarit À la Une de référence fourni par Fatah
