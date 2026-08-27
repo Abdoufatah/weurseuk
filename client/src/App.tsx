@@ -21,7 +21,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
-// Deployment trigger: 2026-08-27 - Propager la continuité de trois articles sous la grande Une
+// Deployment trigger: 2026-08-27 - Propager les quatre encarts exclusivement réservés à la rédaction
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
