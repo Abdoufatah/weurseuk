@@ -1,18 +1,23 @@
 # Weurseuk - Project TODO
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [ ] Vérifier les références et les formulations sensibles de l’éditorial « Sortir de l’alternative Sonko-Bassirou » fourni par Fatah
+- [x] Vérifier l’enregistrement de la note de provenance, d’auteur, de licence et d’attribution de l’illustration de « Sortir de l’alternative Sonko-Bassirou »
+- [x] Publier « Sortir de l’alternative Sonko-Bassirou » sous la signature réelle Abdou Fatah Fall, avec arbitrage explicite de Fatah
+- [x] Vérifier sur weurseuk.com la page publiée, sa mise à la Une et son aperçu Open Graph
 - [x] Réduire la taille de la photo d’illustration dans la carte À la Une sans modifier la vidéo hero ni la hiérarchie de la carte
 - [x] Vérifier les proportions de la carte À la Une ajustée sur ordinateur et mobile, puis publier
 - [x] Réduire de façon nettement perceptible la photo de la carte À la Une sans diminuer le titre ni le chapeau
-- [ ] Faire confirmer par Fatah la nouvelle proportion visible de la photo après publication
-- [ ] Déployer la réduction de la photo de la carte À la Une et vérifier son rendu sur weurseuk.com, sur ordinateur et mobile
-- [ ] Confirmer publiquement que la vidéo hero et la hiérarchie de la carte À la Une restent intactes après propagation
+- [x] Faire confirmer par Fatah la nouvelle proportion visible de la photo après publication
+- [ ] Vérifier sur weurseuk.com en vue ordinateur que la réduction renforcée de la photo de la carte À la Une est visible, puis consigner la preuve
+- [ ] Vérifier sur weurseuk.com en vue mobile que la réduction renforcée de la photo de la carte À la Une est visible, puis consigner la preuve
+- [x] Confirmer publiquement que la vidéo hero et la hiérarchie de la carte À la Une restent intactes après propagation
 - [x] Diagnostiquer et corriger l’image Open Graph du dernier éditorial pour l’aperçu Facebook
 - [x] Ajouter l’identifiant d’application Meta aux métadonnées Open Graph afin de supprimer l’alerte `fb:app_id`
 - [ ] Déployer l’identifiant Meta et confirmer dans le débogueur de partage que l’alerte `fb:app_id` a disparu
-- [ ] Vérifier les métadonnées Open Graph publiques et documenter le renouvellement du cache Facebook
+- [x] Vérifier les métadonnées Open Graph publiques et documenter le renouvellement du cache Facebook
 - [x] Déployer la correction Open Graph puis confirmer sur weurseuk.com les balises `og:image:secure_url`, `og:image:alt` et l’URL versionnée de couverture
-- [ ] Renouveler explicitement le cache Facebook et confirmer que l’aperçu du lien affiche la photo au lieu du bloc gris
+- [x] Renouveler explicitement le cache Facebook et confirmer que l’aperçu du lien affiche la photo au lieu du bloc gris
 - [x] Héberger la photo fournie par Fatah et l’utiliser comme illustration de couverture du dernier éditorial
 - [x] Vérifier explicitement sur l’article publié que l’illustration s’affiche correctement dans la page de lecture
 - [x] Contrôler sur weurseuk.com que la grande Une utilise bien la couverture du dernier éditorial approuvé après propagation
@@ -47,9 +52,9 @@
 - [ ] Vérifier sur weurseuk.com la version finale publiée : bandeau d’alerte, vidéo hero, puis gabarit À la Une de référence
 
 ## CONTINUITÉ ÉDITORIALE APRÈS LA UNE (25/08/2026)
-- [ ] Diagnostiquer si les articles suivant la Une sont masqués, déplacés ou retirés de l’accueil
-- [ ] Restaurer les articles et modules éditoriaux devant suivre la Une, sans modifier la vidéo ni la carte À la Une
-- [ ] Vérifier le flux complet de lecture sur ordinateur et mobile, puis publier
+- [x] Diagnostiquer si les articles suivant la Une sont masqués, déplacés ou retirés de l’accueil
+- [x] Restaurer les articles et modules éditoriaux devant suivre la Une, sans modifier la vidéo ni la carte À la Une
+- [x] Vérifier le flux complet de lecture sur ordinateur et mobile, puis publier
 
 ## GOUVERNANCE DES ÉDITORIAUX — ARBITRAGE PRÉALABLE (25/08/2026)
 - [x] Suspendre toute publication automatique d’éditorial tant que le cycle d’arbitrage n’est pas configuré
