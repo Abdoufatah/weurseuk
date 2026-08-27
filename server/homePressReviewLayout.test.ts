@@ -60,6 +60,18 @@ describe("Accueil — revues de presse compactes", () => {
     expect(homeSource).not.toContain("featuredArticles.slice(0, 1)");
   });
 
+  it("rétablit trois lectures récentes immédiatement après la grande Une", () => {
+    const uneIndex = homeSource.indexOf("gabarit éditorial vertical de référence, juste après la vidéo");
+    const continuityIndex = homeSource.indexOf("CONTINUITÉ ÉDITORIALE — trois lectures récentes après la grande Une");
+    const reviewIndex = homeSource.indexOf("REVUES DE PRESSE QUOTIDIENNES — FORMAT COMPACT");
+
+    expect(homeSource).toContain("trpc.editorials.latestThree.useQuery()");
+    expect(homeSource).toContain("À lire aussi");
+    expect(homeSource).toContain("grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3");
+    expect(continuityIndex).toBeGreaterThan(uneIndex);
+    expect(reviewIndex).toBeGreaterThan(continuityIndex);
+  });
+
   it("conserve le visuel immersif avant le gabarit À la Une de référence", () => {
     const uneIndex = homeSource.indexOf("gabarit éditorial vertical de référence, juste après la vidéo");
     const heroIndex = homeSource.indexOf("HERO IMMERSIF");

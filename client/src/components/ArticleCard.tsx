@@ -242,7 +242,7 @@ export default function ArticleCard({
     return <Link href={`/editorial/${editorialSlug}`}>{content}</Link>;
   }
 
-  if (isInternalArticle && sourceUrl && sourceUrl.startsWith("/article/")) {
+  if (isInternalArticle && sourceUrl && sourceUrl.startsWith("/")) {
     return <Link href={sourceUrl}>{content}</Link>;
   }
 

@@ -29,6 +29,7 @@ export default function Home() {
   const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
   const { data: featuredEditorial } = trpc.editorials.homepageEditorial.useQuery();
+  const { data: latestNative } = trpc.editorials.latestThree.useQuery();
   const { data: aidaraLatest } = trpc.youtube.getAidaraLatest.useQuery();
   const { data: fabriceNguemaLatest } = trpc.youtube.getFabriceNguemaLatest.useQuery();
 
@@ -41,6 +42,10 @@ export default function Home() {
     .filter((channel): channel is (typeof TV_CHANNELS)[number] => Boolean(channel));
   const otherTelevisionChannels = TV_CHANNELS.filter((channel) => !televisionPreviews.some((preview) => preview.id === channel.id));
   const televisionColumns = [televisionPreviews.slice(0, 3), televisionPreviews.slice(3, 6)];
+  const nativeContinuity = (latestNative ?? [])
+    .filter((content) => content.id !== featuredEditorial?.id)
+    .slice(0, 3);
+  const dispatchContinuity = (articles ?? []).slice(0, Math.max(0, 3 - nativeContinuity.length));
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -120,6 +125,49 @@ export default function Home() {
               isFeatured
               className="border-primary/25 shadow-sm"
             />
+          </div>
+        </section>
+      )}
+
+      {/* ===== CONTINUITÉ ÉDITORIALE — trois lectures récentes après la grande Une ===== */}
+      {(nativeContinuity.length > 0 || dispatchContinuity.length > 0) && (
+        <section className="container mt-5 md:mt-6" aria-labelledby="continuite-editoriale">
+          <div className="max-w-6xl ml-0 md:ml-10">
+            <div className="mb-3 flex items-center gap-2 border-b border-primary/15 pb-2">
+              <span className="h-4 w-1 rounded-full bg-primary" />
+              <h2 id="continuite-editoriale" className="font-editorial text-base font-bold text-foreground">À lire aussi</h2>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Articles récents</span>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {nativeContinuity.map((content) => (
+                <ArticleCard
+                  key={`native-${content.id}`}
+                  title={content.title}
+                  excerpt={content.excerpt}
+                  imageUrl={(content as any).coverImageUrl || (content as any).imageUrl}
+                  sourceUrl={`/editorial/${content.slug}`}
+                  isInternalArticle
+                  publishedAt={content.publishedAt}
+                  isEditorial={content.type === "editorial"}
+                  editorialSlug={content.type === "editorial" ? content.slug : undefined}
+                  authorName={(content as any).useAlias && (content as any).authorAlias ? (content as any).authorAlias : content.authorName}
+                  authorPhotoUrl={content.authorPhotoUrl}
+                  authorRole={content.type === "editorial" ? "editor" : "analyst"}
+                />
+              ))}
+              {dispatchContinuity.map((article) => (
+                <ArticleCard
+                  key={`dispatch-${article.id}`}
+                  title={article.title}
+                  excerpt={article.excerpt}
+                  imageUrl={article.imageUrl}
+                  sourceUrl={article.sourceUrl}
+                  sourceName={article.sourceName}
+                  region={article.region}
+                  publishedAt={article.publishedAt}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}
