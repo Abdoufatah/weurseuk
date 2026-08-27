@@ -26,7 +26,7 @@
 - [x] Réserver les quatre encarts supérieurs — grande Une et trois lectures associées — aux seules productions de la rédaction Weurseuk
 - [x] Retirer toute dépêche ou source externe de la rangée « À lire aussi », sans affecter les modules d’actualité situés plus bas
 - [x] Garantir par test que les trois encarts secondaires sont exclusivement alimentés par des contenus internes récents
-- [ ] Publier la règle « rédaction uniquement » et confirmer sur weurseuk.com les quatre encarts éditoriaux sans dépêche externe
+- [x] Publier la règle « rédaction uniquement » et confirmer sur weurseuk.com les quatre encarts éditoriaux sans dépêche externe
 - [x] Réintroduire immédiatement sous la grande carte À la Une une rangée de trois articles récents, sans modifier la vidéo hero
 - [x] Équilibrer les trois cartes de continuité éditoriale avec la grande Une et vérifier leur lisibilité sur ordinateur et mobile
 - [x] Publier la rangée de trois articles récents et confirmer sur weurseuk.com que la vidéo hero, la grande Une et la continuité éditoriale se succèdent correctement

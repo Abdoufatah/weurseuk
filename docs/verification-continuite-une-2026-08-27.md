@@ -13,3 +13,5 @@ Le 27 août, la vérification de la nouvelle règle « rédaction uniquement » 
 Après stabilisation, les contrôles visuels desktop et mobile confirment un bloc supérieur de quatre encarts rédactionnels : une grande Une, puis trois cartes secondaires. Les cartes secondaires ne font appel ni aux dépêches RSS ni à des sources externes ; les contenus externes demeurent dans leurs modules distincts plus bas dans l’accueil.
 
 Le premier contrôle sur le domaine public après cette modification a néanmoins servi le bundle précédent, encore libellé « Articles récents » et comprenant une dépêche externe. La règle « rédaction uniquement » nécessite une régénération explicite du bundle avant sa validation publique.
+
+Après régénération, le contrôle public confirme le libellé « Rédaction Weurseuk » et trois contenus internes signés sous la grande Une. Aucune dépêche RSS ou source externe ne complète désormais ces quatre encarts éditoriaux ; l’actualité agrégée demeure dans les modules distincts en aval.
