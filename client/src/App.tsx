@@ -21,7 +21,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BreakingNewsTicker from "./components/BreakingNewsTicker";
 
-// Deployment trigger: 2026-08-25 - Propager l’identifiant Meta de l’éditorial illustré
+// Deployment trigger: 2026-08-27 - Propager la continuité de trois articles sous la grande Une
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
