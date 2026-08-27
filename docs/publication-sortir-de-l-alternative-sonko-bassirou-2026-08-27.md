@@ -23,3 +23,5 @@ Les formulations de l’éditorial demeurent attribuées et conditionnelles lors
 ## Contrôle de publication
 
 La page publique et la grande Une affichent le titre, la signature Abdou Fatah Fall et la photographie de l’Assemblée nationale. Le robot de partage reçoit une réponse Open Graph de type `article`, avec une image versionnée, son URL sécurisée et un texte alternatif correspondant au titre de l’éditorial.
+
+La vérification mobile confirme que le titre, la signature, le chapeau et l’illustration restent lisibles et hiérarchisés sur un écran de 375 pixels de large.
