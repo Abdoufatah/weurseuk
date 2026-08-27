@@ -83,9 +83,11 @@ export const appRouter = router({
       const results = await db.getPublishedEditorials(1, 0);
       return results[0] ?? null;
     }),
-    latestThree: publicProcedure.query(async () => {
-      // Retourne les 3 derniers contenus natifs publiés (authorId non NULL = article signé, pas une dépêche RSS)
-      return db.getLatestNativeEditorials(3);
+    latestThree: publicProcedure.input(z.object({
+      limit: z.number().int().min(1).max(10).default(3),
+    }).optional()).query(async ({ input }) => {
+      // Retourne uniquement des contenus natifs signés (authorId non NULL), jamais une dépêche RSS.
+      return db.getLatestNativeEditorials(input?.limit ?? 3);
     }),
     homepageEditorial: publicProcedure.query(async () => {
       return db.getApprovedHomepageEditorial();

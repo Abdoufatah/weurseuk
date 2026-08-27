@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const homeSource = readFileSync(resolve(process.cwd(), "client/src/pages/Home.tsx"), "utf8");
+const routerSource = readFileSync(resolve(process.cwd(), "server/routers.ts"), "utf8");
 
 describe("Accueil — revues de presse compactes", () => {
   it("aligne les deux revues sur les écrans Télévision compacts", () => {
@@ -62,12 +63,15 @@ describe("Accueil — revues de presse compactes", () => {
 
   it("rétablit trois lectures récentes immédiatement après la grande Une", () => {
     const uneIndex = homeSource.indexOf("gabarit éditorial vertical de référence, juste après la vidéo");
-    const continuityIndex = homeSource.indexOf("CONTINUITÉ ÉDITORIALE — trois lectures récentes après la grande Une");
+    const continuityIndex = homeSource.indexOf("CONTINUITÉ ÉDITORIALE — trois productions de la rédaction après la grande Une");
     const reviewIndex = homeSource.indexOf("REVUES DE PRESSE QUOTIDIENNES — FORMAT COMPACT");
 
-    expect(homeSource).toContain("trpc.editorials.latestThree.useQuery()");
+    expect(homeSource).toContain("trpc.editorials.latestThree.useQuery({ limit: 4 })");
     expect(homeSource).toContain("À lire aussi");
+    expect(homeSource).toContain("Rédaction Weurseuk");
     expect(homeSource).toContain("grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3");
+    expect(homeSource).not.toContain("dispatchContinuity");
+    expect(routerSource).toContain("return db.getLatestNativeEditorials(input?.limit ?? 3)");
     expect(continuityIndex).toBeGreaterThan(uneIndex);
     expect(reviewIndex).toBeGreaterThan(continuityIndex);
   });
