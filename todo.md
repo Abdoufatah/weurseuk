@@ -1,6 +1,9 @@
 # Weurseuk - Project TODO
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [x] Extraire et contrôler le document « CORRIGE-ACCORDAVECFMI » avant publication
+- [x] Publier l’article sur l’accord avec le FMI sous la signature Pape Amadou Fall avec l’arbitrage explicite de Fatah
+- [x] Vérifier sur weurseuk.com que la grande carte À la Une affiche l’éditorial FMI de Pape Amadou Fall avec son titre, sa signature et son illustration, puis consigner une preuve publique explicite
 - [ ] Vérifier les références et les formulations sensibles de l’éditorial « Sortir de l’alternative Sonko-Bassirou » fourni par Fatah
 - [x] Vérifier l’enregistrement de la note de provenance, d’auteur, de licence et d’attribution de l’illustration de « Sortir de l’alternative Sonko-Bassirou »
 - [x] Publier « Sortir de l’alternative Sonko-Bassirou » sous la signature réelle Abdou Fatah Fall, avec arbitrage explicite de Fatah
