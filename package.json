@@ -10,6 +10,8 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:editorial-governance": "vitest run server/weurseuk.test.ts server/editorialGovernance.test.ts server/pressReviewSchedulerGovernance.test.ts server/homePressReviewLayout.test.ts server/home-featured-cards.test.ts",
+    "test:meta-token": "vitest run server/facebook-page-token.test.ts server/facebookTokenValidation.test.ts",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },
   "dependencies": {

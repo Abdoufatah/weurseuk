@@ -1,6 +1,9 @@
 # Weurseuk - Project TODO
 
 ## PUBLICATION — ÉDITORIAL « LA RUPTURE NE CONSISTE PAS À CHANGER LES BÉNÉFICIAIRES DE L’EXCEPTION » (25/08/2026)
+- [x] Mettre à jour le test de création d’éditorial pour confirmer explicitement l’arbitrage de Fatah
+- [x] Documenter le contrôle final distinguant les tests de gouvernance internes des tests Meta dépendant de la validité du jeton externe
+- [x] Ajouter une commande officielle de validation ciblée de la gouvernance éditoriale et en conserver une preuve d’exécution
 - [x] Extraire et contrôler le document « CORRIGE-ACCORDAVECFMI » avant publication
 - [x] Publier l’article sur l’accord avec le FMI sous la signature Pape Amadou Fall avec l’arbitrage explicite de Fatah
 - [x] Vérifier sur weurseuk.com que la grande carte À la Une affiche l’éditorial FMI de Pape Amadou Fall avec son titre, sa signature et son illustration, puis consigner une preuve publique explicite

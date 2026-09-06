@@ -148,6 +148,7 @@ describe("Weurseuk Backend Procedures", () => {
         excerpt: "Un test éditorial",
         isPublished: true,
         isFeatured: false,
+        approvalConfirmedByFatah: true,
       });
       expect(result.success).toBe(true);
       expect(result.slug).toBeDefined();
