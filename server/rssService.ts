@@ -35,6 +35,24 @@ interface SyncResult {
   errors: string[];
 }
 
+const MAX_FUTURE_PUBLICATION_DRIFT_MS = 15 * 60 * 1000;
+
+/**
+ * Certains flux déclarent occasionnellement une date située dans le futur.
+ * Ces valeurs ne doivent jamais monopoliser l’ordre du fil public.
+ */
+export function resolveRssPublishedAt(rawDate: string | undefined, fetchedAt: Date): Date {
+  const fallback = new Date(fetchedAt);
+  if (!rawDate) return fallback;
+
+  const parsed = new Date(rawDate);
+  if (Number.isNaN(parsed.getTime())) return fallback;
+  if (parsed.getTime() > fetchedAt.getTime() + MAX_FUTURE_PUBLICATION_DRIFT_MS) {
+    return fallback;
+  }
+  return parsed;
+}
+
 function extractImageUrl(item: any): string | undefined {
   // YouTube Atom feeds: extract thumbnail from media:group > media:thumbnail
   if (item.mediaGroup?.['media:thumbnail']?.[0]?.['$']?.url) return item.mediaGroup['media:thumbnail'][0]['$'].url;
@@ -68,6 +86,7 @@ export async function syncRssSource(source: RssSource): Promise<SyncResult> {
 
   try {
     const feed = await parser.parseURL(source.url);
+    const fetchedAt = new Date();
     const items = feed.items?.slice(0, 20) || [];
 
     for (const item of items) {
@@ -88,7 +107,7 @@ export async function syncRssSource(source: RssSource): Promise<SyncResult> {
 
         const excerpt = truncateText(item.contentSnippet || (item as any).description, 300);
         const imageUrl = extractImageUrl(item);
-        const publishedAt = item.pubDate ? new Date(item.pubDate) : new Date();
+        const publishedAt = resolveRssPublishedAt(item.pubDate || item.isoDate, fetchedAt);
 
         await db.createAggregatedArticle({
           title,

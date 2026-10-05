@@ -216,9 +216,10 @@ export const appRouter = router({
       offset: z.number().min(0).default(0),
       region: z.string().optional(),
       categoryId: z.number().optional(),
+      diverse: z.boolean().optional(),
     }).optional()).query(async ({ input }) => {
-      const { limit = 30, offset = 0, region, categoryId } = input ?? {};
-      return db.getAggregatedArticles(limit, offset, region, categoryId);
+      const { limit = 30, offset = 0, region, categoryId, diverse } = input ?? {};
+      return db.getAggregatedArticles(limit, offset, region, categoryId, { diverse });
     }),
     featured: publicProcedure.query(async () => {
       return db.getFeaturedArticles(6);

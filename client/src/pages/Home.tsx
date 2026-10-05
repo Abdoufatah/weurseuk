@@ -26,7 +26,7 @@ export default function Home() {
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const { data: categories } = trpc.categories.list.useQuery();
-  const { data: articles } = trpc.articles.list.useQuery({ limit: 12 });
+  const { data: articles } = trpc.articles.list.useQuery({ limit: 12, diverse: true });
   const { data: editorials } = trpc.editorials.byCategory.useQuery({ categoryId: 30009 });
   const { data: featuredEditorial } = trpc.editorials.homepageEditorial.useQuery();
   const { data: latestNative } = trpc.editorials.latestThree.useQuery({ limit: 4 });

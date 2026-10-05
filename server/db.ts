@@ -508,6 +508,41 @@ export async function getActiveRssSources() {
   return db.select().from(rssSources).where(eq(rssSources.isActive, true));
 }
 
+/**
+ * Préserve l'ordre chronologique tout en empêchant une seule source RSS
+ * d'occuper tout un module compact de dépêches.
+ */
+export function selectDiverseRssArticles<T extends { id: number; sourceName: string }>(
+  articles: T[],
+  limit: number,
+): T[] {
+  if (articles.length <= limit) return articles;
+
+  const maxPerSource = Math.max(1, Math.floor(limit / 6));
+  const selected: T[] = [];
+  const selectedIds = new Set<number>();
+  const sourceCounts = new Map<string, number>();
+
+  for (const article of articles) {
+    if (selected.length === limit) break;
+    const count = sourceCounts.get(article.sourceName) ?? 0;
+    if (count >= maxPerSource) continue;
+    selected.push(article);
+    selectedIds.add(article.id);
+    sourceCounts.set(article.sourceName, count + 1);
+  }
+
+  // Si un incident réduit temporairement le nombre de sources, le module
+  // reste complet sans exclure les dépêches disponibles.
+  for (const article of articles) {
+    if (selected.length === limit) break;
+    if (selectedIds.has(article.id)) continue;
+    selected.push(article);
+  }
+
+  return selected;
+}
+
 export async function createRssSource(data: InsertRssSource) {
   const db = await getDb();
   if (!db) throw new Error("DB not available");
@@ -528,22 +563,33 @@ export async function deleteRssSource(id: number) {
 
 // ==================== AGGREGATED ARTICLES ====================
 
-export async function getAggregatedArticles(limit = 30, offset = 0, region?: string, categoryId?: number) {
+export async function getAggregatedArticles(
+  limit = 30,
+  offset = 0,
+  region?: string,
+  categoryId?: number,
+  options?: { diverse?: boolean },
+) {
   const db = await getDb();
   if (!db) return [];
   const conditions = [];
   if (region) conditions.push(eq(aggregatedArticles.region, region as any));
   if (categoryId) conditions.push(eq(aggregatedArticles.categoryId, categoryId));
 
+  const candidateLimit = options?.diverse ? Math.max(limit * 6, 50) : limit;
   const query = db.select().from(aggregatedArticles)
     .orderBy(desc(aggregatedArticles.publishedAt))
-    .limit(limit)
+    .limit(candidateLimit)
     .offset(offset);
 
+  let results;
   if (conditions.length > 0) {
-    return query.where(and(...conditions));
+    results = await query.where(and(...conditions));
+  } else {
+    results = await query;
   }
-  return query;
+
+  return options?.diverse ? selectDiverseRssArticles(results, limit) : results;
 }
 
 export async function getFeaturedArticles(limit = 6) {
