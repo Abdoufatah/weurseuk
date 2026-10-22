@@ -314,8 +314,8 @@ export default function EditorialDetail() {
                   authorName={authorDisplayName}
                   authorImageUrl={editorial.coverImageUrl || authorPhoto || undefined}
                   categoryLabel={(editorial as any).categoryName || undefined}
-                  url={`${window.location.origin}/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}`}
-                  ogUrl={`${window.location.origin}/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}`}
+                  url={`${window.location.origin}/editorial/${params.slug}`}
+                  ogUrl={`${window.location.origin}/editorial/${params.slug}`}
                 />
                 {isBensirac ? (
                   <Link href="/profil-bensirac" className="text-sm text-primary font-medium hover:underline">

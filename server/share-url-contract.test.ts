@@ -13,6 +13,8 @@ describe("contrat des liens de partage", () => {
     expect(articleCard).toContain("/editorial/${editorialSlug}");
     expect(editorialDetail).not.toContain("/api/og/editorial/${params.slug}");
     expect(articleCard).not.toContain("/api/og/editorial/${editorialSlug}");
+    expect(editorialDetail).toContain("${window.location.origin}/editorial/${params.slug}");
+    expect(editorialDetail).not.toContain("/${(editorial as any).categorySlug || 'editoriaux'}/${params.slug}");
   });
 
   it("transforme une route interne d’article agrégé en URL complète et encode les cinq réseaux", () => {
